@@ -902,6 +902,7 @@
 
         <span class="c1"># Exposed to train scripts</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">device_id</span><span class="p">:</span> <span class="nb">int</span>  <span class="c1"># device ID for GPU simulation (defaults to 0)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">:</span> <span class="nb">str</span>  <span class="c1"># resolved device string (e.g. &quot;cuda:0&quot; or &quot;cpu&quot;)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">local_rank</span><span class="p">:</span> <span class="nb">int</span>  <span class="c1"># local rank of GPUs in the current node</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">global_rank</span><span class="p">:</span> <span class="nb">int</span>  <span class="c1"># global rank for multi-node training</span>
 
@@ -1628,7 +1629,20 @@
             <span class="c1"># global rank (GPU id) in multi-gpu multi-node mode</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">global_rank</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;RANK&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">))</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;JAX_RANK&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">))</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">device_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_rank</span>
+            <span class="c1"># When CUDA_VISIBLE_DEVICES restricts each process to a single GPU,</span>
+            <span class="c1"># local_rank may exceed the visible device count. Fall back to cuda:0</span>
+            <span class="c1"># so the process uses the one GPU it can see.</span>
+            <span class="c1"># We compare local_rank against device_count (not WORLD_SIZE) so that</span>
+            <span class="c1"># multi-node setups work correctly: WORLD_SIZE is global across all</span>
+            <span class="c1"># nodes, but device_count is local.</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+            <span class="n">num_visible_gpus</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_rank</span> <span class="o">&lt;</span> <span class="n">num_visible_gpus</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">device_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_rank</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">device_id</span> <span class="o">=</span> <span class="mi">0</span>
+
             <span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cuda:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device_id</span><span class="p">)</span>
             <span class="n">launcher_args</span><span class="p">[</span><span class="s2">&quot;multi_gpu&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="c1"># limit CPU threads to minimize thread context switching</span>
@@ -1645,6 +1659,17 @@
         <span class="c1"># as the active_gpu device. Setting physics_gpu explicitly may result in a different device to be used.</span>
         <span class="n">launcher_args</span><span class="p">[</span><span class="s2">&quot;physics_gpu&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_id</span>
         <span class="n">launcher_args</span><span class="p">[</span><span class="s2">&quot;active_gpu&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_id</span>
+
+        <span class="c1"># Set the current CUDA device early so that physics backends (e.g. Newton/Warp)</span>
+        <span class="c1"># that allocate on the &quot;current&quot; device during initialization get the correct GPU.</span>
+        <span class="c1"># Without this, all ranks may default to cuda:0 for early allocations.</span>
+        <span class="k">if</span> <span class="s2">&quot;cuda&quot;</span> <span class="ow">in</span> <span class="n">device</span><span class="p">:</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+            <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">set_device</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device_id</span><span class="p">)</span>
+
+        <span class="c1"># Store the resolved device string for downstream consumers (e.g. sim_launcher)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Using device: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
 

@@ -789,6 +789,15 @@
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">renderer_cfg</span><span class="p">,</span> <span class="n">RendererCfg</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">renderer_cfg</span><span class="o">.</span><span class="n">renderer_type</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="s2">&quot;isaac_rtx&quot;</span><span class="p">)</span>
+    <span class="c1"># PresetCfg renderers (e.g. MultiBackendRendererCfg) are resolved during</span>
+    <span class="c1"># environment construction when the physics backend is known (see</span>
+    <span class="c1"># resolve_task_config and preset resolution in presets.py).  At this</span>
+    <span class="c1"># stage we assume they will match the physics backend, so not</span>
+    <span class="c1"># necessarily Kit.</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_tasks.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresetCfg</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">renderer_cfg</span><span class="p">,</span> <span class="n">PresetCfg</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
     <span class="k">return</span> <span class="kc">True</span>
 
 
@@ -817,6 +826,64 @@
         <span class="n">needs_kit</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="k">return</span> <span class="n">needs_kit</span><span class="p">,</span> <span class="n">has_kit_cameras</span><span class="p">,</span> <span class="n">visualizer_types</span></div>
 
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_resolve_distributed_device</span><span class="p">(</span>
+    <span class="n">env_cfg</span><span class="p">,</span>
+    <span class="n">launcher_args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Set ``env_cfg.sim.device`` for distributed training.</span>
+
+<span class="sd">    When ``--distributed`` is active and CUDA_VISIBLE_DEVICES restricts each</span>
+<span class="sd">    process to a single GPU, ``local_rank`` may exceed the visible device count.</span>
+<span class="sd">    This helper applies the same fallback logic used by :class:`AppLauncher` so</span>
+<span class="sd">    that **training scripts do not need their own device-resolution code**.</span>
+
+<span class="sd">    For the Kit path, :func:`launch_simulation` additionally propagates</span>
+<span class="sd">    ``AppLauncher.device`` after creation; this function handles the early</span>
+<span class="sd">    (pre-AppLauncher) and kitless cases.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">distributed</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">):</span>
+        <span class="n">distributed</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;distributed&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">distributed</span> <span class="o">=</span> <span class="n">launcher_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;distributed&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">distributed</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+    <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+    <span class="n">local_rank</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;LOCAL_RANK&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">))</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;JAX_LOCAL_RANK&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">))</span>
+    <span class="n">num_visible_gpus</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">()</span>
+
+    <span class="c1"># Compare local_rank against device_count (not WORLD_SIZE) so that</span>
+    <span class="c1"># multi-node setups work correctly: WORLD_SIZE is global across all</span>
+    <span class="c1"># nodes, but device_count is local.</span>
+    <span class="k">if</span> <span class="n">local_rank</span> <span class="o">&lt;</span> <span class="n">num_visible_gpus</span><span class="p">:</span>
+        <span class="n">device_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;cuda:</span><span class="si">{</span><span class="n">local_rank</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">device_str</span> <span class="o">=</span> <span class="s2">&quot;cuda:0&quot;</span>
+
+    <span class="n">sim_cfg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">env_cfg</span><span class="p">,</span> <span class="s2">&quot;sim&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">sim_cfg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">sim_cfg</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device_str</span>
+
+    <span class="c1"># Set CUDA device early so physics backends that allocate on the</span>
+    <span class="c1"># &quot;current&quot; device during init get the correct GPU. For the Kit path,</span>
+    <span class="c1"># AppLauncher._resolve_device_settings will call set_device again with</span>
+    <span class="c1"># the same value, which is harmless. For the kitless Newton path, this</span>
+    <span class="c1"># is the only place it gets set.</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">set_device</span><span class="p">(</span><span class="n">device_str</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="s2">&quot;Distributed device resolved to </span><span class="si">%s</span><span class="s2"> (local_rank=</span><span class="si">%d</span><span class="s2">, visible_gpus=</span><span class="si">%d</span><span class="s2">)&quot;</span><span class="p">,</span>
+        <span class="n">device_str</span><span class="p">,</span>
+        <span class="n">local_rank</span><span class="p">,</span>
+        <span class="n">num_visible_gpus</span><span class="p">,</span>
+    <span class="p">)</span>
 
 
 <div class="viewcode-block" id="launch_simulation">
@@ -856,6 +923,9 @@
                 <span class="n">launcher_args</span><span class="p">[</span><span class="s2">&quot;enable_cameras&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="n">close_fn</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Resolve distributed device early, before AppLauncher or physics init.</span>
+    <span class="n">_resolve_distributed_device</span><span class="p">(</span><span class="n">env_cfg</span><span class="p">,</span> <span class="n">launcher_args</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">needs_kit</span><span class="p">:</span>
         <span class="c1"># check if Isaac Sim is installed</span>
@@ -907,6 +977,13 @@
             <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.app</span><span class="w"> </span><span class="kn">import</span> <span class="n">AppLauncher</span>
 
             <span class="n">app_launcher</span> <span class="o">=</span> <span class="n">AppLauncher</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">)</span>
+            <span class="c1"># AppLauncher may refine the device choice (e.g. Kit-specific</span>
+            <span class="c1"># overrides), so propagate its final value to env_cfg.  This</span>
+            <span class="c1"># intentionally overwrites the earlier value set by</span>
+            <span class="c1"># _resolve_distributed_device.</span>
+            <span class="n">sim_cfg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">env_cfg</span><span class="p">,</span> <span class="s2">&quot;sim&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">sim_cfg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">app_launcher</span><span class="p">,</span> <span class="s2">&quot;device&quot;</span><span class="p">):</span>
+                <span class="n">sim_cfg</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">app_launcher</span><span class="o">.</span><span class="n">device</span>
             <span class="n">close_fn</span> <span class="o">=</span> <span class="n">app_launcher</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">close</span>
     <span class="k">elif</span> <span class="n">visualizer_types</span><span class="p">:</span>
         <span class="c1"># Newton path without Kit: AppLauncher is skipped, so manually store the visualizer</span>
