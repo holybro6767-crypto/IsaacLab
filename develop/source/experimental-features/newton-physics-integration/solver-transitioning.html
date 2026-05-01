@@ -730,19 +730,31 @@
   <section id="solver-transitioning">
 <h1>Solver Transitioning<a class="headerlink" href="#solver-transitioning" title="Link to this heading">#</a></h1>
 <p>Transitioning to the Newton physics engine introduces new physics solvers that handle simulation using different numerical approaches.
-While Newton supports several different solvers, our initial focus for Isaac Lab is on using the MuJoCo-Warp solver from Google DeepMind.</p>
+While Newton supports several different solvers, our initial focus for Isaac Lab is on using the
+MuJoCo-Warp solver from Google DeepMind. Isaac Lab also includes beta support for the Kamino
+solver on selected classic tasks. Kamino is selected through a physics preset rather than as a
+separate backend; see <a class="reference internal" href="../../features/hydra.html#hydra-backend-solver-presets"><span class="std std-ref">Backend and Solver Presets</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Kamino support is experimental and currently depends on assets being structured
+in a way that Kamino can consume. Assets that work with MuJoCo-Warp or PhysX
+may still require model-structure updates before they work with Kamino.</p>
+</div>
 <p>The way the physics scene itself is defined does not change - we continue to use USD as the primary way to set basic parameters of objects and robots in the scene,
 and for current environments, the exact same USD files used for the PhysX-based Isaac Lab are used.
 In the future, that may change, as new USD schemas are under development that capture additional physics parameters.</p>
 <p>What does require change is the way that some solver-specific settings are configured.
 Tuning these parameters can have a significant impact on both simulation performance and behaviour.</p>
 <p>For now, we will show an example of setting these parameters to help provide a feel for these changes.
-Note that the <code class="xref py py-class docutils literal notranslate"><span class="pre">NewtonCfg</span></code> replaces the <code class="xref py py-class docutils literal notranslate"><span class="pre">PhysxCfg</span></code> and is used to set everything related to the physical simulation parameters except for the <code class="docutils literal notranslate"><span class="pre">dt</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.sim._impl.newton_manager_cfg</span><span class="w"> </span><span class="kn">import</span> <span class="n">NewtonCfg</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.sim._impl.solvers_cfg</span><span class="w"> </span><span class="kn">import</span> <span class="n">MJWarpSolverCfg</span>
+Note that the <code class="xref py py-class docutils literal notranslate"><span class="pre">NewtonCfg</span></code> replaces
+<code class="xref py py-class docutils literal notranslate"><span class="pre">PhysxCfg</span></code> and is used to set everything related to the physical
+simulation parameters except for the <code class="docutils literal notranslate"><span class="pre">dt</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.sim</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimulationCfg</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_newton.physics</span><span class="w"> </span><span class="kn">import</span> <span class="n">MJWarpSolverCfg</span><span class="p">,</span> <span class="n">NewtonCfg</span>
 
 <span class="n">solver_cfg</span> <span class="o">=</span> <span class="n">MJWarpSolverCfg</span><span class="p">(</span>
-    <span class="n">nefc_per_env</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span>
+    <span class="n">njmax</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span>
+    <span class="n">nconmax</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
     <span class="n">ls_iterations</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
     <span class="n">cone</span><span class="o">=</span><span class="s2">&quot;pyramidal&quot;</span><span class="p">,</span>
     <span class="n">ls_parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -753,14 +765,16 @@ Note that the <code class="xref py py-class docutils literal notranslate"><span 
     <span class="n">num_substeps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">debug_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">sim</span><span class="p">:</span> <span class="n">SimulationCfg</span> <span class="o">=</span> <span class="n">SimulationCfg</span><span class="p">(</span><span class="n">dt</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">120</span><span class="p">,</span> <span class="n">render_interval</span><span class="o">=</span><span class="n">decimation</span><span class="p">,</span> <span class="n">newton_cfg</span><span class="o">=</span><span class="n">newton_cfg</span><span class="p">)</span>
+<span class="n">sim</span><span class="p">:</span> <span class="n">SimulationCfg</span> <span class="o">=</span> <span class="n">SimulationCfg</span><span class="p">(</span><span class="n">dt</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">120</span><span class="p">,</span> <span class="n">render_interval</span><span class="o">=</span><span class="n">decimation</span><span class="p">,</span> <span class="n">physics</span><span class="o">=</span><span class="n">newton_cfg</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Here is a very brief explanation of some of the key parameters above:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">nefc_per_env</span></code>: This is the size of the buffer constraints we want MuJoCo warp to
-pre-allocate for a given environment. A large value will slow down the simulation,
-while a too small value may lead to some contacts being missed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">njmax</span></code>: This is the number of constraint rows MuJoCo-Warp pre-allocates for a
+given environment. A large value will slow down the simulation, while a too small
+value may lead to missing constraints.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nconmax</span></code>: This is the maximum number of contact points MuJoCo-Warp pre-allocates
+for a given environment. Set it high enough for the expected contact count.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ls_iterations</span></code>: The number of line searches performed by the MuJoCo Warp solver.
 Line searches are used to find an optimal step size, and for each solver step,
 at most <code class="docutils literal notranslate"><span class="pre">ls_iterations</span></code> line searches will be performed. Keeping this number low

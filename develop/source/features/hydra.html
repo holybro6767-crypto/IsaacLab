@@ -736,6 +736,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preset-system">Preset System</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#override-order">Override Order</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-presets-with-presetcfg">Defining Presets with PresetCfg</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#backend-and-solver-presets">Backend and Solver Presets</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inline-presets-with-preset">Inline Presets with preset()</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-presets">Using Presets</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#global-preset-conflict-detection">Global Preset Conflict Detection</a></li>
@@ -1046,6 +1047,65 @@ python<span class="w"> </span>train.py<span class="w"> </span>--task<span class=
 </pre></div>
 </div>
 </section>
+<section id="backend-and-solver-presets">
+<span id="hydra-backend-solver-presets"></span><h3>Backend and Solver Presets<a class="headerlink" href="#backend-and-solver-presets" title="Link to this heading">#</a></h3>
+<p>Physics backend selection uses the same preset system. A task can define a
+<code class="docutils literal notranslate"><span class="pre">PresetCfg</span></code> whose entries replace the complete physics config:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">configclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_newton.physics</span><span class="w"> </span><span class="kn">import</span> <span class="n">KaminoSolverCfg</span><span class="p">,</span> <span class="n">MJWarpSolverCfg</span><span class="p">,</span> <span class="n">NewtonCfg</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_physx.physics</span><span class="w"> </span><span class="kn">import</span> <span class="n">PhysxCfg</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_tasks.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresetCfg</span>
+
+<span class="nd">@configclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CartpolePhysicsCfg</span><span class="p">(</span><span class="n">PresetCfg</span><span class="p">):</span>
+    <span class="n">default</span><span class="p">:</span> <span class="n">PhysxCfg</span> <span class="o">=</span> <span class="n">PhysxCfg</span><span class="p">()</span>
+    <span class="n">physx</span><span class="p">:</span> <span class="n">PhysxCfg</span> <span class="o">=</span> <span class="n">PhysxCfg</span><span class="p">()</span>
+    <span class="n">newton</span><span class="p">:</span> <span class="n">NewtonCfg</span> <span class="o">=</span> <span class="n">NewtonCfg</span><span class="p">(</span>
+        <span class="n">solver_cfg</span><span class="o">=</span><span class="n">MJWarpSolverCfg</span><span class="p">(</span><span class="n">njmax</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">nconmax</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+        <span class="n">num_substeps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">kamino</span><span class="p">:</span> <span class="n">NewtonCfg</span> <span class="o">=</span> <span class="n">NewtonCfg</span><span class="p">(</span>
+        <span class="n">solver_cfg</span><span class="o">=</span><span class="n">KaminoSolverCfg</span><span class="p">(</span>
+            <span class="n">integrator</span><span class="o">=</span><span class="s2">&quot;moreau&quot;</span><span class="p">,</span>
+            <span class="n">use_collision_detector</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">sparse_jacobian</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">padmm_max_iterations</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">num_substeps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">debug_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">use_cuda_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">newton</span></code> and <code class="docutils literal notranslate"><span class="pre">kamino</span></code> entries both select the Newton physics backend because
+both entries are <code class="xref py py-class docutils literal notranslate"><span class="pre">NewtonCfg</span></code> objects. The difference
+is the solver configuration: <code class="docutils literal notranslate"><span class="pre">newton</span></code> uses
+<code class="xref py py-class docutils literal notranslate"><span class="pre">MJWarpSolverCfg</span></code>, while <code class="docutils literal notranslate"><span class="pre">kamino</span></code> uses
+<code class="xref py py-class docutils literal notranslate"><span class="pre">KaminoSolverCfg</span></code>.</p>
+<p>Kamino is therefore a solver preset, not a separate Isaac Lab backend. The same
+Newton assets, sensors, renderers, and visualizers are used after the preset is
+resolved. It is a Proximal Alternating Direction Method of Multipliers (P-ADMM)
+based solver for constrained rigid multi-body dynamics, and its Isaac Lab support
+is currently beta.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Kamino support is experimental and currently depends on the asset being
+structured in a way that Kamino can consume. Assets that work with the
+MuJoCo-Warp or PhysX presets may still require model-structure updates before
+they work with <code class="docutils literal notranslate"><span class="pre">presets=kamino</span></code>.</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the Kamino solver preset everywhere it is defined</span>
+python<span class="w"> </span>train.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Cartpole-v0<span class="w"> </span><span class="nv">presets</span><span class="o">=</span>kamino
+
+<span class="c1"># Select the Kamino solver preset for a specific physics config path</span>
+python<span class="w"> </span>train.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Cartpole-v0<span class="w"> </span>env.sim.physics<span class="o">=</span>kamino
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">kamino</span></code> preset is currently defined for <code class="docutils literal notranslate"><span class="pre">Isaac-Cartpole-Direct-v0</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Isaac-Ant-Direct-v0</span></code>, <code class="docutils literal notranslate"><span class="pre">Isaac-Cartpole-v0</span></code>, and <code class="docutils literal notranslate"><span class="pre">Isaac-Ant-v0</span></code>. Passing
+<code class="docutils literal notranslate"><span class="pre">presets=kamino</span></code> to a task without a <code class="docutils literal notranslate"><span class="pre">kamino</span></code> preset does not enable Kamino;
+add and validate a task-specific preset first.</p>
+</section>
 <section id="inline-presets-with-preset">
 <h3>Inline Presets with preset()<a class="headerlink" href="#inline-presets-with-preset" title="Link to this heading">#</a></h3>
 <p>For simple values (scalars, lists) that don’t warrant a full subclass, use the
@@ -1252,6 +1312,7 @@ python<span class="w"> </span>train.py<span class="w"> </span>--task<span class=
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preset-system">Preset System</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#override-order">Override Order</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-presets-with-presetcfg">Defining Presets with PresetCfg</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#backend-and-solver-presets">Backend and Solver Presets</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inline-presets-with-preset">Inline Presets with preset()</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-presets">Using Presets</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#global-preset-conflict-detection">Global Preset Conflict Detection</a></li>
