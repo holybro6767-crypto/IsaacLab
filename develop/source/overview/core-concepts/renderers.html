@@ -793,21 +793,31 @@ photorealism, PhysX backend</p></td>
 <li><p><strong>Renderer</strong> — Factory that instantiates the appropriate backend based on renderer configuration class</p></li>
 <li><p><strong>RendererCfg</strong> — Base configuration; each backend extends it with backend-specific options</p></li>
 <li><p><strong>Concrete implementations</strong> — Backend-specific renderers in extension packages</p></li>
+<li><p><strong>RenderContext</strong> — A management class for instantiating and accessing renderer instances using a <strong>RendererCfg</strong>.
+After instantiation, a config can then be used to acquire the instance of the renderer as needed.</p></li>
 </ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.renderers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseRenderer</span><span class="p">,</span> <span class="n">Renderer</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">isaaclab.sim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sim_utils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.renderers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseRenderer</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_newton.renderers</span><span class="w"> </span><span class="kn">import</span> <span class="n">NewtonWarpRendererCfg</span>
 
 <span class="c1"># Create a Newton Warp renderer (no Isaac Sim required)</span>
-<span class="n">renderer</span><span class="p">:</span> <span class="n">BaseRenderer</span> <span class="o">=</span> <span class="n">Renderer</span><span class="p">(</span><span class="n">NewtonWarpRendererCfg</span><span class="p">())</span>
+<span class="n">sim_ctx</span> <span class="o">=</span> <span class="n">sim_utils</span><span class="o">.</span><span class="n">SimulationContext</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+<span class="c1"># RenderContext.get_renderer will instantiate the renderer backend</span>
+<span class="c1"># or return an existing renderer with a matching config</span>
+<span class="n">renderer</span><span class="p">:</span> <span class="n">BaseRenderer</span> <span class="o">=</span> <span class="n">sim_ctx</span><span class="o">.</span><span class="n">render_context</span><span class="o">.</span><span class="n">get_renderer</span><span class="p">(</span><span class="n">NewtonWarpRendererCfg</span><span class="p">())</span>
 <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">renderer</span><span class="p">,</span> <span class="n">BaseRenderer</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>For the RTX renderer (requires Isaac Sim):</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.renderers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Renderer</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.renderers</span><span class="w"> </span><span class="kn">import</span> <span class="n">IsaacRtxRendererCfg</span>  <span class="c1"># or OVRTXRendererCfg</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">isaaclab.sim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sim_utils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.renderers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseRenderer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_physx.renderers</span><span class="w"> </span><span class="kn">import</span> <span class="n">IsaacRtxRendererCfg</span>
 
 <span class="c1"># Create an RTX renderer</span>
-<span class="n">renderer</span><span class="p">:</span> <span class="n">BaseRenderer</span> <span class="o">=</span> <span class="n">Renderer</span><span class="p">(</span><span class="n">IsaacRtxRendererCfg</span><span class="p">())</span>
+<span class="n">sim_ctx</span> <span class="o">=</span> <span class="n">sim_utils</span><span class="o">.</span><span class="n">SimulationContext</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+<span class="c1"># RenderContext.get_renderer will instantiate the renderer backend</span>
+<span class="c1"># or return an existing renderer with a matching config</span>
+<span class="n">renderer</span><span class="p">:</span> <span class="n">BaseRenderer</span> <span class="o">=</span> <span class="n">sim_ctx</span><span class="o">.</span><span class="n">render_context</span><span class="o">.</span><span class="n">get_renderer</span><span class="p">(</span><span class="n">IsaacRtxRendererCfg</span><span class="p">())</span>
 </pre></div>
 </div>
 <p>For RTX renderer settings and presets (quality, balanced, performance), see
@@ -816,18 +826,21 @@ photorealism, PhysX backend</p></td>
 <section id="core-concepts">
 <h2>Core concepts<a class="headerlink" href="#core-concepts" title="Link to this heading">#</a></h2>
 <ul>
-<li><p><strong>Use the factory</strong>: Always instantiate renderers via the factory with a renderer-specific config class
-(e.g. <code class="docutils literal notranslate"><span class="pre">Renderer(IsaacRtxRendererCfg())</span></code>). Do not import or instantiate concrete backend classes
+<li><p><strong>Use the RenderContext</strong>: Always instantiate renderers via the RenderContext with a renderer-specific config class
+(e.g. <code class="docutils literal notranslate"><span class="pre">sim_ctx.render_context.get_renderer(IsaacRtxRendererCfg())</span></code>). Do not import or instantiate concrete backend classes
 (e.g. <code class="docutils literal notranslate"><span class="pre">IsaacRtxRenderer</span></code>, <code class="docutils literal notranslate"><span class="pre">OVRTXRenderer</span></code>) directly—their names and package locations are
 implementation details and may change without notice.</p></li>
 <li><p><strong>Lightweight config imports</strong>: Importing a renderer configuration class does not pull in backend-specific
 dependencies. The backend is lazily loaded when the renderer is instantiated, and instantiation may fail
 if the backend is not installed.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lightweight: does not import OVRTX backend dependencies</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">isaaclab.sim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sim_utils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.renderers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseRenderer</span>
+<span class="c1"># Lightweight: does not import OVRTX backend dependencies</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_ov.renderers</span><span class="w"> </span><span class="kn">import</span> <span class="n">OVRTXRendererCfg</span>
 
 <span class="c1"># Lazily loads ovrtx when instantiated; may fail if isaaclab_ov / ovrtx is not installed</span>
-<span class="n">renderer</span><span class="p">:</span> <span class="n">BaseRenderer</span> <span class="o">=</span> <span class="n">Renderer</span><span class="p">(</span><span class="n">OVRTXRendererCfg</span><span class="p">())</span>
+<span class="n">sim_ctx</span> <span class="o">=</span> <span class="n">sim_utils</span><span class="o">.</span><span class="n">SimulationContext</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+<span class="n">renderer</span><span class="p">:</span> <span class="n">BaseRenderer</span> <span class="o">=</span> <span class="n">sim_ctx</span><span class="o">.</span><span class="n">render_context</span><span class="o">.</span><span class="n">get_renderer</span><span class="p">(</span><span class="n">OVRTXRendererCfg</span><span class="p">())</span>
 </pre></div>
 </div>
 </li>
