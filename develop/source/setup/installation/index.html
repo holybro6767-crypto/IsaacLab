@@ -394,6 +394,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../experimental-features/newton-physics-integration/installation.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../experimental-features/newton-physics-integration/limitations-and-known-bugs.html">Limitations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../experimental-features/newton-physics-integration/solver-transitioning.html">Solver Transitioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../experimental-features/newton-physics-integration/using-kamino.html">Using the Kamino Solver</a></li>
 </ul>
 </details></li>
 </ul>
@@ -453,6 +454,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_mimic/isaaclab_mimic.envs.html">isaaclab_mimic.envs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_contrib/isaaclab_contrib.actuators.html">isaaclab_contrib.actuators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_contrib/isaaclab_contrib.assets.html">isaaclab_contrib.assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/lab_contrib/isaaclab_contrib.controllers.html">isaaclab_contrib.controllers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_contrib/isaaclab_contrib.mdp.html">isaaclab_contrib.mdp</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_contrib/isaaclab_contrib.rl.html">isaaclab_contrib.rl</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_contrib/isaaclab_contrib.sensors.html">isaaclab_contrib.sensors</a></li>
@@ -816,10 +818,9 @@ The required Python version is as follows:</p>
 may work but have not been validated against all Omniverse tests.</p>
 <ul class="simple">
 <li><p>Use the <strong>latest NVIDIA production branch driver</strong>.</p></li>
-<li><p>On Linux, version <code class="docutils literal notranslate"><span class="pre">580.65.06</span></code> or later is recommended, especially when upgrading to
-<strong>Ubuntu 22.04.5 with kernel 6.8.0-48-generic</strong> or newer.</p></li>
-<li><p>On Spark, version <code class="docutils literal notranslate"><span class="pre">580.95.05</span></code> is recommended.</p></li>
-<li><p>On Windows, version <code class="docutils literal notranslate"><span class="pre">580.88</span></code> is recommended.</p></li>
+<li><p>On Linux (x86_64 and aarch64), version <code class="docutils literal notranslate"><span class="pre">580.95.05</span></code> or later is recommended.</p></li>
+<li><p>On Spark (Linux aarch64), version <code class="docutils literal notranslate"><span class="pre">580.142</span></code> is recommended.</p></li>
+<li><p>On Windows, version <code class="docutils literal notranslate"><span class="pre">581.42.00</span></code> is recommended.</p></li>
 <li><p>If you are using a new GPU or encounter driver issues, install the latest production branch
 driver from the <a class="reference external" href="https://www.nvidia.com/en-us/drivers/unix/">Unix Driver Archive</a>
 using the <code class="docutils literal notranslate"><span class="pre">.run</span></code> installer.</p></li>

@@ -393,6 +393,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../source/experimental-features/newton-physics-integration/installation.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../source/experimental-features/newton-physics-integration/limitations-and-known-bugs.html">Limitations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../source/experimental-features/newton-physics-integration/solver-transitioning.html">Solver Transitioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../source/experimental-features/newton-physics-integration/using-kamino.html">Using the Kamino Solver</a></li>
 </ul>
 </details></li>
 </ul>
@@ -452,6 +453,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../source/api/lab_mimic/isaaclab_mimic.envs.html">isaaclab_mimic.envs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../source/api/lab_contrib/isaaclab_contrib.actuators.html">isaaclab_contrib.actuators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../source/api/lab_contrib/isaaclab_contrib.assets.html">isaaclab_contrib.assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../source/api/lab_contrib/isaaclab_contrib.controllers.html">isaaclab_contrib.controllers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../source/api/lab_contrib/isaaclab_contrib.mdp.html">isaaclab_contrib.mdp</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../source/api/lab_contrib/isaaclab_contrib.rl.html">isaaclab_contrib.rl</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../source/api/lab_contrib/isaaclab_contrib.sensors.html">isaaclab_contrib.sensors</a></li>
@@ -928,6 +930,174 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_asset</span><span class="o">.</span><span class="n">set_thrust_target</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">processed_actions</span><span class="p">,</span> <span class="n">thruster_ids</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_thruster_ids</span><span class="p">)</span></div>
 </div>
 
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">NavigationAction</span><span class="p">(</span><span class="n">ThrustAction</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Navigation action term that converts high-level navigation commands to thrust commands</span>
+<span class="sd">    using a geometric tracking controller.</span>
+
+<span class="sd">    This action term extends `ThrustAction` by adding a controller layer that computes wrench</span>
+<span class="sd">    (force and torque) commands from navigation setpoints, then allocates those wrenches to</span>
+<span class="sd">    individual thruster commands using the multirotor&#39;s allocation matrix.</span>
+
+<span class="sd">    The controller type is automatically determined based on the `controller_cfg` type:</span>
+<span class="sd">        - LeeVelControllerCfg: Velocity tracking controller</span>
+<span class="sd">        - LeePosControllerCfg: Position tracking controller</span>
+<span class="sd">        - LeeAccControllerCfg: Acceleration tracking controller</span>
+
+<span class="sd">    The control pipeline:</span>
+<span class="sd">        1. Process raw actions (scale, offset, clip) using parent `ThrustAction`</span>
+<span class="sd">        2. Transform processed actions into setpoints constrained within camera FOV</span>
+<span class="sd">        3. Compute 6-DOF wrench command using the selected Lee controller</span>
+<span class="sd">        4. Solve thrust allocation: thrust_cmd = pinv(allocation_matrix) @ wrench_cmd</span>
+<span class="sd">        5. Apply thrust commands to thrusters</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        cfg: Configuration for the navigation action term, including controller config.</span>
+<span class="sd">        _lc: Lee controller instance (LeeVelController, LeePosController, or LeeAccController).</span>
+
+<span class="sd">    Action Space:</span>
+<span class="sd">        The action dimension is always 3D: (forward_magnitude, pitch_angle, yaw_rate)</span>
+
+<span class="sd">        Actions are clipped in range [-1, 1] and are transformed to controller commands:</span>
+<span class="sd">        - Forward position/velocity/acceleration:</span>
+<span class="sd">            [0, max_magnitude] via (action[0] + 1) * cos(pitch) * max_magnitude / 2</span>
+<span class="sd">        - Lateral position/velocity/acceleration:</span>
+<span class="sd">            Always 0.0 (constrained to camera FOV)</span>
+<span class="sd">        - Vertical position/velocity/acceleration:</span>
+<span class="sd">            [0, max_magnitude] via (action[0] + 1) * sin(pitch) * max_magnitude / 2</span>
+<span class="sd">        - Yaw command: [-max_yaw_command, max_yaw_command] via action[2] * max_yaw_command (yaw command is yawrate</span>
+<span class="sd">          [rad/s] for velocity and acceleration control and relative yaw change [rad] for position control)</span>
+
+<span class="sd">        Where:</span>
+<span class="sd">        - pitch angle is computed as: action[1] * max_inclination_angle</span>
+
+<span class="sd">    Parameters (from cfg):</span>
+<span class="sd">        max_magnitude: Maximum translational magnitude for position/velocity/acceleration commands.</span>
+<span class="sd">        max_yaw_command: Maximum yaw command in rad/s for velocity and acceleration</span>
+<span class="sd">                         control and relative yaw change [rad] for position control.</span>
+<span class="sd">        max_inclination_angle: Maximum pitch angle in rad.</span>
+
+<span class="sd">    Notes:</span>
+<span class="sd">        - The controller&#39;s internal states (e.g., integral terms) are reset when `reset()` is called.</span>
+<span class="sd">        - Lateral term is constrained to 0.0 to keep commands within camera FOV.</span>
+<span class="sd">        - The x and z components are derived from magnitude and inclination angle.</span>
+<span class="sd">        - Requires the multirotor asset to have a valid `allocation_matrix` attribute.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        ```python</span>
+<span class="sd">        cfg = NavigationActionCfg(</span>
+<span class="sd">            controller_cfg=LeeVelControllerCfg(...),</span>
+<span class="sd">            asset_name=&quot;robot&quot;,</span>
+<span class="sd">            max_magnitude=2.0,</span>
+<span class="sd">            max_yaw_command=1.047,</span>
+<span class="sd">            max_inclination_angle=0.785,  # pi/4</span>
+<span class="sd">        )</span>
+<span class="sd">        nav_action = NavigationAction(cfg, env)</span>
+<span class="sd">        ```</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cfg</span><span class="p">:</span> <span class="n">thrust_actions_cfg</span><span class="o">.</span><span class="n">NavigationActionCfg</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The configuration of the action term.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cfg</span><span class="p">:</span> <span class="n">thrust_actions_cfg</span><span class="o">.</span><span class="n">NavigationActionCfg</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">ManagerBasedEnv</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Initialize parent class (this handles all the thruster setup)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+
+        <span class="c1"># Initialize controller using class_type from config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">controller_cfg</span><span class="o">.</span><span class="n">class_type</span><span class="p">(</span>
+            <span class="n">cfg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">controller_cfg</span><span class="p">,</span> <span class="n">asset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_asset</span><span class="p">,</span> <span class="n">num_envs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_envs</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Log warning if not using velocity controller</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_contrib.controllers</span><span class="w"> </span><span class="kn">import</span> <span class="n">LeeVelControllerCfg</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">controller_cfg</span><span class="p">,</span> <span class="n">LeeVelControllerCfg</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;Navigation task tuned for velocity control. &quot;</span>
+                <span class="s2">&quot;Consider using velocity controller for better performance or retune reward function.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Cache allocation matrix and its pseudo-inverse (static for this asset/config)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_allocation_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_asset</span><span class="o">.</span><span class="n">allocation_matrix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_allocation_pinv</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_allocation_matrix</span><span class="p">)</span>
+
+        <span class="c1"># Add buffer to store velocity commands for observations)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_commands</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_envs</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prev_commands</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_envs</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">action_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">3</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">prev_commands</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev_commands</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">IO_descriptor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GenericActionIODescriptor</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The IO descriptor of the action term.&quot;&quot;&quot;</span>
+        <span class="c1"># Get parent IO descriptor</span>
+        <span class="n">descriptor</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">IO_descriptor</span>
+        <span class="c1"># Override action type for navigation</span>
+        <span class="n">descriptor</span><span class="o">.</span><span class="n">action_type</span> <span class="o">=</span> <span class="s2">&quot;NavigationAction&quot;</span>
+        <span class="k">return</span> <span class="n">descriptor</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actions</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Process actions by applying scaling, offset, and clipping.&quot;&quot;&quot;</span>
+        <span class="c1"># Call parent to handle basic processing</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">process_actions</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_has_actions_updated</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply the processed actions as velocity commands.&quot;&quot;&quot;</span>
+        <span class="c1"># process the actions to be in the correct range</span>
+        <span class="n">clamped_action</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">processed_actions</span><span class="p">,</span> <span class="nb">min</span><span class="o">=-</span><span class="mf">1.0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">processed_actions</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_envs</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="n">clamped_action</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">1.0</span>  <span class="c1"># only allow positive thrust commands [0, 2]</span>
+        <span class="n">processed_actions</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">clamped_action</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">max_inclination_angle</span> <span class="o">*</span> <span class="n">clamped_action</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+            <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">max_magnitude</span>
+            <span class="o">/</span> <span class="mf">2.0</span>
+        <span class="p">)</span>
+        <span class="n">processed_actions</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>  <span class="c1"># set lateral thrust command to 0</span>
+        <span class="n">processed_actions</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">clamped_action</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">max_inclination_angle</span> <span class="o">*</span> <span class="n">clamped_action</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+            <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">max_magnitude</span>
+            <span class="o">/</span> <span class="mf">2.0</span>
+        <span class="p">)</span>
+        <span class="n">processed_actions</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">clamped_action</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">max_yaw_command</span>
+
+        <span class="c1"># Store velocity commands for observations</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_actions_updated</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_prev_commands</span><span class="p">[:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_commands</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_commands</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">processed_actions</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_has_actions_updated</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Compute wrench command using controller</span>
+        <span class="n">wrench_command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lc</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">processed_actions</span><span class="p">)</span>
+
+        <span class="c1"># Convert wrench to thrust commands using allocation matrix</span>
+        <span class="n">thrust_commands</span> <span class="o">=</span> <span class="n">wrench_command</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allocation_pinv</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="c1"># Apply thrust commands using thruster IDs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_asset</span><span class="o">.</span><span class="n">set_thrust_target</span><span class="p">(</span><span class="n">thrust_commands</span><span class="p">,</span> <span class="n">thruster_ids</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_thruster_ids</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env_ids</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Call parent reset</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">env_ids</span><span class="p">)</span>
+        <span class="c1"># Reset controller internal states</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lc</span><span class="o">.</span><span class="n">reset_idx</span><span class="p">(</span><span class="n">env_ids</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">env_ids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">env_ids</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_commands</span><span class="p">[</span><span class="n">env_ids</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prev_commands</span><span class="p">[</span><span class="n">env_ids</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
 </pre></div>
 
                 </article>

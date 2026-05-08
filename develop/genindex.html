@@ -393,6 +393,7 @@
 <li class="toctree-l2"><a class="reference internal" href="source/experimental-features/newton-physics-integration/installation.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/experimental-features/newton-physics-integration/limitations-and-known-bugs.html">Limitations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/experimental-features/newton-physics-integration/solver-transitioning.html">Solver Transitioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/experimental-features/newton-physics-integration/using-kamino.html">Using the Kamino Solver</a></li>
 </ul>
 </details></li>
 </ul>
@@ -452,6 +453,7 @@
 <li class="toctree-l2"><a class="reference internal" href="source/api/lab_mimic/isaaclab_mimic.envs.html">isaaclab_mimic.envs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/api/lab_contrib/isaaclab_contrib.actuators.html">isaaclab_contrib.actuators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/api/lab_contrib/isaaclab_contrib.assets.html">isaaclab_contrib.assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/api/lab_contrib/isaaclab_contrib.controllers.html">isaaclab_contrib.controllers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/api/lab_contrib/isaaclab_contrib.mdp.html">isaaclab_contrib.mdp</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/api/lab_contrib/isaaclab_contrib.rl.html">isaaclab_contrib.rl</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/api/lab_contrib/isaaclab_contrib.sensors.html">isaaclab_contrib.sensors</a></li>
@@ -884,6 +886,16 @@
         <li><a href="source/api/lab_contrib/isaaclab_contrib.assets.html#isaaclab_contrib.assets.Multirotor.__init__">(isaaclab_contrib.assets.Multirotor method)</a>
 </li>
         <li><a href="source/api/lab_contrib/isaaclab_contrib.assets.html#isaaclab_contrib.assets.MultirotorData.__init__">(isaaclab_contrib.assets.MultirotorData method)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeAccController.__init__">(isaaclab_contrib.controllers.LeeAccController method)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeAttController.__init__">(isaaclab_contrib.controllers.LeeAttController method)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeControllerBase.__init__">(isaaclab_contrib.controllers.LeeControllerBase method)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeePosController.__init__">(isaaclab_contrib.controllers.LeePosController method)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeVelController.__init__">(isaaclab_contrib.controllers.LeeVelController method)</a>
 </li>
         <li><a href="source/api/lab_contrib/isaaclab_contrib.mdp.html#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.__init__">(isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction method)</a>
 </li>
@@ -2694,6 +2706,16 @@
         <li><a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.interpolation.LinearInterpolation.compute">(isaaclab.utils.interpolation.LinearInterpolation method)</a>
 </li>
         <li><a href="source/api/lab_contrib/isaaclab_contrib.actuators.html#isaaclab_contrib.actuators.Thruster.compute">(isaaclab_contrib.actuators.Thruster method)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeAccController.compute">(isaaclab_contrib.controllers.LeeAccController method)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeAttController.compute">(isaaclab_contrib.controllers.LeeAttController method)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeControllerBase.compute">(isaaclab_contrib.controllers.LeeControllerBase method)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeePosController.compute">(isaaclab_contrib.controllers.LeePosController method)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeVelController.compute">(isaaclab_contrib.controllers.LeeVelController method)</a>
 </li>
       </ul></li>
       <li><a href="source/api/lab/isaaclab.sensors.html#isaaclab.sensors.ContactSensor.compute_first_air">compute_first_air() (isaaclab.sensors.ContactSensor method)</a>
@@ -5624,8 +5646,6 @@
         <li><a href="source/api/lab/isaaclab.envs.mdp.html#module-isaaclab.envs.mdp.curriculums">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     isaaclab.envs.mdp.events
 
@@ -5633,6 +5653,8 @@
         <li><a href="source/api/lab/isaaclab.envs.mdp.html#module-isaaclab.envs.mdp.events">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     isaaclab.envs.mdp.observations
 
@@ -6051,6 +6073,13 @@
 
       <ul>
         <li><a href="source/api/lab_contrib/isaaclab_contrib.assets.html#module-isaaclab_contrib.assets">module</a>
+</li>
+      </ul></li>
+      <li>
+    isaaclab_contrib.controllers
+
+      <ul>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#module-isaaclab_contrib.controllers">module</a>
 </li>
       </ul></li>
       <li>
@@ -6594,12 +6623,44 @@
 <h2 id="K">K</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeAccControllerCfg.K_angvel_range">K_angvel_range (isaaclab_contrib.controllers.LeeAccControllerCfg attribute)</a>
+
+      <ul>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeAttControllerCfg.K_angvel_range">(isaaclab_contrib.controllers.LeeAttControllerCfg attribute)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeControllerBaseCfg.K_angvel_range">(isaaclab_contrib.controllers.LeeControllerBaseCfg attribute)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeePosControllerCfg.K_angvel_range">(isaaclab_contrib.controllers.LeePosControllerCfg attribute)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeVelControllerCfg.K_angvel_range">(isaaclab_contrib.controllers.LeeVelControllerCfg attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeePosControllerCfg.K_pos_range">K_pos_range (isaaclab_contrib.controllers.LeePosControllerCfg attribute)</a>
+</li>
+      <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeAccControllerCfg.K_rot_range">K_rot_range (isaaclab_contrib.controllers.LeeAccControllerCfg attribute)</a>
+
+      <ul>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeAttControllerCfg.K_rot_range">(isaaclab_contrib.controllers.LeeAttControllerCfg attribute)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeControllerBaseCfg.K_rot_range">(isaaclab_contrib.controllers.LeeControllerBaseCfg attribute)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeePosControllerCfg.K_rot_range">(isaaclab_contrib.controllers.LeePosControllerCfg attribute)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeVelControllerCfg.K_rot_range">(isaaclab_contrib.controllers.LeeVelControllerCfg attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeePosControllerCfg.K_vel_range">K_vel_range (isaaclab_contrib.controllers.LeePosControllerCfg attribute)</a>
+
+      <ul>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeVelControllerCfg.K_vel_range">(isaaclab_contrib.controllers.LeeVelControllerCfg attribute)</a>
+</li>
+      </ul></li>
       <li><a href="source/api/lab_rl/isaaclab_rl.html#isaaclab_rl.rsl_rl.RslRlCNNModelCfg.CNNCfg.kernel_size">kernel_size (isaaclab_rl.rsl_rl.RslRlCNNModelCfg.CNNCfg attribute)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.scene.html#isaaclab.scene.InteractiveScene.keys">keys() (isaaclab.scene.InteractiveScene method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/api/lab/isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyPropertiesCfg.kinematic_enabled">kinematic_enabled (isaaclab.sim.schemas.RigidBodyPropertiesCfg attribute)</a>
 
       <ul>
@@ -6640,6 +6701,26 @@
         <li><a href="source/api/lab_rl/isaaclab_rl.html#isaaclab_rl.rsl_rl.RslRlRndCfg.learning_rate">(isaaclab_rl.rsl_rl.RslRlRndCfg attribute)</a>
 </li>
       </ul></li>
+      <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeAccController">LeeAccController (class in isaaclab_contrib.controllers)</a>
+</li>
+      <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeAccControllerCfg">LeeAccControllerCfg (class in isaaclab_contrib.controllers)</a>
+</li>
+      <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeAttController">LeeAttController (class in isaaclab_contrib.controllers)</a>
+</li>
+      <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeAttControllerCfg">LeeAttControllerCfg (class in isaaclab_contrib.controllers)</a>
+</li>
+      <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeControllerBase">LeeControllerBase (class in isaaclab_contrib.controllers)</a>
+</li>
+      <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeControllerBaseCfg">LeeControllerBaseCfg (class in isaaclab_contrib.controllers)</a>
+</li>
+      <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeePosController">LeePosController (class in isaaclab_contrib.controllers)</a>
+</li>
+      <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeePosControllerCfg">LeePosControllerCfg (class in isaaclab_contrib.controllers)</a>
+</li>
+      <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeVelController">LeeVelController (class in isaaclab_contrib.controllers)</a>
+</li>
+      <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeVelControllerCfg">LeeVelControllerCfg (class in isaaclab_contrib.controllers)</a>
+</li>
       <li><a href="source/api/lab/isaaclab.sim.spawners.html#isaaclab.sim.spawners.lights.CylinderLightCfg.length">length (isaaclab.sim.spawners.lights.CylinderLightCfg attribute)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.sensors.patterns.html#isaaclab.sensors.patterns.lidar_pattern">lidar_pattern() (in module isaaclab.sensors.patterns)</a>
@@ -6686,6 +6767,8 @@
 </li>
       <li><a href="source/api/lab_tasks/isaaclab_tasks.utils.html#isaaclab_tasks.utils.load_cfg_from_registry">load_cfg_from_registry() (in module isaaclab_tasks.utils)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/api/lab_rl/isaaclab_rl.html#isaaclab_rl.rsl_rl.RslRlBaseRunnerCfg.load_checkpoint">load_checkpoint (isaaclab_rl.rsl_rl.RslRlBaseRunnerCfg attribute)</a>
 
       <ul>
@@ -6700,8 +6783,6 @@
         <li><a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.datasets.HDF5DatasetFileHandler.load_episode">(isaaclab.utils.datasets.HDF5DatasetFileHandler method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/api/lab_mimic/isaaclab_mimic.datagen.html#isaaclab_mimic.datagen.DataGenInfoPool.load_from_dataset_file">load_from_dataset_file() (isaaclab_mimic.datagen.DataGenInfoPool method)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.envs.html#isaaclab.envs.ManagerBasedEnv.load_managers">load_managers() (isaaclab.envs.ManagerBasedEnv method)</a>
@@ -6984,6 +7065,18 @@
         <li><a href="source/api/lab/isaaclab.terrains.html#isaaclab.terrains.trimesh.mesh_terrains_cfg.MeshRepeatedPyramidsTerrainCfg.max_height_noise">(isaaclab.terrains.trimesh.mesh_terrains_cfg.MeshRepeatedPyramidsTerrainCfg attribute)</a>
 </li>
       </ul></li>
+      <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeAccControllerCfg.max_inclination_angle_rad">max_inclination_angle_rad (isaaclab_contrib.controllers.LeeAccControllerCfg attribute)</a>
+
+      <ul>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeAttControllerCfg.max_inclination_angle_rad">(isaaclab_contrib.controllers.LeeAttControllerCfg attribute)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeControllerBaseCfg.max_inclination_angle_rad">(isaaclab_contrib.controllers.LeeControllerBaseCfg attribute)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeePosControllerCfg.max_inclination_angle_rad">(isaaclab_contrib.controllers.LeePosControllerCfg attribute)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeVelControllerCfg.max_inclination_angle_rad">(isaaclab_contrib.controllers.LeeVelControllerCfg attribute)</a>
+</li>
+      </ul></li>
       <li><a href="source/api/lab/isaaclab.terrains.html#isaaclab.terrains.TerrainImporterCfg.max_init_terrain_level">max_init_terrain_level (isaaclab.terrains.TerrainImporterCfg attribute)</a>
 </li>
       <li><a href="source/api/lab_rl/isaaclab_rl.html#isaaclab_rl.rsl_rl.RslRlBaseRunnerCfg.max_iterations">max_iterations (isaaclab_rl.rsl_rl.RslRlBaseRunnerCfg attribute)</a>
@@ -7018,6 +7111,18 @@
 </li>
       <li><a href="source/api/lab/isaaclab.sim.schemas.html#isaaclab.sim.schemas.JointDrivePropertiesCfg.max_velocity">max_velocity (isaaclab.sim.schemas.JointDrivePropertiesCfg attribute)</a>
 </li>
+      <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeAccControllerCfg.max_yaw_rate">max_yaw_rate (isaaclab_contrib.controllers.LeeAccControllerCfg attribute)</a>
+
+      <ul>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeAttControllerCfg.max_yaw_rate">(isaaclab_contrib.controllers.LeeAttControllerCfg attribute)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeControllerBaseCfg.max_yaw_rate">(isaaclab_contrib.controllers.LeeControllerBaseCfg attribute)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeePosControllerCfg.max_yaw_rate">(isaaclab_contrib.controllers.LeePosControllerCfg attribute)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeVelControllerCfg.max_yaw_rate">(isaaclab_contrib.controllers.LeeVelControllerCfg attribute)</a>
+</li>
+      </ul></li>
       <li><a href="source/api/lab/isaaclab.terrains.html#isaaclab.terrains.trimesh.mesh_terrains_cfg.MeshRepeatedBoxesTerrainCfg.ObjectCfg.max_yx_angle">max_yx_angle (isaaclab.terrains.trimesh.mesh_terrains_cfg.MeshRepeatedBoxesTerrainCfg.ObjectCfg attribute)</a>
 
       <ul>
@@ -7379,6 +7484,8 @@
         <li><a href="source/api/lab_contrib/isaaclab_contrib.actuators.html#module-isaaclab_contrib.actuators">isaaclab_contrib.actuators</a>
 </li>
         <li><a href="source/api/lab_contrib/isaaclab_contrib.assets.html#module-isaaclab_contrib.assets">isaaclab_contrib.assets</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#module-isaaclab_contrib.controllers">isaaclab_contrib.controllers</a>
 </li>
         <li><a href="source/api/lab_contrib/isaaclab_contrib.mdp.html#module-isaaclab_contrib.mdp">isaaclab_contrib.mdp</a>
 </li>
@@ -9270,6 +9377,16 @@
 </li>
         <li><a href="source/api/lab_contrib/isaaclab_contrib.assets.html#isaaclab_contrib.assets.Multirotor.reset">(isaaclab_contrib.assets.Multirotor method)</a>
 </li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeAccController.reset">(isaaclab_contrib.controllers.LeeAccController method)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeAttController.reset">(isaaclab_contrib.controllers.LeeAttController method)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeControllerBase.reset">(isaaclab_contrib.controllers.LeeControllerBase method)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeePosController.reset">(isaaclab_contrib.controllers.LeePosController method)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeVelController.reset">(isaaclab_contrib.controllers.LeeVelController method)</a>
+</li>
         <li><a href="source/api/lab_contrib/isaaclab_contrib.mdp.html#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.reset">(isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction method)</a>
 </li>
         <li><a href="source/api/lab_contrib/isaaclab_contrib.sensors.html#isaaclab_contrib.sensors.VisuoTactileSensor.reset">(isaaclab_contrib.sensors.VisuoTactileSensor method)</a>
@@ -9300,7 +9417,19 @@
 </li>
       </ul></li>
       <li><a href="source/api/lab_contrib/isaaclab_contrib.actuators.html#isaaclab_contrib.actuators.Thruster.reset_idx">reset_idx() (isaaclab_contrib.actuators.Thruster method)</a>
+
+      <ul>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeAccController.reset_idx">(isaaclab_contrib.controllers.LeeAccController method)</a>
 </li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeAttController.reset_idx">(isaaclab_contrib.controllers.LeeAttController method)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeControllerBase.reset_idx">(isaaclab_contrib.controllers.LeeControllerBase method)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeePosController.reset_idx">(isaaclab_contrib.controllers.LeePosController method)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.controllers.html#isaaclab_contrib.controllers.LeeVelController.reset_idx">(isaaclab_contrib.controllers.LeeVelController method)</a>
+</li>
+      </ul></li>
       <li><a href="source/api/lab_physx/isaaclab_physx.assets.html#isaaclab_physx.assets.SurfaceGripper.reset_index">reset_index() (isaaclab_physx.assets.SurfaceGripper method)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.envs.mdp.html#isaaclab.envs.mdp.events.reset_joints_by_offset">reset_joints_by_offset() (in module isaaclab.envs.mdp.events)</a>
@@ -9317,6 +9446,8 @@
 </li>
       <li><a href="source/api/lab/isaaclab.envs.mdp.html#isaaclab.envs.mdp.events.reset_root_state_with_random_orientation">reset_root_state_with_random_orientation() (in module isaaclab.envs.mdp.events)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/api/lab/isaaclab.envs.mdp.html#isaaclab.envs.mdp.events.reset_scene_to_default">reset_scene_to_default() (in module isaaclab.envs.mdp.events)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.envs.html#isaaclab.envs.ManagerBasedEnv.reset_to">reset_to() (isaaclab.envs.ManagerBasedEnv method)</a>
@@ -9341,8 +9472,6 @@
         <li><a href="source/api/lab_mimic/isaaclab_mimic.envs.html#isaaclab_mimic.envs.pick_place_mimic_env.PickPlaceRelMimicEnv.reset_to">(isaaclab_mimic.envs.pick_place_mimic_env.PickPlaceRelMimicEnv method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/api/lab_physx/isaaclab_physx.assets.html#isaaclab_physx.assets.RigidObjectCollection.reshape_data_to_view_2d">reshape_data_to_view_2d() (isaaclab_physx.assets.RigidObjectCollection method)</a>
 </li>
       <li><a href="source/api/lab_physx/isaaclab_physx.assets.html#isaaclab_physx.assets.RigidObjectCollection.reshape_data_to_view_3d">reshape_data_to_view_3d() (isaaclab_physx.assets.RigidObjectCollection method)</a>

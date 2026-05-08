@@ -394,6 +394,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../experimental-features/newton-physics-integration/installation.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../experimental-features/newton-physics-integration/limitations-and-known-bugs.html">Limitations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../experimental-features/newton-physics-integration/solver-transitioning.html">Solver Transitioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../experimental-features/newton-physics-integration/using-kamino.html">Using the Kamino Solver</a></li>
 </ul>
 </details></li>
 </ul>
@@ -453,6 +454,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../api/lab_mimic/isaaclab_mimic.envs.html">isaaclab_mimic.envs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/lab_contrib/isaaclab_contrib.actuators.html">isaaclab_contrib.actuators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/lab_contrib/isaaclab_contrib.assets.html">isaaclab_contrib.assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/lab_contrib/isaaclab_contrib.controllers.html">isaaclab_contrib.controllers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/lab_contrib/isaaclab_contrib.mdp.html">isaaclab_contrib.mdp</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/lab_contrib/isaaclab_contrib.rl.html">isaaclab_contrib.rl</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/lab_contrib/isaaclab_contrib.sensors.html">isaaclab_contrib.sensors</a></li>
@@ -1406,6 +1408,11 @@ See the <cite>drone_arl</cite> folder and the ARL robot config
 <td><p>Setpoint position control for the ARL robot using the track_position_state_based task.</p></td>
 <td></td>
 </tr>
+<tr class="row-odd"><td><p><img alt="arl_robot_navigation" src="../../_images/arl_robot_1_navigation.jpg" /></p></td>
+<td><p><a class="reference external" href="https://github.com/isaac-sim/IsaacLab/blob/main/source/isaaclab_tasks/isaaclab_tasks/manager_based/drone_arl/navigation/config/arl_robot_1/floating_obstacles_env_cfg.py">Isaac-Navigation-3DObstacles-ARL-Robot-1-v0</a></p></td>
+<td><p>Navigate through 3D obstacles with the ARL robot using depth camera sensing.</p></td>
+<td></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -1959,6 +1966,18 @@ inferencing, including reading from an already trained checkpoint and disabling 
 <td><p>Manager Based</p></td>
 <td><p><strong>rsl_rl</strong> (PPO), <strong>skrl</strong> (PPO)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">newton_mjwarp</span></code>, <code class="docutils literal notranslate"><span class="pre">physx</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Isaac-TrackPositionNoObstacles-ARL-Robot-1-v0</p></td>
+<td><p>Isaac-TrackPositionNoObstacles-ARL-Robot-1-Play-v0</p></td>
+<td><p>Manager Based</p></td>
+<td><p><strong>rl_games</strong> (PPO), <strong>rsl_rl</strong> (PPO), <strong>skrl</strong> (PPO)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">physx</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Isaac-Navigation-3DObstacles-ARL-Robot-1-v0</p></td>
+<td><p>Isaac-Navigation-3DObstacles-ARL-Robot-1-Play-v0</p></td>
+<td><p>Manager Based</p></td>
+<td><p><strong>rl_games</strong> (PPO), <strong>rsl_rl</strong> (PPO), <strong>skrl</strong> (PPO)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">physx</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Isaac-Open-Drawer-Franka-IK-Abs-v0</p></td>
 <td></td>

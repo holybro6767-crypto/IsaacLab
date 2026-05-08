@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="isaaclab_contrib.rl" href="isaaclab_contrib.rl.html" />
-    <link rel="prev" title="isaaclab_contrib.assets" href="isaaclab_contrib.assets.html" />
+    <link rel="prev" title="isaaclab_contrib.controllers" href="isaaclab_contrib.controllers.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
@@ -396,6 +396,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../experimental-features/newton-physics-integration/installation.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../experimental-features/newton-physics-integration/limitations-and-known-bugs.html">Limitations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../experimental-features/newton-physics-integration/solver-transitioning.html">Solver Transitioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../experimental-features/newton-physics-integration/using-kamino.html">Using the Kamino Solver</a></li>
 </ul>
 </details></li>
 </ul>
@@ -455,6 +456,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../lab_mimic/isaaclab_mimic.envs.html">isaaclab_mimic.envs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="isaaclab_contrib.actuators.html">isaaclab_contrib.actuators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="isaaclab_contrib.assets.html">isaaclab_contrib.assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isaaclab_contrib.controllers.html">isaaclab_contrib.controllers</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">isaaclab_contrib.mdp</a></li>
 <li class="toctree-l2"><a class="reference internal" href="isaaclab_contrib.rl.html">isaaclab_contrib.rl</a></li>
 <li class="toctree-l2"><a class="reference internal" href="isaaclab_contrib.sensors.html">isaaclab_contrib.sensors</a></li>
@@ -738,10 +740,10 @@
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.asset_name"><code class="docutils literal notranslate"><span class="pre">ThrustActionCfg.asset_name</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.scale"><code class="docutils literal notranslate"><span class="pre">ThrustActionCfg.scale</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.offset"><code class="docutils literal notranslate"><span class="pre">ThrustActionCfg.offset</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.debug_vis"><code class="docutils literal notranslate"><span class="pre">ThrustActionCfg.debug_vis</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.clip"><code class="docutils literal notranslate"><span class="pre">ThrustActionCfg.clip</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.preserve_order"><code class="docutils literal notranslate"><span class="pre">ThrustActionCfg.preserve_order</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.use_default_offset"><code class="docutils literal notranslate"><span class="pre">ThrustActionCfg.use_default_offset</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.debug_vis"><code class="docutils literal notranslate"><span class="pre">ThrustActionCfg.debug_vis</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -750,12 +752,6 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction"><code class="docutils literal notranslate"><span class="pre">ThrustAction</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.cfg"><code class="docutils literal notranslate"><span class="pre">ThrustAction.cfg</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.__init__"><code class="docutils literal notranslate"><span class="pre">ThrustAction.__init__()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.device"><code class="docutils literal notranslate"><span class="pre">ThrustAction.device</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.export_IO_descriptor"><code class="docutils literal notranslate"><span class="pre">ThrustAction.export_IO_descriptor</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.has_debug_vis_implementation"><code class="docutils literal notranslate"><span class="pre">ThrustAction.has_debug_vis_implementation</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.num_envs"><code class="docutils literal notranslate"><span class="pre">ThrustAction.num_envs</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.serialize"><code class="docutils literal notranslate"><span class="pre">ThrustAction.serialize()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.set_debug_vis"><code class="docutils literal notranslate"><span class="pre">ThrustAction.set_debug_vis()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.action_dim"><code class="docutils literal notranslate"><span class="pre">ThrustAction.action_dim</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.raw_actions"><code class="docutils literal notranslate"><span class="pre">ThrustAction.raw_actions</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.processed_actions"><code class="docutils literal notranslate"><span class="pre">ThrustAction.processed_actions</span></code></a></li>
@@ -763,6 +759,12 @@
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.reset"><code class="docutils literal notranslate"><span class="pre">ThrustAction.reset()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.process_actions"><code class="docutils literal notranslate"><span class="pre">ThrustAction.process_actions()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.apply_actions"><code class="docutils literal notranslate"><span class="pre">ThrustAction.apply_actions()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.device"><code class="docutils literal notranslate"><span class="pre">ThrustAction.device</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.export_IO_descriptor"><code class="docutils literal notranslate"><span class="pre">ThrustAction.export_IO_descriptor</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.has_debug_vis_implementation"><code class="docutils literal notranslate"><span class="pre">ThrustAction.has_debug_vis_implementation</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.num_envs"><code class="docutils literal notranslate"><span class="pre">ThrustAction.num_envs</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.serialize"><code class="docutils literal notranslate"><span class="pre">ThrustAction.serialize()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.set_debug_vis"><code class="docutils literal notranslate"><span class="pre">ThrustAction.set_debug_vis()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -871,17 +873,17 @@ assets and uses their thruster configuration to determine which thrusters to con
 <tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.offset" title="isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">offset</span></code></a></p></td>
 <td><p>Offset factor for the action.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.debug_vis" title="isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.debug_vis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">debug_vis</span></code></a></p></td>
-<td><p>Whether to visualize debug information.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.clip" title="isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.clip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.clip" title="isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.clip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip</span></code></a></p></td>
 <td><p>Clipping ranges for processed actions.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.preserve_order" title="isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.preserve_order"><code class="xref py py-obj docutils literal notranslate"><span class="pre">preserve_order</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.preserve_order" title="isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.preserve_order"><code class="xref py py-obj docutils literal notranslate"><span class="pre">preserve_order</span></code></a></p></td>
 <td><p>Whether to preserve the order of the asset names in the action output.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.use_default_offset" title="isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.use_default_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">use_default_offset</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.use_default_offset" title="isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.use_default_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">use_default_offset</span></code></a></p></td>
 <td><p>Whether to use default thrust configured in the multirotor asset as offset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.debug_vis" title="isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.debug_vis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">debug_vis</span></code></a></p></td>
+<td><p>Whether to visualize debug information.</p></td>
 </tr>
 </tbody>
 </table>
@@ -945,12 +947,6 @@ default thruster RPS from the multirotor configuration.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.debug_vis">
-<span class="sig-name descname"><span class="pre">debug_vis</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.debug_vis" title="Link to this definition">#</a></dt>
-<dd><p>Whether to visualize debug information. Defaults to False.</p>
-</dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.clip">
 <span class="sig-name descname"><span class="pre">clip</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.clip" title="Link to this definition">#</a></dt>
 <dd><p>Clipping ranges for processed actions. Default is <code class="docutils literal notranslate"><span class="pre">None</span></code>, which means no clipping.</p>
@@ -986,6 +982,12 @@ If <code class="docutils literal notranslate"><span class="pre">False</span></co
 RPS values from <code class="xref py py-attr docutils literal notranslate"><span class="pre">MultirotorCfg.init_state.rps</span></code>. This is useful for
 controlling thrust as deviations from the hover state.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">False</span></code>, the manually specified <a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.offset" title="isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.offset"><code class="xref py py-attr docutils literal notranslate"><span class="pre">offset</span></code></a> value is used.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.debug_vis">
+<span class="sig-name descname"><span class="pre">debug_vis</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.debug_vis" title="Link to this definition">#</a></dt>
+<dd><p>Whether to visualize debug information. Defaults to False.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1043,18 +1045,6 @@ assets.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.cfg" title="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.cfg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cfg</span></code></a></p></td>
 <td><p>The configuration of the action term.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.device" title="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device</span></code></a></p></td>
-<td><p>Device on which to perform computations.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.export_IO_descriptor" title="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.export_IO_descriptor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_IO_descriptor</span></code></a></p></td>
-<td><p>Whether to export the IO descriptor for the action term.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.has_debug_vis_implementation" title="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.has_debug_vis_implementation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_debug_vis_implementation</span></code></a></p></td>
-<td><p>Whether the action term has a debug visualization implemented.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.num_envs" title="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.num_envs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_envs</span></code></a></p></td>
-<td><p>Number of environments.</p></td>
-</tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.action_dim" title="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.action_dim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">action_dim</span></code></a></p></td>
 <td><p>Dimension of the action term.</p></td>
 </tr>
@@ -1067,6 +1057,18 @@ assets.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.IO_descriptor" title="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.IO_descriptor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">IO_descriptor</span></code></a></p></td>
 <td><p>The IO descriptor of the action term.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.device" title="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device</span></code></a></p></td>
+<td><p>Device on which to perform computations.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.export_IO_descriptor" title="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.export_IO_descriptor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_IO_descriptor</span></code></a></p></td>
+<td><p>Whether to export the IO descriptor for the action term.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.has_debug_vis_implementation" title="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.has_debug_vis_implementation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_debug_vis_implementation</span></code></a></p></td>
+<td><p>Whether the action term has a debug visualization implemented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.num_envs" title="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.num_envs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_envs</span></code></a></p></td>
+<td><p>Number of environments.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -1076,12 +1078,6 @@ assets.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.__init__" title="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(cfg, env)</p></td>
 <td><p>Initialize the action term.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.serialize" title="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.serialize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">serialize</span></code></a>()</p></td>
-<td><p>General serialization call.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.set_debug_vis" title="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.set_debug_vis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_debug_vis</span></code></a>(debug_vis)</p></td>
-<td><p>Sets whether to visualize the action term data.</p></td>
-</tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.reset" title="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a>([env_ids])</p></td>
 <td><p>Reset the action term.</p></td>
 </tr>
@@ -1090,6 +1086,12 @@ assets.</p>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.apply_actions" title="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.apply_actions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_actions</span></code></a>()</p></td>
 <td><p>Apply the processed actions as thrust commands.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.serialize" title="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.serialize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">serialize</span></code></a>()</p></td>
+<td><p>General serialization call.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.set_debug_vis" title="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.set_debug_vis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_debug_vis</span></code></a>(debug_vis)</p></td>
+<td><p>Sets whether to visualize the action term data.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1110,49 +1112,6 @@ assets.</p>
 <li><p><strong>cfg</strong> – The configuration object.</p></li>
 <li><p><strong>env</strong> – The environment instance.</p></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.device">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.device" title="Link to this definition">#</a></dt>
-<dd><p>Device on which to perform computations.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.export_IO_descriptor">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">export_IO_descriptor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.export_IO_descriptor" title="Link to this definition">#</a></dt>
-<dd><p>Whether to export the IO descriptor for the action term.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.has_debug_vis_implementation">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">has_debug_vis_implementation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.has_debug_vis_implementation" title="Link to this definition">#</a></dt>
-<dd><p>Whether the action term has a debug visualization implemented.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.num_envs">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_envs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.num_envs" title="Link to this definition">#</a></dt>
-<dd><p>Number of environments.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.serialize">
-<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a></span></span><a class="headerlink" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.serialize" title="Link to this definition">#</a></dt>
-<dd><p>General serialization call. Includes the configuration dict.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.set_debug_vis">
-<span class="sig-name descname"><span class="pre">set_debug_vis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">debug_vis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.set_debug_vis" title="Link to this definition">#</a></dt>
-<dd><p>Sets whether to visualize the action term data.
-:param debug_vis: Whether to visualize the action term data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Whether the debug visualization was successfully set. False if the action term does
-not support debug visualization.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1229,6 +1188,49 @@ to compute actual thrust forces during the simulation step.</p>
 on the multirotor asset with the appropriate thruster IDs.</p>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.device">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.device" title="Link to this definition">#</a></dt>
+<dd><p>Device on which to perform computations.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.export_IO_descriptor">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">export_IO_descriptor</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.export_IO_descriptor" title="Link to this definition">#</a></dt>
+<dd><p>Whether to export the IO descriptor for the action term.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.has_debug_vis_implementation">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">has_debug_vis_implementation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.has_debug_vis_implementation" title="Link to this definition">#</a></dt>
+<dd><p>Whether the action term has a debug visualization implemented.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.num_envs">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_envs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.num_envs" title="Link to this definition">#</a></dt>
+<dd><p>Number of environments.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.serialize">
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a></span></span><a class="headerlink" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.serialize" title="Link to this definition">#</a></dt>
+<dd><p>General serialization call. Includes the configuration dict.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.set_debug_vis">
+<span class="sig-name descname"><span class="pre">set_debug_vis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">debug_vis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.set_debug_vis" title="Link to this definition">#</a></dt>
+<dd><p>Sets whether to visualize the action term data.
+:param debug_vis: Whether to visualize the action term data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Whether the debug visualization was successfully set. False if the action term does
+not support debug visualization.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -1246,12 +1248,12 @@ on the multirotor asset with the appropriate thruster IDs.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="isaaclab_contrib.assets.html"
+       href="isaaclab_contrib.controllers.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">isaaclab_contrib.assets</p>
+        <p class="prev-next-title">isaaclab_contrib.controllers</p>
       </div>
     </a>
     <a class="right-next"
@@ -1287,10 +1289,10 @@ on the multirotor asset with the appropriate thruster IDs.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.asset_name"><code class="docutils literal notranslate"><span class="pre">ThrustActionCfg.asset_name</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.scale"><code class="docutils literal notranslate"><span class="pre">ThrustActionCfg.scale</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.offset"><code class="docutils literal notranslate"><span class="pre">ThrustActionCfg.offset</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.debug_vis"><code class="docutils literal notranslate"><span class="pre">ThrustActionCfg.debug_vis</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.clip"><code class="docutils literal notranslate"><span class="pre">ThrustActionCfg.clip</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.preserve_order"><code class="docutils literal notranslate"><span class="pre">ThrustActionCfg.preserve_order</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.use_default_offset"><code class="docutils literal notranslate"><span class="pre">ThrustActionCfg.use_default_offset</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions_cfg.ThrustActionCfg.debug_vis"><code class="docutils literal notranslate"><span class="pre">ThrustActionCfg.debug_vis</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1299,12 +1301,6 @@ on the multirotor asset with the appropriate thruster IDs.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction"><code class="docutils literal notranslate"><span class="pre">ThrustAction</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.cfg"><code class="docutils literal notranslate"><span class="pre">ThrustAction.cfg</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.__init__"><code class="docutils literal notranslate"><span class="pre">ThrustAction.__init__()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.device"><code class="docutils literal notranslate"><span class="pre">ThrustAction.device</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.export_IO_descriptor"><code class="docutils literal notranslate"><span class="pre">ThrustAction.export_IO_descriptor</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.has_debug_vis_implementation"><code class="docutils literal notranslate"><span class="pre">ThrustAction.has_debug_vis_implementation</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.num_envs"><code class="docutils literal notranslate"><span class="pre">ThrustAction.num_envs</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.serialize"><code class="docutils literal notranslate"><span class="pre">ThrustAction.serialize()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.set_debug_vis"><code class="docutils literal notranslate"><span class="pre">ThrustAction.set_debug_vis()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.action_dim"><code class="docutils literal notranslate"><span class="pre">ThrustAction.action_dim</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.raw_actions"><code class="docutils literal notranslate"><span class="pre">ThrustAction.raw_actions</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.processed_actions"><code class="docutils literal notranslate"><span class="pre">ThrustAction.processed_actions</span></code></a></li>
@@ -1312,6 +1308,12 @@ on the multirotor asset with the appropriate thruster IDs.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.reset"><code class="docutils literal notranslate"><span class="pre">ThrustAction.reset()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.process_actions"><code class="docutils literal notranslate"><span class="pre">ThrustAction.process_actions()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.apply_actions"><code class="docutils literal notranslate"><span class="pre">ThrustAction.apply_actions()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.device"><code class="docutils literal notranslate"><span class="pre">ThrustAction.device</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.export_IO_descriptor"><code class="docutils literal notranslate"><span class="pre">ThrustAction.export_IO_descriptor</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.has_debug_vis_implementation"><code class="docutils literal notranslate"><span class="pre">ThrustAction.has_debug_vis_implementation</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.num_envs"><code class="docutils literal notranslate"><span class="pre">ThrustAction.num_envs</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.serialize"><code class="docutils literal notranslate"><span class="pre">ThrustAction.serialize()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_contrib.mdp.actions.thrust_actions.ThrustAction.set_debug_vis"><code class="docutils literal notranslate"><span class="pre">ThrustAction.set_debug_vis()</span></code></a></li>
 </ul>
 </li>
 </ul>

@@ -394,6 +394,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../experimental-features/newton-physics-integration/installation.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../experimental-features/newton-physics-integration/limitations-and-known-bugs.html">Limitations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../experimental-features/newton-physics-integration/solver-transitioning.html">Solver Transitioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../experimental-features/newton-physics-integration/using-kamino.html">Using the Kamino Solver</a></li>
 </ul>
 </details></li>
 </ul>
@@ -453,6 +454,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_mimic/isaaclab_mimic.envs.html">isaaclab_mimic.envs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_contrib/isaaclab_contrib.actuators.html">isaaclab_contrib.actuators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_contrib/isaaclab_contrib.assets.html">isaaclab_contrib.assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/lab_contrib/isaaclab_contrib.controllers.html">isaaclab_contrib.controllers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_contrib/isaaclab_contrib.mdp.html">isaaclab_contrib.mdp</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_contrib/isaaclab_contrib.rl.html">isaaclab_contrib.rl</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_contrib/isaaclab_contrib.sensors.html">isaaclab_contrib.sensors</a></li>
@@ -730,9 +732,13 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selective-install">Selective Install</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ovrtx-rendering">OVRTX Rendering</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-installation-tests">Running Installation Tests</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-a-python-environment">Preparing a Python Environment</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cloning-and-installing-isaac-lab">Cloning and installing Isaac Lab</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selective-install">Selective Install</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ovrtx-rendering">OVRTX Rendering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-installation-tests">Running Installation Tests</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -748,6 +754,106 @@
 <span id="kitless-installation"></span><h1>Kit-less Installation<a class="headerlink" href="#kit-less-installation" title="Link to this heading">#</a></h1>
 <p>Isaac Lab can be installed and used <strong>without Isaac Sim</strong> using the kit-less mode. This is the
 fastest way to get started and is ideal for users who only need the Newton physics backend.</p>
+<section id="preparing-a-python-environment">
+<h2>Preparing a Python Environment<a class="headerlink" href="#preparing-a-python-environment" title="Link to this heading">#</a></h2>
+<p>Creating a dedicated Python environment is <strong>strongly recommended</strong>. It helps:</p>
+<ul class="simple">
+<li><p><strong>Avoid conflicts with system Python</strong> or other projects installed on your machine.</p></li>
+<li><p><strong>Keep dependencies isolated</strong>, so that package upgrades or experiments in other projects
+do not break Isaac Sim.</p></li>
+<li><p><strong>Easily manage multiple environments</strong> for setups with different versions of dependencies.</p></li>
+<li><p><strong>Simplify reproducibility</strong> — the environment contains only the packages needed for the current project,
+making it easier to share setups with colleagues or run on different machines.</p></li>
+</ul>
+<p>We recommend <strong>uv</strong> as the package manager — it is significantly faster than pip and conda
+for creating environments and resolving dependencies.</p>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>The Python version of the virtual environment must match the Python version of Isaac Sim.</p>
+<ul class="simple">
+<li><p>For Isaac Sim 6.X, the required Python version is 3.12.</p></li>
+</ul>
+<p>Using a different Python version will result in errors when running Isaac Lab.</p>
+</div>
+<p>The following instructions are for Isaac Sim 6.X, which requires Python 3.12.</p>
+<ul>
+<li><p>Create a virtual environment using one of the package managers:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+UV Environment (Recommended)</label><div class="sd-tab-content docutils">
+<p><strong>uv</strong> is the fastest and recommended way to create a Python environment for Isaac Lab.
+To install <code class="docutils literal notranslate"><span class="pre">uv</span></code>, please follow the instructions <a class="reference external" href="https://docs.astral.sh/uv/getting-started/installation/">here</a>.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="os" data-sync-id="linux" for="sd-tab-item-2">
+<i class="fa-brands fa-linux"></i> Linux</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a virtual environment named env_isaaclab with python3.12 and pip</span>
+uv<span class="w"> </span>venv<span class="w"> </span>--python<span class="w"> </span><span class="m">3</span>.12<span class="w"> </span>--seed<span class="w"> </span>env_isaaclab
+<span class="c1"># activate the virtual environment</span>
+<span class="nb">source</span><span class="w"> </span>env_isaaclab/bin/activate
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" data-sync-group="os" data-sync-id="windows" for="sd-tab-item-3">
+<i class="fa-brands fa-windows"></i> Windows</label><div class="sd-tab-content docutils">
+<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="c1">: create a virtual environment named env_isaaclab with python3.12 and pip</span>
+uv venv --python 3.12 --seed env_isaaclab
+<span class="p">:</span><span class="c1">: activate the virtual environment</span>
+env_isaaclab\Scripts\activate
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">--seed</span></code> flag ensures <code class="docutils literal notranslate"><span class="pre">pip</span></code> is available inside the <code class="docutils literal notranslate"><span class="pre">uv</span></code> virtual environment,
+which is required by the Isaac Lab installer.</p>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+Conda Environment</label><div class="sd-tab-content docutils">
+<p>To install conda, please follow the instructions <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html">here</a>.
+You can create the Isaac Lab environment using the following commands.</p>
+<p>We recommend using <a class="reference external" href="https://www.anaconda.com/docs/getting-started/miniconda/main/">Miniconda</a>,
+since it is light-weight and resource-efficient environment management system.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>env_isaaclab<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12
+conda<span class="w"> </span>activate<span class="w"> </span>env_isaaclab
+</pre></div>
+</div>
+</div>
+</div>
+</li>
+<li><p>Ensure the latest pip version is installed. To update pip, run the following command
+from inside the virtual environment:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="os" data-sync-id="linux" for="sd-tab-item-4">
+<i class="fa-brands fa-linux"></i> Linux</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" data-sync-group="os" data-sync-id="windows" for="sd-tab-item-5">
+<i class="fa-brands fa-windows"></i> Windows</label><div class="sd-tab-content docutils">
+<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span>uv pip install --upgrade pip
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are using <code class="docutils literal notranslate"><span class="pre">pip</span></code> directly instead of <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">pip</span></code>, replace <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">pip</span></code> with <code class="docutils literal notranslate"><span class="pre">pip</span></code>
+(or <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span></code> on Windows) in the commands above and throughout this guide.</p>
+</div>
+</li>
+</ul>
+<section id="cloning-and-installing-isaac-lab">
+<h3>Cloning and installing Isaac Lab<a class="headerlink" href="#cloning-and-installing-isaac-lab" title="Link to this heading">#</a></h3>
+<p>With the virtual environment activated, clone the repository and run the kit-less installer:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone Isaac Lab</span>
 git<span class="w"> </span>clone<span class="w"> </span>https://github.com/isaac-sim/IsaacLab.git
 <span class="nb">cd</span><span class="w"> </span>IsaacLab
@@ -781,8 +887,9 @@ git<span class="w"> </span>clone<span class="w"> </span>https://github.com/isaac
 <li><p>Teleoperation and imitation learning workflows</p></li>
 </ul>
 <p>To install Isaac Sim, use the pip method described in <a class="reference internal" href="pip_installation.html"><span class="doc">Installation using Isaac Sim Pip Package</span></a>.</p>
+</section>
 <section id="selective-install">
-<span id="installation-selective-install"></span><h2>Selective Install<a class="headerlink" href="#selective-install" title="Link to this heading">#</a></h2>
+<span id="installation-selective-install"></span><h3>Selective Install<a class="headerlink" href="#selective-install" title="Link to this heading">#</a></h3>
 <p>If you want a minimal environment, <code class="docutils literal notranslate"><span class="pre">./isaaclab.sh</span> <span class="pre">-i</span></code> accepts comma-separated
 sub-package names:</p>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -844,7 +951,7 @@ sub-package names:</p>
 </div>
 </section>
 <section id="ovrtx-rendering">
-<span id="installation-ovrtx"></span><h2>OVRTX Rendering<a class="headerlink" href="#ovrtx-rendering" title="Link to this heading">#</a></h2>
+<span id="installation-ovrtx"></span><h3>OVRTX Rendering<a class="headerlink" href="#ovrtx-rendering" title="Link to this heading">#</a></h3>
 <p>OVRTX provides GPU-accelerated rendering for vision tasks without Kit.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-i<span class="w"> </span>ov<span class="o">[</span>ovrtx<span class="o">]</span>
 
@@ -856,10 +963,11 @@ sub-package names:</p>
 </div>
 </section>
 <section id="running-installation-tests">
-<h2>Running Installation Tests<a class="headerlink" href="#running-installation-tests" title="Link to this heading">#</a></h2>
+<h3>Running Installation Tests<a class="headerlink" href="#running-installation-tests" title="Link to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>source/isaaclab/test/cli/test_cli_utils.py<span class="w"> </span>-v
 </pre></div>
 </div>
+</section>
 </section>
 </section>
 
@@ -910,9 +1018,13 @@ sub-package names:</p>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selective-install">Selective Install</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ovrtx-rendering">OVRTX Rendering</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-installation-tests">Running Installation Tests</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparing-a-python-environment">Preparing a Python Environment</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cloning-and-installing-isaac-lab">Cloning and installing Isaac Lab</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selective-install">Selective Install</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ovrtx-rendering">OVRTX Rendering</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-installation-tests">Running Installation Tests</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

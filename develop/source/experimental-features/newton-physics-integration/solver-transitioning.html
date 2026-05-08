@@ -58,7 +58,7 @@
     <link rel="icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Sim2Real Deployment of Policies Trained in Isaac Lab" href="../../policy_deployment/index.html" />
+    <link rel="next" title="Using the Kamino Solver" href="using-kamino.html" />
     <link rel="prev" title="Limitations" href="limitations-and-known-bugs.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -394,6 +394,7 @@
 <li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="limitations-and-known-bugs.html">Limitations</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Solver Transitioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using-kamino.html">Using the Kamino Solver</a></li>
 </ul>
 </details></li>
 </ul>
@@ -453,6 +454,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_mimic/isaaclab_mimic.envs.html">isaaclab_mimic.envs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_contrib/isaaclab_contrib.actuators.html">isaaclab_contrib.actuators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_contrib/isaaclab_contrib.assets.html">isaaclab_contrib.assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/lab_contrib/isaaclab_contrib.controllers.html">isaaclab_contrib.controllers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_contrib/isaaclab_contrib.mdp.html">isaaclab_contrib.mdp</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_contrib/isaaclab_contrib.rl.html">isaaclab_contrib.rl</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_contrib/isaaclab_contrib.sensors.html">isaaclab_contrib.sensors</a></li>
@@ -738,7 +740,7 @@
 While Newton supports several different solvers, our initial focus for Isaac Lab is on using the
 MuJoCo-Warp solver from Google DeepMind. Isaac Lab also includes beta support for the Kamino
 solver on selected classic tasks. Kamino is selected through a physics preset rather than as a
-separate backend; see <a class="reference internal" href="../../features/hydra.html#hydra-backend-solver-presets"><span class="std std-ref">Backend and Solver Presets</span></a>.</p>
+separate backend; see <a class="reference internal" href="../../features/hydra.html#hydra-backend-solver-presets"><span class="std std-ref">Backend and Solver Presets</span></a> and <a class="reference internal" href="using-kamino.html#newton-using-kamino"><span class="std std-ref">Using the Kamino Solver</span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Kamino support is experimental and currently depends on assets being structured
@@ -829,11 +831,11 @@ of value when using implicit actuators, for example.</p></li>
       </div>
     </a>
     <a class="right-next"
-       href="../../policy_deployment/index.html"
+       href="using-kamino.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Sim2Real Deployment of Policies Trained in Isaac Lab</p>
+        <p class="prev-next-title">Using the Kamino Solver</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
