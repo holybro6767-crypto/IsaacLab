@@ -351,7 +351,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../core-concepts/sensors/pva.html">Pose Velocity Acceleration (PVA) Sensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../core-concepts/sensors/joint_wrench_sensor.html">Joint Wrench Sensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../core-concepts/sensors/ray_caster.html">Ray Caster</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../core-concepts/sensors/visuo_tactile_sensor.html">Visuo-Tactile Sensor</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../core-concepts/renderers.html">Renderers</a></li>
@@ -399,6 +398,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../experimental-features/newton-physics-integration/using-kamino.html">Using the Kamino Solver</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../experimental-features/visuo_tactile_sensor.html">Visuo-Tactile Sensor</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
 <ul class="nav bd-sidenav">
@@ -502,6 +502,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_visualizers/isaaclab_visualizers.newton.html">isaaclab_visualizers.newton</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_visualizers/isaaclab_visualizers.rerun.html">isaaclab_visualizers.rerun</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab_visualizers/isaaclab_visualizers.viser.html">isaaclab_visualizers.viser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/lab_ovphysx/isaaclab_ovphysx.assets.html">isaaclab_ovphysx.assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/lab_ovphysx/isaaclab_ovphysx.cloner.html">isaaclab_ovphysx.cloner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/lab_ovphysx/isaaclab_ovphysx.physics.html">isaaclab_ovphysx.physics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/lab_ovphysx/isaaclab_ovphysx.assets.html">isaaclab_ovphysx.assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/lab_ovphysx/isaaclab_ovphysx.cloner.html">isaaclab_ovphysx.cloner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/lab_ovphysx/isaaclab_ovphysx.physics.html">isaaclab_ovphysx.physics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/lab_experimental/isaaclab_experimental.envs.html">isaaclab_experimental.envs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/lab_experimental/isaaclab_experimental.managers.html">isaaclab_experimental.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/lab_experimental/isaaclab_experimental.utils.html">isaaclab_experimental.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/lab_experimental/isaaclab_experimental.envs.html">isaaclab_experimental.envs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/lab_experimental/isaaclab_experimental.managers.html">isaaclab_experimental.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/lab_experimental/isaaclab_experimental.utils.html">isaaclab_experimental.utils</a></li>
 </ul>
 </details></li>
 </ul>
@@ -732,7 +744,7 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extensions">Extensions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standalone">Standalone</a></li>
 </ul>
             </nav>
@@ -759,56 +771,113 @@
 ├──<span class="w"> </span>docs
 ├──<span class="w"> </span>docker
 ├──<span class="w"> </span><span class="nb">source</span>
-│<span class="w">   </span>├──<span class="w"> </span>isaaclab
-│<span class="w">   </span>├──<span class="w"> </span>isaaclab_assets
-│<span class="w">   </span>├──<span class="w"> </span>isaaclab_mimic
-│<span class="w">   </span>├──<span class="w"> </span>isaaclab_rl
-│<span class="w">   </span>└──<span class="w"> </span>isaaclab_tasks
+│<span class="w">   </span>├──<span class="w"> </span>isaaclab<span class="w">                   </span><span class="c1"># core framework</span>
+│<span class="w">   </span>├──<span class="w"> </span>isaaclab_physx<span class="w">             </span><span class="c1"># PhysX backend (requires Isaac Sim)</span>
+│<span class="w">   </span>├──<span class="w"> </span>isaaclab_ovphysx<span class="w">           </span><span class="c1"># standalone PhysX backend (requires ovphysx)</span>
+│<span class="w">   </span>├──<span class="w"> </span>isaaclab_ov<span class="w">                </span><span class="c1"># OVRTX renderer backend (requires ovrtx)</span>
+│<span class="w">   </span>├──<span class="w"> </span>isaaclab_newton<span class="w">            </span><span class="c1"># Newton backend (kit-less)</span>
+│<span class="w">   </span>├──<span class="w"> </span>isaaclab_assets<span class="w">            </span><span class="c1"># pre-configured robot &amp; sensor assets</span>
+│<span class="w">   </span>├──<span class="w"> </span>isaaclab_tasks<span class="w">             </span><span class="c1"># pre-built RL/IL environments</span>
+│<span class="w">   </span>├──<span class="w"> </span>isaaclab_tasks_experimental<span class="w"> </span><span class="c1"># Warp-accelerated environments</span>
+│<span class="w">   </span>├──<span class="w"> </span>isaaclab_rl<span class="w">                </span><span class="c1"># RL library wrappers</span>
+│<span class="w">   </span>├──<span class="w"> </span>isaaclab_mimic<span class="w">             </span><span class="c1"># imitation learning &amp; data generation</span>
+│<span class="w">   </span>├──<span class="w"> </span>isaaclab_teleop<span class="w">            </span><span class="c1"># teleoperation &amp; XR</span>
+│<span class="w">   </span>├──<span class="w"> </span>isaaclab_visualizers<span class="w">       </span><span class="c1"># external visualizer backends</span>
+│<span class="w">   </span>├──<span class="w"> </span>isaaclab_contrib<span class="w">           </span><span class="c1"># community-contributed extensions</span>
+│<span class="w">   </span>├──<span class="w"> </span>isaaclab_experimental<span class="w">      </span><span class="c1"># Warp-accelerated manager and environment variants</span>
+│<span class="w">   </span>├──<span class="w"> </span>extensions<span class="w">                 </span><span class="c1"># legacy Omniverse extension wrappers</span>
+│<span class="w">   </span>└──<span class="w"> </span>standalone<span class="w">                 </span><span class="c1"># standalone tutorials &amp; workflows</span>
 ├──<span class="w"> </span>scripts
-│<span class="w">   </span>├──<span class="w"> </span>benchmarks
-│<span class="w">   </span>├──<span class="w"> </span>demos
-│<span class="w">   </span>├──<span class="w"> </span>environments
-│<span class="w">   </span>├──<span class="w"> </span>imitation_learning
-│<span class="w">   </span>├──<span class="w"> </span>reinforcement_learning
-│<span class="w">   </span>├──<span class="w"> </span>tools
-│<span class="w">   </span>├──<span class="w"> </span>tutorials
+│<span class="w">   </span>├──<span class="w"> </span>benchmarks
+│<span class="w">   </span>├──<span class="w"> </span>demos
+│<span class="w">   </span>├──<span class="w"> </span>environments
+│<span class="w">   </span>├──<span class="w"> </span>imitation_learning
+│<span class="w">   </span>├──<span class="w"> </span>reinforcement_learning
+│<span class="w">   </span>├──<span class="w"> </span>sim2sim_transfer
+│<span class="w">   </span>├──<span class="w"> </span>tools
+│<span class="w">   </span>└──<span class="w"> </span>tutorials
 ├──<span class="w"> </span>tools
 └──<span class="w"> </span>VERSION
 </pre></div>
 </div>
-<p>Isaac Lab is built on the same back end as Isaac Sim.  As such, it exists as a collection of <strong>extensions</strong> that can be assembled into <strong>applications</strong>.
-The <code class="docutils literal notranslate"><span class="pre">source</span></code> directory contains the majority of the code in the repository and the specific extensions that compose Isaac lab, while <code class="docutils literal notranslate"><span class="pre">scripts</span></code> containing python scripts for launching customized standalone apps (Like our workflows).
-These are the two primary ways of interacting with the simulation and Isaac lab supports both!
-Checkout this <a class="reference external" href="https://docs.isaacsim.omniverse.nvidia.com/latest/introduction/workflows.html">Isaac Sim introduction to workflows</a> for more details.</p>
-<section id="extensions">
-<h2>Extensions<a class="headerlink" href="#extensions" title="Link to this heading">#</a></h2>
-<p>The extensions that compose Isaac Lab are kept in the <code class="docutils literal notranslate"><span class="pre">source</span></code> directory. To simplify the build process, Isaac Lab directly use <a class="reference external" href="https://setuptools.readthedocs.io/en/latest/">setuptools</a>. It is strongly recommend that you adhere to this process if you create your own extensions using Isaac Lab.</p>
-<p>The extensions are organized as follows:</p>
+<p>Isaac Lab supports the <strong>PhysX</strong> and <strong>Newton</strong> physics engines through backend packages. The
+default PhysX path runs through Isaac Sim, while <code class="docutils literal notranslate"><span class="pre">ovphysx</span></code> supports standalone PhysX workflows
+without launching Isaac Sim and Newton provides a Warp-native kit-less backend. The <code class="docutils literal notranslate"><span class="pre">source</span></code>
+directory contains all packages that compose Isaac Lab, while <code class="docutils literal notranslate"><span class="pre">scripts</span></code> contains standalone
+Python applications for training, evaluation, and tooling.
+See <a class="reference internal" href="../core-concepts/multi_backend_architecture.html"><span class="doc">Multi-Backend Architecture</span></a> for details on the backend
+system, and <a class="reference internal" href="../../setup/ecosystem.html"><span class="doc">Isaac Lab Ecosystem</span></a> for a full package-layer overview.</p>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+<p>The packages under <code class="docutils literal notranslate"><span class="pre">source/</span></code> are installed as Python packages using
+<a class="reference external" href="https://setuptools.readthedocs.io/en/latest/">setuptools</a>. They are organized into three
+groups:</p>
+<p><strong>Core, physics backends, and renderers</strong></p>
 <ul class="simple">
-<li><p><strong>isaaclab</strong>: Contains the core interface extension for Isaac Lab. This provides the main modules for actuators,
-objects, robots and sensors.</p></li>
-<li><p><strong>isaaclab_assets</strong>: Contains the extension with pre-configured assets for Isaac Lab.</p></li>
-<li><p><strong>isaaclab_tasks</strong>: Contains the extension with pre-configured environments for Isaac Lab.</p></li>
-<li><p><strong>isaaclab_mimic</strong>: Contains APIs and pre-configured environments for data generation for imitation learning.</p></li>
-<li><p><strong>isaaclab_rl</strong>: Contains wrappers for using the above environments with different reinforcement learning agents.</p></li>
+<li><p><strong>isaaclab</strong>: The core framework. Provides <a class="reference internal" href="../../api/lab/isaaclab.sim.html#module-isaaclab.sim" title="isaaclab.sim"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sim</span></code></a> (simulation context and
+configuration), <a class="reference internal" href="../../api/lab/isaaclab.scene.html#isaaclab.scene.InteractiveScene" title="isaaclab.scene.InteractiveScene"><code class="xref py py-class docutils literal notranslate"><span class="pre">InteractiveScene</span></code></a>, asset and sensor base classes and
+factory interfaces (<a class="reference internal" href="../../api/lab/isaaclab.assets.html#module-isaaclab.assets" title="isaaclab.assets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">assets</span></code></a>, <a class="reference internal" href="../../api/lab/isaaclab.sensors.html#module-isaaclab.sensors" title="isaaclab.sensors"><code class="xref py py-mod docutils literal notranslate"><span class="pre">sensors</span></code></a>), environment base
+classes (<a class="reference internal" href="../../api/lab/isaaclab.envs.html#module-isaaclab.envs" title="isaaclab.envs"><code class="xref py py-mod docutils literal notranslate"><span class="pre">envs</span></code></a>), the manager system (<a class="reference internal" href="../../api/lab/isaaclab.managers.html#module-isaaclab.managers" title="isaaclab.managers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">managers</span></code></a>), composable
+MDP term library (<a class="reference internal" href="../../api/lab/isaaclab.envs.mdp.html#module-isaaclab.envs.mdp" title="isaaclab.envs.mdp"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mdp</span></code></a>), actuator models (<a class="reference internal" href="../../api/lab/isaaclab.actuators.html#module-isaaclab.actuators" title="isaaclab.actuators"><code class="xref py py-mod docutils literal notranslate"><span class="pre">actuators</span></code></a>),
+low-level controllers (<a class="reference internal" href="../../api/lab/isaaclab.controllers.html#module-isaaclab.controllers" title="isaaclab.controllers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">controllers</span></code></a>), procedural terrain generation
+(<a class="reference internal" href="../../api/lab/isaaclab.terrains.html#module-isaaclab.terrains" title="isaaclab.terrains"><code class="xref py py-mod docutils literal notranslate"><span class="pre">terrains</span></code></a>), and human-input device support (<a class="reference internal" href="../../api/lab/isaaclab.devices.html#module-isaaclab.devices" title="isaaclab.devices"><code class="xref py py-mod docutils literal notranslate"><span class="pre">devices</span></code></a>).</p></li>
+<li><p><strong>isaaclab_physx</strong>: PhysX-backed implementations of articulations, rigid bodies, deformable
+objects, Fabric views, the Isaac RTX renderer, and USD spawners. Requires Isaac Sim.</p></li>
+<li><p><strong>isaaclab_ovphysx</strong>: Standalone PhysX backend variant using <code class="docutils literal notranslate"><span class="pre">ovphysx</span></code> and the
+TensorBindingsAPI. Requires the <code class="docutils literal notranslate"><span class="pre">ovphysx</span></code> package and can run without launching Isaac Sim.</p></li>
+<li><p><strong>isaaclab_ov</strong>: OVRTX renderer backend for RTX-based tiled camera rendering. Requires the
+<code class="docutils literal notranslate"><span class="pre">ovrtx</span></code> package and can run without Isaac Sim.</p></li>
+<li><p><strong>isaaclab_newton</strong>: Newton-backed implementations of articulations, rigid bodies, rigid
+object collections, cameras, USD spawners, and the Warp renderer. Supports
+<a class="reference internal" href="../../setup/installation/index.html#isaaclab-installation-root"><span class="std std-ref">kit-less installation</span></a> without Isaac Sim.</p></li>
+</ul>
+<p><strong>Tasks and assets</strong></p>
+<ul class="simple">
+<li><p><strong>isaaclab_assets</strong>: Pre-configured <a class="reference internal" href="../../api/lab/isaaclab.utils.html#module-isaaclab.utils.configclass" title="isaaclab.utils.configclass"><code class="xref py py-class docutils literal notranslate"><span class="pre">configclass</span></code></a> dataclasses for a
+wide range of robots (Franka, Unitree, ANYmal, Spot, Allegro, humanoids, quadcopters, and
+more) and sensors (Velodyne, GelSight).</p></li>
+<li><p><strong>isaaclab_tasks</strong>: Registered <a class="reference external" href="https://gymnasium.farama.org/">gymnasium</a> environments for
+reinforcement and imitation learning, organized as <em>manager-based</em> and <em>direct</em> tasks across
+locomotion, manipulation, navigation, and classic control domains.</p></li>
+<li><p><strong>isaaclab_tasks_experimental</strong>: Experimental task implementations under active development,
+not yet part of the stable task suite.</p></li>
+</ul>
+<p><strong>Optional Additions</strong></p>
+<ul class="simple">
+<li><p><strong>isaaclab_rl</strong>: Thin wrappers that adapt Isaac Lab environments to the interfaces expected
+by <a class="reference external" href="https://github.com/leggedrobotics/rsl_rl">RSL-RL</a>,
+<a class="reference external" href="https://skrl.readthedocs.io/">skrl</a>,
+<a class="reference external" href="https://stable-baselines3.readthedocs.io/">Stable Baselines 3</a>, and
+<a class="reference external" href="https://github.com/Denys88/rl_games">RL Games</a>.</p></li>
+<li><p><strong>isaaclab_mimic</strong>: APIs and pre-configured environments for data generation and imitation
+learning, including cuRobo-based motion planners and a dataset-generation pipeline.</p></li>
+<li><p><strong>isaaclab_teleop</strong>: Teleoperation session orchestration with OpenXR / CloudXR support,
+device retargeters for manipulators and humanoids, and gamepad / spacemouse / keyboard input.</p></li>
+<li><p><strong>isaaclab_visualizers</strong>: Supplementary visualizer backends (Isaac Sim Kit, Newton, Rerun, Viser) that
+work with any physics backend.</p></li>
+<li><p><strong>isaaclab_contrib</strong>: Community-contributed features: multirotor assets, TacSL
+visuo-tactile sensors, drone thrust controllers, and more.</p></li>
+<li><p><strong>isaaclab_experimental</strong>: Pre-production core experiments including Warp-accelerated manager
+and environment variants.</p></li>
 </ul>
 </section>
 <section id="standalone">
 <h2>Standalone<a class="headerlink" href="#standalone" title="Link to this heading">#</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">scripts</span></code> directory contains various standalone applications written in python.
+<p>The <code class="docutils literal notranslate"><span class="pre">scripts</span></code> directory contains standalone Python applications.
 They are structured as follows:</p>
 <ul class="simple">
-<li><p><strong>benchmarks</strong>: Contains scripts for benchmarking different framework components.</p></li>
-<li><p><strong>demos</strong>: Contains various demo applications that showcase the core framework <code class="xref py py-mod docutils literal notranslate"><span class="pre">isaaclab</span></code>.</p></li>
-<li><p><strong>environments</strong>: Contains applications for running environments defined in <code class="xref py py-mod docutils literal notranslate"><span class="pre">isaaclab_tasks</span></code> with
-different agents. These include a random policy, zero-action policy, teleoperation or scripted state machines.</p></li>
-<li><p><strong>imitation_learning</strong>: Contains applications for training and evaluating policies with various
-imitation learning libraries (e.g. robomimic).</p></li>
-<li><p><strong>reinforcement_learning</strong>: Contains applications for training and evaluating policies with various
-reinforcement learning libraries (e.g. rsl_rl, rl_games, sb3, skrl).</p></li>
-<li><p><strong>tools</strong>: Contains applications for using the tools provided by the framework. These include converting assets,
-generating datasets, etc.</p></li>
-<li><p><strong>tutorials</strong>: Contains step-by-step tutorials for using the APIs provided by the framework.</p></li>
+<li><p><strong>benchmarks</strong>: Scripts for benchmarking different framework components.</p></li>
+<li><p><strong>demos</strong>: Demo applications that showcase the core framework <code class="xref py py-mod docutils literal notranslate"><span class="pre">isaaclab</span></code>.</p></li>
+<li><p><strong>environments</strong>: Scripts for running environments defined in <code class="xref py py-mod docutils literal notranslate"><span class="pre">isaaclab_tasks</span></code> with
+different agents (random policy, zero-action policy, teleoperation, scripted state machines).</p></li>
+<li><p><strong>imitation_learning</strong>: Applications for training and evaluating policies with imitation
+learning libraries (e.g. robomimic).</p></li>
+<li><p><strong>reinforcement_learning</strong>: Applications for training and evaluating policies with RL
+libraries (e.g. rsl_rl, rl_games, sb3, skrl).</p></li>
+<li><p><strong>sim2sim_transfer</strong>: Scripts for transferring policies trained in one simulator to another.</p></li>
+<li><p><strong>tools</strong>: Applications for using framework tools such as converting assets and generating
+datasets.</p></li>
+<li><p><strong>tutorials</strong>: Step-by-step tutorials for using the APIs provided by the framework.</p></li>
 </ul>
 </section>
 </section>
@@ -860,7 +929,7 @@ generating datasets, etc.</p></li>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extensions">Extensions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standalone">Standalone</a></li>
 </ul>
   </nav></div>

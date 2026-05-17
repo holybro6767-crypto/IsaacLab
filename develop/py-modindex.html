@@ -353,7 +353,6 @@
 <li class="toctree-l3"><a class="reference internal" href="source/overview/core-concepts/sensors/pva.html">Pose Velocity Acceleration (PVA) Sensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="source/overview/core-concepts/sensors/joint_wrench_sensor.html">Joint Wrench Sensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="source/overview/core-concepts/sensors/ray_caster.html">Ray Caster</a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/overview/core-concepts/sensors/visuo_tactile_sensor.html">Visuo-Tactile Sensor</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="source/overview/core-concepts/renderers.html">Renderers</a></li>
@@ -401,6 +400,7 @@
 <li class="toctree-l2"><a class="reference internal" href="source/experimental-features/newton-physics-integration/using-kamino.html">Using the Kamino Solver</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="source/experimental-features/visuo_tactile_sensor.html">Visuo-Tactile Sensor</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
 <ul class="nav bd-sidenav">
@@ -504,6 +504,18 @@
 <li class="toctree-l2"><a class="reference internal" href="source/api/lab_visualizers/isaaclab_visualizers.newton.html">isaaclab_visualizers.newton</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/api/lab_visualizers/isaaclab_visualizers.rerun.html">isaaclab_visualizers.rerun</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/api/lab_visualizers/isaaclab_visualizers.viser.html">isaaclab_visualizers.viser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/api/lab_ovphysx/isaaclab_ovphysx.assets.html">isaaclab_ovphysx.assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/api/lab_ovphysx/isaaclab_ovphysx.cloner.html">isaaclab_ovphysx.cloner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/api/lab_ovphysx/isaaclab_ovphysx.physics.html">isaaclab_ovphysx.physics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/api/lab_ovphysx/isaaclab_ovphysx.assets.html">isaaclab_ovphysx.assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/api/lab_ovphysx/isaaclab_ovphysx.cloner.html">isaaclab_ovphysx.cloner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/api/lab_ovphysx/isaaclab_ovphysx.physics.html">isaaclab_ovphysx.physics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/api/lab_experimental/isaaclab_experimental.envs.html">isaaclab_experimental.envs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/api/lab_experimental/isaaclab_experimental.managers.html">isaaclab_experimental.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/api/lab_experimental/isaaclab_experimental.utils.html">isaaclab_experimental.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/api/lab_experimental/isaaclab_experimental.envs.html">isaaclab_experimental.envs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/api/lab_experimental/isaaclab_experimental.managers.html">isaaclab_experimental.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/api/lab_experimental/isaaclab_experimental.utils.html">isaaclab_experimental.utils</a></li>
 </ul>
 </details></li>
 </ul>
@@ -1109,139 +1121,181 @@
        <td><img src="_static/minus.png" class="toggler"
               id="toggle-4" style="display: none" alt="-" /></td>
        <td>
-       <code class="xref">isaaclab_mimic</code></td><td>
+       <code class="xref">isaaclab_experimental</code></td><td>
        <em></em></td></tr>
      <tr class="cg-4">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="source/api/lab_mimic/isaaclab_mimic.datagen.html#module-isaaclab_mimic.datagen"><code class="xref">isaaclab_mimic.datagen</code></a></td><td>
+       <a href="source/api/lab_experimental/isaaclab_experimental.envs.html#module-isaaclab_experimental.envs"><code class="xref">isaaclab_experimental.envs</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-4">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/api/lab_experimental/isaaclab_experimental.managers.html#module-isaaclab_experimental.managers"><code class="xref">isaaclab_experimental.managers</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-4">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/api/lab_experimental/isaaclab_experimental.utils.html#module-isaaclab_experimental.utils"><code class="xref">isaaclab_experimental.utils</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td><img src="_static/minus.png" class="toggler"
+              id="toggle-5" style="display: none" alt="-" /></td>
+       <td>
+       <code class="xref">isaaclab_mimic</code></td><td>
+       <em></em></td></tr>
+     <tr class="cg-5">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/api/lab_mimic/isaaclab_mimic.datagen.html#module-isaaclab_mimic.datagen"><code class="xref">isaaclab_mimic.datagen</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-5">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_mimic/isaaclab_mimic.envs.html#module-isaaclab_mimic.envs"><code class="xref">isaaclab_mimic.envs</code></a></td><td>
        <em></em></td></tr>
      <tr>
        <td><img src="_static/minus.png" class="toggler"
-              id="toggle-5" style="display: none" alt="-" /></td>
+              id="toggle-6" style="display: none" alt="-" /></td>
        <td>
        <code class="xref">isaaclab_newton</code></td><td>
        <em></em></td></tr>
-     <tr class="cg-5">
+     <tr class="cg-6">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_newton/isaaclab_newton.assets.html#module-isaaclab_newton.assets"><code class="xref">isaaclab_newton.assets</code></a></td><td>
        <em></em></td></tr>
-     <tr class="cg-5">
+     <tr class="cg-6">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_newton/isaaclab_newton.cloner.html#module-isaaclab_newton.cloner"><code class="xref">isaaclab_newton.cloner</code></a></td><td>
        <em></em></td></tr>
-     <tr class="cg-5">
+     <tr class="cg-6">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_newton/isaaclab_newton.physics.html#module-isaaclab_newton.physics"><code class="xref">isaaclab_newton.physics</code></a></td><td>
        <em></em></td></tr>
-     <tr class="cg-5">
+     <tr class="cg-6">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_newton/isaaclab_newton.renderers.html#module-isaaclab_newton.renderers"><code class="xref">isaaclab_newton.renderers</code></a></td><td>
        <em></em></td></tr>
-     <tr class="cg-5">
+     <tr class="cg-6">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_newton/isaaclab_newton.sensors.html#module-isaaclab_newton.sensors"><code class="xref">isaaclab_newton.sensors</code></a></td><td>
        <em></em></td></tr>
-     <tr class="cg-5">
+     <tr class="cg-6">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_newton/isaaclab_newton.sim.schemas.html#module-isaaclab_newton.sim.schemas"><code class="xref">isaaclab_newton.sim.schemas</code></a></td><td>
        <em></em></td></tr>
      <tr>
        <td><img src="_static/minus.png" class="toggler"
-              id="toggle-6" style="display: none" alt="-" /></td>
+              id="toggle-7" style="display: none" alt="-" /></td>
        <td>
        <code class="xref">isaaclab_ov</code></td><td>
        <em></em></td></tr>
-     <tr class="cg-6">
+     <tr class="cg-7">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_ov/isaaclab_ov.renderers.html#module-isaaclab_ov.renderers"><code class="xref">isaaclab_ov.renderers</code></a></td><td>
        <em></em></td></tr>
      <tr>
        <td><img src="_static/minus.png" class="toggler"
-              id="toggle-7" style="display: none" alt="-" /></td>
+              id="toggle-8" style="display: none" alt="-" /></td>
+       <td>
+       <code class="xref">isaaclab_ovphysx</code></td><td>
+       <em></em></td></tr>
+     <tr class="cg-8">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/api/lab_ovphysx/isaaclab_ovphysx.assets.html#module-isaaclab_ovphysx.assets"><code class="xref">isaaclab_ovphysx.assets</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-8">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/api/lab_ovphysx/isaaclab_ovphysx.cloner.html#module-isaaclab_ovphysx.cloner"><code class="xref">isaaclab_ovphysx.cloner</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-8">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/api/lab_ovphysx/isaaclab_ovphysx.physics.html#module-isaaclab_ovphysx.physics"><code class="xref">isaaclab_ovphysx.physics</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td><img src="_static/minus.png" class="toggler"
+              id="toggle-9" style="display: none" alt="-" /></td>
        <td>
        <code class="xref">isaaclab_physx</code></td><td>
        <em></em></td></tr>
-     <tr class="cg-7">
+     <tr class="cg-9">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_physx/isaaclab_physx.cloner.html#module-isaaclab_physx.cloner"><code class="xref">isaaclab_physx.cloner</code></a></td><td>
        <em></em></td></tr>
-     <tr class="cg-7">
+     <tr class="cg-9">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_physx/isaaclab_physx.physics.html#module-isaaclab_physx.physics"><code class="xref">isaaclab_physx.physics</code></a></td><td>
        <em></em></td></tr>
-     <tr class="cg-7">
+     <tr class="cg-9">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_physx/isaaclab_physx.renderers.html#module-isaaclab_physx.renderers"><code class="xref">isaaclab_physx.renderers</code></a></td><td>
        <em></em></td></tr>
-     <tr class="cg-7">
+     <tr class="cg-9">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_physx/isaaclab_physx.sensors.html#module-isaaclab_physx.sensors"><code class="xref">isaaclab_physx.sensors</code></a></td><td>
        <em></em></td></tr>
-     <tr class="cg-7">
+     <tr class="cg-9">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_physx/isaaclab_physx.sim.schemas.html#module-isaaclab_physx.sim.schemas"><code class="xref">isaaclab_physx.sim.schemas</code></a></td><td>
        <em></em></td></tr>
-     <tr class="cg-7">
+     <tr class="cg-9">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_physx/isaaclab_physx.sim.spawners.html#module-isaaclab_physx.sim.spawners"><code class="xref">isaaclab_physx.sim.spawners</code></a></td><td>
        <em></em></td></tr>
-     <tr class="cg-7">
+     <tr class="cg-9">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_physx/isaaclab_physx.sim.spawners.html#module-isaaclab_physx.sim.spawners.materials"><code class="xref">isaaclab_physx.sim.spawners.materials</code></a></td><td>
        <em></em></td></tr>
      <tr>
        <td><img src="_static/minus.png" class="toggler"
-              id="toggle-8" style="display: none" alt="-" /></td>
+              id="toggle-10" style="display: none" alt="-" /></td>
        <td>
        <a href="source/api/lab_rl/isaaclab_rl.html#module-isaaclab_rl"><code class="xref">isaaclab_rl</code></a></td><td>
        <em></em></td></tr>
-     <tr class="cg-8">
+     <tr class="cg-10">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_rl/isaaclab_rl.html#module-isaaclab_rl.rl_games"><code class="xref">isaaclab_rl.rl_games</code></a></td><td>
        <em></em></td></tr>
-     <tr class="cg-8">
+     <tr class="cg-10">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_rl/isaaclab_rl.html#module-isaaclab_rl.rsl_rl"><code class="xref">isaaclab_rl.rsl_rl</code></a></td><td>
        <em></em></td></tr>
-     <tr class="cg-8">
+     <tr class="cg-10">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_rl/isaaclab_rl.html#module-isaaclab_rl.sb3"><code class="xref">isaaclab_rl.sb3</code></a></td><td>
        <em></em></td></tr>
-     <tr class="cg-8">
+     <tr class="cg-10">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_rl/isaaclab_rl.html#module-isaaclab_rl.skrl"><code class="xref">isaaclab_rl.skrl</code></a></td><td>
        <em></em></td></tr>
      <tr>
        <td><img src="_static/minus.png" class="toggler"
-              id="toggle-9" style="display: none" alt="-" /></td>
+              id="toggle-11" style="display: none" alt="-" /></td>
        <td>
        <code class="xref">isaaclab_tasks</code></td><td>
        <em></em></td></tr>
-     <tr class="cg-9">
+     <tr class="cg-11">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_tasks/isaaclab_tasks.utils.html#module-isaaclab_tasks.utils"><code class="xref">isaaclab_tasks.utils</code></a></td><td>
@@ -1253,26 +1307,26 @@
        <em></em></td></tr>
      <tr>
        <td><img src="_static/minus.png" class="toggler"
-              id="toggle-10" style="display: none" alt="-" /></td>
+              id="toggle-12" style="display: none" alt="-" /></td>
        <td>
        <code class="xref">isaaclab_visualizers</code></td><td>
        <em></em></td></tr>
-     <tr class="cg-10">
+     <tr class="cg-12">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_visualizers/isaaclab_visualizers.kit.html#module-isaaclab_visualizers.kit"><code class="xref">isaaclab_visualizers.kit</code></a></td><td>
        <em></em></td></tr>
-     <tr class="cg-10">
+     <tr class="cg-12">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_visualizers/isaaclab_visualizers.newton.html#module-isaaclab_visualizers.newton"><code class="xref">isaaclab_visualizers.newton</code></a></td><td>
        <em></em></td></tr>
-     <tr class="cg-10">
+     <tr class="cg-12">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_visualizers/isaaclab_visualizers.rerun.html#module-isaaclab_visualizers.rerun"><code class="xref">isaaclab_visualizers.rerun</code></a></td><td>
        <em></em></td></tr>
-     <tr class="cg-10">
+     <tr class="cg-12">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="source/api/lab_visualizers/isaaclab_visualizers.viser.html#module-isaaclab_visualizers.viser"><code class="xref">isaaclab_visualizers.viser</code></a></td><td>

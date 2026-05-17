@@ -351,7 +351,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../overview/core-concepts/sensors/pva.html">Pose Velocity Acceleration (PVA) Sensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../overview/core-concepts/sensors/joint_wrench_sensor.html">Joint Wrench Sensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../overview/core-concepts/sensors/ray_caster.html">Ray Caster</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../overview/core-concepts/sensors/visuo_tactile_sensor.html">Visuo-Tactile Sensor</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../overview/core-concepts/renderers.html">Renderers</a></li>
@@ -399,6 +398,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../experimental-features/newton-physics-integration/using-kamino.html">Using the Kamino Solver</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../experimental-features/visuo_tactile_sensor.html">Visuo-Tactile Sensor</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
 <ul class="nav bd-sidenav">
@@ -502,6 +502,18 @@
 <li class="toctree-l2"><a class="reference internal" href="lab_visualizers/isaaclab_visualizers.newton.html">isaaclab_visualizers.newton</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lab_visualizers/isaaclab_visualizers.rerun.html">isaaclab_visualizers.rerun</a></li>
 <li class="toctree-l2"><a class="reference internal" href="lab_visualizers/isaaclab_visualizers.viser.html">isaaclab_visualizers.viser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab_ovphysx/isaaclab_ovphysx.assets.html">isaaclab_ovphysx.assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab_ovphysx/isaaclab_ovphysx.cloner.html">isaaclab_ovphysx.cloner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab_ovphysx/isaaclab_ovphysx.physics.html">isaaclab_ovphysx.physics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab_ovphysx/isaaclab_ovphysx.assets.html">isaaclab_ovphysx.assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab_ovphysx/isaaclab_ovphysx.cloner.html">isaaclab_ovphysx.cloner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab_ovphysx/isaaclab_ovphysx.physics.html">isaaclab_ovphysx.physics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab_experimental/isaaclab_experimental.envs.html">isaaclab_experimental.envs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab_experimental/isaaclab_experimental.managers.html">isaaclab_experimental.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab_experimental/isaaclab_experimental.utils.html">isaaclab_experimental.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab_experimental/isaaclab_experimental.envs.html">isaaclab_experimental.envs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab_experimental/isaaclab_experimental.managers.html">isaaclab_experimental.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab_experimental/isaaclab_experimental.utils.html">isaaclab_experimental.utils</a></li>
 </ul>
 </details></li>
 </ul>
@@ -755,6 +767,13 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab-visualizers-extension">isaaclab_visualizers extension</a><ul class="nav section-nav flex-column">
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab-ovphysx-extension">isaaclab_ovphysx extension</a><ul class="nav section-nav flex-column">
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab-experimental-extension">isaaclab_experimental extension</a><ul class="nav section-nav flex-column">
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab-tasks-experimental-extension">isaaclab_tasks_experimental extension</a></li>
 </ul>
             </nav>
         </div>
@@ -1031,6 +1050,52 @@ For more information, please refer to the <a class="reference internal" href="..
 <div class="toctree-wrapper compound">
 </div>
 </section>
+<section id="isaaclab-ovphysx-extension">
+<h2>isaaclab_ovphysx extension<a class="headerlink" href="#isaaclab-ovphysx-extension" title="Link to this heading">#</a></h2>
+<p>The following modules are available in the <code class="docutils literal notranslate"><span class="pre">isaaclab_ovphysx</span></code> extension:</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="lab_ovphysx/isaaclab_ovphysx.assets.html#module-isaaclab_ovphysx.assets" title="isaaclab_ovphysx.assets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assets</span></code></a></p></td>
+<td><p>Sub-package for ovphysx-backed assets.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="lab_ovphysx/isaaclab_ovphysx.cloner.html#module-isaaclab_ovphysx.cloner" title="isaaclab_ovphysx.cloner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cloner</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="lab_ovphysx/isaaclab_ovphysx.physics.html#module-isaaclab_ovphysx.physics" title="isaaclab_ovphysx.physics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">physics</span></code></a></p></td>
+<td><p>OvPhysX physics manager implementation.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="isaaclab-experimental-extension">
+<h2>isaaclab_experimental extension<a class="headerlink" href="#isaaclab-experimental-extension" title="Link to this heading">#</a></h2>
+<p>The following modules are available in the <code class="docutils literal notranslate"><span class="pre">isaaclab_experimental</span></code> extension:</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="lab_experimental/isaaclab_experimental.envs.html#module-isaaclab_experimental.envs" title="isaaclab_experimental.envs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">envs</span></code></a></p></td>
+<td><p>Sub-package for environment definitions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="lab_experimental/isaaclab_experimental.managers.html#module-isaaclab_experimental.managers" title="isaaclab_experimental.managers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">managers</span></code></a></p></td>
+<td><p>Experimental manager implementations.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="lab_experimental/isaaclab_experimental.utils.html#module-isaaclab_experimental.utils" title="isaaclab_experimental.utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">utils</span></code></a></p></td>
+<td><p>Sub-package containing experimental utilities.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="isaaclab-tasks-experimental-extension">
+<h2>isaaclab_tasks_experimental extension<a class="headerlink" href="#isaaclab-tasks-experimental-extension" title="Link to this heading">#</a></h2>
+<p>The package <code class="docutils literal notranslate"><span class="pre">isaaclab_tasks_experimental</span></code> contains experimental task implementations
+under active development, not yet part of the stable task suite.
+For the list of available environments, please refer to the <a class="reference internal" href="../overview/environments.html#environments"><span class="std std-ref">Available Environments</span></a>.</p>
+</section>
 </section>
 
 
@@ -1103,6 +1168,13 @@ For more information, please refer to the <a class="reference internal" href="..
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab-visualizers-extension">isaaclab_visualizers extension</a><ul class="nav section-nav flex-column">
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab-ovphysx-extension">isaaclab_ovphysx extension</a><ul class="nav section-nav flex-column">
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab-experimental-extension">isaaclab_experimental extension</a><ul class="nav section-nav flex-column">
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab-tasks-experimental-extension">isaaclab_tasks_experimental extension</a></li>
 </ul>
   </nav></div>
 

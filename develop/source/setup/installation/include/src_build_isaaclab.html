@@ -351,7 +351,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../overview/core-concepts/sensors/pva.html">Pose Velocity Acceleration (PVA) Sensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../overview/core-concepts/sensors/joint_wrench_sensor.html">Joint Wrench Sensor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../overview/core-concepts/sensors/ray_caster.html">Ray Caster</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../overview/core-concepts/sensors/visuo_tactile_sensor.html">Visuo-Tactile Sensor</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../overview/core-concepts/renderers.html">Renderers</a></li>
@@ -399,6 +398,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../experimental-features/newton-physics-integration/using-kamino.html">Using the Kamino Solver</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../experimental-features/visuo_tactile_sensor.html">Visuo-Tactile Sensor</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
 <ul class="nav bd-sidenav">
@@ -502,6 +502,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api/lab_visualizers/isaaclab_visualizers.newton.html">isaaclab_visualizers.newton</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/lab_visualizers/isaaclab_visualizers.rerun.html">isaaclab_visualizers.rerun</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/lab_visualizers/isaaclab_visualizers.viser.html">isaaclab_visualizers.viser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/lab_ovphysx/isaaclab_ovphysx.assets.html">isaaclab_ovphysx.assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/lab_ovphysx/isaaclab_ovphysx.cloner.html">isaaclab_ovphysx.cloner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/lab_ovphysx/isaaclab_ovphysx.physics.html">isaaclab_ovphysx.physics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/lab_ovphysx/isaaclab_ovphysx.assets.html">isaaclab_ovphysx.assets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/lab_ovphysx/isaaclab_ovphysx.cloner.html">isaaclab_ovphysx.cloner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/lab_ovphysx/isaaclab_ovphysx.physics.html">isaaclab_ovphysx.physics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/lab_experimental/isaaclab_experimental.envs.html">isaaclab_experimental.envs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/lab_experimental/isaaclab_experimental.managers.html">isaaclab_experimental.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/lab_experimental/isaaclab_experimental.utils.html">isaaclab_experimental.utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/lab_experimental/isaaclab_experimental.envs.html">isaaclab_experimental.envs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/lab_experimental/isaaclab_experimental.managers.html">isaaclab_experimental.managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/lab_experimental/isaaclab_experimental.utils.html">isaaclab_experimental.utils</a></li>
 </ul>
 </details></li>
 </ul>
@@ -749,8 +761,8 @@ compiled from source, which needs these headers and libraries:</p>
 </pre></div>
 </div>
 </li>
-<li><p>Run the install command that iterates over all the extensions in <code class="docutils literal notranslate"><span class="pre">source</span></code> directory and installs them
-using pip (with <code class="docutils literal notranslate"><span class="pre">--editable</span></code> flag):</p>
+<li><p>Run the install command, which installs all core Isaac Lab packages and, by default,
+the standard optional submodules and auto-selected extras:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" data-sync-group="os" data-sync-id="linux" for="sd-tab-item-0">
@@ -767,47 +779,115 @@ using pip (with <code class="docutils literal notranslate"><span class="pre">--e
 </div>
 </div>
 </div>
-<p>By default, the above will install <strong>all</strong> Isaac Lab submodules (under <code class="docutils literal notranslate"><span class="pre">source/isaaclab</span></code>).
-To install only specific Isaac Lab submodules, pass a comma-separated list of submodule names. The available
-Isaac Lab submodules are: <code class="docutils literal notranslate"><span class="pre">assets</span></code>, <code class="docutils literal notranslate"><span class="pre">contrib</span></code>, <code class="docutils literal notranslate"><span class="pre">mimic</span></code>, <code class="docutils literal notranslate"><span class="pre">newton</span></code>, <code class="docutils literal notranslate"><span class="pre">ov</span></code>, <code class="docutils literal notranslate"><span class="pre">physx</span></code>, <code class="docutils literal notranslate"><span class="pre">rl</span></code>, <code class="docutils literal notranslate"><span class="pre">tasks</span></code>,
-<code class="docutils literal notranslate"><span class="pre">teleop</span></code>, <code class="docutils literal notranslate"><span class="pre">visualizers</span></code>. Available RL frameworks are: <code class="docutils literal notranslate"><span class="pre">rl_games</span></code>, <code class="docutils literal notranslate"><span class="pre">rsl_rl</span></code>, <code class="docutils literal notranslate"><span class="pre">sb3</span></code>, <code class="docutils literal notranslate"><span class="pre">skrl</span></code>, <code class="docutils literal notranslate"><span class="pre">robomimic</span></code>.</p>
-<p>For example, to install a small subset of submodules:</p>
+<p>All core submodules are <strong>always</strong> installed regardless of what is passed to <code class="docutils literal notranslate"><span class="pre">-i</span></code>.
+The argument controls which optional submodules and extra feature dependencies to add on top.
+The contrib and OV source packages (<code class="docutils literal notranslate"><span class="pre">isaaclab_contrib</span></code>, <code class="docutils literal notranslate"><span class="pre">isaaclab_ov</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">isaaclab_ovphysx</span></code>) are part of the core set so core modules and task configs can
+import their config and preset classes without installing their heavy runtime dependencies.</p>
+<p><strong>Optional submodules</strong>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Token</p></th>
+<th class="head"><p>What it installs</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mimic</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">isaaclab_mimic</span></code> (ipywidgets, h5py, imitation-learning tools)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">teleop</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">isaaclab_teleop</span></code> (isaacteleop SDK, dex-retargeting — Linux x86 only)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Optional extra feature sets</strong> (heavy optional deps on top of core packages):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Token</p></th>
+<th class="head"><p>What it installs</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">contrib[&lt;feature&gt;]</span></code></p></td>
+<td><p>Contrib runtime extras. Selector: <code class="docutils literal notranslate"><span class="pre">rlinf</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">newton</span></code></p></td>
+<td><p>Newton physics library (<code class="docutils literal notranslate"><span class="pre">newton[sim]</span></code> git dep) across <code class="docutils literal notranslate"><span class="pre">isaaclab_newton</span></code>, <code class="docutils literal notranslate"><span class="pre">isaaclab_physx</span></code>, <code class="docutils literal notranslate"><span class="pre">isaaclab_visualizers</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ov[&lt;runtime&gt;]</span></code></p></td>
+<td><p>OV runtime wheels. Selectors: <code class="docutils literal notranslate"><span class="pre">ovrtx</span></code>, <code class="docutils literal notranslate"><span class="pre">ovphysx</span></code>. Use <code class="docutils literal notranslate"><span class="pre">ov[all]</span></code> for both.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rl[&lt;framework&gt;]</span></code></p></td>
+<td><p>RL framework extras on <code class="docutils literal notranslate"><span class="pre">isaaclab_rl</span></code>. Selectors: <code class="docutils literal notranslate"><span class="pre">rsl-rl</span></code>, <code class="docutils literal notranslate"><span class="pre">skrl</span></code>, <code class="docutils literal notranslate"><span class="pre">sb3</span></code>, <code class="docutils literal notranslate"><span class="pre">rl-games</span></code>. Omit selector for all.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">visualizer[&lt;backend&gt;]</span></code></p></td>
+<td><p>Visualizer backend extras. Selectors: <code class="docutils literal notranslate"><span class="pre">rerun</span></code>, <code class="docutils literal notranslate"><span class="pre">viser</span></code>, <code class="docutils literal notranslate"><span class="pre">newton</span></code>, <code class="docutils literal notranslate"><span class="pre">kit</span></code>. Omit selector for all.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Special values</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">all</span></code> — core + optional submodules (mimic, teleop) + auto extra features (newton, rl, visualizer) — default when <code class="docutils literal notranslate"><span class="pre">-i</span></code> is used with no argument</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">none</span></code> — core submodules only; no optional submodules, no extra feature dependencies</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">all</span></code> installs the contrib and OV source packages, but not their heavy
+dependency extras. Use <code class="docutils literal notranslate"><span class="pre">contrib[rlinf]</span></code> for rlinf
+dependencies and <code class="docutils literal notranslate"><span class="pre">ov[ovrtx]</span></code>, <code class="docutils literal notranslate"><span class="pre">ov[ovphysx]</span></code>, or <code class="docutils literal notranslate"><span class="pre">ov[all]</span></code> for OV runtime
+wheels.</p>
+</div>
+<p>Examples:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" data-sync-group="os" data-sync-id="linux" for="sd-tab-item-2">
 <i class="fa-brands fa-linux"></i> Linux</label><div class="sd-tab-content docutils">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>--install<span class="w"> </span>physx,newton,assets,rl<span class="o">[</span>rsl_rl<span class="o">]</span>,tasks,ov<span class="w">  </span><span class="c1"># or &quot;./isaaclab.sh -i physx,newton,assets,rl[rsl_rl],tasks,ov&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Default: core + optional submodules + auto extras</span>
+./isaaclab.sh<span class="w"> </span>-i
+
+<span class="c1"># Newton physics + RSL-RL framework</span>
+./isaaclab.sh<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;newton,rl[rsl-rl]&#39;</span>
+
+<span class="c1"># Newton + rerun visualizer + mimic</span>
+./isaaclab.sh<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;newton,visualizer[rerun],mimic&#39;</span>
+
+<span class="c1"># OV source packages + OVRTX wheel</span>
+./isaaclab.sh<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;ov[ovrtx]&#39;</span>
+
+<span class="c1"># Contrib rlinf dependencies</span>
+./isaaclab.sh<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;contrib[rlinf]&#39;</span>
+
+<span class="c1"># Core only — no optional submodules, no extras</span>
+./isaaclab.sh<span class="w"> </span>-i<span class="w"> </span>none
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" data-sync-group="os" data-sync-id="windows" for="sd-tab-item-3">
 <i class="fa-brands fa-windows"></i> Windows</label><div class="sd-tab-content docutils">
-<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span>isaaclab.bat --install physx,newton,assets,rl[rsl_rl],tasks,ov :: or <span class="s2">&quot;isaaclab.bat -i physx,newton,assets,rl[rsl_rl],tasks,ov&quot;</span>
+<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="c1">: Default: core + optional submodules + auto extras</span>
+isaaclab.bat -i
+
+<span class="p">:</span><span class="c1">: Newton physics + RSL-RL framework</span>
+isaaclab.bat -i <span class="s2">&quot;newton,rl[rsl-rl]&quot;</span>
+
+<span class="p">:</span><span class="c1">: Newton + rerun visualizer + mimic</span>
+isaaclab.bat -i <span class="s2">&quot;newton,visualizer[rerun],mimic&quot;</span>
+
+<span class="p">:</span><span class="c1">: OV source packages + OVRTX wheel</span>
+isaaclab.bat -i <span class="s2">&quot;ov[ovrtx]&quot;</span>
+
+<span class="p">:</span><span class="c1">: Contrib rlinf dependencies</span>
+isaaclab.bat -i <span class="s2">&quot;contrib[rlinf]&quot;</span>
+
+<span class="p">:</span><span class="c1">: Core only - no optional submodules, no extras</span>
+isaaclab.bat -i none
 </pre></div>
 </div>
 </div>
 </div>
-<p>To install specific visualizer, pass a comma-separated list of supported visualizers,
-or <code class="docutils literal notranslate"><span class="pre">all</span></code> to install all available options: <code class="docutils literal notranslate"><span class="pre">newton</span></code>, <code class="docutils literal notranslate"><span class="pre">rerun</span></code>, <code class="docutils literal notranslate"><span class="pre">viser</span></code>, <code class="docutils literal notranslate"><span class="pre">kit</span></code>. Note when following the
-default installation, all visualizers are installed.</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" data-sync-group="os" data-sync-id="linux" for="sd-tab-item-4">
-<i class="fa-brands fa-linux"></i> Linux</label><div class="sd-tab-content docutils">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>--install<span class="w"> </span>visualizers<span class="o">[</span>rerun<span class="o">]</span><span class="w">  </span><span class="c1"># or &quot;./isaaclab.sh -i visualizers[rerun]&quot;</span>
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" data-sync-group="os" data-sync-id="windows" for="sd-tab-item-5">
-<i class="fa-brands fa-windows"></i> Windows</label><div class="sd-tab-content docutils">
-<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span>isaaclab.bat --install visualizers[rerun] :: or <span class="s2">&quot;isaaclab.bat -i visualizers[rerun]&quot;</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Pass <code class="docutils literal notranslate"><span class="pre">none</span></code> to install only the core <code class="docutils literal notranslate"><span class="pre">isaaclab</span></code> package without any Isaac Lab submodules or RL frameworks.</p>
 </li>
 </ul>
 </section>
