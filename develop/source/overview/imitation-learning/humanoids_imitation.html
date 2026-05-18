@@ -1322,7 +1322,7 @@ The following steps describe how to install GR00T, convert the dataset to LeRobo
 <section id="finetune-gr00t-n1-5-policy-for-locomanipulation">
 <span id="finetune-groot-n15-for-locomanipulation"></span><h3>Finetune GR00T N1.5 policy for locomanipulation<a class="headerlink" href="#finetune-gr00t-n1-5-policy-for-locomanipulation" title="Link to this heading">#</a></h3>
 <p><strong>Prerequisites:</strong> Generate the locomanipulation dataset using the command in the previous section (e.g. <code class="docutils literal notranslate"><span class="pre">generated_dataset_g1_locomanipulation_sdg.hdf5</span></code>).
-You may place one or more such HDF5 files in a single directory for the conversion step.</p>
+The conversion step accepts a directory of SDG HDF5 files, so you may group multiple <code class="docutils literal notranslate"><span class="pre">generate_data.py</span></code> outputs together — but the directory must contain <strong>only</strong> SDG outputs, not other HDF5 files from earlier steps (e.g. <code class="docutils literal notranslate"><span class="pre">dataset_annotated_g1_locomanip.hdf5</span></code> or <code class="docutils literal notranslate"><span class="pre">generated_dataset_g1_locomanip.hdf5</span></code>).</p>
 <section id="install-gr00t-with-isaac-lab-uv">
 <h4>Install GR00T with Isaac Lab (uv)<a class="headerlink" href="#install-gr00t-with-isaac-lab-uv" title="Link to this heading">#</a></h4>
 <p>Clone the Isaac-GR00T repository and install GR00T N1.5 in the same uv environment used for Isaac Lab. From a parent directory that contains both repositories (or adjust paths accordingly), run:</p>
@@ -1360,12 +1360,14 @@ checkout is at <code class="docutils literal notranslate"><span class="pre">../I
 </section>
 <section id="convert-dataset-to-lerobot-format">
 <h4>Convert dataset to LeRobot format<a class="headerlink" href="#convert-dataset-to-lerobot-format" title="Link to this heading">#</a></h4>
-<p>GR00T N1.5 expects data in LeRobot format. From the <strong>IsaacLab</strong> repository root, run the conversion script. <code class="docutils literal notranslate"><span class="pre">&lt;input_dir&gt;</span></code> is a directory containing one or more <code class="docutils literal notranslate"><span class="pre">.hdf5</span></code> files (e.g. the output directory where you saved files from <code class="docutils literal notranslate"><span class="pre">generate_data.py</span></code>). <code class="docutils literal notranslate"><span class="pre">&lt;output_path&gt;</span></code> is the LeRobot-format output directory (e.g. <code class="docutils literal notranslate"><span class="pre">./datasets/datasets_train_200_lerobot</span></code>). Episodes with very low object displacement are skipped.</p>
+<p>GR00T N1.5 expects data in LeRobot format. From the <strong>IsaacLab</strong> repository root, run the conversion script. <code class="docutils literal notranslate"><span class="pre">&lt;input_dir&gt;</span></code> is a directory containing one or more SDG <code class="docutils literal notranslate"><span class="pre">.hdf5</span></code> files produced by <code class="docutils literal notranslate"><span class="pre">generate_data.py</span></code> (and <strong>no other HDF5 files</strong>). <code class="docutils literal notranslate"><span class="pre">&lt;output_path&gt;</span></code> is the LeRobot-format output directory (e.g. <code class="docutils literal notranslate"><span class="pre">./datasets/datasets_train_200_lerobot</span></code>). Episodes with very low object displacement are skipped.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/imitation_learning/locomanipulation_sdg/gr00t/convert_dataset.py<span class="w"> </span>&lt;input_dir&gt;<span class="w"> </span>&lt;output_path&gt;
 </pre></div>
 </div>
-<p>Example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/imitation_learning/locomanipulation_sdg/gr00t/convert_dataset.py<span class="w"> </span>./datasets<span class="w"> </span>./datasets/datasets_train_200_lerobot
+<p>Example — move the SDG output into its own directory first so the converter only sees SDG files:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>./datasets/locomanip_sdg
+mv<span class="w"> </span>./datasets/generated_dataset_g1_locomanipulation_sdg.hdf5<span class="w"> </span>./datasets/locomanip_sdg/
+./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/imitation_learning/locomanipulation_sdg/gr00t/convert_dataset.py<span class="w"> </span>./datasets/locomanip_sdg<span class="w"> </span>./datasets/datasets_train_200_lerobot
 </pre></div>
 </div>
 </section>
