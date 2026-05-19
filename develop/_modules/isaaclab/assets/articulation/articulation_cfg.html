@@ -694,7 +694,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">MISSING</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.actuators</span><span class="w"> </span><span class="kn">import</span> <span class="n">ActuatorBaseCfg</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.utils.configclass</span><span class="w"> </span><span class="kn">import</span> <span class="n">configclass</span>
@@ -766,7 +766,29 @@
 
     <span class="n">actuator_value_resolution_debug_print</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Print the resolution of actuator final value when input cfg is different from USD value, Defaults to False</span>
-<span class="sd">    &quot;&quot;&quot;</span></div>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_post_spawn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stage</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Author ``NewtonActuator`` USD prims from :attr:`actuators` after spawn.</span>
+
+<span class="sd">        Invoked by :class:`~isaaclab.assets.AssetBase` once the articulation&#39;s prims</span>
+<span class="sd">        exist on the stage. Delegates to</span>
+<span class="sd">        :func:`~isaaclab.sim.schemas.define_actuator_properties`, which gates itself</span>
+<span class="sd">        on ``sim_cfg.use_newton_actuators`` and silently no-ops when the simulation</span>
+<span class="sd">        is not configured for Newton-native actuators.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">actuators</span> <span class="ow">is</span> <span class="n">MISSING</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.sim.schemas.schemas_actuators</span><span class="w"> </span><span class="kn">import</span> <span class="n">define_actuator_properties</span>  <span class="c1"># noqa: PLC0415</span>
+
+        <span class="c1"># In InteractiveScene, articulated assets are often spawned first under</span>
+        <span class="c1"># a template path (for example ``/World/template/Robot``) and cloned</span>
+        <span class="c1"># into ``{ENV_REGEX_NS}`` later. Author NewtonActuator prims on the</span>
+        <span class="c1"># actual spawned source prim so clones inherit them.</span>
+        <span class="n">author_prim_path</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">spawn</span><span class="o">.</span><span class="n">spawn_path</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">spawn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">spawn</span><span class="o">.</span><span class="n">spawn_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">prim_path</span>
+        <span class="p">)</span>
+        <span class="n">define_actuator_properties</span><span class="p">(</span><span class="n">author_prim_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">actuators</span><span class="p">,</span> <span class="n">stage</span><span class="o">=</span><span class="n">stage</span><span class="p">)</span></div>
 
 </pre></div>
 

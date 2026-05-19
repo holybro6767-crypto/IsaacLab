@@ -803,6 +803,7 @@
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.sim.SimulationCfg.use_fabric"><code class="docutils literal notranslate"><span class="pre">SimulationCfg.use_fabric</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.sim.SimulationCfg.render_interval"><code class="docutils literal notranslate"><span class="pre">SimulationCfg.render_interval</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.sim.SimulationCfg.enable_scene_query_support"><code class="docutils literal notranslate"><span class="pre">SimulationCfg.enable_scene_query_support</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.sim.SimulationCfg.use_newton_actuators"><code class="docutils literal notranslate"><span class="pre">SimulationCfg.use_newton_actuators</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.sim.SimulationCfg.physics"><code class="docutils literal notranslate"><span class="pre">SimulationCfg.physics</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.sim.SimulationCfg.render"><code class="docutils literal notranslate"><span class="pre">SimulationCfg.render</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.sim.SimulationCfg.create_stage_in_memory"><code class="docutils literal notranslate"><span class="pre">SimulationCfg.create_stage_in_memory</span></code></a></li>
@@ -1379,25 +1380,28 @@ device settings, and physics backend configuration.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#isaaclab.sim.SimulationCfg.enable_scene_query_support" title="isaaclab.sim.SimulationCfg.enable_scene_query_support"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enable_scene_query_support</span></code></a></p></td>
 <td><p>Enable/disable scene query support for collision shapes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab.sim.SimulationCfg.physics" title="isaaclab.sim.SimulationCfg.physics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">physics</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab.sim.SimulationCfg.use_newton_actuators" title="isaaclab.sim.SimulationCfg.use_newton_actuators"><code class="xref py py-obj docutils literal notranslate"><span class="pre">use_newton_actuators</span></code></a></p></td>
+<td><p>Use Newton-native actuators instead of IsaacLab explicit actuator models.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab.sim.SimulationCfg.physics" title="isaaclab.sim.SimulationCfg.physics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">physics</span></code></a></p></td>
 <td><p>Physics manager configuration.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab.sim.SimulationCfg.render" title="isaaclab.sim.SimulationCfg.render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab.sim.SimulationCfg.render" title="isaaclab.sim.SimulationCfg.render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render</span></code></a></p></td>
 <td><p>Render settings.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab.sim.SimulationCfg.create_stage_in_memory" title="isaaclab.sim.SimulationCfg.create_stage_in_memory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_stage_in_memory</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab.sim.SimulationCfg.create_stage_in_memory" title="isaaclab.sim.SimulationCfg.create_stage_in_memory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_stage_in_memory</span></code></a></p></td>
 <td><p>If stage is first created in memory.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab.sim.SimulationCfg.logging_level" title="isaaclab.sim.SimulationCfg.logging_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logging_level</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab.sim.SimulationCfg.logging_level" title="isaaclab.sim.SimulationCfg.logging_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logging_level</span></code></a></p></td>
 <td><p>The logging level.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab.sim.SimulationCfg.save_logs_to_file" title="isaaclab.sim.SimulationCfg.save_logs_to_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_logs_to_file</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab.sim.SimulationCfg.save_logs_to_file" title="isaaclab.sim.SimulationCfg.save_logs_to_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_logs_to_file</span></code></a></p></td>
 <td><p>Save logs to a file.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab.sim.SimulationCfg.log_dir" title="isaaclab.sim.SimulationCfg.log_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">log_dir</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab.sim.SimulationCfg.log_dir" title="isaaclab.sim.SimulationCfg.log_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">log_dir</span></code></a></p></td>
 <td><p>The directory to save the logs to.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab.sim.SimulationCfg.visualizer_cfgs" title="isaaclab.sim.SimulationCfg.visualizer_cfgs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visualizer_cfgs</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab.sim.SimulationCfg.visualizer_cfgs" title="isaaclab.sim.SimulationCfg.visualizer_cfgs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visualizer_cfgs</span></code></a></p></td>
 <td><p>The visualizer configuration(s).</p></td>
 </tr>
 </tbody>
@@ -1473,6 +1477,22 @@ functionality will not be available. However, this provides some performance spe
 <p>This flag is overridden to True inside the <a class="reference internal" href="#isaaclab.sim.SimulationContext" title="isaaclab.sim.SimulationContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimulationContext</span></code></a> class when running the simulation
 with the GUI enabled. This is to allow certain GUI features to work properly.</p>
 </div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="isaaclab.sim.SimulationCfg.use_newton_actuators">
+<span class="sig-name descname"><span class="pre">use_newton_actuators</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#isaaclab.sim.SimulationCfg.use_newton_actuators" title="Link to this definition">#</a></dt>
+<dd><p>Use Newton-native actuators instead of IsaacLab explicit actuator models.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">True</span></code>, explicit actuator configs (e.g. <code class="xref py py-class docutils literal notranslate"><span class="pre">IdealPDActuatorCfg</span></code>,
+<code class="xref py py-class docutils literal notranslate"><span class="pre">DCMotorCfg</span></code>) are translated into <code class="docutils literal notranslate"><span class="pre">NewtonActuator</span></code> USD prims and
+stepped by the physics engine.  The Lab config values (stiffness, damping,
+effort_limit, etc.) take precedence: for every joint covered by a Lab
+actuator config, any existing <code class="docutils literal notranslate"><span class="pre">NewtonActuator</span></code> prim targeting that joint
+is replaced by one synthesised from the config.  Joints that are <em>not</em>
+covered by a Lab config keep their USD-authored actuators (if any).</p>
+<p><code class="xref py py-class docutils literal notranslate"><span class="pre">ImplicitActuatorCfg</span></code> entries are still instantiated normally and
+their gains are written to the simulation, so joints that use implicit
+actuation continue to work as expected.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1938,6 +1958,7 @@ existing visualizer resolution machinery picks them up. Defaults to None.</p></l
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.sim.SimulationCfg.use_fabric"><code class="docutils literal notranslate"><span class="pre">SimulationCfg.use_fabric</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.sim.SimulationCfg.render_interval"><code class="docutils literal notranslate"><span class="pre">SimulationCfg.render_interval</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.sim.SimulationCfg.enable_scene_query_support"><code class="docutils literal notranslate"><span class="pre">SimulationCfg.enable_scene_query_support</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.sim.SimulationCfg.use_newton_actuators"><code class="docutils literal notranslate"><span class="pre">SimulationCfg.use_newton_actuators</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.sim.SimulationCfg.physics"><code class="docutils literal notranslate"><span class="pre">SimulationCfg.physics</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.sim.SimulationCfg.render"><code class="docutils literal notranslate"><span class="pre">SimulationCfg.render</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.sim.SimulationCfg.create_stage_in_memory"><code class="docutils literal notranslate"><span class="pre">SimulationCfg.create_stage_in_memory</span></code></a></li>

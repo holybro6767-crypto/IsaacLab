@@ -694,7 +694,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">MISSING</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Literal</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.sim</span><span class="w"> </span><span class="kn">import</span> <span class="n">SpawnerCfg</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.utils.configclass</span><span class="w"> </span><span class="kn">import</span> <span class="n">configclass</span>
@@ -777,7 +777,21 @@
 
 <span class="sd">    When ``None`` (the default), shape checks follow Python&#39;s ``__debug__``</span>
 <span class="sd">    flag — enabled in normal mode, disabled with ``python -O``.</span>
-<span class="sd">    &quot;&quot;&quot;</span></div>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_post_spawn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stage</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Hook invoked by :class:`~isaaclab.assets.AssetBase` after the asset&#39;s prims are</span>
+<span class="sd">        spawned and verified to exist on the stage.</span>
+
+<span class="sd">        The default implementation is a no-op. Subclasses that need to author additional</span>
+<span class="sd">        USD schemas tied to this asset (for example, :class:`~isaaclab.assets.ArticulationCfg`</span>
+<span class="sd">        which authors ``NewtonActuator`` prims from its ``actuators`` mapping) should</span>
+<span class="sd">        override this method.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            stage: The USD stage on which the asset was spawned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
 
 </pre></div>
 

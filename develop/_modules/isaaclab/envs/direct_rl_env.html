@@ -789,6 +789,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">render_mode</span> <span class="o">=</span> <span class="n">render_mode</span>
         <span class="c1"># initialize internal variables</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_closed</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_physics_handles_decimation</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="c1"># set the seed for the environment</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">seed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -896,6 +897,10 @@
             <span class="c1"># this shouldn&#39;t cause an issue since later on, users do a reset over all the environments</span>
             <span class="c1"># so the lazy buffers would be reset.</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">physics_dt</span><span class="p">)</span>
+        <span class="c1"># let the physics backend know about the env decimation so it can</span>
+        <span class="c1"># fold the full loop into a single step() when possible</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">physics_manager</span><span class="o">.</span><span class="n">set_decimation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">decimation</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_physics_handles_decimation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">physics_manager</span><span class="o">.</span><span class="n">handles_decimation</span><span class="p">()</span>
 
         <span class="c1"># check if debug visualization is has been implemented by the environment</span>
         <span class="n">source_code</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set_debug_vis_impl</span><span class="p">)</span>
@@ -1122,21 +1127,32 @@
         <span class="n">is_rendering</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">is_rendering</span>
 
         <span class="c1"># perform physics stepping</span>
-        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">decimation</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_sim_step_counter</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="c1"># set actions into buffers</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_physics_handles_decimation</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_sim_step_counter</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">decimation</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_apply_action</span><span class="p">()</span>
-            <span class="c1"># set actions into simulator</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">write_data_to_sim</span><span class="p">()</span>
-            <span class="c1"># simulate</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">render</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="c1"># render between steps only if the GUI or an RTX sensor needs it.</span>
-            <span class="c1"># When render_enabled is False, Kit visualizer (camera/GUI) is skipped</span>
-            <span class="c1"># but standalone visualizers (Newton, Rerun, Viser) still update.</span>
+            <span class="c1"># render only when a render_interval boundary falls within this decimation block,</span>
+            <span class="c1"># mirroring the per-sub-step check in the else branch.</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim_step_counter</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">render_interval</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">is_rendering</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">skip_app_pumping</span><span class="o">=</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_enabled</span><span class="p">)</span>
-            <span class="c1"># update buffers at sim dt</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">physics_dt</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">step_dt</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">decimation</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_sim_step_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="c1"># set actions into buffers</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_apply_action</span><span class="p">()</span>
+                <span class="c1"># set actions into simulator</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">write_data_to_sim</span><span class="p">()</span>
+                <span class="c1"># simulate</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">render</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="c1"># render between steps only if the GUI or an RTX sensor needs it.</span>
+                <span class="c1"># When render_enabled is False, Kit visualizer (camera/GUI) is skipped</span>
+                <span class="c1"># but standalone visualizers (Newton, Rerun, Viser) still update.</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sim_step_counter</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">render_interval</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">is_rendering</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">skip_app_pumping</span><span class="o">=</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_enabled</span><span class="p">)</span>
+                <span class="c1"># update buffers at sim dt</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">physics_dt</span><span class="p">)</span>
 
         <span class="c1"># post-step:</span>
         <span class="c1"># -- update env counters (used for curriculum generation)</span>
