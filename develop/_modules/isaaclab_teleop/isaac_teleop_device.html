@@ -339,6 +339,26 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../source/overview/core-concepts/index.html">Core Concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../source/overview/core-concepts/multi_backend_architecture.html">Multi-Backend Architecture</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../source/overview/core-concepts/physical-backends/index.html">Physics Backends</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../source/overview/core-concepts/physical-backends/physx/index.html">PhysX Backend</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../source/overview/core-concepts/physical-backends/physx/installation.html">Installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../source/overview/core-concepts/physical-backends/physx/configuration.html">PhysX Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../source/overview/core-concepts/physical-backends/physx/supported-features.html">Supported Features</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../source/overview/core-concepts/physical-backends/newton/index.html">Newton Backend</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../source/overview/core-concepts/physical-backends/newton/installation.html">Installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../source/overview/core-concepts/physical-backends/newton/supported-features.html">Supported Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../source/overview/core-concepts/physical-backends/newton/mjwarp-solver.html">MJWarp Solver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../source/overview/core-concepts/physical-backends/newton/kamino-solver.html">Kamino Solver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../source/overview/core-concepts/physical-backends/newton/warp-environments.html">Warp Experimental Environments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../source/overview/core-concepts/physical-backends/newton/warp-env-migration.html">Warp Environment Migration Guide</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../source/overview/core-concepts/physical-backends/ovphysx/index.html">OvPhysX Backend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../source/overview/core-concepts/physical-backends/solver-comparison.html">Solver Comparison</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="../../source/overview/core-concepts/schema_cfgs.html">Schema Configuration Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../source/overview/core-concepts/task_workflows.html">Task Design Workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../source/overview/core-concepts/actuators.html">Actuators</a></li>
@@ -390,18 +410,6 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Experimental Features</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../source/experimental-features/bleeding-edge.html">Welcome to the bleeding edge!</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../source/experimental-features/newton-physics-integration/index.html">Newton Physics Integration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../source/experimental-features/newton-physics-integration/installation.html">Installation</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../source/experimental-features/newton-physics-integration/warp-environments.html">Warp Experimental Environments</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../source/experimental-features/newton-physics-integration/warp-env-migration.html">Warp Environment Migration Guide</a></li>
-</ul>
-</details></li>
-<li class="toctree-l2"><a class="reference internal" href="../../source/experimental-features/newton-physics-integration/warp-env-migration.html">Warp Environment Migration Guide</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../source/experimental-features/newton-physics-integration/limitations-and-known-bugs.html">Limitations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../source/experimental-features/newton-physics-integration/solver-transitioning.html">Solver Transitioning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../source/experimental-features/newton-physics-integration/using-kamino.html">Using the Kamino Solver</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../source/experimental-features/visuo_tactile_sensor.html">Visuo-Tactile Sensor</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
@@ -797,6 +805,8 @@
         <span class="n">cfg</span><span class="p">:</span> <span class="n">IsaacTeleopCfg</span><span class="p">,</span>
         <span class="n">cloudxr_env_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">auto_launch_cloudxr</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">mcap_record_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">mcap_replay_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the IsaacTeleop device.</span>
 
@@ -809,6 +819,16 @@
 <span class="sd">            auto_launch_cloudxr: Whether to auto-launch the CloudXR runtime</span>
 <span class="sd">                when *cloudxr_env_file* is set.  Ignored when</span>
 <span class="sd">                *cloudxr_env_file* is ``None``.</span>
+<span class="sd">            mcap_record_path: Optional MCAP file path to record the live</span>
+<span class="sd">                teleop session into.  Mutually exclusive with</span>
+<span class="sd">                *mcap_replay_path*.  Debug-grade only -- the produced file</span>
+<span class="sd">                has no per-episode segmentation, no world-frame anchor, and</span>
+<span class="sd">                no public Python decoder.</span>
+<span class="sd">            mcap_replay_path: Optional MCAP file path to replay.  When set,</span>
+<span class="sd">                the device runs in :class:`SessionMode.REPLAY` with no live</span>
+<span class="sd">                XR connection and feeds the recorded tracker stream</span>
+<span class="sd">                through the pipeline.  Mutually exclusive with</span>
+<span class="sd">                *mcap_record_path*.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cfg</span> <span class="o">=</span> <span class="n">cfg</span>
 
@@ -818,6 +838,8 @@
             <span class="n">cfg</span><span class="p">,</span>
             <span class="n">cloudxr_env_file</span><span class="o">=</span><span class="n">cloudxr_env_file</span><span class="p">,</span>
             <span class="n">auto_launch_cloudxr</span><span class="o">=</span><span class="n">auto_launch_cloudxr</span><span class="p">,</span>
+            <span class="n">mcap_record_path</span><span class="o">=</span><span class="n">mcap_record_path</span><span class="p">,</span>
+            <span class="n">mcap_replay_path</span><span class="o">=</span><span class="n">mcap_replay_path</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_prev_right_a_pressed</span> <span class="o">=</span> <span class="kc">False</span>
@@ -1116,6 +1138,8 @@
     <span class="n">callbacks</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">cloudxr_env_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">auto_launch_cloudxr</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">mcap_record_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">mcap_replay_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IsaacTeleopDevice</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create an :class:`IsaacTeleopDevice` with required Omniverse extension setup.</span>
 
@@ -1123,7 +1147,9 @@
 <span class="sd">    before constructing an :class:`IsaacTeleopDevice`:</span>
 
 <span class="sd">    1. Disable default OpenXR input bindings (prevents conflicts).</span>
-<span class="sd">    2. Enable the ``isaacsim.kit.xr.teleop.bridge`` extension.</span>
+<span class="sd">    2. Enable the ``isaacsim.kit.xr.teleop.bridge`` extension (live mode</span>
+<span class="sd">       only -- replay mode skips this since it never touches the XR</span>
+<span class="sd">       runtime).</span>
 <span class="sd">    3. Optionally override :attr:`IsaacTeleopCfg.sim_device` so action tensors</span>
 <span class="sd">       land on the same device the caller uses for the simulation.</span>
 
@@ -1145,21 +1171,42 @@
 <span class="sd">            when *cloudxr_env_file* is set.  Set to ``False`` to skip the</span>
 <span class="sd">            launch (e.g. when running the runtime externally).  Ignored</span>
 <span class="sd">            when *cloudxr_env_file* is ``None``.</span>
+<span class="sd">        mcap_record_path: Optional MCAP file path to record the live teleop</span>
+<span class="sd">            session into.  Debug-grade only.  Mutually exclusive with</span>
+<span class="sd">            *mcap_replay_path*.</span>
+<span class="sd">        mcap_replay_path: Optional MCAP file path to replay.  When set, the</span>
+<span class="sd">            returned device runs in :class:`SessionMode.REPLAY` and the XR</span>
+<span class="sd">            teleop bridge is left untouched.  Mutually exclusive with</span>
+<span class="sd">            *mcap_record_path*.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A fully configured :class:`IsaacTeleopDevice` ready for use in a</span>
 <span class="sd">        ``with`` block.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">_enable_teleop_bridge</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">mcap_record_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">mcap_replay_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;mcap_record_path and mcap_replay_path are mutually exclusive; &quot;</span>
+            <span class="s2">&quot;set at most one to switch between LIVE recording and REPLAY playback.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Replay sessions never talk to Kit&#39;s XR bridge, so loading/enabling the</span>
+    <span class="c1"># bridge extension would only add startup latency and noisy log lines.</span>
+    <span class="k">if</span> <span class="n">mcap_replay_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_enable_teleop_bridge</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="n">sim_device</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">cfg</span><span class="o">.</span><span class="n">sim_device</span> <span class="o">=</span> <span class="n">sim_device</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Using IsaacTeleop stack for teleoperation&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mcap_replay_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Using IsaacTeleop stack for teleoperation (REPLAY mode)&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Using IsaacTeleop stack for teleoperation&quot;</span><span class="p">)</span>
     <span class="n">device</span> <span class="o">=</span> <span class="n">IsaacTeleopDevice</span><span class="p">(</span>
         <span class="n">cfg</span><span class="p">,</span>
         <span class="n">cloudxr_env_file</span><span class="o">=</span><span class="n">cloudxr_env_file</span><span class="p">,</span>
         <span class="n">auto_launch_cloudxr</span><span class="o">=</span><span class="n">auto_launch_cloudxr</span><span class="p">,</span>
+        <span class="n">mcap_record_path</span><span class="o">=</span><span class="n">mcap_record_path</span><span class="p">,</span>
+        <span class="n">mcap_replay_path</span><span class="o">=</span><span class="n">mcap_replay_path</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">callbacks</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>

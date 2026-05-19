@@ -341,6 +341,26 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="source/overview/core-concepts/index.html">Core Concepts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="source/overview/core-concepts/multi_backend_architecture.html">Multi-Backend Architecture</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="source/overview/core-concepts/physical-backends/index.html">Physics Backends</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="source/overview/core-concepts/physical-backends/physx/index.html">PhysX Backend</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="source/overview/core-concepts/physical-backends/physx/installation.html">Installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/overview/core-concepts/physical-backends/physx/configuration.html">PhysX Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/overview/core-concepts/physical-backends/physx/supported-features.html">Supported Features</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="source/overview/core-concepts/physical-backends/newton/index.html">Newton Backend</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="source/overview/core-concepts/physical-backends/newton/installation.html">Installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/overview/core-concepts/physical-backends/newton/supported-features.html">Supported Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/overview/core-concepts/physical-backends/newton/mjwarp-solver.html">MJWarp Solver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/overview/core-concepts/physical-backends/newton/kamino-solver.html">Kamino Solver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/overview/core-concepts/physical-backends/newton/warp-environments.html">Warp Experimental Environments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/overview/core-concepts/physical-backends/newton/warp-env-migration.html">Warp Environment Migration Guide</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="source/overview/core-concepts/physical-backends/ovphysx/index.html">OvPhysX Backend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/overview/core-concepts/physical-backends/solver-comparison.html">Solver Comparison</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="source/overview/core-concepts/schema_cfgs.html">Schema Configuration Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/overview/core-concepts/task_workflows.html">Task Design Workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/overview/core-concepts/actuators.html">Actuators</a></li>
@@ -392,18 +412,6 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Experimental Features</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="source/experimental-features/bleeding-edge.html">Welcome to the bleeding edge!</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="source/experimental-features/newton-physics-integration/index.html">Newton Physics Integration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="source/experimental-features/newton-physics-integration/installation.html">Installation</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="source/experimental-features/newton-physics-integration/warp-environments.html">Warp Experimental Environments</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/warp-env-migration.html">Warp Environment Migration Guide</a></li>
-</ul>
-</details></li>
-<li class="toctree-l2"><a class="reference internal" href="source/experimental-features/newton-physics-integration/warp-env-migration.html">Warp Environment Migration Guide</a></li>
-<li class="toctree-l2"><a class="reference internal" href="source/experimental-features/newton-physics-integration/limitations-and-known-bugs.html">Limitations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="source/experimental-features/newton-physics-integration/solver-transitioning.html">Solver Transitioning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="source/experimental-features/newton-physics-integration/using-kamino.html">Using the Kamino Solver</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1"><a class="reference internal" href="source/experimental-features/visuo_tactile_sensor.html">Visuo-Tactile Sensor</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
@@ -941,6 +949,13 @@ We gratefully acknowledge the authors of Orbit for their foundational contributi
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="source/overview/core-concepts/index.html">Core Concepts</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="source/overview/core-concepts/multi_backend_architecture.html">Multi-Backend Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/overview/core-concepts/physical-backends/index.html">Physics Backends</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="source/overview/core-concepts/physical-backends/physx/index.html">PhysX Backend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/overview/core-concepts/physical-backends/newton/index.html">Newton Backend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/overview/core-concepts/physical-backends/ovphysx/index.html">OvPhysX Backend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/overview/core-concepts/physical-backends/solver-comparison.html">Solver Comparison</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="source/overview/core-concepts/schema_cfgs.html">Schema Configuration Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/overview/core-concepts/task_workflows.html">Task Design Workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/overview/core-concepts/actuators.html">Actuators</a></li>
@@ -1064,43 +1079,6 @@ We gratefully acknowledge the authors of Orbit for their foundational contributi
 <li class="toctree-l3"><a class="reference internal" href="source/experimental-features/bleeding-edge.html#quick-start">Quick Start</a></li>
 <li class="toctree-l3"><a class="reference internal" href="source/experimental-features/bleeding-edge.html#configuration">Configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="source/experimental-features/bleeding-edge.html#key-files">Key Files</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="source/experimental-features/newton-physics-integration/index.html">Newton Physics Integration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="source/experimental-features/newton-physics-integration/installation.html">Installation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/installation.html#id1">Installation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/installation.html#testing-the-installation">Testing the Installation</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="source/experimental-features/newton-physics-integration/warp-environments.html">Warp Experimental Environments</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/warp-environments.html#workflows">Workflows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/warp-environments.html#available-environments">Available Environments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/warp-environments.html#quick-start">Quick Start</a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/warp-environments.html#performance-comparison">Performance Comparison</a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/warp-environments.html#which-workflows-benefit-most">Which Workflows Benefit Most</a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/warp-environments.html#limitations">Limitations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/warp-environments.html#benchmarking-your-environment">Benchmarking Your Environment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/warp-environments.html#migrating-existing-environments">Migrating Existing Environments</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="source/experimental-features/newton-physics-integration/warp-env-migration.html">Warp Environment Migration Guide</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/warp-env-migration.html#design-rationale">Design Rationale</a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/warp-env-migration.html#project-structure">Project Structure</a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/warp-env-migration.html#writing-warp-mdp-terms">Writing Warp MDP Terms</a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/warp-env-migration.html#parity-testing">Parity Testing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/warp-env-migration.html#available-warp-mdp-terms">Available Warp MDP Terms</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="source/experimental-features/newton-physics-integration/limitations-and-known-bugs.html">Limitations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="source/experimental-features/newton-physics-integration/solver-transitioning.html">Solver Transitioning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="source/experimental-features/newton-physics-integration/using-kamino.html">Using the Kamino Solver</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/using-kamino.html#start-from-a-supported-newton-task">Start from a Supported Newton Task</a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/using-kamino.html#add-a-kamino-physics-preset">Add a Kamino Physics Preset</a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/using-kamino.html#check-task-and-asset-compatibility">Check Task and Asset Compatibility</a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/using-kamino.html#kamino-solver-parameters">Kamino Solver Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/experimental-features/newton-physics-integration/using-kamino.html#tuning-workflow">Tuning Workflow</a></li>
 </ul>
 </li>
 </ul>

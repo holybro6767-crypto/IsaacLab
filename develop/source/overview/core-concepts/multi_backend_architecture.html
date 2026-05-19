@@ -58,7 +58,7 @@
     <link rel="icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Schema Configuration Classes" href="schema_cfgs.html" />
+    <link rel="next" title="Physics Backends" href="physical-backends/index.html" />
     <link rel="prev" title="Core Concepts" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -340,6 +340,26 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Core Concepts</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Multi-Backend Architecture</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="physical-backends/index.html">Physics Backends</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="physical-backends/physx/index.html">PhysX Backend</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="physical-backends/physx/installation.html">Installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="physical-backends/physx/configuration.html">PhysX Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="physical-backends/physx/supported-features.html">Supported Features</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="physical-backends/newton/index.html">Newton Backend</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="physical-backends/newton/installation.html">Installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="physical-backends/newton/supported-features.html">Supported Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="physical-backends/newton/mjwarp-solver.html">MJWarp Solver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="physical-backends/newton/kamino-solver.html">Kamino Solver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="physical-backends/newton/warp-environments.html">Warp Experimental Environments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="physical-backends/newton/warp-env-migration.html">Warp Environment Migration Guide</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="physical-backends/ovphysx/index.html">OvPhysX Backend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="physical-backends/solver-comparison.html">Solver Comparison</a></li>
+</ul>
+</details></li>
 <li class="toctree-l2"><a class="reference internal" href="schema_cfgs.html">Schema Configuration Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="task_workflows.html">Task Design Workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="actuators.html">Actuators</a></li>
@@ -391,18 +411,6 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Experimental Features</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../experimental-features/bleeding-edge.html">Welcome to the bleeding edge!</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../experimental-features/newton-physics-integration/index.html">Newton Physics Integration</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../experimental-features/newton-physics-integration/installation.html">Installation</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../experimental-features/newton-physics-integration/warp-environments.html">Warp Experimental Environments</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../experimental-features/newton-physics-integration/warp-env-migration.html">Warp Environment Migration Guide</a></li>
-</ul>
-</details></li>
-<li class="toctree-l2"><a class="reference internal" href="../../experimental-features/newton-physics-integration/warp-env-migration.html">Warp Environment Migration Guide</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../experimental-features/newton-physics-integration/limitations-and-known-bugs.html">Limitations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../experimental-features/newton-physics-integration/solver-transitioning.html">Solver Transitioning</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../experimental-features/newton-physics-integration/using-kamino.html">Using the Kamino Solver</a></li>
-</ul>
-</details></li>
 <li class="toctree-l1"><a class="reference internal" href="../../experimental-features/visuo_tactile_sensor.html">Visuo-Tactile Sensor</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Resources</span></p>
@@ -1128,8 +1136,8 @@ if-statements or dispatch logic on the hot path.</p></li>
 <li><p><a class="reference internal" href="../../migration/migrating_to_isaaclab_3-0.html"><span class="doc">Migrating to Isaac Lab 3.0</span></a> — migration guide from Isaac Lab 2.x to the
 multi-backend architecture</p></li>
 <li><p><a class="reference internal" href="../../features/hydra.html"><span class="doc">Hydra Configuration System</span></a> — preset system for multi-backend environment configurations</p></li>
-<li><p><a class="reference internal" href="../../experimental-features/newton-physics-integration/index.html"><span class="doc">Newton Physics Integration</span></a> — Newton physics integration
-guide</p></li>
+<li><p><a class="reference internal" href="physical-backends/index.html"><span class="doc">Physics Backends</span></a> — feature matrix and per-backend guides (PhysX, Newton, OvPhysX)</p></li>
+<li><p><a class="reference internal" href="physical-backends/newton/index.html"><span class="doc">Newton Backend</span></a> — Newton backend guide</p></li>
 <li><p><a class="reference internal" href="renderers.html"><span class="doc">Renderers</span></a> — renderer backend architecture</p></li>
 </ul>
 </section>
@@ -1156,11 +1164,11 @@ guide</p></li>
       </div>
     </a>
     <a class="right-next"
-       href="schema_cfgs.html"
+       href="physical-backends/index.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Schema Configuration Classes</p>
+        <p class="prev-next-title">Physics Backends</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
