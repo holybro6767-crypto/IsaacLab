@@ -453,6 +453,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../lab/isaaclab.physics.html">isaaclab.physics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab/isaaclab.renderers.html">isaaclab.renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab/isaaclab.scene.html">isaaclab.scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lab/isaaclab.scene_data.html">isaaclab.scene_data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab/isaaclab.sensors.html">isaaclab.sensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab/isaaclab.sim.html">isaaclab.sim</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab/isaaclab.terrains.html">isaaclab.terrains</a></li>
@@ -2481,7 +2482,7 @@ Returns a list that callers can append to.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isaaclab_contrib.deformable.vbd_manager.NewtonVBDManager.get_scene_data_backend">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_scene_data_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SceneDataBackend</span></span></span><a class="headerlink" href="#isaaclab_contrib.deformable.vbd_manager.NewtonVBDManager.get_scene_data_backend" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_scene_data_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataBackend" title="isaaclab.scene_data.scene_data_backend.SceneDataBackend"><span class="pre">SceneDataBackend</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_contrib.deformable.vbd_manager.NewtonVBDManager.get_scene_data_backend" title="Link to this definition">#</a></dt>
 <dd><p>Return the SceneDataBackend for the SceneDataProvider.</p>
 </dd></dl>
 
@@ -2761,7 +2762,7 @@ notify the Fabric Scene Delegate.  Otherwise it falls back to the CPU
 <p>Newton sim backend: no-op — <code class="docutils literal notranslate"><span class="pre">_state_0</span></code> is the live, authoritative state
 already advanced by <a class="reference internal" href="#isaaclab_contrib.deformable.vbd_manager.NewtonVBDManager.step" title="isaaclab_contrib.deformable.vbd_manager.NewtonVBDManager.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a> / forward kinematics.</p>
 <p>PhysX sim backend: pull rigid-body transforms from the
-<code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code> and write
+<a class="reference internal" href="../lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider" title="isaaclab.scene_data.SceneDataProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code></a> and write
 them into the shadow <code class="docutils literal notranslate"><span class="pre">_state_0.body_q</span></code> so Newton-native consumers
 (Newton renderer, Newton/Rerun/Viser visualizers, OVRTX renderer, Newton
 GL video) see fresh poses.</p>
@@ -3247,7 +3248,7 @@ Returns a list that callers can append to.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isaaclab_contrib.deformable.coupled_mjwarp_vbd_manager.NewtonCoupledMJWarpVBDManager.get_scene_data_backend">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_scene_data_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SceneDataBackend</span></span></span><a class="headerlink" href="#isaaclab_contrib.deformable.coupled_mjwarp_vbd_manager.NewtonCoupledMJWarpVBDManager.get_scene_data_backend" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_scene_data_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataBackend" title="isaaclab.scene_data.scene_data_backend.SceneDataBackend"><span class="pre">SceneDataBackend</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_contrib.deformable.coupled_mjwarp_vbd_manager.NewtonCoupledMJWarpVBDManager.get_scene_data_backend" title="Link to this definition">#</a></dt>
 <dd><p>Return the SceneDataBackend for the SceneDataProvider.</p>
 </dd></dl>
 
@@ -3504,7 +3505,7 @@ notify the Fabric Scene Delegate.  Otherwise it falls back to the CPU
 <p>Newton sim backend: no-op — <code class="docutils literal notranslate"><span class="pre">_state_0</span></code> is the live, authoritative state
 already advanced by <a class="reference internal" href="#isaaclab_contrib.deformable.coupled_mjwarp_vbd_manager.NewtonCoupledMJWarpVBDManager.step" title="isaaclab_contrib.deformable.coupled_mjwarp_vbd_manager.NewtonCoupledMJWarpVBDManager.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a> / forward kinematics.</p>
 <p>PhysX sim backend: pull rigid-body transforms from the
-<code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code> and write
+<a class="reference internal" href="../lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider" title="isaaclab.scene_data.SceneDataProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code></a> and write
 them into the shadow <code class="docutils literal notranslate"><span class="pre">_state_0.body_q</span></code> so Newton-native consumers
 (Newton renderer, Newton/Rerun/Viser visualizers, OVRTX renderer, Newton
 GL video) see fresh poses.</p>
@@ -3990,7 +3991,7 @@ Returns a list that callers can append to.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isaaclab_contrib.deformable.coupled_featherstone_vbd_manager.NewtonCoupledFeatherstoneVBDManager.get_scene_data_backend">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_scene_data_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SceneDataBackend</span></span></span><a class="headerlink" href="#isaaclab_contrib.deformable.coupled_featherstone_vbd_manager.NewtonCoupledFeatherstoneVBDManager.get_scene_data_backend" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_scene_data_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataBackend" title="isaaclab.scene_data.scene_data_backend.SceneDataBackend"><span class="pre">SceneDataBackend</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_contrib.deformable.coupled_featherstone_vbd_manager.NewtonCoupledFeatherstoneVBDManager.get_scene_data_backend" title="Link to this definition">#</a></dt>
 <dd><p>Return the SceneDataBackend for the SceneDataProvider.</p>
 </dd></dl>
 
@@ -4247,7 +4248,7 @@ notify the Fabric Scene Delegate.  Otherwise it falls back to the CPU
 <p>Newton sim backend: no-op — <code class="docutils literal notranslate"><span class="pre">_state_0</span></code> is the live, authoritative state
 already advanced by <a class="reference internal" href="#isaaclab_contrib.deformable.coupled_featherstone_vbd_manager.NewtonCoupledFeatherstoneVBDManager.step" title="isaaclab_contrib.deformable.coupled_featherstone_vbd_manager.NewtonCoupledFeatherstoneVBDManager.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a> / forward kinematics.</p>
 <p>PhysX sim backend: pull rigid-body transforms from the
-<code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code> and write
+<a class="reference internal" href="../lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider" title="isaaclab.scene_data.SceneDataProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code></a> and write
 them into the shadow <code class="docutils literal notranslate"><span class="pre">_state_0.body_q</span></code> so Newton-native consumers
 (Newton renderer, Newton/Rerun/Viser visualizers, OVRTX renderer, Newton
 GL video) see fresh poses.</p>

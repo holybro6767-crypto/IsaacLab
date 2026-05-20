@@ -453,6 +453,7 @@
 <li class="toctree-l2"><a class="reference internal" href="isaaclab.physics.html">isaaclab.physics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="isaaclab.renderers.html">isaaclab.renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="isaaclab.scene.html">isaaclab.scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="isaaclab.scene_data.html">isaaclab.scene_data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="isaaclab.sensors.html">isaaclab.sensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="isaaclab.sim.html">isaaclab.sim</a></li>
 <li class="toctree-l2"><a class="reference internal" href="isaaclab.terrains.html">isaaclab.terrains</a></li>
@@ -1226,8 +1227,11 @@ correct implementation automatically:</p>
 <ul class="simple">
 <li><p><strong>PhysX / no backend</strong>: <code class="xref py py-class docutils literal notranslate"><span class="pre">FabricFrameView</span></code>
 (Fabric GPU acceleration with USD fallback).</p></li>
+<li><p><strong>OVPhysX</strong>: <code class="xref py py-class docutils literal notranslate"><span class="pre">OvPhysxFrameView</span></code>
+(Warp-native, reads body poses via an OVPhysX <code class="docutils literal notranslate"><span class="pre">RIGID_BODY_POSE</span></code>
+tensor binding).</p></li>
 <li><p><strong>Newton</strong>: <code class="xref py py-class docutils literal notranslate"><span class="pre">NewtonSiteFrameView</span></code>
-(GPU-resident site-based transforms).</p></li>
+(Warp-native, reads <code class="docutils literal notranslate"><span class="pre">body_q</span></code> from the Newton state).</p></li>
 </ul>
 <p><strong>Methods:</strong></p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">

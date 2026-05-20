@@ -453,6 +453,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab/isaaclab.physics.html">isaaclab.physics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab/isaaclab.renderers.html">isaaclab.renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab/isaaclab.scene.html">isaaclab.scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/lab/isaaclab.scene_data.html">isaaclab.scene_data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab/isaaclab.sensors.html">isaaclab.sensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab/isaaclab.sim.html">isaaclab.sim</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab/isaaclab.terrains.html">isaaclab.terrains</a></li>
@@ -754,7 +755,7 @@
                   
   <section id="scene-data-provider">
 <h1>Scene Data Provider<a class="headerlink" href="#scene-data-provider" title="Link to this heading">#</a></h1>
-<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code> bridges physics simulation
+<p>The <a class="reference internal" href="../../api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider" title="isaaclab.scene_data.SceneDataProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code></a> bridges physics simulation
 backends and the visualizers/renderers that consume scene data. It exposes a single Warp-native
 read path for body transforms regardless of which physics backend (PhysX or Newton) is active,
 so renderers and visualizers can stay backend-agnostic.</p>
@@ -763,7 +764,7 @@ so renderers and visualizers can stay backend-agnostic.</p>
 <p>Isaac Lab supports multiple physics backends (PhysX and Newton) and multiple visualizers
 (Omniverse Kit, Newton, Rerun, Viser). Each combination needs scene data to flow from the
 physics engine into the renderer or visualizer. The <code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code> owns this flow:
-the physics manager provides a <code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataBackend</span></code> that wraps its
+the physics manager provides a <a class="reference internal" href="../../api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataBackend" title="isaaclab.scene_data.SceneDataBackend"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataBackend</span></code></a> that wraps its
 native tensor views, and the provider handles format conversion and re-mapping on top of it.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.sim</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimulationContext</span>
 
@@ -777,9 +778,9 @@ native tensor views, and the provider handles format conversion and re-mapping o
 <h2>Architecture<a class="headerlink" href="#architecture" title="Link to this heading">#</a></h2>
 <p>The system has three layers:</p>
 <ol class="arabic simple">
-<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataBackend</span></code> — small interface implemented by each physics
+<li><p><a class="reference internal" href="../../api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataBackend" title="isaaclab.scene_data.SceneDataBackend"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataBackend</span></code></a> — small interface implemented by each physics
 manager. It exposes the backend’s transform array directly as one of the
-<code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataFormat</span></code> Warp structs, plus the per-transform prim paths
+<a class="reference internal" href="../../api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataFormat" title="isaaclab.scene_data.SceneDataFormat"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataFormat</span></code></a> Warp structs, plus the per-transform prim paths
 and total count. There is no per-frame “update” call — the property accessors return live
 views into the underlying tensor each time they’re read.</p>
 <ul class="simple">
@@ -790,7 +791,7 @@ views into the underlying tensor each time they’re read.</p>
 <li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">SceneDataBackend.transform_paths</span></code> — list of USD prim paths, one per transform.</p></li>
 </ul>
 </li>
-<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code> — wraps a backend and offers
+<li><p><a class="reference internal" href="../../api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider" title="isaaclab.scene_data.SceneDataProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code></a> — wraps a backend and offers
 format conversion plus index re-mapping:</p>
 <ul class="simple">
 <li><p><code class="xref py py-meth docutils literal notranslate"><span class="pre">SceneDataProvider.get_transforms()</span></code> — write the backend’s transforms into a

@@ -453,6 +453,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab/isaaclab.physics.html">isaaclab.physics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab/isaaclab.renderers.html">isaaclab.renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab/isaaclab.scene.html">isaaclab.scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/lab/isaaclab.scene_data.html">isaaclab.scene_data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab/isaaclab.sensors.html">isaaclab.sensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab/isaaclab.sim.html">isaaclab.sim</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/lab/isaaclab.terrains.html">isaaclab.terrains</a></li>
@@ -814,7 +815,7 @@ is active. Your code never needs to import backend-specific modules directly.</p
 <td><p><code class="xref py py-class docutils literal notranslate"><span class="pre">NewtonWarpRenderer</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p>Scene Data Backend</p></td>
-<td><p><code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataBackend</span></code></p></td>
+<td><p><a class="reference internal" href="../../api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataBackend" title="isaaclab.scene_data.SceneDataBackend"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataBackend</span></code></a></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">PhysxSceneDataBackend</span></code> (in <a class="reference internal" href="../../api/lab_physx/isaaclab_physx.physics.html#module-isaaclab_physx.physics" title="isaaclab_physx.physics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">isaaclab_physx.physics</span></code></a>)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">NewtonSceneDataBackend</span></code> (in <a class="reference internal" href="../../api/lab_newton/isaaclab_newton.physics.html#module-isaaclab_newton.physics" title="isaaclab_newton.physics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">isaaclab_newton.physics</span></code></a>)</p></td>
 </tr>
@@ -1011,11 +1012,12 @@ the established conventions:</p>
 </pre></div>
 </div>
 <p><strong>2. Implement the physics manager:</strong></p>
-<p>The manager must expose a <code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataBackend</span></code> so that
-<code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code> can read your backend’s body
+<p>The manager must expose a <a class="reference internal" href="../../api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataBackend" title="isaaclab.scene_data.SceneDataBackend"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataBackend</span></code></a> so that
+<a class="reference internal" href="../../api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider" title="isaaclab.scene_data.SceneDataProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code></a> can read your backend’s body
 transforms in a Warp-native format that renderers and visualizers consume directly.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># isaaclab_mybackend/physics/mybackend_manager.py</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.physics</span><span class="w"> </span><span class="kn">import</span> <span class="n">PhysicsManager</span><span class="p">,</span> <span class="n">SceneDataBackend</span><span class="p">,</span> <span class="n">SceneDataFormat</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.physics</span><span class="w"> </span><span class="kn">import</span> <span class="n">PhysicsManager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.scene_data</span><span class="w"> </span><span class="kn">import</span> <span class="n">SceneDataBackend</span><span class="p">,</span> <span class="n">SceneDataFormat</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">MyBackendSceneDataBackend</span><span class="p">(</span><span class="n">SceneDataBackend</span><span class="p">):</span>

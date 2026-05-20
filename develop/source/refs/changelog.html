@@ -455,6 +455,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../api/lab/isaaclab.physics.html">isaaclab.physics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/lab/isaaclab.renderers.html">isaaclab.renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/lab/isaaclab.scene.html">isaaclab.scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/lab/isaaclab.scene_data.html">isaaclab.scene_data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/lab/isaaclab.sensors.html">isaaclab.sensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/lab/isaaclab.sim.html">isaaclab.sim</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/lab/isaaclab.terrains.html">isaaclab.terrains</a></li>
@@ -4248,9 +4249,9 @@ Drake’s ephemeral floating joint, MuJoCo’s <code class="docutils literal not
 <code class="docutils literal notranslate"><span class="pre">JointTypeFloatingBase</span></code>, OCS2’s <code class="docutils literal notranslate"><span class="pre">generalizedCoordinatesNum</span> <span class="pre">=</span>
 <span class="pre">6</span> <span class="pre">+</span> <span class="pre">actuatedJointsNum</span></code>, iDynTree’s <code class="docutils literal notranslate"><span class="pre">getFreeFloatingMassMatrix</span></code>
 returning <code class="docutils literal notranslate"><span class="pre">(6</span> <span class="pre">+</span> <span class="pre">dofs,</span> <span class="pre">6</span> <span class="pre">+</span> <span class="pre">dofs)</span></code>).</p></li>
-<li><p>Added <code class="xref py py-attr docutils literal notranslate"><span class="pre">usd_stage</span></code>,
-<code class="xref py py-attr docutils literal notranslate"><span class="pre">num_envs</span></code>, and
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">get_camera_transforms()</span></code>
+<li><p>Added <a class="reference internal" href="../api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider.usd_stage" title="isaaclab.scene_data.SceneDataProvider.usd_stage"><code class="xref py py-attr docutils literal notranslate"><span class="pre">usd_stage</span></code></a>,
+<a class="reference internal" href="../api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider.num_envs" title="isaaclab.scene_data.SceneDataProvider.num_envs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">num_envs</span></code></a>, and
+<a class="reference internal" href="../api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider.get_camera_transforms" title="isaaclab.scene_data.SceneDataProvider.get_camera_transforms"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_camera_transforms()</span></code></a>
 so visualizers and renderers can pull stage-derived data through the same
 Warp-native provider that already exposes transforms.</p></li>
 </ul>
@@ -4286,12 +4287,12 @@ reads the same engine buffer and applies the shift so <code class="docutils lite
 COM-referenced form can read <code class="xref py py-attr docutils literal notranslate"><span class="pre">body_com_jacobian_w</span></code>.</p></li>
 <li><p><strong>Breaking:</strong> <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseVisualizer</span></code>
 subclasses now receive a
-<code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code> in
+<a class="reference internal" href="../api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider" title="isaaclab.scene_data.SceneDataProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code></a> in
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">initialize()</span></code>
 instead of the removed <code class="docutils literal notranslate"><span class="pre">BaseSceneDataProvider</span></code>. Read environment count
-from <code class="xref py py-attr docutils literal notranslate"><span class="pre">num_envs</span></code>
+from <a class="reference internal" href="../api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider.num_envs" title="isaaclab.scene_data.SceneDataProvider.num_envs"><code class="xref py py-attr docutils literal notranslate"><span class="pre">num_envs</span></code></a>
 and call
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">get_camera_transforms()</span></code>
+<a class="reference internal" href="../api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider.get_camera_transforms" title="isaaclab.scene_data.SceneDataProvider.get_camera_transforms"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_camera_transforms()</span></code></a>
 on the new provider; both replace the previous <code class="docutils literal notranslate"><span class="pre">get_metadata()</span></code> /
 <code class="docutils literal notranslate"><span class="pre">get_camera_transforms()</span></code> calls on the legacy interface.</p></li>
 </ul>

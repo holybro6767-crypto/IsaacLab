@@ -452,6 +452,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../source/api/lab/isaaclab.physics.html">isaaclab.physics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../source/api/lab/isaaclab.renderers.html">isaaclab.renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../source/api/lab/isaaclab.scene.html">isaaclab.scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../source/api/lab/isaaclab.scene_data.html">isaaclab.scene_data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../source/api/lab/isaaclab.sensors.html">isaaclab.sensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../source/api/lab/isaaclab.sim.html">isaaclab.sim</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../source/api/lab/isaaclab.terrains.html">isaaclab.terrains</a></li>
@@ -846,10 +847,14 @@
             <span class="n">clone_in_fabric</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">clone_in_fabric</span><span class="p">,</span>
             <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
             <span class="n">physics_clone_fn</span><span class="o">=</span><span class="n">physics_clone_fn</span><span class="p">,</span>
-            <span class="c1"># For ovphysx: env_1..N are created by physx.clone() in the physics</span>
-            <span class="c1"># runtime after add_usd().  USD replication of the asset hierarchy</span>
-            <span class="c1"># to env_1..N is skipped — only env_0 needs physics prims in the USD.</span>
-            <span class="n">clone_usd</span><span class="o">=</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">physics_backend</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;ovphysx&quot;</span><span class="p">),</span>
+            <span class="c1"># USD replication runs for every backend.  PhysX/Newton need per-env</span>
+            <span class="c1"># USD prims for sensor discovery.  For OVPhysX, the per-env USD</span>
+            <span class="c1"># subtrees are layered on TOP of the physics-side ``physx.clone()``</span>
+            <span class="c1"># replicas -- PhysX is indifferent to additional USD content and</span>
+            <span class="c1"># the two layers don&#39;t conflict.  Probing whether this assumption</span>
+            <span class="c1"># holds in practice; revert to ``not startswith(&quot;ovphysx&quot;)`` if</span>
+            <span class="c1"># ``physx.clone()`` errors on already-populated targets.</span>
+            <span class="n">clone_usd</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># create source prim</span>

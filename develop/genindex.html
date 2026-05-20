@@ -452,6 +452,7 @@
 <li class="toctree-l2"><a class="reference internal" href="source/api/lab/isaaclab.physics.html">isaaclab.physics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/api/lab/isaaclab.renderers.html">isaaclab.renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/api/lab/isaaclab.scene.html">isaaclab.scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/api/lab/isaaclab.scene_data.html">isaaclab.scene_data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/api/lab/isaaclab.sensors.html">isaaclab.sensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/api/lab/isaaclab.sim.html">isaaclab.sim</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/api/lab/isaaclab.terrains.html">isaaclab.terrains</a></li>
@@ -833,6 +834,8 @@
         <li><a href="source/api/lab/isaaclab.markers.html#isaaclab.markers.VisualizationMarkers.__init__">(isaaclab.markers.VisualizationMarkers method)</a>
 </li>
         <li><a href="source/api/lab/isaaclab.scene.html#isaaclab.scene.InteractiveScene.__init__">(isaaclab.scene.InteractiveScene method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider.__init__">(isaaclab.scene_data.SceneDataProvider method)</a>
 </li>
         <li><a href="source/api/lab/isaaclab.sensors.html#isaaclab.sensors.Camera.__init__">(isaaclab.sensors.Camera method)</a>
 </li>
@@ -3591,6 +3594,8 @@
       </ul></li>
       <li><a href="source/api/lab_teleop/isaaclab_teleop.html#isaaclab_teleop.create_isaac_teleop_device">create_isaac_teleop_device() (in module isaaclab_teleop)</a>
 </li>
+      <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider.create_mapping">create_mapping() (isaaclab.scene_data.SceneDataProvider method)</a>
+</li>
       <li><a href="source/api/lab/isaaclab.sim.utils.html#isaaclab.sim.utils.stage.create_new_stage">create_new_stage() (in module isaaclab.sim.utils.stage)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.sim.utils.html#isaaclab.sim.utils.prims.create_prim">create_prim() (in module isaaclab.sim.utils.prims)</a>
@@ -5659,6 +5664,8 @@
         <li><a href="source/api/lab_newton/isaaclab_newton.physics.html#isaaclab_newton.physics.NewtonXPBDManager.get_backend">(isaaclab_newton.physics.NewtonXPBDManager class method)</a>
 </li>
       </ul></li>
+      <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider.get_camera_transforms">get_camera_transforms() (isaaclab.scene_data.SceneDataProvider method)</a>
+</li>
       <li><a href="source/api/lab_tasks/isaaclab_tasks.utils.html#isaaclab_tasks.utils.get_checkpoint_path">get_checkpoint_path() (in module isaaclab_tasks.utils)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.sim.html#isaaclab.sim.SimulationContext.get_clone_plan">get_clone_plan() (isaaclab.sim.SimulationContext method)</a>
@@ -6149,6 +6156,8 @@
 </li>
       <li><a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.timer.Timer.get_timer_statistics">get_timer_statistics() (isaaclab.utils.timer.Timer static method)</a>
 </li>
+      <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider.get_transforms">get_transforms() (isaaclab.scene_data.SceneDataProvider method)</a>
+</li>
       <li><a href="source/api/lab/isaaclab.sim.utils.html#isaaclab.sim.utils.prims.get_usd_references">get_usd_references() (in module isaaclab.sim.utils.prims)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.sim.views.html#isaaclab.sim.views.UsdFrameView.get_visibility">get_visibility() (isaaclab.sim.views.UsdFrameView method)</a>
@@ -6579,6 +6588,8 @@
         <li><a href="source/api/lab_rl/isaaclab_rl.html#isaaclab_rl.rsl_rl.RslRlRNNModelCfg.init_noise_std">(isaaclab_rl.rsl_rl.RslRlRNNModelCfg attribute)</a>
 </li>
       </ul></li>
+      <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider.init_output">init_output() (isaaclab.scene_data.SceneDataProvider method)</a>
+</li>
       <li><a href="source/api/lab/isaaclab.assets.html#isaaclab.assets.ArticulationCfg.init_state">init_state (isaaclab.assets.ArticulationCfg attribute)</a>
 
       <ul>
@@ -7010,8 +7021,6 @@
         <li><a href="source/api/lab/isaaclab.assets.html#module-isaaclab.assets">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     isaaclab.cloner
 
@@ -7019,6 +7028,8 @@
         <li><a href="source/api/lab/isaaclab.cloner.html#module-isaaclab.cloner">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     isaaclab.controllers
 
@@ -7157,6 +7168,13 @@
 
       <ul>
         <li><a href="source/api/lab/isaaclab.scene.html#module-isaaclab.scene">module</a>
+</li>
+      </ul></li>
+      <li>
+    isaaclab.scene_data
+
+      <ul>
+        <li><a href="source/api/lab/isaaclab.scene_data.html#module-isaaclab.scene_data">module</a>
 </li>
       </ul></li>
       <li>
@@ -8550,6 +8568,8 @@
 </li>
       <li><a href="source/api/lab_physx/isaaclab_physx.assets.html#isaaclab_physx.assets.DeformableObject.material_physx_view">material_physx_view (isaaclab_physx.assets.DeformableObject property)</a>
 </li>
+      <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataFormat.Matrix44.matrices">matrices (isaaclab.scene_data.SceneDataFormat.Matrix44 attribute)</a>
+</li>
       <li><a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.math.matrix_from_euler">matrix_from_euler() (in module isaaclab.utils.math)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.math.matrix_from_quat">matrix_from_quat() (in module isaaclab.utils.math)</a>
@@ -9053,6 +9073,8 @@
         <li><a href="source/api/lab/isaaclab.renderers.html#module-isaaclab.renderers">isaaclab.renderers</a>
 </li>
         <li><a href="source/api/lab/isaaclab.scene.html#module-isaaclab.scene">isaaclab.scene</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.scene_data.html#module-isaaclab.scene_data">isaaclab.scene_data</a>
 </li>
         <li><a href="source/api/lab/isaaclab.sensors.html#module-isaaclab.sensors">isaaclab.sensors</a>
 </li>
@@ -9601,6 +9623,8 @@
         <li><a href="source/api/lab/isaaclab.scene.html#isaaclab.scene.InteractiveScene.num_envs">(isaaclab.scene.InteractiveScene property)</a>
 </li>
         <li><a href="source/api/lab/isaaclab.scene.html#isaaclab.scene.InteractiveSceneCfg.num_envs">(isaaclab.scene.InteractiveSceneCfg attribute)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider.num_envs">(isaaclab.scene_data.SceneDataProvider property)</a>
 </li>
         <li><a href="source/api/lab/isaaclab.terrains.html#isaaclab.terrains.TerrainImporterCfg.num_envs">(isaaclab.terrains.TerrainImporterCfg attribute)</a>
 </li>
@@ -10247,6 +10271,12 @@
 </li>
       <li><a href="source/api/lab/isaaclab.envs.mdp.html#isaaclab.envs.mdp.actions.actions_cfg.OperationalSpaceControllerActionCfg.orientation_scale">orientation_scale (isaaclab.envs.mdp.actions.actions_cfg.OperationalSpaceControllerActionCfg attribute)</a>
 </li>
+      <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataFormat.Vec3_Matrix33.orientations">orientations (isaaclab.scene_data.SceneDataFormat.Vec3_Matrix33 attribute)</a>
+
+      <ul>
+        <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataFormat.Vec3_Quat.orientations">(isaaclab.scene_data.SceneDataFormat.Vec3_Quat attribute)</a>
+</li>
+      </ul></li>
       <li><a href="source/api/lab/isaaclab.envs.html#isaaclab.envs.ViewerCfg.origin_type">origin_type (isaaclab.envs.ViewerCfg attribute)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.math.orthogonalize_perspective_depth">orthogonalize_perspective_depth() (in module isaaclab.utils.math)</a>
@@ -10723,6 +10753,12 @@
         <li><a href="source/api/lab/isaaclab.envs.mdp.html#isaaclab.envs.mdp.commands.commands_cfg.UniformPose2dCommandCfg.position_success_threshold">(isaaclab.envs.mdp.commands.commands_cfg.UniformPose2dCommandCfg attribute)</a>
 </li>
         <li><a href="source/api/lab/isaaclab.envs.mdp.html#isaaclab.envs.mdp.commands.commands_cfg.UniformPoseCommandCfg.position_success_threshold">(isaaclab.envs.mdp.commands.commands_cfg.UniformPoseCommandCfg attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataFormat.Vec3_Matrix33.positions">positions (isaaclab.scene_data.SceneDataFormat.Vec3_Matrix33 attribute)</a>
+
+      <ul>
+        <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataFormat.Vec3_Quat.positions">(isaaclab.scene_data.SceneDataFormat.Vec3_Quat attribute)</a>
 </li>
       </ul></li>
       <li><a href="source/api/lab/isaaclab.envs.mdp.html#isaaclab.envs.mdp.actions.actions_cfg.AbsBinaryJointPositionActionCfg.positive_threshold">positive_threshold (isaaclab.envs.mdp.actions.actions_cfg.AbsBinaryJointPositionActionCfg attribute)</a>
@@ -12645,6 +12681,20 @@
         <li><a href="source/api/lab_mimic/isaaclab_mimic.envs.html#isaaclab_mimic.envs.galbot_stack_rmp_rel_mimic_env_cfg.RmpFlowGalbotRightArmSuctionCubeStackRelMimicEnvCfg.scene">(isaaclab_mimic.envs.galbot_stack_rmp_rel_mimic_env_cfg.RmpFlowGalbotRightArmSuctionCubeStackRelMimicEnvCfg attribute)</a>
 </li>
       </ul></li>
+      <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataBackend">SceneDataBackend (class in isaaclab.scene_data)</a>
+</li>
+      <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataFormat">SceneDataFormat (class in isaaclab.scene_data)</a>
+</li>
+      <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataFormat.Matrix44">SceneDataFormat.Matrix44 (class in isaaclab.scene_data)</a>
+</li>
+      <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataFormat.Transform">SceneDataFormat.Transform (class in isaaclab.scene_data)</a>
+</li>
+      <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataFormat.Vec3_Matrix33">SceneDataFormat.Vec3_Matrix33 (class in isaaclab.scene_data)</a>
+</li>
+      <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataFormat.Vec3_Quat">SceneDataFormat.Vec3_Quat (class in isaaclab.scene_data)</a>
+</li>
+      <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider">SceneDataProvider (class in isaaclab.scene_data)</a>
+</li>
       <li><a href="source/api/lab/isaaclab.managers.html#isaaclab.managers.SceneEntityCfg">SceneEntityCfg (class in isaaclab.managers)</a>
 </li>
       <li><a href="source/api/lab_rl/isaaclab_rl.html#isaaclab_rl.rsl_rl.RslRlPpoAlgorithmCfg.schedule">schedule (isaaclab_rl.rsl_rl.RslRlPpoAlgorithmCfg attribute)</a>
@@ -13551,6 +13601,8 @@
         <li><a href="source/api/lab_physx/isaaclab_physx.assets.html#isaaclab_physx.assets.Articulation.set_spatial_tendon_limit_stiffness">(isaaclab_physx.assets.Articulation method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/api/lab/isaaclab.assets.html#isaaclab.assets.Articulation.set_spatial_tendon_limit_stiffness_index">set_spatial_tendon_limit_stiffness_index() (isaaclab.assets.Articulation method)</a>
 
       <ul>
@@ -13561,8 +13613,6 @@
         <li><a href="source/api/lab_physx/isaaclab_physx.assets.html#isaaclab_physx.assets.Articulation.set_spatial_tendon_limit_stiffness_index">(isaaclab_physx.assets.Articulation method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/api/lab/isaaclab.assets.html#isaaclab.assets.Articulation.set_spatial_tendon_limit_stiffness_mask">set_spatial_tendon_limit_stiffness_mask() (isaaclab.assets.Articulation method)</a>
 
       <ul>
@@ -14751,14 +14801,14 @@
         <li><a href="source/api/lab/isaaclab.terrains.html#isaaclab.terrains.TerrainImporter.terrain_origins">(isaaclab.terrains.TerrainImporter attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/api/lab/isaaclab.terrains.html#isaaclab.terrains.TerrainImporter.terrain_prim_paths">terrain_prim_paths (isaaclab.terrains.TerrainImporter attribute)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.terrains.html#isaaclab.terrains.TerrainImporterCfg.terrain_type">terrain_type (isaaclab.terrains.TerrainImporterCfg attribute)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.envs.mdp.html#isaaclab.envs.mdp.commands.commands_cfg.TerrainBasedPose2dCommandCfg">TerrainBasedPose2dCommandCfg (class in isaaclab.envs.mdp.commands.commands_cfg)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/api/lab/isaaclab.envs.mdp.html#isaaclab.envs.mdp.commands.commands_cfg.TerrainBasedPose2dCommandCfg.Ranges">TerrainBasedPose2dCommandCfg.Ranges (class in isaaclab.envs.mdp.commands.commands_cfg)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.terrains.html#isaaclab.terrains.TerrainGenerator">TerrainGenerator (class in isaaclab.terrains)</a>
@@ -14873,6 +14923,12 @@
 </li>
       <li><a href="source/api/lab/isaaclab.sensors.html#isaaclab.sensors.ContactSensorCfg.track_pose">track_pose (isaaclab.sensors.ContactSensorCfg attribute)</a>
 </li>
+      <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataBackend.transform_count">transform_count (isaaclab.scene_data.SceneDataBackend property)</a>
+
+      <ul>
+        <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider.transform_count">(isaaclab.scene_data.SceneDataProvider property)</a>
+</li>
+      </ul></li>
       <li><a href="source/api/lab/isaaclab.assets.html#isaaclab.assets.BaseDeformableObject.transform_nodal_pos">transform_nodal_pos() (isaaclab.assets.BaseDeformableObject method)</a>
 
       <ul>
@@ -14885,10 +14941,18 @@
         <li><a href="source/api/lab_physx/isaaclab_physx.assets.html#isaaclab_physx.assets.DeformableObject.transform_nodal_pos">(isaaclab_physx.assets.DeformableObject method)</a>
 </li>
       </ul></li>
+      <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataBackend.transform_paths">transform_paths (isaaclab.scene_data.SceneDataBackend property)</a>
+</li>
       <li><a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.math.transform_points">transform_points() (in module isaaclab.utils.math)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.math.transform_poses_from_frame_A_to_frame_B">transform_poses_from_frame_A_to_frame_B() (in module isaaclab.utils.math)</a>
 </li>
+      <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataBackend.transforms">transforms (isaaclab.scene_data.SceneDataBackend property)</a>
+
+      <ul>
+        <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataFormat.Transform.transforms">(isaaclab.scene_data.SceneDataFormat.Transform attribute)</a>
+</li>
+      </ul></li>
       <li><a href="source/api/lab/isaaclab.sim.converters.html#isaaclab.sim.converters.MeshConverterCfg.translation">translation (isaaclab.sim.converters.MeshConverterCfg attribute)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.sim.utils.html#isaaclab.sim.utils.legacy.traverse_stage">traverse_stage() (in module isaaclab.sim.utils.legacy)</a>
@@ -15213,6 +15277,8 @@
         <li><a href="source/api/lab/isaaclab.terrains.html#isaaclab.terrains.TerrainImporterCfg.usd_path">(isaaclab.terrains.TerrainImporterCfg attribute)</a>
 </li>
       </ul></li>
+      <li><a href="source/api/lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider.usd_stage">usd_stage (isaaclab.scene_data.SceneDataProvider property)</a>
+</li>
       <li><a href="source/api/lab/isaaclab.sim.spawners.html#isaaclab.sim.spawners.from_files.UsdFileCfg">UsdFileCfg (class in isaaclab.sim.spawners.from_files)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.sim.views.html#isaaclab.sim.views.UsdFrameView">UsdFrameView (class in isaaclab.sim.views)</a>

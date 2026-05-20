@@ -452,6 +452,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../source/api/lab/isaaclab.physics.html">isaaclab.physics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../source/api/lab/isaaclab.renderers.html">isaaclab.renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../source/api/lab/isaaclab.scene.html">isaaclab.scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../source/api/lab/isaaclab.scene_data.html">isaaclab.scene_data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../source/api/lab/isaaclab.sensors.html">isaaclab.sensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../source/api/lab/isaaclab.sim.html">isaaclab.sim</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../source/api/lab/isaaclab.terrains.html">isaaclab.terrains</a></li>
@@ -707,7 +708,9 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">newton.sensors</span><span class="w"> </span><span class="kn">import</span> <span class="n">SensorIMU</span> <span class="k">as</span> <span class="n">NewtonSensorIMU</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">newton.solvers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SolverBase</span><span class="p">,</span> <span class="n">SolverKamino</span><span class="p">,</span> <span class="n">SolverNotifyFlags</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.physics</span><span class="w"> </span><span class="kn">import</span> <span class="n">CallbackHandle</span><span class="p">,</span> <span class="n">PhysicsEvent</span><span class="p">,</span> <span class="n">PhysicsManager</span><span class="p">,</span> <span class="n">SceneDataBackend</span><span class="p">,</span> <span class="n">SceneDataFormat</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.physics</span><span class="w"> </span><span class="kn">import</span> <span class="n">CallbackHandle</span><span class="p">,</span> <span class="n">PhysicsEvent</span><span class="p">,</span> <span class="n">PhysicsManager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.scene_data</span><span class="w"> </span><span class="kn">import</span> <span class="n">SceneDataBackend</span><span class="p">,</span> <span class="n">SceneDataFormat</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.sim</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimulationContext</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.sim.utils.newton_model_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">replace_newton_shape_colors</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.sim.utils.stage</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_current_stage</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">checked_apply</span>
@@ -940,8 +943,8 @@
     <span class="c1"># Visualization-only state used when the sim backend is PhysX. Populated</span>
     <span class="c1"># lazily in :meth:`_ensure_visualization_model` and updated each render</span>
     <span class="c1"># frame in :meth:`update_visualization_state`.</span>
-    <span class="n">_visualization_scene_data</span><span class="p">:</span> <span class="n">SceneDataFormat</span><span class="o">.</span><span class="n">Transform</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">_visualization_mapping</span><span class="p">:</span> <span class="n">wp</span><span class="o">.</span><span class="n">array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">_scene_data</span><span class="p">:</span> <span class="n">SceneDataFormat</span><span class="o">.</span><span class="n">Transform</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">_scene_data_mapping</span><span class="p">:</span> <span class="n">wp</span><span class="o">.</span><span class="n">array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="c1"># Views list for assets to register their views</span>
     <span class="n">_views</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1311,7 +1314,7 @@
 <div class="viewcode-block" id="NewtonManager.get_scene_data_backend">
 <a class="viewcode-back" href="../../../source/api/lab_newton/isaaclab_newton.physics.html#isaaclab_newton.physics.NewtonManager.get_scene_data_backend">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_scene_data_backend</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SceneDataBackend</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_scene_data_backend</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SceneDataBackend</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the SceneDataBackend for the SceneDataProvider.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_scene_data_backend</span></div>
 
@@ -1397,8 +1400,8 @@
         <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_transforms_dirty</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_particles_dirty</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_up_axis</span> <span class="o">=</span> <span class="s2">&quot;Z&quot;</span>
-        <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_visualization_scene_data</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_visualization_mapping</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_scene_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_scene_data_mapping</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_model_changes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_scene_data_backend</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_cl_pending_sites</span> <span class="o">=</span> <span class="p">{}</span>
@@ -2327,7 +2330,7 @@
 <span class="sd">        :meth:`_build_visualization_model_from_stage` and finalizing the resulting</span>
 <span class="sd">        :class:`~newton.ModelBuilder`. Per-frame body transforms are pushed into</span>
 <span class="sd">        ``_state_0.body_q`` by :meth:`update_visualization_state` using the new</span>
-<span class="sd">        :class:`~isaaclab.scene.scene_data_provider.SceneDataProvider`.</span>
+<span class="sd">        :class:`~isaaclab.scene_data.SceneDataProvider`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_state_0</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -2523,7 +2526,7 @@
 <span class="sd">        already advanced by :meth:`step` / forward kinematics.</span>
 
 <span class="sd">        PhysX sim backend: pull rigid-body transforms from the</span>
-<span class="sd">        :class:`~isaaclab.scene.scene_data_provider.SceneDataProvider` and write</span>
+<span class="sd">        :class:`~isaaclab.scene_data.SceneDataProvider` and write</span>
 <span class="sd">        them into the shadow ``_state_0.body_q`` so Newton-native consumers</span>
 <span class="sd">        (Newton renderer, Newton/Rerun/Viser visualizers, OVRTX renderer, Newton</span>
 <span class="sd">        GL video) see fresh poses.</span>
@@ -2538,24 +2541,20 @@
             <span class="k">return</span>
         <span class="n">sdp</span> <span class="o">=</span> <span class="n">scene_data_provider</span>
         <span class="k">if</span> <span class="n">sdp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">sim</span> <span class="o">=</span> <span class="n">PhysicsManager</span><span class="o">.</span><span class="n">_sim</span>
+            <span class="n">sim</span> <span class="o">=</span> <span class="n">SimulationContext</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">sim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">sdp</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_scene_data_provider</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">sdp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
 
-        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_visualization_scene_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">cls</span><span class="o">.</span><span class="n">_visualization_scene_data</span> <span class="o">=</span> <span class="n">SceneDataFormat</span><span class="o">.</span><span class="n">Transform</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_visualization_mapping</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_scene_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">_scene_data</span> <span class="o">=</span> <span class="n">SceneDataFormat</span><span class="o">.</span><span class="n">Transform</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_scene_data_mapping</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">body_paths</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_model</span><span class="p">,</span> <span class="s2">&quot;body_label&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[])</span>
-            <span class="bp">cls</span><span class="o">.</span><span class="n">_visualization_mapping</span> <span class="o">=</span> <span class="n">sdp</span><span class="o">.</span><span class="n">create_mapping</span><span class="p">(</span><span class="n">body_paths</span><span class="p">)</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">_scene_data_mapping</span> <span class="o">=</span> <span class="n">sdp</span><span class="o">.</span><span class="n">create_mapping</span><span class="p">(</span><span class="n">body_paths</span><span class="p">)</span>
 
-        <span class="bp">cls</span><span class="o">.</span><span class="n">_visualization_scene_data</span><span class="o">.</span><span class="n">transforms</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_state_0</span><span class="o">.</span><span class="n">body_q</span>
-        <span class="n">sdp</span><span class="o">.</span><span class="n">get_transforms</span><span class="p">(</span>
-            <span class="bp">cls</span><span class="o">.</span><span class="n">_visualization_scene_data</span><span class="p">,</span>
-            <span class="n">mapping</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_visualization_mapping</span><span class="p">,</span>
-            <span class="n">allow_passthrough</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="p">)</span></div>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_scene_data</span><span class="o">.</span><span class="n">transforms</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_state_0</span><span class="o">.</span><span class="n">body_q</span>
+        <span class="n">sdp</span><span class="o">.</span><span class="n">get_transforms</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_scene_data</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_scene_data_mapping</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="NewtonManager.get_state_1">

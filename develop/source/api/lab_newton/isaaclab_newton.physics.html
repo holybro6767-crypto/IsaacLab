@@ -453,6 +453,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../lab/isaaclab.physics.html">isaaclab.physics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab/isaaclab.renderers.html">isaaclab.renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab/isaaclab.scene.html">isaaclab.scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lab/isaaclab.scene_data.html">isaaclab.scene_data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab/isaaclab.sensors.html">isaaclab.sensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab/isaaclab.sim.html">isaaclab.sim</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lab/isaaclab.terrains.html">isaaclab.terrains</a></li>
@@ -774,7 +775,6 @@
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.handles_decimation"><code class="docutils literal notranslate"><span class="pre">NewtonManager.handles_decimation()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.add_contact_sensor"><code class="docutils literal notranslate"><span class="pre">NewtonManager.add_contact_sensor()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.add_frame_transform_sensor"><code class="docutils literal notranslate"><span class="pre">NewtonManager.add_frame_transform_sensor()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.add_imu_sensor"><code class="docutils literal notranslate"><span class="pre">NewtonManager.add_imu_sensor()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.after_visualizers_render"><code class="docutils literal notranslate"><span class="pre">NewtonManager.after_visualizers_render()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.clear_callbacks"><code class="docutils literal notranslate"><span class="pre">NewtonManager.clear_callbacks()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.deregister_callback"><code class="docutils literal notranslate"><span class="pre">NewtonManager.deregister_callback()</span></code></a></li>
@@ -788,6 +788,7 @@
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.safe_callback_invoke"><code class="docutils literal notranslate"><span class="pre">NewtonManager.safe_callback_invoke()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.stop"><code class="docutils literal notranslate"><span class="pre">NewtonManager.stop()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.wait_for_playing"><code class="docutils literal notranslate"><span class="pre">NewtonManager.wait_for_playing()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.add_imu_sensor"><code class="docutils literal notranslate"><span class="pre">NewtonManager.add_imu_sensor()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1339,54 +1340,54 @@ which subclass is active.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.add_frame_transform_sensor" title="isaaclab_newton.physics.NewtonManager.add_frame_transform_sensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_frame_transform_sensor</span></code></a>(shapes, ...)</p></td>
 <td><p>Add a frame transform sensor for measuring relative transforms.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.add_imu_sensor" title="isaaclab_newton.physics.NewtonManager.add_imu_sensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_imu_sensor</span></code></a>(sites)</p></td>
-<td><p>Add an IMU sensor for measuring acceleration and angular velocity at sites.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.after_visualizers_render" title="isaaclab_newton.physics.NewtonManager.after_visualizers_render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">after_visualizers_render</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.after_visualizers_render" title="isaaclab_newton.physics.NewtonManager.after_visualizers_render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">after_visualizers_render</span></code></a>()</p></td>
 <td><p>Hook after visualizers have stepped during <a class="reference internal" href="../lab/isaaclab.sim.html#isaaclab.sim.SimulationContext.render" title="isaaclab.sim.SimulationContext.render"><code class="xref py py-meth docutils literal notranslate"><span class="pre">render()</span></code></a>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.clear_callbacks" title="isaaclab_newton.physics.NewtonManager.clear_callbacks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_callbacks</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.clear_callbacks" title="isaaclab_newton.physics.NewtonManager.clear_callbacks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_callbacks</span></code></a>()</p></td>
 <td><p>Remove all registered callbacks.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.deregister_callback" title="isaaclab_newton.physics.NewtonManager.deregister_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deregister_callback</span></code></a>(callback_id)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.deregister_callback" title="isaaclab_newton.physics.NewtonManager.deregister_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deregister_callback</span></code></a>(callback_id)</p></td>
 <td><p>Remove a registered callback.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.dispatch_event" title="isaaclab_newton.physics.NewtonManager.dispatch_event"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dispatch_event</span></code></a>(event[, payload])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.dispatch_event" title="isaaclab_newton.physics.NewtonManager.dispatch_event"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dispatch_event</span></code></a>(event[, payload])</p></td>
 <td><p>Dispatch an event to all registered callbacks.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_backend" title="isaaclab_newton.physics.NewtonManager.get_backend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_backend</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_backend" title="isaaclab_newton.physics.NewtonManager.get_backend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_backend</span></code></a>()</p></td>
 <td><p>Get the tensor backend being used (&quot;numpy&quot; or &quot;torch&quot;).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_device" title="isaaclab_newton.physics.NewtonManager.get_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_device" title="isaaclab_newton.physics.NewtonManager.get_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device</span></code></a>()</p></td>
 <td><p>Get the physics simulation device.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_physics_dt" title="isaaclab_newton.physics.NewtonManager.get_physics_dt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_physics_dt</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_physics_dt" title="isaaclab_newton.physics.NewtonManager.get_physics_dt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_physics_dt</span></code></a>()</p></td>
 <td><p>Get the physics timestep in seconds.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_simulation_time" title="isaaclab_newton.physics.NewtonManager.get_simulation_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_simulation_time</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_simulation_time" title="isaaclab_newton.physics.NewtonManager.get_simulation_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_simulation_time</span></code></a>()</p></td>
 <td><p>Get the current simulation time in seconds.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.pause" title="isaaclab_newton.physics.NewtonManager.pause"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pause</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.pause" title="isaaclab_newton.physics.NewtonManager.pause"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pause</span></code></a>()</p></td>
 <td><p>Pause physics simulation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.play" title="isaaclab_newton.physics.NewtonManager.play"><code class="xref py py-obj docutils literal notranslate"><span class="pre">play</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.play" title="isaaclab_newton.physics.NewtonManager.play"><code class="xref py py-obj docutils literal notranslate"><span class="pre">play</span></code></a>()</p></td>
 <td><p>Start or resume physics simulation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.safe_callback_invoke" title="isaaclab_newton.physics.NewtonManager.safe_callback_invoke"><code class="xref py py-obj docutils literal notranslate"><span class="pre">safe_callback_invoke</span></code></a>(fn, *args[, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.safe_callback_invoke" title="isaaclab_newton.physics.NewtonManager.safe_callback_invoke"><code class="xref py py-obj docutils literal notranslate"><span class="pre">safe_callback_invoke</span></code></a>(fn, *args[, ...])</p></td>
 <td><p>Invoke a callback, catching exceptions that would be swallowed by external event buses.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.stop" title="isaaclab_newton.physics.NewtonManager.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.stop" title="isaaclab_newton.physics.NewtonManager.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop</span></code></a>()</p></td>
 <td><p>Stop physics simulation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.wait_for_playing" title="isaaclab_newton.physics.NewtonManager.wait_for_playing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_for_playing</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.wait_for_playing" title="isaaclab_newton.physics.NewtonManager.wait_for_playing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_for_playing</span></code></a>()</p></td>
 <td><p>Block until the timeline is playing.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.add_imu_sensor" title="isaaclab_newton.physics.NewtonManager.add_imu_sensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_imu_sensor</span></code></a>(sites)</p></td>
+<td><p>Add an IMU sensor for measuring acceleration and angular velocity at sites.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <dl class="py method">
 <dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonManager.initialize">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sim_context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../lab/isaaclab.sim.html#isaaclab.sim.SimulationContext" title="isaaclab.sim.SimulationContext"><span class="pre">SimulationContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_newton/physics/newton_manager.html#NewtonManager.initialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.physics.NewtonManager.initialize" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sim_context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../lab/isaaclab.sim.html#isaaclab.sim.SimulationContext" title="isaaclab.sim.simulation_context.SimulationContext"><span class="pre">SimulationContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_newton/physics/newton_manager.html#NewtonManager.initialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.physics.NewtonManager.initialize" title="Link to this definition">#</a></dt>
 <dd><p>Initialize the manager with simulation context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1487,7 +1488,7 @@ launched via <code class="xref py py-meth docutils literal notranslate"><span cl
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonManager.get_scene_data_backend">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_scene_data_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SceneDataBackend</span></span></span><a class="reference internal" href="../../../_modules/isaaclab_newton/physics/newton_manager.html#NewtonManager.get_scene_data_backend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.physics.NewtonManager.get_scene_data_backend" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_scene_data_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataBackend" title="isaaclab.scene_data.scene_data_backend.SceneDataBackend"><span class="pre">SceneDataBackend</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_newton/physics/newton_manager.html#NewtonManager.get_scene_data_backend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.physics.NewtonManager.get_scene_data_backend" title="Link to this definition">#</a></dt>
 <dd><p>Return the SceneDataBackend for the SceneDataProvider.</p>
 </dd></dl>
 
@@ -1708,7 +1709,7 @@ observe stale transforms. Under the Newton sim backend
 <p>Newton sim backend: no-op — <code class="docutils literal notranslate"><span class="pre">_state_0</span></code> is the live, authoritative state
 already advanced by <a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.step" title="isaaclab_newton.physics.NewtonManager.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a> / forward kinematics.</p>
 <p>PhysX sim backend: pull rigid-body transforms from the
-<code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code> and write
+<a class="reference internal" href="../lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider" title="isaaclab.scene_data.SceneDataProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code></a> and write
 them into the shadow <code class="docutils literal notranslate"><span class="pre">_state_0.body_q</span></code> so Newton-native consumers
 (Newton renderer, Newton/Rerun/Viser visualizers, OVRTX renderer, Newton
 GL video) see fresh poses.</p>
@@ -1831,22 +1832,6 @@ site indices, appends it to the internal list, and returns its index.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonManager.add_imu_sensor">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_imu_sensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sites</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_newton/physics/newton_manager.html#NewtonManager.add_imu_sensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.physics.NewtonManager.add_imu_sensor" title="Link to this definition">#</a></dt>
-<dd><p>Add an IMU sensor for measuring acceleration and angular velocity at sites.</p>
-<p>Creates a <code class="docutils literal notranslate"><span class="pre">newton.sensors.SensorIMU</span></code> from pre-resolved site indices,
-appends it to the internal list, and returns its index.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>sites</strong> – Ordered list of site indices (one per environment).</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Index of the newly created sensor in the internal IMU sensor list.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonManager.after_visualizers_render">
 <em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">after_visualizers_render</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonManager.after_visualizers_render" title="Link to this definition">#</a></dt>
 <dd><p>Hook after visualizers have stepped during <a class="reference internal" href="../lab/isaaclab.sim.html#isaaclab.sim.SimulationContext.render" title="isaaclab.sim.SimulationContext.render"><code class="xref py py-meth docutils literal notranslate"><span class="pre">render()</span></code></a>.</p>
@@ -1963,6 +1948,22 @@ This is a known wart; a cleaner solution is actively being explored.</p>
 <dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonManager.wait_for_playing">
 <em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">wait_for_playing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonManager.wait_for_playing" title="Link to this definition">#</a></dt>
 <dd><p>Block until the timeline is playing. Default is no-op.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonManager.add_imu_sensor">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_imu_sensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sites</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_newton/physics/newton_manager.html#NewtonManager.add_imu_sensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.physics.NewtonManager.add_imu_sensor" title="Link to this definition">#</a></dt>
+<dd><p>Add an IMU sensor for measuring acceleration and angular velocity at sites.</p>
+<p>Creates a <code class="docutils literal notranslate"><span class="pre">newton.sensors.SensorIMU</span></code> from pre-resolved site indices,
+appends it to the internal list, and returns its index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>sites</strong> – Ordered list of site indices (one per environment).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Index of the newly created sensor in the internal IMU sensor list.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -3574,7 +3575,7 @@ Returns a list that callers can append to.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonMJWarpManager.get_scene_data_backend">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_scene_data_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SceneDataBackend</span></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonMJWarpManager.get_scene_data_backend" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_scene_data_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataBackend" title="isaaclab.scene_data.scene_data_backend.SceneDataBackend"><span class="pre">SceneDataBackend</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonMJWarpManager.get_scene_data_backend" title="Link to this definition">#</a></dt>
 <dd><p>Return the SceneDataBackend for the SceneDataProvider.</p>
 </dd></dl>
 
@@ -3626,7 +3627,7 @@ is folded into a single <a class="reference internal" href="#isaaclab_newton.phy
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonMJWarpManager.initialize">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sim_context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../lab/isaaclab.sim.html#isaaclab.sim.SimulationContext" title="isaaclab.sim.SimulationContext"><span class="pre">SimulationContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonMJWarpManager.initialize" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sim_context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../lab/isaaclab.sim.html#isaaclab.sim.SimulationContext" title="isaaclab.sim.simulation_context.SimulationContext"><span class="pre">SimulationContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonMJWarpManager.initialize" title="Link to this definition">#</a></dt>
 <dd><p>Initialize the manager with simulation context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -3883,7 +3884,7 @@ notify the Fabric Scene Delegate.  Otherwise it falls back to the CPU
 <p>Newton sim backend: no-op — <code class="docutils literal notranslate"><span class="pre">_state_0</span></code> is the live, authoritative state
 already advanced by <a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.step" title="isaaclab_newton.physics.NewtonMJWarpManager.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a> / forward kinematics.</p>
 <p>PhysX sim backend: pull rigid-body transforms from the
-<code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code> and write
+<a class="reference internal" href="../lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider" title="isaaclab.scene_data.SceneDataProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code></a> and write
 them into the shadow <code class="docutils literal notranslate"><span class="pre">_state_0.body_q</span></code> so Newton-native consumers
 (Newton renderer, Newton/Rerun/Viser visualizers, OVRTX renderer, Newton
 GL video) see fresh poses.</p>
@@ -4322,7 +4323,7 @@ Returns a list that callers can append to.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonXPBDManager.get_scene_data_backend">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_scene_data_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SceneDataBackend</span></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonXPBDManager.get_scene_data_backend" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_scene_data_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataBackend" title="isaaclab.scene_data.scene_data_backend.SceneDataBackend"><span class="pre">SceneDataBackend</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonXPBDManager.get_scene_data_backend" title="Link to this definition">#</a></dt>
 <dd><p>Return the SceneDataBackend for the SceneDataProvider.</p>
 </dd></dl>
 
@@ -4374,7 +4375,7 @@ is folded into a single <a class="reference internal" href="#isaaclab_newton.phy
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonXPBDManager.initialize">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sim_context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../lab/isaaclab.sim.html#isaaclab.sim.SimulationContext" title="isaaclab.sim.SimulationContext"><span class="pre">SimulationContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonXPBDManager.initialize" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sim_context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../lab/isaaclab.sim.html#isaaclab.sim.SimulationContext" title="isaaclab.sim.simulation_context.SimulationContext"><span class="pre">SimulationContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonXPBDManager.initialize" title="Link to this definition">#</a></dt>
 <dd><p>Initialize the manager with simulation context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4631,7 +4632,7 @@ notify the Fabric Scene Delegate.  Otherwise it falls back to the CPU
 <p>Newton sim backend: no-op — <code class="docutils literal notranslate"><span class="pre">_state_0</span></code> is the live, authoritative state
 already advanced by <a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.step" title="isaaclab_newton.physics.NewtonXPBDManager.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a> / forward kinematics.</p>
 <p>PhysX sim backend: pull rigid-body transforms from the
-<code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code> and write
+<a class="reference internal" href="../lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider" title="isaaclab.scene_data.SceneDataProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code></a> and write
 them into the shadow <code class="docutils literal notranslate"><span class="pre">_state_0.body_q</span></code> so Newton-native consumers
 (Newton renderer, Newton/Rerun/Viser visualizers, OVRTX renderer, Newton
 GL video) see fresh poses.</p>
@@ -5070,7 +5071,7 @@ Returns a list that callers can append to.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonFeatherstoneManager.get_scene_data_backend">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_scene_data_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SceneDataBackend</span></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.get_scene_data_backend" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_scene_data_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataBackend" title="isaaclab.scene_data.scene_data_backend.SceneDataBackend"><span class="pre">SceneDataBackend</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.get_scene_data_backend" title="Link to this definition">#</a></dt>
 <dd><p>Return the SceneDataBackend for the SceneDataProvider.</p>
 </dd></dl>
 
@@ -5122,7 +5123,7 @@ is folded into a single <a class="reference internal" href="#isaaclab_newton.phy
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonFeatherstoneManager.initialize">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sim_context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../lab/isaaclab.sim.html#isaaclab.sim.SimulationContext" title="isaaclab.sim.SimulationContext"><span class="pre">SimulationContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.initialize" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sim_context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../lab/isaaclab.sim.html#isaaclab.sim.SimulationContext" title="isaaclab.sim.simulation_context.SimulationContext"><span class="pre">SimulationContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.initialize" title="Link to this definition">#</a></dt>
 <dd><p>Initialize the manager with simulation context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -5379,7 +5380,7 @@ notify the Fabric Scene Delegate.  Otherwise it falls back to the CPU
 <p>Newton sim backend: no-op — <code class="docutils literal notranslate"><span class="pre">_state_0</span></code> is the live, authoritative state
 already advanced by <a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.step" title="isaaclab_newton.physics.NewtonFeatherstoneManager.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a> / forward kinematics.</p>
 <p>PhysX sim backend: pull rigid-body transforms from the
-<code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code> and write
+<a class="reference internal" href="../lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider" title="isaaclab.scene_data.SceneDataProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code></a> and write
 them into the shadow <code class="docutils literal notranslate"><span class="pre">_state_0.body_q</span></code> so Newton-native consumers
 (Newton renderer, Newton/Rerun/Viser visualizers, OVRTX renderer, Newton
 GL video) see fresh poses.</p>
@@ -5826,7 +5827,7 @@ Returns a list that callers can append to.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonKaminoManager.get_scene_data_backend">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_scene_data_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SceneDataBackend</span></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonKaminoManager.get_scene_data_backend" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_scene_data_backend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataBackend" title="isaaclab.scene_data.scene_data_backend.SceneDataBackend"><span class="pre">SceneDataBackend</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonKaminoManager.get_scene_data_backend" title="Link to this definition">#</a></dt>
 <dd><p>Return the SceneDataBackend for the SceneDataProvider.</p>
 </dd></dl>
 
@@ -5878,7 +5879,7 @@ is folded into a single <a class="reference internal" href="#isaaclab_newton.phy
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonKaminoManager.initialize">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sim_context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../lab/isaaclab.sim.html#isaaclab.sim.SimulationContext" title="isaaclab.sim.SimulationContext"><span class="pre">SimulationContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonKaminoManager.initialize" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sim_context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../lab/isaaclab.sim.html#isaaclab.sim.SimulationContext" title="isaaclab.sim.simulation_context.SimulationContext"><span class="pre">SimulationContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonKaminoManager.initialize" title="Link to this definition">#</a></dt>
 <dd><p>Initialize the manager with simulation context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -6112,7 +6113,7 @@ notify the Fabric Scene Delegate.  Otherwise it falls back to the CPU
 <p>Newton sim backend: no-op — <code class="docutils literal notranslate"><span class="pre">_state_0</span></code> is the live, authoritative state
 already advanced by <a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.step" title="isaaclab_newton.physics.NewtonKaminoManager.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a> / forward kinematics.</p>
 <p>PhysX sim backend: pull rigid-body transforms from the
-<code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code> and write
+<a class="reference internal" href="../lab/isaaclab.scene_data.html#isaaclab.scene_data.SceneDataProvider" title="isaaclab.scene_data.SceneDataProvider"><code class="xref py py-class docutils literal notranslate"><span class="pre">SceneDataProvider</span></code></a> and write
 them into the shadow <code class="docutils literal notranslate"><span class="pre">_state_0.body_q</span></code> so Newton-native consumers
 (Newton renderer, Newton/Rerun/Viser visualizers, OVRTX renderer, Newton
 GL video) see fresh poses.</p>
@@ -6217,7 +6218,6 @@ coordinate the sync explicitly.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.handles_decimation"><code class="docutils literal notranslate"><span class="pre">NewtonManager.handles_decimation()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.add_contact_sensor"><code class="docutils literal notranslate"><span class="pre">NewtonManager.add_contact_sensor()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.add_frame_transform_sensor"><code class="docutils literal notranslate"><span class="pre">NewtonManager.add_frame_transform_sensor()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.add_imu_sensor"><code class="docutils literal notranslate"><span class="pre">NewtonManager.add_imu_sensor()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.after_visualizers_render"><code class="docutils literal notranslate"><span class="pre">NewtonManager.after_visualizers_render()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.clear_callbacks"><code class="docutils literal notranslate"><span class="pre">NewtonManager.clear_callbacks()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.deregister_callback"><code class="docutils literal notranslate"><span class="pre">NewtonManager.deregister_callback()</span></code></a></li>
@@ -6231,6 +6231,7 @@ coordinate the sync explicitly.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.safe_callback_invoke"><code class="docutils literal notranslate"><span class="pre">NewtonManager.safe_callback_invoke()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.stop"><code class="docutils literal notranslate"><span class="pre">NewtonManager.stop()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.wait_for_playing"><code class="docutils literal notranslate"><span class="pre">NewtonManager.wait_for_playing()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.add_imu_sensor"><code class="docutils literal notranslate"><span class="pre">NewtonManager.add_imu_sensor()</span></code></a></li>
 </ul>
 </li>
 </ul>

@@ -452,6 +452,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../source/api/lab/isaaclab.physics.html">isaaclab.physics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../source/api/lab/isaaclab.renderers.html">isaaclab.renderers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../source/api/lab/isaaclab.scene.html">isaaclab.scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../source/api/lab/isaaclab.scene_data.html">isaaclab.scene_data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../source/api/lab/isaaclab.sensors.html">isaaclab.sensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../source/api/lab/isaaclab.sim.html">isaaclab.sim</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../source/api/lab/isaaclab.terrains.html">isaaclab.terrains</a></li>
@@ -701,11 +702,18 @@
 
 <span class="sd">    - **PhysX / no backend**: :class:`~isaaclab_physx.sim.views.FabricFrameView`</span>
 <span class="sd">      (Fabric GPU acceleration with USD fallback).</span>
+<span class="sd">    - **OVPhysX**: :class:`~isaaclab_ovphysx.sim.views.OvPhysxFrameView`</span>
+<span class="sd">      (Warp-native, reads body poses via an OVPhysX ``RIGID_BODY_POSE``</span>
+<span class="sd">      tensor binding).</span>
 <span class="sd">    - **Newton**: :class:`~isaaclab_newton.sim.views.NewtonSiteFrameView`</span>
-<span class="sd">      (GPU-resident site-based transforms).</span>
+<span class="sd">      (Warp-native, reads ``body_q`` from the Newton state).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">_backend_class_names</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;physx&quot;</span><span class="p">:</span> <span class="s2">&quot;FabricFrameView&quot;</span><span class="p">,</span> <span class="s2">&quot;newton&quot;</span><span class="p">:</span> <span class="s2">&quot;NewtonSiteFrameView&quot;</span><span class="p">}</span>
+    <span class="n">_backend_class_names</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;physx&quot;</span><span class="p">:</span> <span class="s2">&quot;FabricFrameView&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ovphysx&quot;</span><span class="p">:</span> <span class="s2">&quot;OvPhysxFrameView&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;newton&quot;</span><span class="p">:</span> <span class="s2">&quot;NewtonSiteFrameView&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_backend</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -717,6 +725,8 @@
         <span class="n">manager_name</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">physics_manager</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
         <span class="k">if</span> <span class="s2">&quot;newton&quot;</span> <span class="ow">in</span> <span class="n">manager_name</span><span class="p">:</span>
             <span class="k">return</span> <span class="s2">&quot;newton&quot;</span>
+        <span class="k">if</span> <span class="s2">&quot;ovphysx&quot;</span> <span class="ow">in</span> <span class="n">manager_name</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;ovphysx&quot;</span>
         <span class="k">return</span> <span class="s2">&quot;physx&quot;</span>
 
 <div class="viewcode-block" id="FrameView.__new__">
