@@ -7,6 +7,8 @@ import torch
 
 from isaaclab.utils.datasets import EpisodeData
 
+pytestmark = pytest.mark.windows_ci
+
 
 @pytest.mark.parametrize("device", ["cuda:0", "cpu"])
 def test_is_empty(device):

@@ -1,0 +1,404 @@
+# Copyright (c) 2022-2026, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
+# All rights reserved.
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+# Windows CI — exercises Isaac Lab on Windows GPU self-hosted runners.
+# Same shape as arm-ci.yaml but the install path is native pip + uv on the
+# host (no Docker on Windows for Linux-based Isaac Sim wheels).
+#   Tier 1 (smoke + install): general-windows, install-windows, kit-launch-windows
+#   Tier 2 (meaningful, marker-filtered): path-io-windows, perception-windows
+#
+# Every job sets `continue-on-error: true` while the Windows runner setup
+# stabilizes. Every pytest invocation passes `--timeout=N` (pytest-timeout)
+# plus `--timeout-method=thread` (signals unavailable on Windows) so a single
+# hung test cannot consume the whole job slot. Inline PowerShell uses
+# `$ErrorActionPreference = "Stop"` so any nonzero exit fails the step.
+
+name: Windows CI
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+      - develop
+      - 'release/**'
+  push:
+    branches:
+      - main
+      - develop
+      - 'release/**'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  changes:
+    name: Detect Changes
+    runs-on: ubuntu-latest
+    outputs:
+      run_windows_ci: ${{ steps.detect.outputs.run_windows_ci }}
+    steps:
+      - id: detect
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          EVENT_NAME: ${{ github.event_name }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          patterns=(
+            $'^source/\tLibrary source code'
+            $'^tools/\tBuild tooling'
+            $'^apps/\tStandalone apps'
+            $'(^|/)pyproject\\.toml$\tPython project metadata'
+            $'^\\.github/workflows/windows-ci\\.yaml$\tThis workflow file'
+            $'^VERSION$\tVersion file'
+          )
+          any_match() {
+            local files="$1" entry regex
+            for entry in "${patterns[@]}"; do
+              IFS=$'\t' read -r regex _ <<< "$entry"
+              if grep -qE "$regex" <<< "$files"; then
+                return 0
+              fi
+            done
+            return 1
+          }
+          if [ "$EVENT_NAME" != "pull_request" ]; then
+            echo "run_windows_ci=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          changed_files="$(gh api --paginate "repos/$REPO/pulls/$PR_NUMBER/files" --jq '.[].filename' || true)"
+          if [ -z "$changed_files" ] || any_match "$changed_files"; then
+            echo "run_windows_ci=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_windows_ci=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  # Tier 1: dependency smoke. No isaaclab install, just torch + scipy.
+  general-windows:
+    name: general-windows
+    needs: [changes]
+    if: needs.changes.outputs.run_windows_ci == 'true'
+    runs-on: [self-hosted, gpu-windows]
+    timeout-minutes: 30
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          lfs: false
+
+      - name: Setup env
+        shell: powershell
+        run: |
+          $ErrorActionPreference = "Stop"
+          if (-not (Test-Path "env_isaaclab")) {
+            python -m venv env_isaaclab
+          }
+          & "env_isaaclab\Scripts\Activate.ps1"
+          python -m pip install --upgrade pip
+          pip install pytest pytest-timeout scipy numpy
+          pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
+
+      - name: Run smoke tests
+        shell: powershell
+        run: |
+          $ErrorActionPreference = "Stop"
+          & "env_isaaclab\Scripts\Activate.ps1"
+          New-Item -ItemType Directory -Force -Path "reports" | Out-Null
+          $env:PYTHONUNBUFFERED = "1"
+          $env:PYTHONIOENCODING = "utf-8"
+          # --timeout-method=thread: SIGALRM is unavailable on Windows; the thread
+          # method uses a Python thread to raise on timeout (slightly less reliable
+          # than signal on Linux but is the only option here).
+          # --continue-on-collection-errors: broken imports in unrelated files do
+          # not poison the job; pytest still runs the windows_ci-tagged tests.
+          # Marker-driven discovery: any test under source/isaaclab/test/deps tagged
+          # with windows_ci is auto-picked.
+          python -m pytest `
+            source/isaaclab/test/deps `
+            --ignore=tools/conftest.py `
+            -m windows_ci `
+            --continue-on-collection-errors `
+            --timeout=60 `
+            --timeout-method=thread `
+            -v `
+            --junitxml=reports/general-windows.xml
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: general-windows-report
+          path: reports/general-windows.xml
+          retention-days: 7
+
+  # Tier 1: install probe + wheel build + reinstall. Catches setup.py Linux-isms.
+  install-windows:
+    name: install-windows
+    needs: [changes]
+    if: needs.changes.outputs.run_windows_ci == 'true'
+    runs-on: [self-hosted, gpu-windows]
+    timeout-minutes: 45
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          lfs: false
+
+      - name: Install uv
+        shell: powershell
+        run: |
+          $ErrorActionPreference = "Stop"
+          if (-not (Get-Command uv -ErrorAction SilentlyContinue)) {
+            irm https://astral.sh/uv/install.ps1 | iex
+          }
+          # uv installs into $HOME\.local\bin on Windows; add to PATH for next steps.
+          Add-Content -Path $env:GITHUB_PATH -Value "$HOME\.local\bin"
+
+      - name: uv venv + editable install + smoke import
+        shell: powershell
+        timeout-minutes: 15
+        run: |
+          $ErrorActionPreference = "Stop"
+          uv venv --python 3.12 env_isaaclab_uv
+          & "env_isaaclab_uv\Scripts\Activate.ps1"
+          # No --no-build-isolation: let uv create a temporary build env per package
+          # that pulls in build-system.requires (setuptools<82, wheel, toml). Slower
+          # than --no-build-isolation but reliable across all isaaclab packages.
+          uv pip install -e source/isaaclab
+          uv pip install -e source/isaaclab_assets
+          uv pip install -e source/isaaclab_tasks
+          # Smoke import. If any of these fail, the step exits nonzero.
+          python -c "import isaaclab, isaaclab_assets, isaaclab_tasks; print('editable imports ok')"
+
+      - name: Build wheel + reinstall from wheel + smoke import
+        shell: powershell
+        timeout-minutes: 20
+        run: |
+          $ErrorActionPreference = "Stop"
+          & "env_isaaclab_uv\Scripts\Activate.ps1"
+          # Build the wheel via the canonical builder. Editable install above
+          # symlinks source dirs; the wheel path runs setup.py's build_py and
+          # package discovery, which is what end users hit on `pip install isaaclab`.
+          bash tools/wheel_builder/build.sh
+          $wheel = Get-ChildItem -Path "tools/wheel_builder/build/dist" -Filter "isaaclab-*.whl" | Select-Object -First 1
+          if (-not $wheel) { throw "no wheel found in tools/wheel_builder/build/dist" }
+          uv pip uninstall isaaclab
+          uv pip install "$($wheel.FullName)[all]"
+          python -c "import isaaclab; print('wheel install ok:', isaaclab.__file__)"
+
+  # Tier 1: Kit launch. Validates Isaac Sim Windows wheels load Kit cleanly.
+  kit-launch-windows:
+    name: kit-launch-windows
+    needs: [changes]
+    if: needs.changes.outputs.run_windows_ci == 'true'
+    runs-on: [self-hosted, gpu-windows]
+    timeout-minutes: 30
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          lfs: false
+
+      - name: Install uv
+        shell: powershell
+        run: |
+          $ErrorActionPreference = "Stop"
+          if (-not (Get-Command uv -ErrorAction SilentlyContinue)) {
+            irm https://astral.sh/uv/install.ps1 | iex
+          }
+          Add-Content -Path $env:GITHUB_PATH -Value "$HOME\.local\bin"
+
+      - name: Install isaacsim + isaaclab and boot Kit headless
+        shell: powershell
+        timeout-minutes: 20
+        run: |
+          $ErrorActionPreference = "Stop"
+          uv venv --python 3.12 env_isaaclab_uv
+          & "env_isaaclab_uv\Scripts\Activate.ps1"
+          # No --no-build-isolation: let uv create a temporary build env per package
+          # that pulls in build-system.requires (setuptools<82, wheel, toml). Slower
+          # than --no-build-isolation but reliable across all isaaclab packages.
+          uv pip install -e source/isaaclab
+          # Windows Sim wheel from pypi.nvidia.com (6.0.0.0-cp312-win_amd64).
+          uv pip install --extra-index-url https://pypi.nvidia.com isaacsim
+          # Boot Kit headless and exit cleanly. Inline Python script asserts
+          # that AppLauncher returned a SimulationApp and exits 0; any failure
+          # (crash, hang killed by step timeout, missing module) fails the step.
+          $script = @'
+          import sys
+          from isaaclab.app import AppLauncher
+
+          app_launcher = AppLauncher(headless=True)
+          sim = app_launcher.app
+          assert sim is not None, "AppLauncher did not return a SimulationApp"
+          sim.close()
+          sys.exit(0)
+          '@
+          $script | Out-File -FilePath kit_launch_smoke.py -Encoding utf8
+          python kit_launch_smoke.py
+
+  # Tier 2: path-IO tests. Most Windows-specific bugs live here. Pure Python +
+  # filesystem semantics; no Kit, no GPU.
+  path-io-windows:
+    name: path-io-windows
+    needs: [changes]
+    if: needs.changes.outputs.run_windows_ci == 'true'
+    runs-on: [self-hosted, gpu-windows]
+    timeout-minutes: 30
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          lfs: false
+
+      - name: Install uv
+        shell: powershell
+        run: |
+          $ErrorActionPreference = "Stop"
+          if (-not (Get-Command uv -ErrorAction SilentlyContinue)) {
+            irm https://astral.sh/uv/install.ps1 | iex
+          }
+          Add-Content -Path $env:GITHUB_PATH -Value "$HOME\.local\bin"
+
+      - name: Install isaaclab + run path/IO tests
+        shell: powershell
+        timeout-minutes: 20
+        run: |
+          $ErrorActionPreference = "Stop"
+          uv venv --python 3.12 env_isaaclab_uv
+          & "env_isaaclab_uv\Scripts\Activate.ps1"
+          # No --no-build-isolation: let uv create a temporary build env per package
+          # that pulls in build-system.requires (setuptools<82, wheel, toml). Slower
+          # than --no-build-isolation but reliable across all isaaclab packages.
+          uv pip install -e source/isaaclab
+          uv pip install pytest pytest-timeout
+          New-Item -ItemType Directory -Force -Path "reports" | Out-Null
+          $env:PYTHONUNBUFFERED = "1"
+          # Marker-driven discovery: tag a utility test with windows_ci and it
+          # gets picked up. --continue-on-collection-errors tolerates broken
+          # neighbors (e.g. tests that need Kit and can't import here).
+          python -m pytest `
+            source/isaaclab/test `
+            --ignore=tools/conftest.py `
+            --ignore=source/isaaclab/test/deps `
+            -m windows_ci `
+            --continue-on-collection-errors `
+            --timeout=120 `
+            --timeout-method=thread `
+            -v `
+            --junitxml=reports/path-io-windows.xml
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: path-io-windows-report
+          path: reports/path-io-windows.xml
+          retention-days: 7
+
+  # Tier 2: perception smoke (cartpole-camera). Validates Kit + camera + step
+  # on Windows GPU. Fast-fail: explicit assertions inside the inline script;
+  # if anything throws, the step exits nonzero. Inner timeout 180s so we do
+  # not sit on a hung Vulkan init for the full job slot.
+  perception-windows:
+    name: perception-windows
+    needs: [changes]
+    if: needs.changes.outputs.run_windows_ci == 'true'
+    runs-on: [self-hosted, gpu-windows]
+    timeout-minutes: 30
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          lfs: false
+
+      - name: Install uv
+        shell: powershell
+        run: |
+          $ErrorActionPreference = "Stop"
+          if (-not (Get-Command uv -ErrorAction SilentlyContinue)) {
+            irm https://astral.sh/uv/install.ps1 | iex
+          }
+          Add-Content -Path $env:GITHUB_PATH -Value "$HOME\.local\bin"
+
+      - name: Install isaaclab + isaacsim and run cartpole-camera smoke
+        shell: powershell
+        timeout-minutes: 20
+        run: |
+          $ErrorActionPreference = "Stop"
+          uv venv --python 3.12 env_isaaclab_uv
+          & "env_isaaclab_uv\Scripts\Activate.ps1"
+          # No --no-build-isolation: let uv create a temporary build env per package
+          # that pulls in build-system.requires (setuptools<82, wheel, toml). Slower
+          # than --no-build-isolation but reliable across all isaaclab packages.
+          uv pip install -e source/isaaclab
+          uv pip install -e source/isaaclab_assets
+          uv pip install -e source/isaaclab_tasks
+          uv pip install --extra-index-url https://pypi.nvidia.com isaacsim
+          $script = @'
+          import sys
+          import threading
+          from isaaclab.app import AppLauncher
+
+          # Inner 3-min budget: if Kit / Vulkan / env construction hangs, the
+          # watchdog thread aborts the process with a clear message so the job
+          # fails rather than burning the job's outer timeout-minutes.
+          def watchdog():
+              import os, signal
+              import time
+              time.sleep(180)
+              print("perception-windows watchdog: hard timeout (3 min) reached", file=sys.stderr)
+              os._exit(124)
+
+          t = threading.Thread(target=watchdog, daemon=True)
+          t.start()
+
+          app_launcher = AppLauncher(headless=True, enable_cameras=True)
+          sim = app_launcher.app
+          assert sim is not None, "AppLauncher did not return a SimulationApp"
+
+          import gymnasium as gym
+          import isaaclab_tasks  # noqa: F401  (gym env registration)
+
+          env = gym.make("Isaac-Cartpole-RGB-Camera-Direct-v0", num_envs=1)
+          obs, info = env.reset()
+          assert obs is not None, "env.reset returned None observation"
+          for step_i in range(3):
+              action = env.action_space.sample()
+              obs, reward, terminated, truncated, info = env.step(action)
+              assert obs is not None, f"env.step {step_i} returned None observation"
+          env.close()
+          sim.close()
+          sys.exit(0)
+          '@
+          $script | Out-File -FilePath perception_smoke.py -Encoding utf8
+          python perception_smoke.py
+
+      - name: Upload smoke script as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: perception-smoke-windows-script
+          path: perception_smoke.py
+          retention-days: 7
