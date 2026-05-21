@@ -98,7 +98,9 @@ jobs:
     needs: [changes]
     if: needs.changes.outputs.run_windows_ci == 'true'
     runs-on: [self-hosted, gpu-windows]
-    timeout-minutes: 30
+    # Job is venv create + small pip install + pytest with --timeout=60s.
+    # Anything beyond 15 min means a hang we want to surface fast.
+    timeout-minutes: 15
     continue-on-error: true
     steps:
       - name: Checkout
@@ -158,7 +160,9 @@ jobs:
     needs: [changes]
     if: needs.changes.outputs.run_windows_ci == 'true'
     runs-on: [self-hosted, gpu-windows]
-    timeout-minutes: 45
+    # uv editable installs + wheel build + reinstall — 30 min is well above
+    # the typical ~15 min runtime and bounds runaway pip resolutions.
+    timeout-minutes: 30
     continue-on-error: true
     steps:
       - name: Checkout
@@ -224,7 +228,9 @@ jobs:
     needs: [changes]
     if: needs.changes.outputs.run_windows_ci == 'true'
     runs-on: [self-hosted, gpu-windows]
-    timeout-minutes: 30
+    # uv install + Sim install + 5 min Kit boot watchdog. 15 min outer cap so
+    # a hung step never holds the single Windows runner long.
+    timeout-minutes: 15
     continue-on-error: true
     steps:
       - name: Checkout
@@ -269,7 +275,18 @@ jobs:
           sys.exit(0)
           '@
           $script | Out-File -FilePath kit_launch_smoke.py -Encoding utf8
-          python kit_launch_smoke.py
+          # Process-level watchdog: 5 min hard cap. Python thread watchdogs are
+          # GIL-vulnerable (a C-level hang in Kit init can never release the
+          # GIL, so a daemon thread cannot fire). Start-Process + WaitForExit
+          # is OS-level and immune.
+          $proc = Start-Process -PassThru -NoNewWindow -FilePath python -ArgumentList "kit_launch_smoke.py"
+          if (-not $proc.WaitForExit(300000)) {
+            Write-Host "::error::kit-launch-windows hard timeout (5 min) — Kit hung; killing python tree"
+            $proc.Kill($true)
+            $proc.WaitForExit()
+            exit 124
+          }
+          exit $proc.ExitCode
 
   # Tier 2: path-IO tests. Most Windows-specific bugs live here. Pure Python +
   # filesystem semantics; no Kit, no GPU.
@@ -278,7 +295,9 @@ jobs:
     needs: [changes]
     if: needs.changes.outputs.run_windows_ci == 'true'
     runs-on: [self-hosted, gpu-windows]
-    timeout-minutes: 30
+    # uv editable install + 4 small pytest files with --timeout=120s each.
+    # 15 min outer cap with pytest's own per-test timeout as the inner gate.
+    timeout-minutes: 15
     continue-on-error: true
     steps:
       - name: Checkout
@@ -395,21 +414,13 @@ jobs:
           uv pip install --extra-index-url https://pypi.nvidia.com 'isaacsim[all,extscache]==6.0.0.*'
           $script = @'
           import sys
-          import threading
           from isaaclab.app import AppLauncher
 
-          # Inner 3-min budget: if Kit / Vulkan / env construction hangs, the
-          # watchdog thread aborts the process with a clear message so the job
-          # fails rather than burning the job's outer timeout-minutes.
-          def watchdog():
-              import os, signal
-              import time
-              time.sleep(180)
-              print("perception-windows watchdog: hard timeout (3 min) reached", file=sys.stderr)
-              os._exit(124)
-
-          t = threading.Thread(target=watchdog, daemon=True)
-          t.start()
+          # No in-script watchdog: a Python thread's time.sleep + os._exit
+          # cannot preempt a Kit init that hangs in a C call holding the GIL
+          # (observed on this runner for 40 minutes). The hard timeout lives
+          # at the PowerShell layer below (Start-Process + WaitForExit) which
+          # is OS-level and immune to GIL.
 
           app_launcher = AppLauncher(headless=True, enable_cameras=True)
           sim = app_launcher.app
@@ -430,7 +441,17 @@ jobs:
           sys.exit(0)
           '@
           $script | Out-File -FilePath perception_smoke.py -Encoding utf8
-          python perception_smoke.py
+          # Process-level watchdog: 3 min hard cap. See kit-launch-windows for
+          # rationale — Python thread watchdogs cannot preempt a GIL-held
+          # Kit/Vulkan init.
+          $proc = Start-Process -PassThru -NoNewWindow -FilePath python -ArgumentList "perception_smoke.py"
+          if (-not $proc.WaitForExit(180000)) {
+            Write-Host "::error::perception-windows hard timeout (3 min) — Kit/Vulkan hung; killing python tree"
+            $proc.Kill($true)
+            $proc.WaitForExit()
+            exit 124
+          }
+          exit $proc.ExitCode
 
       - name: Upload smoke script as artifact
         if: always()
