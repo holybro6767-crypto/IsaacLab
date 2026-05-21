@@ -188,6 +188,12 @@ jobs:
           # that pulls in build-system.requires (setuptools<82, wheel, toml). Slower
           # than --no-build-isolation but reliable across all isaaclab packages.
           uv pip install -e source/isaaclab
+          # isaaclab_physx is a runtime dep of isaaclab_tasks (the
+          # GroundPlaneCfg.physics_material forwarding shim imports it eagerly
+          # when isaaclab_tasks is walked at import time). Install before
+          # touching isaaclab_tasks or the import dies with
+          # "RigidBodyMaterialCfg has moved to isaaclab_physx.sim.spawners.materials".
+          uv pip install -e source/isaaclab_physx
           uv pip install -e source/isaaclab_assets
           uv pip install -e source/isaaclab_tasks
           # Smoke import. If any of these fail, the step exits nonzero.
@@ -365,6 +371,12 @@ jobs:
           # that pulls in build-system.requires (setuptools<82, wheel, toml). Slower
           # than --no-build-isolation but reliable across all isaaclab packages.
           uv pip install -e source/isaaclab
+          # isaaclab_physx is a runtime dep of isaaclab_tasks (the
+          # GroundPlaneCfg.physics_material forwarding shim imports it eagerly
+          # when isaaclab_tasks is walked at import time). Install before
+          # touching isaaclab_tasks or the import dies with
+          # "RigidBodyMaterialCfg has moved to isaaclab_physx.sim.spawners.materials".
+          uv pip install -e source/isaaclab_physx
           uv pip install -e source/isaaclab_assets
           uv pip install -e source/isaaclab_tasks
           uv pip install --extra-index-url https://pypi.nvidia.com 'isaacsim[all,extscache]==6.0.0.*'
