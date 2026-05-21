@@ -193,7 +193,10 @@ jobs:
           # when isaaclab_tasks is walked at import time). Install before
           # touching isaaclab_tasks or the import dies with
           # "RigidBodyMaterialCfg has moved to isaaclab_physx.sim.spawners.materials".
-          uv pip install -e source/isaaclab_physx
+          # --no-deps: isaaclab-physx==1.1.0 declares a hard dep on isaaclab-ppisp,
+          # which is not on any index nor in source/. The dep is referenced lazily
+          # at runtime, so skipping the resolver here unblocks editable install.
+          uv pip install --no-deps -e source/isaaclab_physx
           uv pip install -e source/isaaclab_assets
           uv pip install -e source/isaaclab_tasks
           # Smoke import. If any of these fail, the step exits nonzero.
@@ -376,7 +379,10 @@ jobs:
           # when isaaclab_tasks is walked at import time). Install before
           # touching isaaclab_tasks or the import dies with
           # "RigidBodyMaterialCfg has moved to isaaclab_physx.sim.spawners.materials".
-          uv pip install -e source/isaaclab_physx
+          # --no-deps: isaaclab-physx==1.1.0 declares a hard dep on isaaclab-ppisp,
+          # which is not on any index nor in source/. The dep is referenced lazily
+          # at runtime, so skipping the resolver here unblocks editable install.
+          uv pip install --no-deps -e source/isaaclab_physx
           uv pip install -e source/isaaclab_assets
           uv pip install -e source/isaaclab_tasks
           uv pip install --extra-index-url https://pypi.nvidia.com 'isaacsim[all,extscache]==6.0.0.*'
