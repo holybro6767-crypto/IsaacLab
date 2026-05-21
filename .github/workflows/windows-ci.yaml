@@ -344,9 +344,15 @@ jobs:
   perception-windows:
     name: perception-windows
     needs: [changes]
-    if: needs.changes.outputs.run_windows_ci == 'true'
+    # Gated off until the Windows runner exposes a functional Vulkan/GPU stack
+    # (currently `vkEnumeratePhysicalDevices failed. No physical device is found.`,
+    # Kit then hangs through the in-script watchdog and consumes the runner for
+    # the full job timeout, starving every other job in the workflow). Flip
+    # back to needs.changes.outputs.run_windows_ci == 'true' once the runner is
+    # confirmed GPU-capable.
+    if: false
     runs-on: [self-hosted, gpu-windows]
-    timeout-minutes: 30
+    timeout-minutes: 10
     continue-on-error: true
     steps:
       - name: Checkout
