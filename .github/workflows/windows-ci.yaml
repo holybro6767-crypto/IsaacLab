@@ -374,14 +374,11 @@ jobs:
   perception-windows:
     name: perception-windows
     needs: [changes]
-    # Gated off until the Windows runner exposes a functional Vulkan/GPU stack
-    # (currently `vkEnumeratePhysicalDevices failed. No physical device is found.`,
-    # Kit then hangs through the in-script watchdog and consumes the runner for
-    # the full job timeout, starving every other job in the workflow). Flip
-    # back to needs.changes.outputs.run_windows_ci == 'true' once the runner is
-    # confirmed GPU-capable.
-    if: false
+    if: needs.changes.outputs.run_windows_ci == 'true'
     runs-on: [self-hosted, gpu-windows]
+    # PowerShell Start-Process / WaitForExit / Kill watchdog (3-min cap) wraps
+    # the inline Kit boot; the outer 10-min job timeout is the second line of
+    # defence so a hung Kit/Vulkan init cannot starve other queued jobs.
     timeout-minutes: 10
     continue-on-error: true
     steps:
