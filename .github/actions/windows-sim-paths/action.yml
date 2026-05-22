@@ -35,10 +35,12 @@ runs:
         # Discover Sim location from pip metadata (avoids `import isaacsim`,
         # which would bootstrap the kernel and is the exact thing we are about
         # to launch deliberately).
-        $pipShow = python -m pip show isaacsim-kernel 2>&1 | Out-String
+        # Use `uv pip show` rather than `python -m pip show` since uv venvs are
+        # created without pip installed inside the venv by default.
+        $pipShow = uv pip show isaacsim-kernel 2>&1 | Out-String
         $loc = $pipShow -split "`n" | Where-Object { $_ -match "^Location:" } | Select-Object -First 1
         if (-not $loc) {
-          $pipShow = python -m pip show isaacsim 2>&1 | Out-String
+          $pipShow = uv pip show isaacsim 2>&1 | Out-String
           $loc = $pipShow -split "`n" | Where-Object { $_ -match "^Location:" } | Select-Object -First 1
         }
         if (-not $loc) { throw "Could not resolve isaacsim install path from pip" }
