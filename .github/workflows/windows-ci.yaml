@@ -43,10 +43,29 @@ permissions:
 # Accept the Omniverse/Isaac Sim EULA non-interactively so Kit bootstrap on the
 # Windows runner doesn't block waiting for stdin (manifests as
 # "Unable to bootstrap inner kit kernel: EOF when reading a line").
+# Headless / no-window / no-watchdog flags mirror PR #4018's known-working
+# Windows env block so Kit's RTX path can boot without a display server and
+# without the global watchdog killing it.
 env:
+  # EULA acceptance (three names because different layers check different ones).
   OMNI_KIT_ACCEPT_EULA: "yes"
   ACCEPT_EULA: "Y"
+  ISAACSIM_ACCEPT_EULA: "YES"
   PRIVACY_CONSENT: "Y"
+  # Headless mode signals.
+  HEADLESS: "1"
+  ISAAC_SIM_HEADLESS: "1"
+  ISAAC_SIM_LOW_MEMORY: "1"
+  WINDOWS_PLATFORM: "true"
+  # Kit must not try to open a window or attach a watchdog when no desktop
+  # session is bound (Windows runner under github-runner service).
+  OMNI_KIT_NO_WINDOW: "1"
+  OMNI_KIT_DISABLE_WATCHDOG: "1"
+  OMNI_KIT_TELEMETRY: "0"
+  CARB_LOGGING_SEVERITY: "error"
+  # Python output buffering / encoding for log readability.
+  PYTHONUNBUFFERED: "1"
+  PYTHONIOENCODING: "utf-8"
 
 jobs:
   changes:
@@ -281,9 +300,9 @@ jobs:
           }
           Add-Content -Path $env:GITHUB_PATH -Value "$HOME\.local\bin"
 
-      - name: Install isaacsim + isaaclab and boot Kit headless
+      - name: Install isaacsim + isaaclab
         shell: powershell
-        timeout-minutes: 20
+        timeout-minutes: 10
         run: |
           $ErrorActionPreference = "Stop"
           uv venv --python 3.12 env_isaaclab_uv
@@ -294,6 +313,17 @@ jobs:
           uv pip install -e source/isaaclab
           # Windows Sim wheel from pypi.nvidia.com (6.0.0.0-cp312-win_amd64).
           uv pip install --extra-index-url https://pypi.nvidia.com 'isaacsim[all,extscache]==6.0.0.*'
+
+      - name: Resolve Isaac Sim paths (ISAAC_PATH / CARB_APP_PATH / EXP_PATH / DLL search)
+        uses: ./.github/actions/windows-sim-paths
+        with: { venv-path: 'env_isaaclab_uv' }
+
+      - name: Boot Kit headless
+        shell: powershell
+        timeout-minutes: 8
+        run: |
+          $ErrorActionPreference = "Stop"
+          & "env_isaaclab_uv\Scripts\Activate.ps1"
           # Boot Kit headless and exit cleanly. Inline Python script asserts
           # that AppLauncher returned a SimulationApp and exits 0; any failure
           # (crash, hang killed by step timeout, missing module) fails the step.
@@ -439,9 +469,9 @@ jobs:
           }
           Add-Content -Path $env:GITHUB_PATH -Value "$HOME\.local\bin"
 
-      - name: Install isaaclab + isaacsim and run cartpole-camera smoke
+      - name: Install isaaclab + isaacsim
         shell: powershell
-        timeout-minutes: 20
+        timeout-minutes: 15
         run: |
           $ErrorActionPreference = "Stop"
           uv venv --python 3.12 env_isaaclab_uv
@@ -462,6 +492,17 @@ jobs:
           uv pip install -e source/isaaclab_assets
           uv pip install -e source/isaaclab_tasks
           uv pip install --extra-index-url https://pypi.nvidia.com 'isaacsim[all,extscache]==6.0.0.*'
+
+      - name: Resolve Isaac Sim paths (ISAAC_PATH / CARB_APP_PATH / EXP_PATH / DLL search)
+        uses: ./.github/actions/windows-sim-paths
+        with: { venv-path: 'env_isaaclab_uv' }
+
+      - name: Run cartpole-camera perception smoke
+        shell: powershell
+        timeout-minutes: 5
+        run: |
+          $ErrorActionPreference = "Stop"
+          & "env_isaaclab_uv\Scripts\Activate.ps1"
           $script = @'
           import sys
           from isaaclab.app import AppLauncher

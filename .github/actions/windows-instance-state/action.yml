@@ -42,11 +42,21 @@ runs:
                           @{n='Used GB';e={[math]::Round($_.Used/1GB,1)}},
                           @{n='Free GB';e={[math]::Round($_.Free/1GB,1)}} |
             Format-Table
+          # GPU presence check via nvidia-smi. Surfaces "is there a GPU at all"
+          # before any Kit boot, so a Vulkan failure can be classified as
+          # "no GPU on the runner" vs "GPU present but Vulkan/driver issue".
+          $nvsmi = & nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv,noheader 2>&1
+          if ($LASTEXITCODE -eq 0) {
+            Write-Host "nvidia-smi: $nvsmi"
+          } else {
+            Write-Host "nvidia-smi: not available or no GPU detected (exit=$LASTEXITCODE)"
+          }
           foreach ($k in $observed.Keys) {
             $p = $observed[$k]
             if (Test-Path $p) {
-              $s = (Get-ChildItem -Recurse -ErrorAction SilentlyContinue $p |
-                    Measure-Object -Sum Length).Sum
+              $s = (Get-ChildItem -Recurse -File -ErrorAction SilentlyContinue $p |
+                    Measure-Object -Sum Length -ErrorAction SilentlyContinue).Sum
+              if ($null -eq $s) { $s = 0 }
               "{0,-20} {1,10:N1} MB  ({2})" -f $k, ($s/1MB), $p
             } else {
               "{0,-20} {1,10}  ({2})" -f $k, "(absent)", $p
