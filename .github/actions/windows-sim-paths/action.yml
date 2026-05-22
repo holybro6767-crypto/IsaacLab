@@ -37,10 +37,15 @@ runs:
         # to launch deliberately).
         # Use `uv pip show` rather than `python -m pip show` since uv venvs are
         # created without pip installed inside the venv by default.
-        $pipShow = uv pip show isaacsim-kernel 2>&1 | Out-String
+        # Capture stdout only; uv writes its banner ("Using Python ...") to
+        # stderr and merging with 2>&1 trips $ErrorActionPreference=Stop via
+        # PowerShell's NativeCommandError handling on stderr lines.
+        $pipShow = (uv pip show isaacsim-kernel) | Out-String
+        if ($LASTEXITCODE -ne 0) { $pipShow = "" }
         $loc = $pipShow -split "`n" | Where-Object { $_ -match "^Location:" } | Select-Object -First 1
         if (-not $loc) {
-          $pipShow = uv pip show isaacsim 2>&1 | Out-String
+          $pipShow = (uv pip show isaacsim) | Out-String
+          if ($LASTEXITCODE -ne 0) { $pipShow = "" }
           $loc = $pipShow -split "`n" | Where-Object { $_ -match "^Location:" } | Select-Object -First 1
         }
         if (-not $loc) { throw "Could not resolve isaacsim install path from pip" }
