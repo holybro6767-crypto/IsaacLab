@@ -152,54 +152,42 @@ jobs:
           # uv installs into $HOME\.local\bin on Windows; add to PATH for next steps.
           Add-Content -Path $env:GITHUB_PATH -Value "$HOME\.local\bin"
 
-      # Single setup step — venv create + every editable install + isaacsim +
-      # CUDA torch + h5py + pytest. Shared across all subsequent test steps.
-      # Hard fail aborts the job (no continue-on-error) since downstream steps
-      # all depend on this venv.
+      # Single setup step — venv create + canonical install.py invocation +
+      # test deps. Shared across all subsequent test steps. Hard fail aborts
+      # the job (no continue-on-error) since downstream steps all depend on
+      # this venv.
       - name: Setup venv + install isaaclab + isaacsim + test deps
         id: setup
         shell: powershell
         timeout-minutes: 25
         run: |
           $ErrorActionPreference = "Stop"
-          # --seed installs pip / setuptools / wheel into the venv so the
-          # wheel-builder step can later run `python -m pip install build wheel`
-          # inside this venv (uv venv ships without pip by default).
+          # --seed installs pip / setuptools / wheel into the venv. install.py
+          # discovers uv via shutil.which and routes pip through `uv pip`, but
+          # the wheel-builder step later runs `python -m pip install build wheel`
+          # inside this venv and needs pip available.
           uv venv --python 3.12 --seed env_isaaclab_uv
           & "env_isaaclab_uv\Scripts\Activate.ps1"
-          uv pip install -e source/isaaclab
-          # isaaclab_physx and isaaclab_newton are runtime deps of
-          # isaaclab_tasks (cartpole's env config imports
-          # isaaclab_newton.physics at module load; the
-          # GroundPlaneCfg.physics_material forwarding shim imports
-          # isaaclab_physx eagerly when isaaclab_tasks is walked at import
-          # time). --no-deps because both declare a hard dep on
-          # isaaclab_ppisp, which exists on `develop` (source/isaaclab_ppisp)
-          # but is not yet present on this branch nor on any index. The
-          # ppisp import is lazy at runtime.
-          uv pip install --no-deps -e source/isaaclab_physx
-          uv pip install --no-deps -e source/isaaclab_newton
-          uv pip install -e source/isaaclab_assets
-          uv pip install -e source/isaaclab_tasks
-          # source/isaaclab_rl[rsl_rl,rl_games] pulls rsl-rl-lib + rl-games
-          # (declared as extras in isaaclab_rl/setup.py). The training smoke
-          # invokes both rsl_rl/train.py and rl_games/train.py.
-          uv pip install -e 'source/isaaclab_rl[rsl_rl,rl_games]'
-          # Test deps: h5py for hdf5 tests.
+          # Test deps that aren't part of install.py's scope: h5py for the
+          # hdf5 test fixture, pytest-timeout for per-test signal/thread
+          # watchdogs on Windows.
           uv pip install pytest pytest-timeout h5py
-          # Isaac Sim — extscache extra is required (without it the Sim
-          # extension cache is missing on disk and Kit bootstrap fails with
-          # "Unable to expose isaacsim.simulation_app API"). Install BEFORE
-          # the cu128 torch upgrade because isaacsim pulls CPU torch as a
-          # transitive dep and would silently overwrite a CUDA wheel that
-          # was installed first. Mirrors install.py's order
-          # (_install_isaacsim() then _ensure_cuda_torch()).
-          uv pip install --extra-index-url https://pypi.nvidia.com 'isaacsim[all,extscache]==6.0.0.*'
-          # cu128 torch wheel because pypi's default torch is CPU-only and
-          # test_episode_data has [cuda:0] parametrize cases.
-          uv pip install --upgrade --index-url https://download.pytorch.org/whl/cu128 torch torchvision
+          # Canonical install via the same entry point users hit
+          # (`source/isaaclab/isaaclab/cli/commands/install.py` :: command_install):
+          #   - editable installs of every CORE_ISAACLAB_SUBMODULES entry,
+          #     including isaaclab_ppisp first so the ppisp dep declared by
+          #     isaaclab_physx and isaaclab_newton resolves naturally (no
+          #     more --no-deps workarounds);
+          #   - `_install_isaacsim()` with the NVIDIA index and the [all]
+          #     extra (extscache is part of [all]);
+          #   - `_ensure_cuda_torch()` AFTER isaacsim, so isaacsim's
+          #     transitive CPU torch cannot overwrite the cu128 wheel;
+          #   - `rl[rsl_rl,rl_games]` extras for the training smoke step.
+          # Mirrors the Linux CI install entry point per the
+          # "Mirror Linux CI setup for new platforms" rule.
+          .\isaaclab.bat -i 'isaacsim,rl[rsl_rl,rl_games]'
           # Smoke import to fail fast if anything above was broken.
-          python -c "import isaaclab, isaaclab_assets, isaaclab_tasks, isaaclab_newton, isaaclab_physx; print('editable imports ok')"
+          python -c "import isaaclab, isaaclab_assets, isaaclab_tasks, isaaclab_newton, isaaclab_physx, isaaclab_ppisp; print('editable imports ok')"
           New-Item -ItemType Directory -Force -Path "reports" | Out-Null
 
       - name: Resolve Isaac Sim paths (ISAAC_PATH / CARB_APP_PATH / EXP_PATH / DLL search)
