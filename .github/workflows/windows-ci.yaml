@@ -168,30 +168,38 @@ jobs:
           uv venv --python 3.12 --seed env_isaaclab_uv
           & "env_isaaclab_uv\Scripts\Activate.ps1"
           uv pip install -e source/isaaclab
-          # isaaclab_physx is a runtime dep of isaaclab_tasks (the
-          # GroundPlaneCfg.physics_material forwarding shim imports it eagerly
-          # when isaaclab_tasks is walked at import time). --no-deps because
-          # isaaclab-physx==1.1.0 declares a hard dep on isaaclab-ppisp,
-          # which is not on any index nor in source/. The ppisp import is
-          # lazy at runtime.
+          # isaaclab_physx and isaaclab_newton are runtime deps of
+          # isaaclab_tasks (cartpole's env config imports
+          # isaaclab_newton.physics at module load; the
+          # GroundPlaneCfg.physics_material forwarding shim imports
+          # isaaclab_physx eagerly when isaaclab_tasks is walked at import
+          # time). --no-deps because both declare a hard dep on
+          # isaaclab_ppisp, which exists on `develop` (source/isaaclab_ppisp)
+          # but is not yet present on this branch nor on any index. The
+          # ppisp import is lazy at runtime.
           uv pip install --no-deps -e source/isaaclab_physx
+          uv pip install --no-deps -e source/isaaclab_newton
           uv pip install -e source/isaaclab_assets
           uv pip install -e source/isaaclab_tasks
           # source/isaaclab_rl[rsl_rl,rl_games] pulls rsl-rl-lib + rl-games
           # (declared as extras in isaaclab_rl/setup.py). The training smoke
           # invokes both rsl_rl/train.py and rl_games/train.py.
           uv pip install -e 'source/isaaclab_rl[rsl_rl,rl_games]'
-          # Test deps: h5py for hdf5 tests, cu128 torch wheel because pypi's
-          # default torch is CPU-only and test_episode_data has [cuda:0]
-          # parametrize cases.
+          # Test deps: h5py for hdf5 tests.
           uv pip install pytest pytest-timeout h5py
-          uv pip install --upgrade --index-url https://download.pytorch.org/whl/cu128 torch torchvision
           # Isaac Sim — extscache extra is required (without it the Sim
           # extension cache is missing on disk and Kit bootstrap fails with
-          # "Unable to expose isaacsim.simulation_app API").
+          # "Unable to expose isaacsim.simulation_app API"). Install BEFORE
+          # the cu128 torch upgrade because isaacsim pulls CPU torch as a
+          # transitive dep and would silently overwrite a CUDA wheel that
+          # was installed first. Mirrors install.py's order
+          # (_install_isaacsim() then _ensure_cuda_torch()).
           uv pip install --extra-index-url https://pypi.nvidia.com 'isaacsim[all,extscache]==6.0.0.*'
+          # cu128 torch wheel because pypi's default torch is CPU-only and
+          # test_episode_data has [cuda:0] parametrize cases.
+          uv pip install --upgrade --index-url https://download.pytorch.org/whl/cu128 torch torchvision
           # Smoke import to fail fast if anything above was broken.
-          python -c "import isaaclab, isaaclab_assets, isaaclab_tasks; print('editable imports ok')"
+          python -c "import isaaclab, isaaclab_assets, isaaclab_tasks, isaaclab_newton, isaaclab_physx; print('editable imports ok')"
           New-Item -ItemType Directory -Force -Path "reports" | Out-Null
 
       - name: Resolve Isaac Sim paths (ISAAC_PATH / CARB_APP_PATH / EXP_PATH / DLL search)
@@ -441,7 +449,7 @@ jobs:
             if ($results[$k] -eq "failure") { $failed += $k }
           }
           if ($failed.Count -gt 0) {
-            Write-Host "::error::Failing job — these steps failed: $($failed -join ', ')"
+            Write-Host "::error::Failing job - these steps failed: $($failed -join ', ')"
             exit 1
           }
           Write-Host "All gating steps passed."
