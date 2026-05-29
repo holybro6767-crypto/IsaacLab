@@ -800,6 +800,7 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonCfg"><code class="docutils literal notranslate"><span class="pre">NewtonCfg</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonCfg.class_type"><code class="docutils literal notranslate"><span class="pre">NewtonCfg.class_type</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonCfg.num_substeps"><code class="docutils literal notranslate"><span class="pre">NewtonCfg.num_substeps</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonCfg.collision_decimation"><code class="docutils literal notranslate"><span class="pre">NewtonCfg.collision_decimation</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonCfg.debug_mode"><code class="docutils literal notranslate"><span class="pre">NewtonCfg.debug_mode</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonCfg.use_cuda_graph"><code class="docutils literal notranslate"><span class="pre">NewtonCfg.use_cuda_graph</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonCfg.solver_cfg"><code class="docutils literal notranslate"><span class="pre">NewtonCfg.solver_cfg</span></code></a></li>
@@ -2010,19 +2011,22 @@ shape <code class="docutils literal notranslate"><span class="pre">NewtonCfg(sol
 <tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonCfg.num_substeps" title="isaaclab_newton.physics.NewtonCfg.num_substeps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_substeps</span></code></a></p></td>
 <td><p>Number of substeps to use for the solver.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonCfg.debug_mode" title="isaaclab_newton.physics.NewtonCfg.debug_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">debug_mode</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonCfg.collision_decimation" title="isaaclab_newton.physics.NewtonCfg.collision_decimation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">collision_decimation</span></code></a></p></td>
+<td><p>Re-collide every N solver substeps within a physics tick (<code class="docutils literal notranslate"><span class="pre">0</span></code> = once per tick).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonCfg.debug_mode" title="isaaclab_newton.physics.NewtonCfg.debug_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">debug_mode</span></code></a></p></td>
 <td><p>Whether to enable debug mode for the solver.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonCfg.use_cuda_graph" title="isaaclab_newton.physics.NewtonCfg.use_cuda_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">use_cuda_graph</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonCfg.use_cuda_graph" title="isaaclab_newton.physics.NewtonCfg.use_cuda_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">use_cuda_graph</span></code></a></p></td>
 <td><p>Whether to use CUDA graphing when simulating.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonCfg.solver_cfg" title="isaaclab_newton.physics.NewtonCfg.solver_cfg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">solver_cfg</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonCfg.solver_cfg" title="isaaclab_newton.physics.NewtonCfg.solver_cfg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">solver_cfg</span></code></a></p></td>
 <td><p>Solver configuration.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonCfg.collision_cfg" title="isaaclab_newton.physics.NewtonCfg.collision_cfg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">collision_cfg</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonCfg.collision_cfg" title="isaaclab_newton.physics.NewtonCfg.collision_cfg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">collision_cfg</span></code></a></p></td>
 <td><p>Newton collision pipeline configuration.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonCfg.default_shape_cfg" title="isaaclab_newton.physics.NewtonCfg.default_shape_cfg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_shape_cfg</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonCfg.default_shape_cfg" title="isaaclab_newton.physics.NewtonCfg.default_shape_cfg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_shape_cfg</span></code></a></p></td>
 <td><p>Default per-shape collision properties applied to every shape in the scene.</p></td>
 </tr>
 </tbody>
@@ -2040,6 +2044,12 @@ Users normally do not set this directly.</p>
 <dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonCfg.num_substeps">
 <span class="sig-name descname"><span class="pre">num_substeps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#isaaclab_newton.physics.NewtonCfg.num_substeps" title="Link to this definition">#</a></dt>
 <dd><p>Number of substeps to use for the solver.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonCfg.collision_decimation">
+<span class="sig-name descname"><span class="pre">collision_decimation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#isaaclab_newton.physics.NewtonCfg.collision_decimation" title="Link to this definition">#</a></dt>
+<dd><p>Re-collide every N solver substeps within a physics tick (<code class="docutils literal notranslate"><span class="pre">0</span></code> = once per tick).</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -6303,6 +6313,7 @@ coordinate the sync explicitly.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonCfg"><code class="docutils literal notranslate"><span class="pre">NewtonCfg</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonCfg.class_type"><code class="docutils literal notranslate"><span class="pre">NewtonCfg.class_type</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonCfg.num_substeps"><code class="docutils literal notranslate"><span class="pre">NewtonCfg.num_substeps</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonCfg.collision_decimation"><code class="docutils literal notranslate"><span class="pre">NewtonCfg.collision_decimation</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonCfg.debug_mode"><code class="docutils literal notranslate"><span class="pre">NewtonCfg.debug_mode</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonCfg.use_cuda_graph"><code class="docutils literal notranslate"><span class="pre">NewtonCfg.use_cuda_graph</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonCfg.solver_cfg"><code class="docutils literal notranslate"><span class="pre">NewtonCfg.solver_cfg</span></code></a></li>

@@ -684,6 +684,7 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.physics</span><span class="w"> </span><span class="kn">import</span> <span class="n">PhysicsCfg</span>
@@ -693,6 +694,8 @@
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_newton.physics</span><span class="w"> </span><span class="kn">import</span> <span class="n">NewtonManager</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="NewtonSolverCfg">
@@ -782,6 +785,9 @@
     <span class="n">num_substeps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Number of substeps to use for the solver.&quot;&quot;&quot;</span>
 
+    <span class="n">collision_decimation</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Re-collide every N solver substeps within a physics tick (``0`` = once per tick).&quot;&quot;&quot;</span>
+
     <span class="n">debug_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Whether to enable debug mode for the solver.&quot;&quot;&quot;</span>
 
@@ -833,7 +839,16 @@
             <span class="kn">from</span><span class="w"> </span><span class="nn">.mjwarp_manager_cfg</span><span class="w"> </span><span class="kn">import</span> <span class="n">MJWarpSolverCfg</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">solver_cfg</span> <span class="o">=</span> <span class="n">MJWarpSolverCfg</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">class_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solver_cfg</span><span class="o">.</span><span class="n">class_type</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">class_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solver_cfg</span><span class="o">.</span><span class="n">class_type</span>
+
+        <span class="c1"># Mid-tick re-collide is silently disabled when collision_decimation &gt;= num_substeps.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">collision_decimation</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">collision_decimation</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_substeps</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;NewtonCfg.collision_decimation=</span><span class="si">%d</span><span class="s2"> is &gt;= num_substeps=</span><span class="si">%d</span><span class="s2">; mid-tick re-collide is disabled. &quot;</span>
+                <span class="s2">&quot;Set 0 &lt; collision_decimation &lt; num_substeps to enable.&quot;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">collision_decimation</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">num_substeps</span><span class="p">,</span>
+            <span class="p">)</span></div>
 
 </pre></div>
 
