@@ -886,12 +886,21 @@ during or shortly after communicator initialization.</p>
 <span class="nb">export</span><span class="w"> </span><span class="nv">NCCL_ALGO</span><span class="o">=</span>Ring
 </pre></div>
 </div>
+<p>Separately, restricting training to a subset of a node’s GPUs with <code class="docutils literal notranslate"><span class="pre">CUDA_VISIBLE_DEVICES</span></code>
+(for example, <code class="docutils literal notranslate"><span class="pre">CUDA_VISIBLE_DEVICES=0,1</span></code> on a larger machine) can cause training to hang during
+communicator initialization or on the first collective, with no error reported. On affected
+systems, disabling NCCL’s peer-to-peer (P2P) transport resolves the hang:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">NCCL_P2P_DISABLE</span><span class="o">=</span><span class="m">1</span>
+</pre></div>
+</div>
 <p>Then relaunch the distributed training command as usual.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>These variables are NCCL-level workarounds intended for affected systems. They are not
 required on all machines, and may change communication behavior or performance depending
-on the hardware topology.</p>
+on the hardware topology. In particular, <code class="docutils literal notranslate"><span class="pre">NCCL_P2P_DISABLE=1</span></code> routes inter-GPU traffic
+through host/shared memory instead of a direct P2P link, which can reduce communication
+bandwidth, so only set it when you observe a hang while restricting visible devices.</p>
 </div>
 </section>
 </section>
