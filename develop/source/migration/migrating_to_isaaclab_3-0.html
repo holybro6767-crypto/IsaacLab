@@ -257,8 +257,10 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../setup/quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../setup/quick_installation.html">Quick Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../setup/quickstart.html">Quickstart</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../setup/quickstart_details.html">Quickstart Details</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../overview/own-project/index.html">Build your Own Project or Task</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../overview/own-project/template.html">Create new project or task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../overview/own-project/project_structure.html">Project Structure</a></li>
@@ -1397,16 +1399,17 @@ when no CLI override is given. Other fields are named presets selectable with
 <span class="nd">@configclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">MyPhysicsCfg</span><span class="p">(</span><span class="n">PresetCfg</span><span class="p">):</span>
     <span class="n">default</span><span class="p">:</span> <span class="n">PhysxCfg</span> <span class="o">=</span> <span class="n">PhysxCfg</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>   <span class="c1"># used when no override is given</span>
-    <span class="n">physx</span><span class="p">:</span>   <span class="n">PhysxCfg</span> <span class="o">=</span> <span class="n">PhysxCfg</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>   <span class="c1"># selected by presets=physx</span>
-    <span class="n">newton_mjwarp</span><span class="p">:</span>  <span class="n">NewtonCfg</span> <span class="o">=</span> <span class="n">NewtonCfg</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>  <span class="c1"># selected by presets=newton_mjwarp</span>
+    <span class="n">physx</span><span class="p">:</span>   <span class="n">PhysxCfg</span> <span class="o">=</span> <span class="n">PhysxCfg</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>   <span class="c1"># selected by physics=physx</span>
+    <span class="n">newton_mjwarp</span><span class="p">:</span>  <span class="n">NewtonCfg</span> <span class="o">=</span> <span class="n">NewtonCfg</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>  <span class="c1"># selected by physics=newton_mjwarp</span>
 </pre></div>
 </div>
 </section>
 <section id="selecting-a-preset-at-launch">
 <h3>Selecting a preset at launch<a class="headerlink" href="#selecting-a-preset-at-launch" title="Link to this heading">#</a></h3>
-<p>Pass <code class="docutils literal notranslate"><span class="pre">presets=newton_mjwarp</span></code> (or <code class="docutils literal notranslate"><span class="pre">presets=physx</span></code>) on the CLI to swap the entire config section:</p>
+<p>Pass <code class="docutils literal notranslate"><span class="pre">physics=newton_mjwarp</span></code> (or <code class="docutils literal notranslate"><span class="pre">physics=physx</span></code>) on the CLI to swap the entire config section.
+The legacy <code class="docutils literal notranslate"><span class="pre">presets=NAME</span></code> form still works for the same values.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run with Newton backend</span>
-python<span class="w"> </span>train.py<span class="w"> </span><span class="nv">task</span><span class="o">=</span>Isaac-Franka-Cabinet-v0<span class="w"> </span><span class="nv">presets</span><span class="o">=</span>newton_mjwarp
+python<span class="w"> </span>train.py<span class="w"> </span><span class="nv">task</span><span class="o">=</span>Isaac-Franka-Cabinet-v0<span class="w"> </span><span class="nv">physics</span><span class="o">=</span>newton_mjwarp
 
 <span class="c1"># Run with default (PhysX) backend</span>
 python<span class="w"> </span>train.py<span class="w"> </span><span class="nv">task</span><span class="o">=</span>Isaac-Franka-Cabinet-v0

@@ -257,8 +257,10 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../quick_installation.html">Quick Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../quickstart.html">Quickstart</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart_details.html">Quickstart Details</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../overview/own-project/index.html">Build your Own Project or Task</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../overview/own-project/template.html">Create new project or task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../overview/own-project/project_structure.html">Project Structure</a></li>
@@ -877,7 +879,7 @@ with MJWarp physics and the Newton visualizer:</p>
 ./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/reinforcement_learning/rsl_rl/train.py<span class="w"> </span><span class="se">\</span>
 --task<span class="o">=</span>Isaac-Cartpole-Direct-v0<span class="w"> </span><span class="se">\</span>
 --num_envs<span class="o">=</span><span class="m">16</span><span class="w"> </span>--max_iterations<span class="o">=</span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
-<span class="nv">presets</span><span class="o">=</span>newton_mjwarp<span class="w"> </span>--visualizer<span class="w"> </span>newton
+<span class="nv">physics</span><span class="o">=</span>newton_mjwarp<span class="w"> </span>--visualizer<span class="w"> </span>newton
 </pre></div>
 </div>
 </div>
@@ -892,7 +894,7 @@ isaaclab.bat --install
 isaaclab.bat -p scripts\reinforcement_learning\rsl_rl\train.py <span class="se">^</span>
 <span class="se">-</span>-task=Isaac-Cartpole-Direct-v0 <span class="se">^</span>
 <span class="se">-</span>-num_envs=16 --max_iterations=10 <span class="se">^</span>
-<span class="se">p</span>resets=newton_mjwarp --visualizer newton
+<span class="se">p</span>hysics=newton_mjwarp --visualizer newton
 </pre></div>
 </div>
 </div>
@@ -1018,7 +1020,7 @@ isaaclab.bat -i newton,ov,rl[rsl-rl],visualizer[newton]
 ./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/benchmarks/benchmark_rsl_rl.py<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--task<span class="w"> </span>Isaac-Repose-Cube-Shadow-Vision-Benchmark-Direct-v0<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--headless<span class="w"> </span>--enable_cameras<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">16</span><span class="w"> </span>--max_iterations<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="nv">presets</span><span class="o">=</span>newton_mjwarp,ovrtx_renderer,simple_shading_diffuse_mdl
+<span class="w">  </span><span class="nv">physics</span><span class="o">=</span>newton_mjwarp<span class="w"> </span><span class="nv">renderer</span><span class="o">=</span>ovrtx_renderer<span class="w"> </span><span class="nv">presets</span><span class="o">=</span>simple_shading_diffuse_mdl
 </pre></div>
 </div>
 </div>
@@ -1030,7 +1032,7 @@ isaaclab.bat -i newton,ov,rl[rsl-rl],visualizer[newton]
 isaaclab.bat -p scripts\benchmarks\benchmark_rsl_rl.py <span class="se">^</span>
 <span class="se"> </span> --task Isaac-Repose-Cube-Shadow-Vision-Benchmark-Direct-v0 <span class="se">^</span>
 <span class="se"> </span> --headless --enable_cameras --num_envs 16 --max_iterations 10 <span class="se">^</span>
-<span class="se"> </span> presets=newton_mjwarp,ovrtx_renderer,simple_shading_diffuse_mdl
+<span class="se"> </span> physics=newton_mjwarp renderer=ovrtx_renderer presets=simple_shading_diffuse_mdl
 </pre></div>
 </div>
 </div>

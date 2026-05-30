@@ -257,8 +257,10 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../quick_installation.html">Quick Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../quickstart.html">Quickstart</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart_details.html">Quickstart Details</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../overview/own-project/index.html">Build your Own Project or Task</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../overview/own-project/template.html">Create new project or task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../overview/own-project/project_structure.html">Project Structure</a></li>
@@ -1133,10 +1135,21 @@ You can create the Isaac Lab environment using the following commands:</p>
 <input id="sd-tab-item-19" name="sd-tab-set-9" type="radio">
 <label class="sd-tab-label" data-sync-group="os" data-sync-id="windows" for="sd-tab-item-19">
 <i class="fa-brands fa-windows"></i> Windows</label><div class="sd-tab-content docutils">
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Windows support for UV is currently unavailable. Please check
-<a class="reference external" href="https://github.com/isaac-sim/IsaacLab/issues/3438">issue #3438</a> to track progress.</p>
+<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="c1">: Option 1: Default environment name &#39;env_isaaclab&#39;</span>
+isaaclab.bat --uv  :: or <span class="s2">&quot;isaaclab.bat -u&quot;</span>
+<span class="p">:</span><span class="c1">: Option 2: Custom name</span>
+isaaclab.bat --uv my_env  :: or <span class="s2">&quot;isaaclab.bat -u my_env&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="c1">: Activate environment</span>
+env_isaaclab\Scripts\activate  :: or <span class="s2">&quot;my_env\Scripts\activate&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also create the environment manually with <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">venv</span> <span class="pre">--python</span> <span class="pre">3.12</span> <span class="pre">--seed</span> <span class="pre">env_isaaclab</span></code>.
+The <code class="docutils literal notranslate"><span class="pre">--seed</span></code> flag ensures <code class="docutils literal notranslate"><span class="pre">pip</span></code> is available inside the venv, which the Isaac Lab installer
+requires.</p>
 </div>
 </div>
 </div>

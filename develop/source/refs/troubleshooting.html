@@ -257,8 +257,10 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../setup/quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../setup/quick_installation.html">Quick Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../setup/quickstart.html">Quickstart</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../setup/quickstart_details.html">Quickstart Details</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../overview/own-project/index.html">Build your Own Project or Task</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../overview/own-project/template.html">Create new project or task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../overview/own-project/project_structure.html">Project Structure</a></li>
@@ -791,7 +793,7 @@ latest Isaac Lab.</p>
 Either:</p>
 <ul class="simple">
 <li><p>Install Isaac Sim: <code class="docutils literal notranslate"><span class="pre">./isaaclab.sh</span> <span class="pre">-i</span> <span class="pre">isaacsim</span></code>, or</p></li>
-<li><p>Use a Newton-based task with <code class="docutils literal notranslate"><span class="pre">presets=newton_mjwarp</span> <span class="pre">--visualizer</span> <span class="pre">newton</span></code> (Kit-less path)</p></li>
+<li><p>Use a Newton-based task with <code class="docutils literal notranslate"><span class="pre">physics=newton_mjwarp</span> <span class="pre">--visualizer</span> <span class="pre">newton</span></code> (Kit-less path)</p></li>
 </ul>
 </section>
 <section id="modulenotfounderror-no-module-named-isaaclab-physx-or-isaaclab-ov">

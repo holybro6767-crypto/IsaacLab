@@ -257,8 +257,10 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../setup/quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../setup/quick_installation.html">Quick Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../setup/quickstart.html">Quickstart</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../setup/quickstart_details.html">Quickstart Details</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../overview/own-project/index.html">Build your Own Project or Task</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../overview/own-project/template.html">Create new project or task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../overview/own-project/project_structure.html">Project Structure</a></li>
@@ -869,10 +871,10 @@ precedence and only one <code class="docutils literal notranslate"><span class="
 the Rerun visualizer rather than producing <code class="docutils literal notranslate"><span class="pre">--video</span></code> clips, and Viser does not currently provide a
 <code class="docutils literal notranslate"><span class="pre">--video</span></code> recording backend.</p>
 <p>Set <code class="docutils literal notranslate"><span class="pre">VideoRecorderCfg.backend_source</span> <span class="pre">=</span> <span class="pre">&quot;renderer&quot;</span></code> to ignore active visualizers and choose from the
-physics/renderer stack instead. In that mode, PhysX physics (<code class="docutils literal notranslate"><span class="pre">presets=physx,...</span></code>) or Isaac RTX
-(<code class="docutils literal notranslate"><span class="pre">presets=isaac_rtx_renderer,...</span></code>) selects the Kit path. Newton physics (<code class="docutils literal notranslate"><span class="pre">presets=newton_mjwarp,...</span></code>) or
-the Newton Warp renderer (<code class="docutils literal notranslate"><span class="pre">presets=newton_renderer,...</span></code>) selects the Newton GL path when no Kit
-signal is present. OVRTX (<code class="docutils literal notranslate"><span class="pre">presets=ovrtx_renderer,...</span></code> from <code class="docutils literal notranslate"><span class="pre">isaaclab_ov</span></code>) can pair with IsaacSim
+physics/renderer stack instead. In that mode, PhysX physics (<code class="docutils literal notranslate"><span class="pre">physics=physx</span></code>) or Isaac RTX
+(<code class="docutils literal notranslate"><span class="pre">renderer=isaacsim_rtx_renderer</span></code>) selects the Kit path. Newton physics (<code class="docutils literal notranslate"><span class="pre">physics=newton_mjwarp</span></code>) or
+the Newton Warp renderer (<code class="docutils literal notranslate"><span class="pre">renderer=newton_renderer</span></code>) selects the Newton GL path when no Kit
+signal is present. OVRTX (<code class="docutils literal notranslate"><span class="pre">renderer=ovrtx_renderer</span></code> from <code class="docutils literal notranslate"><span class="pre">isaaclab_ov</span></code>) can pair with IsaacSim
 or Newton physics; in that case the video backend is selected via the physics preset. If both Kit and
 Newton GL signals are present, the Kit path is chosen.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="kn">from</span><span class="w"> </span><span class="nn">.video_recorder_cfg</span><span class="w"> </span><span class="kn">import</span> <span class="n">VideoRecorderCfg</span>
@@ -990,21 +992,21 @@ uses the same configured viewpoint as the interactive viewport:</p>
 <col style="width: 38.0%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Stack example (<code class="docutils literal notranslate"><span class="pre">presets=...</span></code>)</p></th>
+<tr class="row-odd"><th class="head"><p>Stack example (<code class="docutils literal notranslate"><span class="pre">physics=</span></code> / <code class="docutils literal notranslate"><span class="pre">renderer=</span></code>)</p></th>
 <th class="head"><p>Video backend</p></th>
 <th class="head"><p>Capture mechanism</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">physx,...</span></code> or <code class="docutils literal notranslate"><span class="pre">isaac_rtx_renderer,...</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">physics=physx</span></code> or <code class="docutils literal notranslate"><span class="pre">renderer=isaacsim_rtx_renderer</span></code></p></td>
 <td><p>Kit (<code class="docutils literal notranslate"><span class="pre">&quot;kit&quot;</span></code>)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">/OmniverseKit_Persp</span></code> + Replicator RGB</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">newton_mjwarp,...</span></code> or <code class="docutils literal notranslate"><span class="pre">newton_renderer,...</span></code> (no Kit signals)</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">physics=newton_mjwarp</span></code> or <code class="docutils literal notranslate"><span class="pre">renderer=newton_renderer</span></code> (no Kit signals)</p></td>
 <td><p>Newton GL (<code class="docutils literal notranslate"><span class="pre">&quot;newton_gl&quot;</span></code>)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">newton.viewer.ViewerGL</span></code> on the SDP Newton model</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">newton_mjwarp,...,ovrtx_renderer,...</span></code> (OVRTX + Newton physics)</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">physics=newton_mjwarp</span></code> + <code class="docutils literal notranslate"><span class="pre">renderer=ovrtx_renderer</span></code> (OVRTX + Newton physics)</p></td>
 <td><p>Newton GL (<code class="docutils literal notranslate"><span class="pre">&quot;newton_gl&quot;</span></code>)</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">newton.viewer.ViewerGL</span></code> on the SDP Newton model</p></td>
 </tr>

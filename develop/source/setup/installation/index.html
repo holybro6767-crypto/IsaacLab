@@ -257,8 +257,10 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../quick_installation.html">Quick Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../quickstart.html">Quickstart</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart_details.html">Quickstart Details</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../overview/own-project/index.html">Build your Own Project or Task</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../overview/own-project/template.html">Create new project or task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../overview/own-project/project_structure.html">Project Structure</a></li>
@@ -764,14 +766,12 @@
 <span id="isaaclab-installation-root"></span><h1>Local Installation<a class="headerlink" href="#local-installation" title="Link to this heading">#</a></h1>
 <a class="reference external image-reference" href="https://developer.nvidia.com/isaac-sim"><img alt="IsaacSim 6.0.0" src="https://img.shields.io/badge/IsaacSim-6.0.0-silver.svg" />
 </a>
-<a class="reference external image-reference" href="https://www.python.org/downloads/release/python-31013/"><img alt="Python 3.12" src="https://img.shields.io/badge/python-3.12-blue.svg" />
+<a class="reference external image-reference" href="https://www.python.org/downloads/release/python-3120/"><img alt="Python 3.12" src="https://img.shields.io/badge/python-3.12-blue.svg" />
 </a>
 <a class="reference external image-reference" href="https://releases.ubuntu.com/22.04/"><img alt="Ubuntu 22.04" src="https://img.shields.io/badge/platform-linux--64-orange.svg" />
 </a>
 <a class="reference external image-reference" href="https://www.microsoft.com/en-ca/windows/windows-11"><img alt="Windows 11" src="https://img.shields.io/badge/platform-windows--64-orange.svg" />
 </a>
-<p>Isaac Lab installation is available for Windows and Linux. This guide explains the recommended
-installation methods.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>Isaac Lab 3.0 supports kit-less installation.</strong> You can install and use Isaac Lab with the
@@ -847,6 +847,9 @@ JAX provides pre-built CUDA wheels only for Linux on x86_64, so on aarch64 syste
 GPU support requires building JAX from source, which has not been validated in Isaac Lab.</p></li>
 <li><p>Livestream and Hub Workstation Cache are not supported on the DGX spark.</p></li>
 <li><p><a class="reference internal" href="../../overview/imitation-learning/augmented_imitation.html#running-cosmos"><span class="std std-ref">Running Cosmos Transfer1</span></a> is not currently supported on the DGX Spark.</p></li>
+<li><p>Newton VBD deformable support is limited on DGX Spark due to the availability of the
+<code class="docutils literal notranslate"><span class="pre">pytetwild</span></code> library on ARM (aarch64). <code class="docutils literal notranslate"><span class="pre">pytetwild</span></code> is required for automatic
+tetrahedral mesh generation of volume deformables.</p></li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

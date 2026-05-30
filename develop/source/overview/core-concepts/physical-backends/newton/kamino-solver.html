@@ -257,8 +257,10 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../../../setup/quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../setup/quick_installation.html">Quick Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../setup/quickstart.html">Quickstart</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../setup/quickstart_details.html">Quickstart Details</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../own-project/index.html">Build your Own Project or Task</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../own-project/template.html">Create new project or task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../own-project/project_structure.html">Project Structure</a></li>
@@ -773,16 +775,16 @@ tuning before it works well with Kamino.</p>
 <section id="start-from-a-supported-newton-task">
 <h2>Start from a Supported Newton Task<a class="headerlink" href="#start-from-a-supported-newton-task" title="Link to this heading">#</a></h2>
 <p>Before adding Kamino, first make sure the task runs with the Newton backend:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/zero_agent.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Cartpole-Direct-v0<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">128</span><span class="w"> </span>--viz<span class="w"> </span>newton<span class="w"> </span><span class="nv">presets</span><span class="o">=</span>newton_mjwarp
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/zero_agent.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Cartpole-Direct-v0<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">128</span><span class="w"> </span>--viz<span class="w"> </span>newton<span class="w"> </span><span class="nv">physics</span><span class="o">=</span>newton_mjwarp
 </pre></div>
 </div>
 <p>Then run the same task with the Kamino preset if it is available:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/zero_agent.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Cartpole-Direct-v0<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">128</span><span class="w"> </span>--viz<span class="w"> </span>newton<span class="w"> </span><span class="nv">presets</span><span class="o">=</span>newton_kamino
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/zero_agent.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Cartpole-Direct-v0<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">128</span><span class="w"> </span>--viz<span class="w"> </span>newton<span class="w"> </span><span class="nv">physics</span><span class="o">=</span>newton_kamino
 </pre></div>
 </div>
 <p>At the time of writing, the <code class="docutils literal notranslate"><span class="pre">newton_kamino</span></code> preset is defined for
 <code class="docutils literal notranslate"><span class="pre">Isaac-Cartpole-Direct-v0</span></code>, <code class="docutils literal notranslate"><span class="pre">Isaac-Ant-Direct-v0</span></code>, <code class="docutils literal notranslate"><span class="pre">Isaac-Cartpole-v0</span></code>,
-and <code class="docutils literal notranslate"><span class="pre">Isaac-Ant-v0</span></code>. Passing <code class="docutils literal notranslate"><span class="pre">presets=newton_kamino</span></code> to another task does not
+and <code class="docutils literal notranslate"><span class="pre">Isaac-Ant-v0</span></code>. Passing <code class="docutils literal notranslate"><span class="pre">physics=newton_kamino</span></code> to another task does not
 automatically enable Kamino; the task must define and validate its own <code class="docutils literal notranslate"><span class="pre">newton_kamino</span></code>
 preset.</p>
 </section>
@@ -845,7 +847,7 @@ solver config types used by the presets:</p>
 <a class="reference internal" href="../../../../api/lab/isaaclab.sim.html#isaaclab.sim.SimulationCfg" title="isaaclab.sim.SimulationCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimulationCfg</span></code></a>, for example <code class="docutils literal notranslate"><span class="pre">env.sim.physics</span></code>.</p></li>
 </ul>
 <p>You can select the preset globally:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/reinforcement_learning/rsl_rl/train.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Cartpole-v0<span class="w"> </span><span class="nv">presets</span><span class="o">=</span>newton_kamino
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/reinforcement_learning/rsl_rl/train.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Cartpole-v0<span class="w"> </span><span class="nv">physics</span><span class="o">=</span>newton_kamino
 </pre></div>
 </div>
 <p>or select the physics field directly:</p>
@@ -853,7 +855,7 @@ solver config types used by the presets:</p>
 </pre></div>
 </div>
 <p>Use the direct path override when only one task field should use the Kamino preset.
-Use <code class="docutils literal notranslate"><span class="pre">presets=newton_kamino</span></code> when you want every matching preset field in the task config
+Use <code class="docutils literal notranslate"><span class="pre">physics=newton_kamino</span></code> when you want every matching preset field in the task config
 to resolve to <code class="docutils literal notranslate"><span class="pre">newton_kamino</span></code>.
 Isaac Lab training scripts accept these Hydra overrides after the regular command
 line flags; no separator is needed for the examples above.</p>
@@ -863,7 +865,7 @@ line flags; no separator is needed for the examples above.</p>
 <p>Kamino uses the Newton model built from the task assets. When adding Kamino to a
 new task, validate the following before tuning solver parameters:</p>
 <ul class="simple">
-<li><p>The task must already be compatible with the Newton backend. If <code class="docutils literal notranslate"><span class="pre">presets=newton_mjwarp</span></code>
+<li><p>The task must already be compatible with the Newton backend. If <code class="docutils literal notranslate"><span class="pre">physics=newton_mjwarp</span></code>
 fails during model construction, fix the asset or task configuration first.</p></li>
 <li><p>The assets should use Newton-supported rigid bodies, articulations, and collision
 geometry. PhysX-only features, unsupported schemas, or missing collision shapes
@@ -1055,7 +1057,7 @@ They are grouped by the part of the solver they affect.</p>
 <h2>Tuning Workflow<a class="headerlink" href="#tuning-workflow" title="Link to this heading">#</a></h2>
 <p>Use the following sequence when bringing up a new Kamino task:</p>
 <ol class="arabic simple">
-<li><p>Run the task with <code class="docutils literal notranslate"><span class="pre">presets=newton_mjwarp</span></code> and fix Newton model construction or task
+<li><p>Run the task with <code class="docutils literal notranslate"><span class="pre">physics=newton_mjwarp</span></code> and fix Newton model construction or task
 compatibility issues first.</p></li>
 <li><p>Add a <code class="docutils literal notranslate"><span class="pre">newton_kamino</span></code> preset with conservative values copied from the closest
 validated task.</p></li>

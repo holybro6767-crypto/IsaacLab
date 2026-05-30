@@ -257,8 +257,10 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../../../setup/quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../setup/quick_installation.html">Quick Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../setup/quickstart.html">Quickstart</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../setup/quickstart_details.html">Quickstart Details</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../own-project/index.html">Build your Own Project or Task</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../own-project/template.html">Create new project or task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../own-project/project_structure.html">Project Structure</a></li>
@@ -772,7 +774,7 @@ currently supports Newton:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>grep<span class="w"> </span>-rln<span class="w"> </span><span class="s2">&quot;newton_mjwarp&quot;</span><span class="w"> </span>source/isaaclab_tasks/
 </pre></div>
 </div>
-<p>Passing <code class="docutils literal notranslate"><span class="pre">presets=newton_mjwarp</span></code> to a task without that preset will raise an
+<p>Passing <code class="docutils literal notranslate"><span class="pre">physics=newton_mjwarp</span></code> to a task without that preset will raise an
 error at launch. The <a class="reference internal" href="mjwarp-solver.html"><span class="doc">MJWarp Solver</span></a> page covers how to add a Newton
 preset to your own task.</p>
 </section>

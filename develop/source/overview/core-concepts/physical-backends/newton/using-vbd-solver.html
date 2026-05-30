@@ -257,8 +257,10 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../../../setup/quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../setup/quick_installation.html">Quick Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../setup/quickstart.html">Quickstart</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../setup/quickstart_details.html">Quickstart Details</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../own-project/index.html">Build your Own Project or Task</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../own-project/template.html">Create new project or task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../own-project/project_structure.html">Project Structure</a></li>
@@ -874,7 +876,7 @@ self-contact values need task-level tuning.</p></li>
 <a class="reference internal" href="../../../../api/lab/isaaclab.sim.html#isaaclab.sim.SimulationCfg" title="isaaclab.sim.SimulationCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimulationCfg</span></code></a>, for example <code class="docutils literal notranslate"><span class="pre">env.sim.physics</span></code>.</p></li>
 </ul>
 <p>You can select the deformable Newton preset globally:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/reinforcement_learning/rsl_rl/train.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Lift-Soft-Franka-v0<span class="w"> </span><span class="nv">presets</span><span class="o">=</span>newton_mjwarp_vbd
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/reinforcement_learning/rsl_rl/train.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Lift-Soft-Franka-v0<span class="w"> </span><span class="nv">physics</span><span class="o">=</span>newton_mjwarp_vbd
 </pre></div>
 </div>
 <p>or select the physics field directly:</p>
@@ -882,7 +884,7 @@ self-contact values need task-level tuning.</p></li>
 </pre></div>
 </div>
 <p>Use the direct path override when only one task field should use the VBD preset.
-Use <code class="docutils literal notranslate"><span class="pre">presets=newton_mjwarp_vbd</span></code> when you want every matching preset field in
+Use <code class="docutils literal notranslate"><span class="pre">physics=newton_mjwarp_vbd</span></code> when you want every matching preset field in
 the task config to resolve to that preset. Isaac Lab training scripts accept
 these Hydra overrides after the regular command line flags; no separator is
 needed for the examples above.</p>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Quickstart Guide &#8212; Isaac Lab Documentation</title>
+    <title>Quickstart &#8212; Isaac Lab Documentation</title>
   
   
   
@@ -58,7 +58,7 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Quick Installation" href="quick_installation.html" />
+    <link rel="next" title="Quickstart Details" href="quickstart_details.html" />
     <link rel="prev" title="Reference Architecture" href="../refs/reference_architecture/index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -257,8 +257,10 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quick_installation.html">Quick Installation</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Quickstart</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart_details.html">Quickstart Details</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../overview/own-project/index.html">Build your Own Project or Task</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../overview/own-project/template.html">Create new project or task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../overview/own-project/project_structure.html">Project Structure</a></li>
@@ -728,7 +730,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Quickstart Guide</h1>
+    <h1>Quickstart</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -738,17 +740,9 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-installation-guide">Quick Installation Guide</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start-using-isaac-launchable">Quick Start Using Isaac Launchable</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-training">Launch Training</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-the-physics-backend">Selecting the Physics Backend</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-available-environments">List Available Environments</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-your-own-project">Generate Your Own Project</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurations">Configurations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#robots">Robots</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apps-and-sims">Apps and Sims</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install">Install</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-training">Run Training</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
 </ul>
             </nav>
         </div>
@@ -760,347 +754,167 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="quickstart-guide">
-<span id="isaac-lab-quickstart"></span><h1>Quickstart Guide<a class="headerlink" href="#quickstart-guide" title="Link to this heading">#</a></h1>
-<p>This guide is written for those who just can’t wait to get their hands dirty and will touch on the most common concepts you will encounter as you build your own
-projects with Isaac Lab! This includes installation, running RL, finding environments, creating new projects, and more!</p>
-<p>The power of Isaac Lab comes from a few key features that we will very briefly touch on in this guide.</p>
-<ol class="arabic simple">
-<li><p><strong>Vectorization</strong>: Reinforcement Learning requires attempting a task many times. Isaac Lab speeds this process along by vectorizing the
-environment, a process by which training can be run in parallel across many copies of the same environment, thus reducing the amount of time
-spent on collecting data before the weights of the model can be updated. Most of the codebase is devoted to defining those parts of the environment
-that need to be touched by this vectorization system</p></li>
-<li><p><strong>Modular Design</strong>: Isaac Lab is designed to be modular, meaning that you can design your projects to have various components that can be
-swapped out for different needs. For example, suppose you want to train a policy that supports a specific subset of robots.  You could design
-the environment and task to be robot agnostic by writing a controller interface layer in the form of one of our Manager classes (the <code class="docutils literal notranslate"><span class="pre">ActionManager</span></code>
-in this specific case). Most of the rest of the codebase is devoted to defining those parts of your project that need to be touched by this manager system.</p></li>
-</ol>
-<p>To get started, we will first install Isaac Lab and launch a training script.</p>
-<section id="quick-installation-guide">
-<h2>Quick Installation Guide<a class="headerlink" href="#quick-installation-guide" title="Link to this heading">#</a></h2>
-<p>There are many ways to <a class="reference internal" href="installation/index.html#isaaclab-installation-root"><span class="std std-ref">install</span></a> Isaac Lab. For a quick start
-<strong>without Isaac Sim</strong> (Newton backend only), see the <a class="reference internal" href="installation/kitless_installation.html#kitless-installation"><span class="std std-ref">Kit-less Installation</span></a> section of the
-installation guide — just clone the repo and run <code class="docutils literal notranslate"><span class="pre">./isaaclab.sh</span> <span class="pre">-i</span></code>.</p>
-<p>For the full pip-based installation (recommended for most users), we use <strong>uv</strong> as the preferred
-package manager. To begin, create a virtual environment:</p>
+  <section id="quickstart">
+<span id="isaac-lab-quickstart"></span><h1>Quickstart<a class="headerlink" href="#quickstart" title="Link to this heading">#</a></h1>
+<p>Isaac Lab is a GPU-accelerated framework for robot learning built on vectorized simulation.
+Environments run thousands of parallel copies on the GPU, and a modular manager design lets you
+swap robots, sensors, and controllers without rewriting task logic.</p>
+<p>This page gets you installed and running a first training job in minutes. For deeper topics
+(configurations, project scaffolding, standalone apps, preset catalogs), see
+<a class="reference internal" href="quickstart_details.html"><span class="doc">Quickstart Details</span></a>.</p>
+<section id="install">
+<h2>Install<a class="headerlink" href="#install" title="Link to this heading">#</a></h2>
+<p>Create a Python 3.12 environment, clone Isaac Lab, and install. Choose the path that matches
+your workflow:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-0">
-uv (Recommended)</label><div class="sd-tab-content docutils">
+Kit-less (no Isaac Sim)</label><div class="sd-tab-content docutils">
+<p>Fastest start — Newton physics only, no Isaac Sim download required.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" data-sync-group="os" data-sync-id="linux" for="sd-tab-item-2">
 <i class="fa-brands fa-linux"></i> Linux</label><div class="sd-tab-content docutils">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a virtual environment named env_isaaclab with python3.12</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install uv (https://docs.astral.sh/uv/getting-started/installation/)</span>
+curl<span class="w"> </span>-LsSf<span class="w"> </span>https://astral.sh/uv/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/isaac-sim/IsaacLab.git
+<span class="nb">cd</span><span class="w"> </span>IsaacLab
+
 uv<span class="w"> </span>venv<span class="w"> </span>--python<span class="w"> </span><span class="m">3</span>.12<span class="w"> </span>--seed<span class="w"> </span>env_isaaclab
-<span class="c1"># activate the virtual environment</span>
 <span class="nb">source</span><span class="w"> </span>env_isaaclab/bin/activate
+./isaaclab.sh<span class="w"> </span>-i
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
 <label class="sd-tab-label" data-sync-group="os" data-sync-id="windows" for="sd-tab-item-3">
 <i class="fa-brands fa-windows"></i> Windows</label><div class="sd-tab-content docutils">
-<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="c1">: create a virtual environment named env_isaaclab with python3.12</span>
+<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/isaac-sim/IsaacLab.git
+<span class="k">cd</span> IsaacLab
+
 uv venv --python 3.12 --seed env_isaaclab
-<span class="p">:</span><span class="c1">: activate the virtual environment</span>
 env_isaaclab\Scripts\activate
+isaaclab.bat -i
 </pre></div>
 </div>
 </div>
 </div>
+<p>See <a class="reference internal" href="installation/kitless_installation.html"><span class="doc">Kit-less Installation</span></a> for selective install tokens
+and feature availability without Isaac Sim.</p>
 </div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
 <label class="sd-tab-label" for="sd-tab-item-1">
-conda</label><div class="sd-tab-content docutils">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># create a virtual environment named env_isaaclab with python3.12</span>
-conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>env_isaaclab<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.12
-<span class="c1"># activate the virtual environment</span>
-conda<span class="w"> </span>activate<span class="w"> </span>env_isaaclab
-</pre></div>
-</div>
-</div>
-</div>
-<p>Next, install a CUDA-enabled PyTorch build that matches your system architecture.</p>
+With Isaac Sim (full features)</label><div class="sd-tab-content docutils">
+<p>Recommended for PhysX, RTX rendering, ROS, URDF/MJCF importers, and the Kit visualizer.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" data-sync-group="pip-platform" data-sync-id="linux-x86_64" for="sd-tab-item-4">
-<i class="fa-brands fa-linux"></i> Linux (x86_64)</label><div class="sd-tab-content docutils">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span><span class="nv">torch</span><span class="o">==</span><span class="m">2</span>.10.0<span class="w"> </span><span class="nv">torchvision</span><span class="o">==</span><span class="m">0</span>.25.0<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu128
+<label class="sd-tab-label" data-sync-group="os" data-sync-id="linux" for="sd-tab-item-4">
+<i class="fa-brands fa-linux"></i> Linux</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/isaac-sim/IsaacLab.git
+<span class="nb">cd</span><span class="w"> </span>IsaacLab
+
+uv<span class="w"> </span>venv<span class="w"> </span>--python<span class="w"> </span><span class="m">3</span>.12<span class="w"> </span>--seed<span class="w"> </span>env_isaaclab
+<span class="nb">source</span><span class="w"> </span>env_isaaclab/bin/activate
+uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;isaacsim[all,extscache]==6.0.0&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--extra-index-url<span class="w"> </span>https://pypi.nvidia.com<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--index-strategy<span class="w"> </span>unsafe-best-match<span class="w"> </span>--prerelease<span class="o">=</span>allow
+uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span><span class="nv">torch</span><span class="o">==</span><span class="m">2</span>.10.0<span class="w"> </span><span class="nv">torchvision</span><span class="o">==</span><span class="m">0</span>.25.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu128
+./isaaclab.sh<span class="w"> </span>-i
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" data-sync-group="pip-platform" data-sync-id="windows-x86_64" for="sd-tab-item-5">
-<i class="fa-brands fa-windows"></i> Windows (x86_64)</label><div class="sd-tab-content docutils">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span><span class="nv">torch</span><span class="o">==</span><span class="m">2</span>.10.0<span class="w"> </span><span class="nv">torchvision</span><span class="o">==</span><span class="m">0</span>.25.0<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu128
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
-<label class="sd-tab-label" data-sync-group="pip-platform" data-sync-id="linux-aarch64" for="sd-tab-item-6">
-<i class="fa-brands fa-linux"></i> Linux (aarch64)</label><div class="sd-tab-content docutils">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span><span class="nv">torch</span><span class="o">==</span><span class="m">2</span>.10.0<span class="w"> </span><span class="nv">torchvision</span><span class="o">==</span><span class="m">0</span>.25.0<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/cu130
-</pre></div>
-</div>
-</div>
-</div>
-<p>Before we can install Isaac Sim, we need to make sure pip is updated.  To update pip, run</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-7" name="sd-tab-set-3" type="radio">
-<label class="sd-tab-label" data-sync-group="os" data-sync-id="linux" for="sd-tab-item-7">
-<i class="fa-brands fa-linux"></i> Linux</label><div class="sd-tab-content docutils">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-8" name="sd-tab-set-3" type="radio">
-<label class="sd-tab-label" data-sync-group="os" data-sync-id="windows" for="sd-tab-item-8">
+<label class="sd-tab-label" data-sync-group="os" data-sync-id="windows" for="sd-tab-item-5">
 <i class="fa-brands fa-windows"></i> Windows</label><div class="sd-tab-content docutils">
-<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span>uv pip install --upgrade pip
+<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/isaac-sim/IsaacLab.git
+<span class="k">cd</span> IsaacLab
+
+uv venv --python 3.12 --seed env_isaaclab
+env_isaaclab\Scripts\activate
+uv pip install --upgrade pip
+uv pip install <span class="s2">&quot;isaacsim[all,extscache]==6.0.0&quot;</span> <span class="se">^</span>
+<span class="se"> </span> --extra-index-url https://pypi.nvidia.com <span class="se">^</span>
+<span class="se"> </span> --index-strategy unsafe-best-match --prerelease=allow
+uv pip install -U torch==2.10.0 torchvision==0.25.0 <span class="se">^</span>
+<span class="se"> </span> --index-url https://download.pytorch.org/whl/cu128
+isaaclab.bat -i
 </pre></div>
 </div>
 </div>
 </div>
-<p>and now we can install the Isaac Sim packages.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;isaacsim[all,extscache]==6.0.0&quot;</span><span class="w"> </span>--extra-index-url<span class="w"> </span>https://pypi.nvidia.com<span class="w"> </span>--index-strategy<span class="w"> </span>unsafe-best-match<span class="w"> </span>--prerelease<span class="o">=</span>allow
-</pre></div>
+<p>On Linux aarch64 (DGX Spark), use <code class="docutils literal notranslate"><span class="pre">cu130</span></code> for PyTorch and see
+<a class="reference internal" href="installation/index.html#isaaclab-installation-root"><span class="std std-ref">Local Installation</span></a> for additional setup notes.</p>
+<p>For conda, binary installs, Docker, and troubleshooting, see
+<a class="reference internal" href="installation/index.html#isaaclab-installation-root"><span class="std std-ref">Local Installation</span></a>.</p>
 </div>
-<p>Finally, we can install Isaac Lab.  To start, clone the repository using the following</p>
+</div>
+</section>
+<section id="run-training">
+<h2>Run Training<a class="headerlink" href="#run-training" title="Link to this heading">#</a></h2>
+<p>Training scripts live under <code class="docutils literal notranslate"><span class="pre">scripts/reinforcement_learning/</span></code>. Pass a <strong>task name</strong> and use
+<code class="docutils literal notranslate"><span class="pre">physics=</span></code>, <code class="docutils literal notranslate"><span class="pre">renderer=</span></code>, and <code class="docutils literal notranslate"><span class="pre">presets=</span></code> to select backends and task-specific options:</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-9" name="sd-tab-set-4" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-9">
-SSH</label><div class="sd-tab-content docutils">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:isaac-sim/IsaacLab.git
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-10" name="sd-tab-set-4" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-10">
-HTTPS</label><div class="sd-tab-content docutils">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/isaac-sim/IsaacLab.git
-</pre></div>
-</div>
-</div>
-</div>
-<p>Installation is now as easy as navigating to the repo and then calling the root script with the <code class="docutils literal notranslate"><span class="pre">--install</span></code> flag!</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-11" name="sd-tab-set-5" type="radio">
-<label class="sd-tab-label" data-sync-group="os" data-sync-id="linux" for="sd-tab-item-11">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="os" data-sync-id="linux" for="sd-tab-item-6">
 <i class="fa-brands fa-linux"></i> Linux</label><div class="sd-tab-content docutils">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>--install<span class="w"> </span><span class="c1"># or &quot;./isaaclab.sh -i&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Kit-less: Newton MJWarp physics + Newton visualizer</span>
+./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/reinforcement_learning/rsl_rl/train.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--task<span class="o">=</span>Isaac-Cartpole-Direct-v0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--num_envs<span class="o">=</span><span class="m">16</span><span class="w"> </span>--max_iterations<span class="o">=</span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="nv">physics</span><span class="o">=</span>newton_mjwarp<span class="w"> </span>--visualizer<span class="w"> </span>newton
+
+<span class="c1"># With Isaac Sim: PhysX physics (default renderer)</span>
+./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/reinforcement_learning/rsl_rl/train.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--task<span class="o">=</span>Isaac-Cartpole-Direct-v0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--num_envs<span class="o">=</span><span class="m">4096</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="nv">physics</span><span class="o">=</span>physx
+
+<span class="c1"># Camera task: typed physics + renderer + domain preset</span>
+./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/reinforcement_learning/rsl_rl/train.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--task<span class="o">=</span>Isaac-Cartpole-Camera-Presets-Direct-v0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="nv">physics</span><span class="o">=</span>newton_mjwarp<span class="w"> </span><span class="nv">renderer</span><span class="o">=</span>newton_renderer<span class="w"> </span><span class="nv">presets</span><span class="o">=</span>rgb
 </pre></div>
 </div>
 </div>
-<input id="sd-tab-item-12" name="sd-tab-set-5" type="radio">
-<label class="sd-tab-label" data-sync-group="os" data-sync-id="windows" for="sd-tab-item-12">
+<input id="sd-tab-item-7" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="os" data-sync-id="windows" for="sd-tab-item-7">
 <i class="fa-brands fa-windows"></i> Windows</label><div class="sd-tab-content docutils">
-<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span>isaaclab.bat --install
-<span class="p">:</span><span class="c1">: or use &quot;isaaclab.bat -i&quot;</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="quick-start-using-isaac-launchable">
-<h2>Quick Start Using Isaac Launchable<a class="headerlink" href="#quick-start-using-isaac-launchable" title="Link to this heading">#</a></h2>
-<p>For users first learning Isaac Lab, without sufficient local compute resources, the <a class="reference external" href="https://github.com/isaac-sim/isaac-launchable">Isaac Launchable</a> project is a quick way to get started without manual installation.</p>
-<p>Through this project, users can interact with Isaac Sim and Isaac Lab purely from a web browser, with one tab running Visual Studio Code for development and command execution, and another tab providing the streamed user interface for Isaac Sim.</p>
-<p>This method uses <a class="reference external" href="https://brev.nvidia.com/">NVIDIA Brev</a>, a platform that offers easily configurable pay-by-the-hour cloud compute. Brev Launchables are preconfigured, optimized compute and software environments.</p>
-<p>To try now, click the button below. To learn more about how to use this project, or how to create your own Launchable, please see the project repo <a class="reference external" href="https://github.com/isaac-sim/isaac-launchable">here</a>.</p>
-<a class="reference external image-reference" href="https://brev.nvidia.com/launchable/deploy/now?launchableID=env-35JP2ywERLgqtD0b0MIeK1HnF46"><img alt="Click here to deploy" src="https://brev-assets.s3.us-west-1.amazonaws.com/nv-lb-dark.svg" />
-</a>
-</section>
-<section id="launch-training">
-<h2>Launch Training<a class="headerlink" href="#launch-training" title="Link to this heading">#</a></h2>
-<p>The various backends of Isaac Lab are accessed through their corresponding <code class="docutils literal notranslate"><span class="pre">train.py</span></code> and <code class="docutils literal notranslate"><span class="pre">play.py</span></code> scripts located in the <code class="docutils literal notranslate"><span class="pre">scripts/reinforcement_learning</span></code> directory.
-Invoking these scripts will require a <strong>Task Name</strong> and a corresponding <strong>Entry Point</strong> to the gymnasium API. For example</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>scripts/reinforcement_learning/skrl/train.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Ant-v0
-</pre></div>
-</div>
-<p>This will train the mujoco ant to “run”.  You can see the various launch option available to you with the <code class="docutils literal notranslate"><span class="pre">--help</span></code> flag.  Note specifically the <code class="docutils literal notranslate"><span class="pre">--num_envs</span></code> option and the <code class="docutils literal notranslate"><span class="pre">--headless</span></code> flag,
-both of which can be useful when trying to develop and debug a new environment. Options specified at this level automatically overwrite any configuration equivalent that may be defined in the code
-(so long as those definitions are part of a <code class="docutils literal notranslate"><span class="pre">&#64;configclass</span></code>, see below).</p>
-<section id="selecting-the-physics-backend">
-<h3>Selecting the Physics Backend<a class="headerlink" href="#selecting-the-physics-backend" title="Link to this heading">#</a></h3>
-<p>Use the <code class="docutils literal notranslate"><span class="pre">presets=</span></code> argument to select the physics backend at runtime:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># MJWarp (Newton backend, Kit-less) with Newton visualizer</span>
-./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/reinforcement_learning/rsl_rl/train.py<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--task<span class="w"> </span>Isaac-Cartpole-Direct-v0<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--num_envs<span class="w"> </span><span class="m">4096</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="nv">presets</span><span class="o">=</span>newton_mjwarp<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--visualizer<span class="w"> </span>newton
+<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span>isaaclab.bat -p scripts\reinforcement_learning\rsl_rl\train.py <span class="se">^</span>
+<span class="se"> </span> --task=Isaac-Cartpole-Direct-v0 <span class="se">^</span>
+<span class="se"> </span> --num_envs=16 --max_iterations=10 <span class="se">^</span>
+<span class="se"> </span> physics=newton_mjwarp --visualizer newton
 
-<span class="c1"># PhysX (Kit) — requires Isaac Sim installed</span>
-./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/reinforcement_learning/rsl_rl/train.py<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--task<span class="w"> </span>Isaac-Cartpole-Direct-v0<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--num_envs<span class="w"> </span><span class="m">4096</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="nv">presets</span><span class="o">=</span>physx
-
-<span class="c1"># MJWarp with a specific visualizer</span>
-./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/reinforcement_learning/rsl_rl/train.py<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--task<span class="w"> </span>Isaac-Cartpole-Direct-v0<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--num_envs<span class="w"> </span><span class="m">4096</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="nv">presets</span><span class="o">=</span>newton_mjwarp<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--visualizer<span class="w"> </span>viser
+isaaclab.bat -p scripts\reinforcement_learning\rsl_rl\train.py <span class="se">^</span>
+<span class="se"> </span> --task=Isaac-Cartpole-Direct-v0 <span class="se">^</span>
+<span class="se"> </span> --num_envs=4096 <span class="se">^</span>
+<span class="se"> </span> physics=physx
 </pre></div>
 </div>
-<p>Kit-less visualizer options are <code class="docutils literal notranslate"><span class="pre">newton</span></code>, <code class="docutils literal notranslate"><span class="pre">rerun</span></code>, and <code class="docutils literal notranslate"><span class="pre">viser</span></code>.
-Multiple visualizers can be combined: <code class="docutils literal notranslate"><span class="pre">--visualizer</span> <span class="pre">newton,rerun</span></code>.</p>
-</section>
-</section>
-<section id="list-available-environments">
-<h2>List Available Environments<a class="headerlink" href="#list-available-environments" title="Link to this heading">#</a></h2>
-<p>Above, <code class="docutils literal notranslate"><span class="pre">Isaac-Ant-v0</span></code> is the task name and <code class="docutils literal notranslate"><span class="pre">skrl</span></code> is the RL framework being used.  The <code class="docutils literal notranslate"><span class="pre">Isaac-Ant-v0</span></code> environment
-has been registered with the <a class="reference external" href="https://gymnasium.farama.org/">Gymnasium API</a>, and you can see how the entry point is defined
-by calling the <code class="docutils literal notranslate"><span class="pre">list_envs.py</span></code> script, which can be found in <code class="docutils literal notranslate"><span class="pre">scripts/environments/list_envs.py</span></code>. You should see entries like the following</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$&gt;<span class="w"> </span>python<span class="w"> </span>scripts/environments/list_envs.py
-
-+--------------------------------------------------------------------------------------------------------------------------------------------+
-<span class="p">|</span><span class="w">  </span>Available<span class="w"> </span>Environments<span class="w"> </span><span class="k">in</span><span class="w"> </span>Isaac<span class="w"> </span>Lab
-+--------+----------------------+--------------------------------------------+---------------------------------------------------------------+
-<span class="p">|</span><span class="w"> </span>S.<span class="w"> </span>No.<span class="w"> </span><span class="p">|</span><span class="w"> </span>Task<span class="w"> </span>Name<span class="w">            </span><span class="p">|</span><span class="w"> </span>Entry<span class="w"> </span>Point<span class="w">                                </span><span class="p">|</span><span class="w"> </span>Config
-.
-.
-.
-+--------+----------------------+--------------------------------------------+---------------------------------------------------------------+
-<span class="p">|</span><span class="w">   </span><span class="m">2</span><span class="w">    </span><span class="p">|</span><span class="w"> </span>Isaac-Ant-Direct-v0<span class="w">  </span><span class="p">|</span><span class="w">  </span>isaaclab_tasks.direct.ant.ant_env:AntEnv<span class="w">  </span><span class="p">|</span><span class="w">  </span>isaaclab_tasks.direct.ant.ant_env:AntEnvCfg
-+--------+----------------------+--------------------------------------------+---------------------------------------------------------------+
-.
-.
-.
-+--------+----------------------+--------------------------------------------+---------------------------------------------------------------+
-<span class="p">|</span><span class="w">   </span><span class="m">48</span><span class="w">   </span><span class="p">|</span><span class="w"> </span>Isaac-Ant-v0<span class="w">         </span><span class="p">|</span><span class="w"> </span>isaaclab.envs:ManagerBasedRLEnv<span class="w">            </span><span class="p">|</span><span class="w">   </span>isaaclab_tasks.manager_based.classic.ant.ant_env_cfg:AntEnvCfg
-+--------+----------------------+--------------------------------------------+---------------------------------------------------------------+
-</pre></div>
 </div>
-<p>Notice that there are two different <code class="docutils literal notranslate"><span class="pre">Ant</span></code> tasks, one for a <code class="docutils literal notranslate"><span class="pre">Direct</span></code> environment and one for a <code class="docutils literal notranslate"><span class="pre">ManagerBased</span></code> environment.
-These are the <a class="reference internal" href="../overview/core-concepts/task_workflows.html#feature-workflows"><span class="std std-ref">two primary workflows</span></a> that you can use with Isaac Lab out of the box. The Direct workflow will give you the
-shortest path to a working custom environment for reinforcement learning, but the Manager based workflow will give your project the modularity required
-for more generalized development.  For the purposes of this quickstart guide, we will only focus on the Direct workflow.</p>
-</section>
-<section id="generate-your-own-project">
-<h2>Generate Your Own Project<a class="headerlink" href="#generate-your-own-project" title="Link to this heading">#</a></h2>
-<p>Getting a new project started with Isaac Lab can seem daunting at first, but this is why we provide the <a class="reference internal" href="../overview/own-project/template.html#template-generator"><span class="std std-ref">template
-generator</span></a>, to rapidly boilerplate a new project via the command line.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>--new
-</pre></div>
 </div>
-<p>This will create a new project for you based on the settings you choose</p>
+<p>Add <code class="docutils literal notranslate"><span class="pre">--headless</span></code> to disable the GUI. Use <code class="docutils literal notranslate"><span class="pre">--help</span></code> on any script to see task-specific
+<code class="docutils literal notranslate"><span class="pre">physics=</span></code>, <code class="docutils literal notranslate"><span class="pre">renderer=</span></code>, and <code class="docutils literal notranslate"><span class="pre">presets=</span></code> options.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
 <ul class="simple">
-<li><p><strong>External vs Internal</strong>: Determines if the project is meant to be built as a part of the isaac lab repository, or if
-it is meant to be loaded as an external extension.</p></li>
-<li><p><strong>Direct vs Manager</strong>: A direct task primarily contains all the implementation details within the environment definition,
-while a manager based project is meant to use our modular definitions for the different “parts” of an environment.</p></li>
-<li><p><strong>Framework</strong>: You can select more than one option here.  This determines which RL frameworks you intend to natively use with your project
-(which specific algorithm implementations you want to use for training).</p></li>
+<li><p><a class="reference internal" href="../features/hydra.html"><span class="doc">Hydra Configuration System</span></a> — preset system and Hydra overrides</p></li>
+<li><p><a class="reference internal" href="quickstart_details.html"><span class="doc">Quickstart Details</span></a> — preset catalog, environments, project generator, and more</p></li>
 </ul>
-<p>Once created, navigate to the installed project and run</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>source/&lt;given-project-name&gt;
-</pre></div>
 </div>
-<p>to complete the installation process and register the environment.  Within the directories created by the template
-generator, you will find at least one <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> file with something that looks like the following</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gymnasium</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gym</span>
-
-<span class="n">gym</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
-    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;Template-isaaclabtutorial_env-v0&quot;</span><span class="p">,</span>
-    <span class="n">entry_point</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.isaaclabtutorial_env:IsaaclabtutorialEnv&quot;</span><span class="p">,</span>
-    <span class="n">disable_env_checker</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;env_cfg_entry_point&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.isaaclabtutorial_env_cfg:IsaaclabtutorialEnvCfg&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;skrl_cfg_entry_point&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">agents</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.skrl_ppo_cfg:PPORunnerCfg&quot;</span><span class="p">,</span>
-    <span class="p">},</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>This is the function that actually registers an environment for future use.  Notice that the <code class="docutils literal notranslate"><span class="pre">entry_point</span></code> is literally
-just the python module path to the environment definition.  This is why we need to install the project as a package: the module path <strong>is</strong> the
-entry point for the gymnasium API.</p>
 </section>
-<section id="configurations">
-<h2>Configurations<a class="headerlink" href="#configurations" title="Link to this heading">#</a></h2>
-<p>Regardless of what you are going to be doing with Isaac Lab, you will need to deal with <strong>Configurations</strong>. Configurations
-can all be identified by the inclusion of the <code class="docutils literal notranslate"><span class="pre">&#64;configclass</span></code> decorator above their class definition and the lack of an <code class="docutils literal notranslate"><span class="pre">__init__</span></code> function. For example, consider
-this configuration class for the <a class="reference internal" href="../tutorials/03_envs/create_direct_rl_env.html#tutorial-create-direct-rl-env"><span class="std std-ref">cartpole environment</span></a>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@configclass</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">CartpoleEnvCfg</span><span class="p">(</span><span class="n">DirectRLEnvCfg</span><span class="p">):</span>
-    <span class="c1"># env</span>
-    <span class="n">decimation</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="n">episode_length_s</span> <span class="o">=</span> <span class="mf">5.0</span>
-    <span class="n">action_scale</span> <span class="o">=</span> <span class="mf">100.0</span>  <span class="c1"># [N]</span>
-    <span class="n">action_space</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">observation_space</span> <span class="o">=</span> <span class="mi">4</span>
-    <span class="n">state_space</span> <span class="o">=</span> <span class="mi">0</span>
-
-    <span class="c1"># simulation</span>
-    <span class="n">sim</span><span class="p">:</span> <span class="n">SimulationCfg</span> <span class="o">=</span> <span class="n">SimulationCfg</span><span class="p">(</span><span class="n">dt</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">120</span><span class="p">,</span> <span class="n">render_interval</span><span class="o">=</span><span class="n">decimation</span><span class="p">)</span>
-
-    <span class="c1"># robot</span>
-    <span class="n">robot_cfg</span><span class="p">:</span> <span class="n">ArticulationCfg</span> <span class="o">=</span> <span class="n">CARTPOLE_CFG</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">prim_path</span><span class="o">=</span><span class="s2">&quot;/World/envs/env_.*/Robot&quot;</span><span class="p">)</span>
-    <span class="n">cart_dof_name</span> <span class="o">=</span> <span class="s2">&quot;slider_to_cart&quot;</span>
-    <span class="n">pole_dof_name</span> <span class="o">=</span> <span class="s2">&quot;cart_to_pole&quot;</span>
-
-    <span class="c1"># scene</span>
-    <span class="n">scene</span><span class="p">:</span> <span class="n">InteractiveSceneCfg</span> <span class="o">=</span> <span class="n">InteractiveSceneCfg</span><span class="p">(</span><span class="n">num_envs</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">env_spacing</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">replicate_physics</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-    <span class="c1"># reset</span>
-    <span class="n">max_cart_pos</span> <span class="o">=</span> <span class="mf">3.0</span>  <span class="c1"># the cart is reset if it exceeds that position [m]</span>
-    <span class="n">initial_pole_angle_range</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]</span>  <span class="c1"># the range in which the pole angle is sampled from on reset [rad]</span>
-
-    <span class="c1"># reward scales</span>
-    <span class="n">rew_scale_alive</span> <span class="o">=</span> <span class="mf">1.0</span>
-    <span class="n">rew_scale_terminated</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.0</span>
-    <span class="n">rew_scale_pole_pos</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
-    <span class="n">rew_scale_cart_vel</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.01</span>
-    <span class="n">rew_scale_pole_vel</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.005</span>
-</pre></div>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>List registered environments: <code class="docutils literal notranslate"><span class="pre">./isaaclab.sh</span> <span class="pre">-p</span> <span class="pre">scripts/environments/list_envs.py</span></code></p></li>
+<li><p>Scaffold a new project: <code class="docutils literal notranslate"><span class="pre">./isaaclab.sh</span> <span class="pre">--new</span></code></p></li>
+<li><p>Walk through tutorials: <a class="reference internal" href="../tutorials/index.html"><span class="doc">Tutorials</span></a></p></li>
+<li><p>Browse all environments: <a class="reference internal" href="../overview/environments.html"><span class="doc">Available Environments</span></a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
 </div>
-<p>Notice that the entire class definition is just a list of value fields and other configurations. Configuration classes are
-necessary for anything that needs to care about being vectorized by the lab during training. If you want to be able to copy an
-environment thousands of times, and manage the data from each asynchronously, you need to somehow “label” what parts of the scene matter
-to this copying process (vectorization). This is what the configuration classes accomplish!</p>
-<p>In this case, the class defines the configuration for the entire training environment! Notice also the <code class="docutils literal notranslate"><span class="pre">num_envs</span></code> variable in the <code class="docutils literal notranslate"><span class="pre">InteractiveSceneCfg</span></code>. This actually gets overwritten
-by the CLI argument from within the <code class="docutils literal notranslate"><span class="pre">train.py</span></code> script.  Configurations provide a direct path to any variable in the configuration hierarchy, making it easy
-to modify anything “configured” by the environment at launch time.</p>
-</section>
-<section id="robots">
-<h2>Robots<a class="headerlink" href="#robots" title="Link to this heading">#</a></h2>
-<p>Robots are entirely defined as instances of configurations within Isaac Lab. For details on how robot
-configurations work, including a full example, see the <a class="reference internal" href="../how-to/robots.html"><span class="doc">Robot Configurations</span></a> guide.</p>
-</section>
-<section id="apps-and-sims">
-<h2>Apps and Sims<a class="headerlink" href="#apps-and-sims" title="Link to this heading">#</a></h2>
-<p>Using the simulation with PhysX requires launching the Isaac Sim app to provide simulation context. When using Newton,
-launching the app is not required. If you are not running a task defined by the standard workflows, then you
-are responsible for creating the app, managing the context, and stepping the simulation forward through time.  This is
-the “third workflow”: a <strong>Standalone</strong> app, which is what we call the scripts for the frameworks, demos, benchmarks, etc…</p>
-<p>The Standalone workflow gives you total control over <em>everything</em> in the app and simulation
-context. Developing standalone apps is discussed at length in the <a class="reference external" href="https://docs.isaacsim.omniverse.nvidia.com/latest/index.html">Isaac Sim documentation</a> but there
-are a few points worth touching on that can be incredibly useful.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.app</span><span class="w"> </span><span class="kn">import</span> <span class="n">AppLauncher</span>
-<span class="c1"># add argparse arguments</span>
-<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
-    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;This script demonstrates adding a custom robot to an Isaac Lab environment.&quot;</span>
-<span class="p">)</span>
-<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--num_envs&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Number of environments to spawn.&quot;</span><span class="p">)</span>
-<span class="c1"># append AppLauncher cli args</span>
-<span class="n">AppLauncher</span><span class="o">.</span><span class="n">add_app_launcher_args</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
-<span class="c1"># parse the arguments</span>
-<span class="n">args_cli</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
-
-<span class="c1"># launch omniverse app</span>
-<span class="n">app_launcher</span> <span class="o">=</span> <span class="n">AppLauncher</span><span class="p">(</span><span class="n">args_cli</span><span class="p">)</span>
-<span class="n">simulation_app</span> <span class="o">=</span> <span class="n">app_launcher</span><span class="o">.</span><span class="n">app</span>
-</pre></div>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">AppLauncher</span></code> is the entrypoint to any and all Isaac Sim applications, like Isaac Lab! <em>Many Isaac Lab and Isaac Sim modules
-cannot be imported until the app is launched!</em>. This is done on the second to last line of the code above, when the <code class="docutils literal notranslate"><span class="pre">AppLauncher</span></code> is constructed.
-The <code class="docutils literal notranslate"><span class="pre">app_launcher.app</span></code> is our interface to the Kit App Framework; the broader interstitial code that binds the simulation to things the extension
-management system, or the GUI, etc…  In the standalone workflow, this interface, often called the <code class="docutils literal notranslate"><span class="pre">simulation_app</span></code> is predominantly used
-to check if the simulation is running, and cleanup after the simulation finishes.</p>
 </section>
 </section>
 
@@ -1125,11 +939,11 @@ to check if the simulation is running, and cleanup after the simulation finishes
       </div>
     </a>
     <a class="right-next"
-       href="quick_installation.html"
+       href="quickstart_details.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Quick Installation</p>
+        <p class="prev-next-title">Quickstart Details</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1151,17 +965,9 @@ to check if the simulation is running, and cleanup after the simulation finishes
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-installation-guide">Quick Installation Guide</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start-using-isaac-launchable">Quick Start Using Isaac Launchable</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#launch-training">Launch Training</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-the-physics-backend">Selecting the Physics Backend</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#list-available-environments">List Available Environments</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-your-own-project">Generate Your Own Project</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurations">Configurations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#robots">Robots</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apps-and-sims">Apps and Sims</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install">Install</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-training">Run Training</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next Steps</a></li>
 </ul>
   </nav></div>
 
