@@ -257,8 +257,10 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../../../setup/quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../setup/quick_installation.html">Quick Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../setup/quickstart.html">Quickstart</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../setup/quickstart_details.html">Quickstart Details</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../own-project/index.html">Build your Own Project or Task</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../own-project/template.html">Create new project or task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../own-project/project_structure.html">Project Structure</a></li>
@@ -773,7 +775,7 @@ default preset:</p>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">default</span></code> preset on most tasks resolves to PhysX. You can also pass
-<code class="docutils literal notranslate"><span class="pre">presets=physx</span></code> explicitly on tasks that declare multi-backend physics presets.</p>
+<code class="docutils literal notranslate"><span class="pre">physics=physx</span></code> explicitly on tasks that declare multi-backend physics presets.</p>
 </section>
 </section>
 

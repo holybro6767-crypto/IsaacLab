@@ -257,8 +257,10 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../setup/quickstart.html">Quickstart Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../setup/quick_installation.html">Quick Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../setup/quickstart.html">Quickstart</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../setup/quickstart_details.html">Quickstart Details</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../own-project/index.html">Build your Own Project or Task</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../own-project/template.html">Create new project or task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../own-project/project_structure.html">Project Structure</a></li>
@@ -1078,7 +1080,7 @@ Use <code class="docutils literal notranslate"><span class="pre">--visualizer</s
 <span class="w">  </span>--max_iterations<span class="o">=</span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--num_envs<span class="o">=</span><span class="m">1024</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--benchmark_backend<span class="o">=</span>summary<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;presets=newton_mjwarp,ovrtx_renderer,rgb&quot;</span>
+<span class="w">  </span><span class="nv">physics</span><span class="o">=</span>newton_mjwarp<span class="w"> </span><span class="nv">renderer</span><span class="o">=</span>ovrtx_renderer<span class="w"> </span><span class="nv">presets</span><span class="o">=</span>rgb
 </pre></div>
 </div>
 <p><strong>Record video with the Isaac RTX renderer preset using the Newton video backend</strong></p>
@@ -1092,7 +1094,7 @@ Use <code class="docutils literal notranslate"><span class="pre">--visualizer</s
 <span class="w">  </span>--max_iterations<span class="o">=</span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--num_envs<span class="o">=</span><span class="m">1024</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--benchmark_backend<span class="o">=</span>summary<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;presets=physx,isaacsim_rtx_renderer,rgb&quot;</span>
+<span class="w">  </span><span class="nv">physics</span><span class="o">=</span>physx<span class="w"> </span><span class="nv">renderer</span><span class="o">=</span>isaacsim_rtx_renderer<span class="w"> </span><span class="nv">presets</span><span class="o">=</span>rgb
 </pre></div>
 </div>
 <p><strong>Record video with the Isaac RTX renderer preset using the Kit video backend</strong></p>
@@ -1106,7 +1108,7 @@ Use <code class="docutils literal notranslate"><span class="pre">--visualizer</s
 <span class="w">  </span>--max_iterations<span class="o">=</span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--num_envs<span class="o">=</span><span class="m">1024</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--benchmark_backend<span class="o">=</span>summary<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">&quot;presets=physx,isaacsim_rtx_renderer,rgb&quot;</span>
+<span class="w">  </span><span class="nv">physics</span><span class="o">=</span>physx<span class="w"> </span><span class="nv">renderer</span><span class="o">=</span>isaacsim_rtx_renderer<span class="w"> </span><span class="nv">presets</span><span class="o">=</span>rgb
 </pre></div>
 </div>
 </section>
