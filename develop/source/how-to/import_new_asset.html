@@ -919,7 +919,8 @@ git<span class="w"> </span>clone<span class="w"> </span>git@github.com:isaac-orb
 <span class="w">  </span>--merge-joints<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--joint-stiffness<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--joint-damping<span class="w"> </span><span class="m">0</span>.0<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--joint-target-type<span class="w"> </span>none
+<span class="w">  </span>--joint-target-type<span class="w"> </span>none<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--viz<span class="w"> </span>kit
 </pre></div>
 </div>
 </div>
@@ -938,7 +939,8 @@ isaaclab.bat -p scripts\tools\convert_urdf.py <span class="se">^</span>
 <span class="se"> </span> --merge-joints <span class="se">^</span>
 <span class="se"> </span> --joint-stiffness 0.0 <span class="se">^</span>
 <span class="se"> </span> --joint-damping 0.0 <span class="se">^</span>
-<span class="se"> </span> --joint-target-type none
+<span class="se"> </span> --joint-target-type none <span class="se">^</span>
+<span class="se"> </span> --viz kit
 </pre></div>
 </div>
 </div>
@@ -959,8 +961,8 @@ If you re-run the converter against the same <code class="docutils literal notra
 actually used. Delete stale subdirectories manually (or wipe <code class="docutils literal notranslate"><span class="pre">usd_dir</span></code>) if you do not
 want them to accumulate on disk.</p>
 </div>
-<p>To run the script headless, you can add the <code class="docutils literal notranslate"><span class="pre">--headless</span></code> flag. This will not open the GUI and
-exit the script after the conversion is complete.</p>
+<p>The examples above pass <code class="docutils literal notranslate"><span class="pre">--viz</span> <span class="pre">kit</span></code> to open the GUI and inspect the converted asset.
+To run the script headless and exit after the conversion is complete, omit <code class="docutils literal notranslate"><span class="pre">--viz</span> <span class="pre">kit</span></code>.</p>
 <p>You can press play on the opened window to see the asset in the scene. The asset should fall under gravity. If it blows up, then it might be that you have self-collisions present in the URDF.</p>
 <figure class="align-center" style="width: 100%">
 <img alt="result of convert_urdf.py" src="../../_images/tutorial_convert_urdf.jpg" />
@@ -1058,7 +1060,8 @@ git<span class="w"> </span>clone<span class="w"> </span>git@github.com:google-de
 ./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/tools/convert_mjcf.py<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>../mujoco_menagerie/unitree_h1/h1.xml<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>source/isaaclab_assets/data/Robots/Unitree/h1.usd<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--merge-mesh
+<span class="w">  </span>--merge-mesh<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--viz<span class="w"> </span>kit
 </pre></div>
 </div>
 </div>
@@ -1074,7 +1077,8 @@ git clone git@github.com:google-deepmind/mujoco_menagerie.git
 isaaclab.bat -p scripts\tools\convert_mjcf.py <span class="se">^</span>
 <span class="se"> </span> ..\mujoco_menagerie\unitree_h1\h1.xml <span class="se">^</span>
 <span class="se"> </span> source\isaaclab_assets\data\Robots\Unitree\h1.usd <span class="se">^</span>
-<span class="se"> </span> --merge-mesh
+<span class="se"> </span> --merge-mesh <span class="se">^</span>
+<span class="se"> </span> --viz kit
 </pre></div>
 </div>
 </div>
