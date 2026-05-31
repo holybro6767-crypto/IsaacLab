@@ -817,8 +817,8 @@ everything.</p>
 <p>If you see a crash involving <code class="docutils literal notranslate"><span class="pre">libusd_tf-*.so</span></code> and conflicting USD versions
 (e.g. <code class="docutils literal notranslate"><span class="pre">pxrInternal_v0_25_5</span></code> vs <code class="docutils literal notranslate"><span class="pre">pxrInternal_v0_25_11</span></code>):</p>
 <ol class="arabic simple">
-<li><p>Ensure <code class="docutils literal notranslate"><span class="pre">LD_PRELOAD</span></code> is set to ovrtx’s <code class="docutils literal notranslate"><span class="pre">libcarb.so</span></code> (see the
-<a class="reference internal" href="../setup/installation/kitless_installation.html#installation-ovrtx"><span class="std std-ref">OVRTX section</span></a> of the installation guide)</p></li>
+<li><p>Ensure <code class="docutils literal notranslate"><span class="pre">LD_PRELOAD</span></code> is set to ovrtx’s <code class="docutils literal notranslate"><span class="pre">libcarb.so</span></code> and install the OVRTX
+runtime with <code class="docutils literal notranslate"><span class="pre">./isaaclab.sh</span> <span class="pre">-i</span> <span class="pre">'ov[ovrtx]'</span></code> (see <a class="reference internal" href="../setup/installation/kitless_installation.html#installation-selective-install"><span class="std std-ref">Modularized Installation</span></a>)</p></li>
 <li><p>Ensure <code class="docutils literal notranslate"><span class="pre">isaacsim</span></code> / <code class="docutils literal notranslate"><span class="pre">omniverse-kit</span></code> is <strong>not</strong> installed in the same
 environment — their bundled USD libraries conflict with ovrtx’s</p></li>
 </ol>

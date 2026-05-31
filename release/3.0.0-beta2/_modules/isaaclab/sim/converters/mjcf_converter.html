@@ -686,6 +686,8 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
+<span class="kn">import</span><span class="w"> </span><span class="nn">omni.kit.app</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">.asset_converter_base</span><span class="w"> </span><span class="kn">import</span> <span class="n">AssetConverterBase</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.mjcf_converter_cfg</span><span class="w"> </span><span class="kn">import</span> <span class="n">MjcfConverterCfg</span>
 
@@ -730,6 +732,11 @@
 <span class="sd">        Args:</span>
 <span class="sd">            cfg: The configuration instance for MJCF to USD conversion.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># enable the MJCF importer extension</span>
+        <span class="n">manager</span> <span class="o">=</span> <span class="n">omni</span><span class="o">.</span><span class="n">kit</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">get_app</span><span class="p">()</span><span class="o">.</span><span class="n">get_extension_manager</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">manager</span><span class="o">.</span><span class="n">is_extension_enabled</span><span class="p">(</span><span class="s2">&quot;isaacsim.asset.importer.mjcf&quot;</span><span class="p">):</span>
+            <span class="n">manager</span><span class="o">.</span><span class="n">set_extension_enabled_immediate</span><span class="p">(</span><span class="s2">&quot;isaacsim.asset.importer.mjcf&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
         <span class="c1"># The MJCF importer outputs to: {usd_path}/{robot_name}/{robot_name}.usda</span>
         <span class="c1"># Pre-adjust `usd_file_name` to match this output structure so that lazy conversion works correctly.</span>
         <span class="n">file_basename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">asset_path</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>

@@ -775,8 +775,10 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>Isaac Lab 3.0 supports kit-less installation.</strong> You can install and use Isaac Lab with the
-Newton physics backend <em>without</em> installing Isaac Sim. Simply clone Isaac Lab and run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>--install<span class="w">   </span><span class="c1"># or ./isaaclab.sh -i</span>
+Newton physics backend <em>without</em> installing Isaac Sim. Clone Isaac Lab and run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/isaac-sim/IsaacLab.git<span class="w"> </span>--branch<span class="w"> </span>release/3.0.0-beta2
+<span class="nb">cd</span><span class="w"> </span>IsaacLab
+./isaaclab.sh<span class="w"> </span>--install<span class="w">   </span><span class="c1"># or ./isaaclab.sh -i</span>
 </pre></div>
 </div>
 <p>This installs the core Isaac Lab packages and the Newton physics backend. Isaac Sim is <strong>not</strong>
@@ -788,12 +790,6 @@ importers — install Isaac Sim via pip (see the
 </div>
 <div class="admonition caution">
 <p class="admonition-title">Caution</p>
-<p><strong>Compatibility warning for Isaac Sim GitHub develop:</strong> A recent breaking change on the Isaac Lab
-<code class="docutils literal notranslate"><span class="pre">develop</span></code> branch is not compatible with the <code class="docutils literal notranslate"><span class="pre">develop</span></code> branch of Isaac Sim on GitHub. To run
-Isaac Lab with Isaac Sim’s GitHub <code class="docutils literal notranslate"><span class="pre">develop</span></code> branch, use Isaac Lab commit
-<a class="reference external" href="https://github.com/isaac-sim/IsaacLab/commit/f0234a82e432e2a0b0f0a26ca3c5b59e527ddaaa">f0234a82e432e2a0b0f0a26ca3c5b59e527ddaaa</a>
-or an earlier commit. Alternatively, use the Isaac Lab
-<a class="reference external" href="https://github.com/isaac-sim/IsaacLab/tree/v3.0.0-beta">v3.0.0-beta</a> tag.</p>
 <p>We have dropped support for Isaac Sim versions 5.1.0 and below. We recommend using the latest
 Isaac Sim 6.0.0 release to benefit from the latest features and improvements.</p>
 <p>For more information, please refer to the
@@ -838,13 +834,10 @@ using the <code class="docutils literal notranslate"><span class="pre">.run</spa
 features of Isaac Lab are not currently supported on the DGX spark. The most noteworthy is that the architecture <em>requires</em> CUDA ≥ 13, and thus the cu13 build of PyTorch or newer.
 Other notable limitations with respect to Isaac Lab include…</p>
 <ol class="arabic simple">
-<li><p><a class="reference external" href="https://isaac-sim.github.io/IsaacLab/main/source/overview/imitation-learning/skillgen.html">SkillGen</a> is not supported out of the box. This
+<li><p><a class="reference internal" href="../../overview/imitation-learning/skillgen.html"><span class="doc">SkillGen</span></a> is not supported out of the box. This
 is because cuRobo builds native CUDA/C++ extensions that requires specific tooling and library versions which are not validated for use with DGX spark.</p></li>
 <li><p>Extended reality teleoperation tools such as <code class="xref py py-class docutils literal notranslate"><span class="pre">OpenXR</span></code> is not supported. This is due
 to encoding performance limitations that have not yet been fully investigated.</p></li>
-<li><p>SKRL training with <a class="reference external" href="https://docs.jax.dev/en/latest/notebooks/thinking_in_jax.html">JAX</a> has not been explicitly validated or tested in Isaac Lab on the DGX Spark.
-JAX provides pre-built CUDA wheels only for Linux on x86_64, so on aarch64 systems (e.g., DGX Spark) it runs on CPU only by default.
-GPU support requires building JAX from source, which has not been validated in Isaac Lab.</p></li>
 <li><p>Livestream and Hub Workstation Cache are not supported on the DGX spark.</p></li>
 <li><p><a class="reference internal" href="../../overview/imitation-learning/augmented_imitation.html#running-cosmos"><span class="std std-ref">Running Cosmos Transfer1</span></a> is not currently supported on the DGX Spark.</p></li>
 <li><p>Newton VBD deformable support is limited on DGX Spark due to the availability of the
@@ -924,7 +917,8 @@ install of Isaac Sim</p></td>
 <td><p>📦 pip install</p></td>
 <td><p>📦 pip install</p></td>
 <td><p>External extensions only
-(no training/examples)</p></td>
+(no training/examples).
+Use <code class="docutils literal notranslate"><span class="pre">[isaacsim,all]</span></code>.</p></td>
 <td><p>Special
 case</p></td>
 </tr>
@@ -971,7 +965,7 @@ case</p></td>
 </li>
 <li><p><a class="reference internal" href="isaaclab_pip_installation.html"><span class="doc">Installation using Isaac Lab Pip Packages</span></a></p>
 <ul>
-<li><p>Install Isaac Sim and Isaac Lab as pip packages.</p></li>
+<li><p>Install Isaac Sim and Isaac Lab as pip packages with <code class="docutils literal notranslate"><span class="pre">isaaclab[isaacsim,all]</span></code>.</p></li>
 <li><p>Best for advanced users building <strong>external extensions</strong> with custom runner scripts.</p></li>
 <li><p>Note: This does <strong>not</strong> include training or example scripts.</p></li>
 </ul>
