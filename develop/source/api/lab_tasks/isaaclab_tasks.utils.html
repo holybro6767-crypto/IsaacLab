@@ -847,6 +847,21 @@ alternative presets.</p>
 <p>The preset <em>name</em> (<code class="docutils literal notranslate"><span class="pre">newton_mjwarp</span></code>) is decoupled from the config class
 (<code class="docutils literal notranslate"><span class="pre">NewtonCfg</span></code>): the class describes the Newton backend, while the field
 name labels which solver variant this entry selects.</p>
+<p><strong>Class-local helpers (underscore convention).</strong> Names prefixed with
+<code class="docutils literal notranslate"><span class="pre">_</span></code> and callables (nested classes, methods) are skipped by the
+resolver and are NOT registered as variants. Use this to keep shared
+helpers adjacent to the variants that need them, without polluting the
+module namespace:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@configclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MultiBackendCameraCfg</span><span class="p">(</span><span class="n">PresetCfg</span><span class="p">):</span>
+    <span class="c1"># Class-local helper -- not a variant.</span>
+    <span class="n">_ROTATED_OFFSET</span> <span class="o">=</span> <span class="n">CameraCfg</span><span class="o">.</span><span class="n">OffsetCfg</span><span class="p">(</span><span class="n">rot</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="o">...</span><span class="p">)</span>
+
+    <span class="n">rgb</span> <span class="o">=</span> <span class="n">CameraCfg</span><span class="p">(</span><span class="n">data_types</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;rgb&quot;</span><span class="p">])</span>
+    <span class="n">albedo</span> <span class="o">=</span> <span class="n">CameraCfg</span><span class="p">(</span><span class="n">data_types</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;albedo&quot;</span><span class="p">],</span> <span class="n">offset</span><span class="o">=</span><span class="n">_ROTATED_OFFSET</span><span class="p">)</span>
+    <span class="n">default</span> <span class="o">=</span> <span class="n">rgb</span>
+</pre></div>
+</div>
 <p><strong>Methods:</strong></p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
