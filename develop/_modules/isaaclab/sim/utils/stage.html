@@ -60,7 +60,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="May 31, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 01, 2026"/>
   </head>
   
   
@@ -691,10 +691,12 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Generator</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sdf</span><span class="p">,</span> <span class="n">Usd</span><span class="p">,</span> <span class="n">UsdUtils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.utils.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_isaac_sim_version</span><span class="p">,</span> <span class="n">has_kit</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sdf</span><span class="p">,</span> <span class="n">Usd</span><span class="p">,</span> <span class="n">UsdUtils</span>  <span class="c1"># noqa: F401</span>
 
 <span class="c1"># import logger</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -769,6 +771,8 @@
 <span class="sd">        &gt;&gt;&gt; sim_utils.resolve_paths(source_layer.identifier, target_layer.identifier)</span>
 <span class="sd">        &gt;&gt;&gt; target_layer.Save()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sdf</span><span class="p">,</span> <span class="n">UsdUtils</span>  <span class="c1"># noqa: PLC0415</span>
+
     <span class="n">src_layer</span> <span class="o">=</span> <span class="n">Sdf</span><span class="o">.</span><span class="n">Layer</span><span class="o">.</span><span class="n">FindOrOpen</span><span class="p">(</span><span class="n">src_layer_identifier</span><span class="p">)</span>
     <span class="n">dst_layer</span> <span class="o">=</span> <span class="n">Sdf</span><span class="o">.</span><span class="n">Layer</span><span class="o">.</span><span class="n">FindOrOpen</span><span class="p">(</span><span class="n">dst_layer_identifier</span><span class="p">)</span>
 
@@ -834,6 +838,8 @@
 <span class="sd">                       sessionLayer=Sdf.Find(&#39;anon:0x7fba6c01c5c0:World7-session.usda&#39;),</span>
 <span class="sd">                       pathResolverContext=&lt;invalid repr&gt;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span><span class="p">,</span> <span class="n">UsdUtils</span>  <span class="c1"># noqa: PLC0415</span>
+
     <span class="n">stage</span><span class="p">:</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span> <span class="o">=</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span><span class="o">.</span><span class="n">CreateInMemory</span><span class="p">()</span>
     <span class="n">_context</span><span class="o">.</span><span class="n">stage</span> <span class="o">=</span> <span class="n">stage</span>
     <span class="n">UsdUtils</span><span class="o">.</span><span class="n">StageCache</span><span class="o">.</span><span class="n">Get</span><span class="p">()</span><span class="o">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">stage</span><span class="p">)</span>
@@ -897,6 +903,8 @@
 <span class="sd">        ValueError: When input path is not a supported file type by USD.</span>
 <span class="sd">        RuntimeError: When failed to open the stage.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span>  <span class="c1"># noqa: PLC0415</span>
+
     <span class="k">if</span> <span class="ow">not</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span><span class="o">.</span><span class="n">IsSupportedFile</span><span class="p">(</span><span class="n">usd_path</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The USD file at path &#39;</span><span class="si">{</span><span class="n">usd_path</span><span class="si">}</span><span class="s2">&#39; is not supported.&quot;</span><span class="p">)</span>
 
@@ -943,6 +951,8 @@
 <span class="sd">        ...     pass</span>
 <span class="sd">        &gt;&gt;&gt; # operate on the default stage attached to the USD context</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span>  <span class="c1"># noqa: PLC0415</span>
+
     <span class="k">if</span> <span class="n">has_kit</span><span class="p">()</span> <span class="ow">and</span> <span class="n">get_isaac_sim_version</span><span class="p">()</span><span class="o">.</span><span class="n">major</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Isaac Sim &lt; 5.0 does not support thread-local stage contexts. Skipping use_stage().&quot;</span><span class="p">)</span>
         <span class="k">yield</span>  <span class="c1"># no-op</span>
@@ -1038,6 +1048,8 @@
 <span class="sd">        ValueError: When input path is not a supported file type by USD.</span>
 <span class="sd">        RuntimeError: When layer creation or save operation fails.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sdf</span><span class="p">,</span> <span class="n">Usd</span>  <span class="c1"># noqa: PLC0415</span>
+
     <span class="c1"># check if USD file is supported</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span><span class="o">.</span><span class="n">IsSupportedFile</span><span class="p">(</span><span class="n">usd_path</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The USD file at path &#39;</span><span class="si">{</span><span class="n">usd_path</span><span class="si">}</span><span class="s2">&#39; is not supported.&quot;</span><span class="p">)</span>
@@ -1091,6 +1103,8 @@
 <span class="sd">        &gt;&gt;&gt; sim_utils.close_stage()</span>
 <span class="sd">        True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">UsdUtils</span>  <span class="c1"># noqa: PLC0415</span>
+
     <span class="c1"># Close Kit&#39;s USD context first (while the stage is still in the cache),</span>
     <span class="c1"># then clear the cache. Reversing this order causes Kit to fail with</span>
     <span class="c1"># &quot;Removal of UsdStage from cache failed&quot; and can hang during teardown.</span>
@@ -1233,6 +1247,8 @@
 <span class="sd">        &gt;&gt;&gt; sim_utils.get_current_stage_id()</span>
 <span class="sd">        1234567890</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">UsdUtils</span>  <span class="c1"># noqa: PLC0415</span>
+
     <span class="c1"># get current stage</span>
     <span class="n">stage</span> <span class="o">=</span> <span class="n">get_current_stage</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">stage</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -1297,7 +1313,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on May 31, 2026.
+  Last updated on Jun 01, 2026.
   <br/>
 </p>
   </div>

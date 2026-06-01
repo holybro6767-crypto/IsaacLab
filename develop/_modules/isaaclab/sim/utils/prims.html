@@ -60,7 +60,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="May 31, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 01, 2026"/>
   </head>
   
   
@@ -695,8 +695,6 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sdf</span><span class="p">,</span> <span class="n">Usd</span><span class="p">,</span> <span class="n">UsdGeom</span><span class="p">,</span> <span class="n">UsdPhysics</span><span class="p">,</span> <span class="n">UsdShade</span><span class="p">,</span> <span class="n">UsdUtils</span>
-
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.utils.assets</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_file_path</span><span class="p">,</span> <span class="n">retrieve_file_path</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.utils.string</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_camel_case</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.utils.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">has_kit</span>
@@ -707,6 +705,8 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">.transforms</span><span class="w"> </span><span class="kn">import</span> <span class="n">convert_world_pose_to_local</span><span class="p">,</span> <span class="n">standardize_xform_ops</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sdf</span><span class="p">,</span> <span class="n">Usd</span><span class="p">,</span> <span class="n">UsdGeom</span><span class="p">,</span> <span class="n">UsdPhysics</span><span class="p">,</span> <span class="n">UsdShade</span><span class="p">,</span> <span class="n">UsdUtils</span>  <span class="c1"># noqa: F401</span>
+
     <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.sim.spawners.spawner_cfg</span><span class="w"> </span><span class="kn">import</span> <span class="n">SpawnerCfg</span>
 
 <span class="c1"># import logger</span>
@@ -812,6 +812,8 @@
 <span class="sd">        ... )</span>
 <span class="sd">        Usd.Prim(&lt;/World/Parent/Sphere&gt;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">UsdGeom</span>  <span class="c1"># noqa: PLC0415</span>
+
     <span class="c1"># Ensure that user doesn&#39;t provide both position and translation</span>
     <span class="k">if</span> <span class="n">position</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">translation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot provide both position and translation. Please provide only one.&quot;</span><span class="p">)</span>
@@ -884,6 +886,8 @@
 <span class="sd">        &gt;&gt;&gt;</span>
 <span class="sd">        &gt;&gt;&gt; sim_utils.delete_prim(&quot;/World/Cube&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">UsdUtils</span>  <span class="c1"># noqa: PLC0415</span>
+
     <span class="c1"># convert prim_path to list if it is a string</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">prim_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">prim_path</span> <span class="o">=</span> <span class="p">[</span><span class="n">prim_path</span><span class="p">]</span>
@@ -930,6 +934,8 @@
 <span class="sd">    Raises:</span>
 <span class="sd">        ValueError: If the prim path is not global (i.e: does not start with &#39;/&#39;).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span>  <span class="c1"># noqa: PLC0415</span>
+
     <span class="c1"># get stage handle</span>
     <span class="k">if</span> <span class="n">stage</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">stage</span> <span class="o">=</span> <span class="n">get_current_stage</span><span class="p">()</span>
@@ -978,6 +984,8 @@
 <span class="sd">        &gt;&gt;&gt; prim = sim_utils.get_prim_at_path(&quot;/World/Cube&quot;)</span>
 <span class="sd">        &gt;&gt;&gt; sim_utils.set_prim_visibility(prim, False)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">UsdGeom</span>  <span class="c1"># noqa: PLC0415</span>
+
     <span class="n">imageable</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Imageable</span><span class="p">(</span><span class="n">prim</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">visible</span><span class="p">:</span>
         <span class="n">imageable</span><span class="o">.</span><span class="n">MakeVisible</span><span class="p">()</span>
@@ -1041,6 +1049,8 @@
 <span class="sd">        value: The value to set the attribute to.</span>
 <span class="sd">        camel_case: Whether to convert the attribute name to camel case.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sdf</span>  <span class="c1"># noqa: PLC0415</span>
+
     <span class="c1"># if value is None, do nothing</span>
     <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span>
@@ -1130,6 +1140,8 @@
 <span class="sd">        ... )</span>
 <span class="sd">        True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sdf</span><span class="p">,</span> <span class="n">Usd</span>  <span class="c1"># noqa: PLC0415</span>
+
     <span class="c1"># get stage handle</span>
     <span class="n">stage</span> <span class="o">=</span> <span class="n">get_current_stage</span><span class="p">()</span> <span class="k">if</span> <span class="n">stage</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">stage</span>
 
@@ -1195,6 +1207,8 @@
 <span class="sd">    Raises:</span>
 <span class="sd">        ValueError: If the prim paths are not global (i.e: do not start with &#39;/&#39;).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sdf</span><span class="p">,</span> <span class="n">Usd</span><span class="p">,</span> <span class="n">UsdGeom</span>  <span class="c1"># noqa: PLC0415</span>
+
     <span class="c1"># get stage handle</span>
     <span class="k">if</span> <span class="n">stage</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">stage</span> <span class="o">=</span> <span class="n">get_current_stage</span><span class="p">()</span>
@@ -1351,6 +1365,8 @@
 
     <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">wrapper</span><span class="p">(</span><span class="n">prim_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sdf</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="n">cfg</span><span class="p">:</span> <span class="n">SpawnerCfg</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sdf</span><span class="p">,</span> <span class="n">UsdGeom</span>  <span class="c1"># noqa: PLC0415</span>
+
         <span class="c1"># get stage handle</span>
         <span class="n">stage</span> <span class="o">=</span> <span class="n">get_current_stage</span><span class="p">()</span>
 
@@ -1533,6 +1549,8 @@
 <span class="sd">    Raises:</span>
 <span class="sd">        ValueError: If the provided prim paths do not exist on stage.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">UsdPhysics</span><span class="p">,</span> <span class="n">UsdShade</span>  <span class="c1"># noqa: PLC0415</span>
+
     <span class="c1"># get stage handle</span>
     <span class="k">if</span> <span class="n">stage</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">stage</span> <span class="o">=</span> <span class="n">get_current_stage</span><span class="p">()</span>
@@ -1848,7 +1866,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on May 31, 2026.
+  Last updated on Jun 01, 2026.
   <br/>
 </p>
   </div>

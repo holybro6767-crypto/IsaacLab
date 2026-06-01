@@ -60,7 +60,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="May 31, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 01, 2026"/>
   </head>
   
   
@@ -692,8 +692,6 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">filelock</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileLock</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Gf</span><span class="p">,</span> <span class="n">Sdf</span><span class="p">,</span> <span class="n">Usd</span><span class="p">,</span> <span class="n">UsdGeom</span>
-
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.sim</span><span class="w"> </span><span class="kn">import</span> <span class="n">converters</span><span class="p">,</span> <span class="n">schemas</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.sim.spawners.materials</span><span class="w"> </span><span class="kn">import</span> <span class="n">RigidBodyMaterialCfg</span><span class="p">,</span> <span class="n">SurfaceDeformableBodyMaterialBaseCfg</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.sim.utils</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -712,6 +710,8 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.utils.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">has_kit</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Gf</span><span class="p">,</span> <span class="n">Sdf</span><span class="p">,</span> <span class="n">Usd</span><span class="p">,</span> <span class="n">UsdGeom</span>  <span class="c1"># noqa: F401</span>
+
     <span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">from_files_cfg</span>
 
 <span class="c1"># import logger</span>
@@ -923,6 +923,8 @@
     <span class="c1"># Change the color of the plane</span>
     <span class="c1"># Warning: This is specific to the default grid plane asset.</span>
     <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">color</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Gf</span><span class="p">,</span> <span class="n">Sdf</span>  <span class="c1"># noqa: PLC0415</span>
+
         <span class="c1"># change the color</span>
         <span class="n">change_prim_property</span><span class="p">(</span>
             <span class="n">prop_path</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prim_path</span><span class="si">}</span><span class="s2">/Looks/theGrid/Shader.inputs:diffuse_tint&quot;</span><span class="p">,</span>
@@ -934,6 +936,8 @@
     <span class="c1"># It isn&#39;t bright enough and messes up with the user&#39;s lighting settings</span>
     <span class="n">light_prim</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">GetPrimAtPath</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prim_path</span><span class="si">}</span><span class="s2">/SphereLight&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">light_prim</span><span class="o">.</span><span class="n">IsValid</span><span class="p">():</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">UsdGeom</span>  <span class="c1"># noqa: PLC0415</span>
+
         <span class="n">imageable</span> <span class="o">=</span> <span class="n">UsdGeom</span><span class="o">.</span><span class="n">Imageable</span><span class="p">(</span><span class="n">light_prim</span><span class="p">)</span>
         <span class="n">imageable</span><span class="o">.</span><span class="n">MakeInvisible</span><span class="p">()</span>
 
@@ -1232,7 +1236,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on May 31, 2026.
+  Last updated on Jun 01, 2026.
   <br/>
 </p>
   </div>
