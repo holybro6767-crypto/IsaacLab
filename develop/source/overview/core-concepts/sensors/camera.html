@@ -908,13 +908,13 @@ parameters.</p>
 </div>
 <p>The active preset is selected at launch via <code class="docutils literal notranslate"><span class="pre">physics=</span></code>, <code class="docutils literal notranslate"><span class="pre">renderer=</span></code>, or <code class="docutils literal notranslate"><span class="pre">presets=</span></code> CLI arguments:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use Newton Warp renderer</span>
-python<span class="w"> </span>train.py<span class="w"> </span><span class="nv">task</span><span class="o">=</span>Isaac-Cartpole-RGB-Camera-Direct-v0<span class="w"> </span><span class="nv">renderer</span><span class="o">=</span>newton_renderer
+python<span class="w"> </span>train.py<span class="w"> </span><span class="nv">task</span><span class="o">=</span>Isaac-Cartpole-Camera-Direct<span class="w"> </span><span class="nv">renderer</span><span class="o">=</span>newton_renderer
 
 <span class="c1"># Use OVRTX renderer</span>
-python<span class="w"> </span>train.py<span class="w"> </span><span class="nv">task</span><span class="o">=</span>Isaac-Cartpole-RGB-Camera-Direct-v0<span class="w"> </span><span class="nv">renderer</span><span class="o">=</span>ovrtx_renderer
+python<span class="w"> </span>train.py<span class="w"> </span><span class="nv">task</span><span class="o">=</span>Isaac-Cartpole-Camera-Direct<span class="w"> </span><span class="nv">renderer</span><span class="o">=</span>ovrtx_renderer
 
 <span class="c1"># Use default (Isaac RTX)</span>
-python<span class="w"> </span>train.py<span class="w"> </span><span class="nv">task</span><span class="o">=</span>Isaac-Cartpole-RGB-Camera-Direct-v0
+python<span class="w"> </span>train.py<span class="w"> </span><span class="nv">task</span><span class="o">=</span>Isaac-Cartpole-Camera-Direct
 </pre></div>
 </div>
 </section>
@@ -928,7 +928,7 @@ python<span class="w"> </span>train.py<span class="w"> </span><span class="nv">t
 as an observation in RL training.</p>
 <p>When using the RTX renderer, add <code class="docutils literal notranslate"><span class="pre">--enable_cameras</span></code> when launching:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>scripts/reinforcement_learning/rl_games/train.py<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--task<span class="o">=</span>Isaac-Cartpole-RGB-Camera-Direct-v0<span class="w"> </span>--headless<span class="w"> </span>--enable_cameras
+<span class="w">    </span>--task<span class="o">=</span>Isaac-Cartpole-Camera-Direct<span class="w"> </span>--headless<span class="w"> </span>--enable_cameras
 </pre></div>
 </div>
 </section>

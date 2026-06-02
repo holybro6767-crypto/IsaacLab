@@ -784,13 +784,13 @@ The PhysX backend was used for all benchmarks.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Isaac-Cartpole-Direct-v0</p></td>
+<tr class="row-even"><td><p>Isaac-Cartpole-Direct</p></td>
 <td><p><a class="reference internal" href="../../../_images/cartpole1.jpg"><img alt="cartpole" src="../../../_images/cartpole1.jpg" style="width: 80px; height: 45px;" /></a></p></td>
 <td><p>4096</p></td>
 <td><p>3.7</p></td>
 <td><p>3.3</p></td>
 </tr>
-<tr class="row-odd"><td><p>Isaac-Cartpole-RGB-Camera-Direct-v0</p></td>
+<tr class="row-odd"><td><p>Isaac-Cartpole-Camera-Direct</p></td>
 <td><p><a class="reference internal" href="../../../_images/cartpole_camera.jpg"><img alt="cartpole-cam" src="../../../_images/cartpole_camera.jpg" style="width: 80px; height: 45px;" /></a></p></td>
 <td><p>1024</p></td>
 <td><p>7.5</p></td>
@@ -830,13 +830,13 @@ and Train FPS</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Isaac-Cartpole-Direct-v0</p></td>
+<tr class="row-even"><td><p>Isaac-Cartpole-Direct</p></td>
 <td><p>4096</p></td>
 <td><p>1100000</p></td>
 <td><p>910000</p></td>
 <td><p>510000</p></td>
 </tr>
-<tr class="row-odd"><td><p>Isaac-Cartpole-RGB-Camera-Direct-v0</p></td>
+<tr class="row-odd"><td><p>Isaac-Cartpole-Camera-Direct</p></td>
 <td><p>1024</p></td>
 <td><p>50000</p></td>
 <td><p>45000</p></td>
@@ -876,13 +876,13 @@ and Train FPS</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Isaac-Cartpole-Direct-v0</p></td>
+<tr class="row-even"><td><p>Isaac-Cartpole-Direct</p></td>
 <td><p>4096</p></td>
 <td><p>620000</p></td>
 <td><p>490000</p></td>
 <td><p>260000</p></td>
 </tr>
-<tr class="row-odd"><td><p>Isaac-Cartpole-RGB-Camera-Direct-v0</p></td>
+<tr class="row-odd"><td><p>Isaac-Cartpole-Camera-Direct</p></td>
 <td><p>1024</p></td>
 <td><p>30000</p></td>
 <td><p>28000</p></td>
@@ -922,13 +922,13 @@ and Train FPS</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Isaac-Cartpole-Direct-v0</p></td>
+<tr class="row-even"><td><p>Isaac-Cartpole-Direct</p></td>
 <td><p>4096</p></td>
 <td><p>2700000</p></td>
 <td><p>2100000</p></td>
 <td><p>950000</p></td>
 </tr>
-<tr class="row-odd"><td><p>Isaac-Cartpole-RGB-Camera-Direct-v0</p></td>
+<tr class="row-odd"><td><p>Isaac-Cartpole-Camera-Direct</p></td>
 <td><p>1024</p></td>
 <td><p>130000</p></td>
 <td><p>120000</p></td>
@@ -968,13 +968,13 @@ and Train FPS</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Isaac-Cartpole-Direct-v0</p></td>
+<tr class="row-even"><td><p>Isaac-Cartpole-Direct</p></td>
 <td><p>4096</p></td>
 <td><p>10200000</p></td>
 <td><p>8200000</p></td>
 <td><p>3500000</p></td>
 </tr>
-<tr class="row-odd"><td><p>Isaac-Cartpole-RGB-Camera-Direct-v0</p></td>
+<tr class="row-odd"><td><p>Isaac-Cartpole-Camera-Direct</p></td>
 <td><p>1024</p></td>
 <td><p>530000</p></td>
 <td><p>490000</p></td>
@@ -1005,13 +1005,13 @@ and RSL RL. In addition, we also provide a benchmarking script that runs only th
 without any reinforcement learning library.</p>
 <p>Example scripts can be run similarly to training scripts:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># benchmark with RSL RL</span>
-python<span class="w"> </span>scripts/benchmarks/benchmark_rsl_rl.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Cartpole-v0<span class="w"> </span>--headless
+python<span class="w"> </span>scripts/benchmarks/benchmark_rsl_rl.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Cartpole<span class="w"> </span>--headless
 
 <span class="c1"># benchmark with RL Games</span>
-python<span class="w"> </span>scripts/benchmarks/benchmark_rlgames.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Cartpole-v0<span class="w"> </span>--headless
+python<span class="w"> </span>scripts/benchmarks/benchmark_rlgames.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Cartpole<span class="w"> </span>--headless
 
 <span class="c1"># benchmark without RL libraries</span>
-python<span class="w"> </span>scripts/benchmarks/benchmark_non_rl.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Cartpole-v0<span class="w"> </span>--headless
+python<span class="w"> </span>scripts/benchmarks/benchmark_non_rl.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Cartpole<span class="w"> </span>--headless
 </pre></div>
 </div>
 <p>Each script will generate a set of KPI files at the end of the run, which includes data on the

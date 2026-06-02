@@ -1343,7 +1343,7 @@ job processing on local/virtual multi-GPU machines. Tuning jobs assume homogeneo
         <span class="k">assert</span> <span class="s2">&quot;runner_args&quot;</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">,</span> <span class="s2">&quot;No runner arguments specified.&quot;</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Task is the desired task to train on. For example:</span>
-<span class="sd">        cfg[&quot;runner_args&quot;][&quot;--task&quot;] = tune.choice([&quot;Isaac-Cartpole-RGB-TheiaTiny-v0&quot;])</span>
+<span class="sd">        cfg[&quot;runner_args&quot;][&quot;--task&quot;] = tune.choice([&quot;Isaac-Cartpole-Camera&quot;])</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="s2">&quot;--task&quot;</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">],</span> <span class="s2">&quot;No task specified.&quot;</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1607,8 +1607,8 @@ job processing on local/virtual multi-GPU machines. Tuning jobs assume homogeneo
 </span><span class="hll"><span class="sd">    py_modules: [&quot;my_package/my_package&quot;]</span>
 </span><span class="hll"><span class="sd">    concurrent: false</span>
 </span><span class="hll"><span class="sd">    tasks:</span>
-</span><span class="hll"><span class="sd">      - name: &quot;Isaac-Cartpole-v0&quot;</span>
-</span><span class="hll"><span class="sd">        py_args: &quot;-m torch.distributed.run --nnodes=1 --nproc_per_node=2  --rdzv_endpoint=localhost:29501 /workspace/isaaclab/scripts/reinforcement_learning/rsl_rl/train.py --task=Isaac-Cartpole-v0 --max_iterations 200 --headless --distributed&quot;</span>
+</span><span class="hll"><span class="sd">      - name: &quot;Isaac-Cartpole&quot;</span>
+</span><span class="hll"><span class="sd">        py_args: &quot;-m torch.distributed.run --nnodes=1 --nproc_per_node=2  --rdzv_endpoint=localhost:29501 /workspace/isaaclab/scripts/reinforcement_learning/rsl_rl/train.py --task=Isaac-Cartpole --max_iterations 200 --headless --distributed&quot;</span>
 </span><span class="hll"><span class="sd">        num_gpus: 2</span>
 </span><span class="hll"><span class="sd">        num_cpus: 10</span>
 </span><span class="hll"><span class="sd">        memory: 10737418240</span>
@@ -1627,16 +1627,16 @@ job processing on local/virtual multi-GPU machines. Tuning jobs assume homogeneo
 </span><span class="hll"><span class="sd">    py_modules: [&quot;my_package/my_package&quot;]</span>
 </span><span class="hll"><span class="sd">    concurrent: true</span>
 </span><span class="hll"><span class="sd">    tasks:</span>
-</span><span class="hll"><span class="sd">    - name: &quot;Isaac-Cartpole-v0-multi-node-train-1&quot;</span>
-</span><span class="hll"><span class="sd">        py_args: &quot;-m torch.distributed.run --nproc_per_node=1 --nnodes=2 --node_rank=0 --rdzv_id=123 --rdzv_backend=c10d --rdzv_endpoint=localhost:5555 /workspace/isaaclab/scripts/reinforcement_learning/rsl_rl/train.py --task=Isaac-Cartpole-v0 --headless --distributed --max_iterations 1000&quot;</span>
+</span><span class="hll"><span class="sd">    - name: &quot;Isaac-Cartpole-multi-node-train-1&quot;</span>
+</span><span class="hll"><span class="sd">        py_args: &quot;-m torch.distributed.run --nproc_per_node=1 --nnodes=2 --node_rank=0 --rdzv_id=123 --rdzv_backend=c10d --rdzv_endpoint=localhost:5555 /workspace/isaaclab/scripts/reinforcement_learning/rsl_rl/train.py --task=Isaac-Cartpole --headless --distributed --max_iterations 1000&quot;</span>
 </span><span class="hll"><span class="sd">        num_gpus: 1</span>
 </span><span class="hll"><span class="sd">        num_cpus: 10</span>
 </span><span class="hll"><span class="sd">        memory: 10*1024*1024*1024</span>
 </span><span class="hll"><span class="sd">        node:</span>
 </span><span class="hll"><span class="sd">          specific: &quot;hostname&quot;</span>
 </span><span class="hll"><span class="sd">          hostname: &quot;xxx&quot;</span>
-</span><span class="hll"><span class="sd">    - name: &quot;Isaac-Cartpole-v0-multi-node-train-2&quot;</span>
-</span><span class="hll"><span class="sd">        py_args: &quot;-m torch.distributed.run --nproc_per_node=1 --nnodes=2 --node_rank=1 --rdzv_id=123 --rdzv_backend=c10d --rdzv_endpoint=x.x.x.x:5555 /workspace/isaaclab/scripts/reinforcement_learning/rsl_rl/train.py --task=Isaac-Cartpole-v0 --headless --distributed --max_iterations 1000&quot;</span>
+</span><span class="hll"><span class="sd">    - name: &quot;Isaac-Cartpole-multi-node-train-2&quot;</span>
+</span><span class="hll"><span class="sd">        py_args: &quot;-m torch.distributed.run --nproc_per_node=1 --nnodes=2 --node_rank=1 --rdzv_id=123 --rdzv_backend=c10d --rdzv_endpoint=x.x.x.x:5555 /workspace/isaaclab/scripts/reinforcement_learning/rsl_rl/train.py --task=Isaac-Cartpole --headless --distributed --max_iterations 1000&quot;</span>
 </span><span class="hll"><span class="sd">        num_gpus: 1</span>
 </span><span class="hll"><span class="sd">        num_cpus: 10</span>
 </span><span class="hll"><span class="sd">        memory: 10*1024*1024*1024</span>
@@ -2758,8 +2758,8 @@ tensorboard<span class="w"> </span>--logdir<span class="o">=</span>.
 </span><span class="hll"><span class="sd">    py_modules: [&quot;my_package/my_package&quot;]</span>
 </span><span class="hll"><span class="sd">    concurrent: false</span>
 </span><span class="hll"><span class="sd">    tasks:</span>
-</span><span class="hll"><span class="sd">      - name: &quot;Isaac-Cartpole-v0&quot;</span>
-</span><span class="hll"><span class="sd">        py_args: &quot;-m torch.distributed.run --nnodes=1 --nproc_per_node=2  --rdzv_endpoint=localhost:29501 /workspace/isaaclab/scripts/reinforcement_learning/rsl_rl/train.py --task=Isaac-Cartpole-v0 --max_iterations 200 --headless --distributed&quot;</span>
+</span><span class="hll"><span class="sd">      - name: &quot;Isaac-Cartpole&quot;</span>
+</span><span class="hll"><span class="sd">        py_args: &quot;-m torch.distributed.run --nnodes=1 --nproc_per_node=2  --rdzv_endpoint=localhost:29501 /workspace/isaaclab/scripts/reinforcement_learning/rsl_rl/train.py --task=Isaac-Cartpole --max_iterations 200 --headless --distributed&quot;</span>
 </span><span class="hll"><span class="sd">        num_gpus: 2</span>
 </span><span class="hll"><span class="sd">        num_cpus: 10</span>
 </span><span class="hll"><span class="sd">        memory: 10737418240</span>
@@ -2778,16 +2778,16 @@ tensorboard<span class="w"> </span>--logdir<span class="o">=</span>.
 </span><span class="hll"><span class="sd">    py_modules: [&quot;my_package/my_package&quot;]</span>
 </span><span class="hll"><span class="sd">    concurrent: true</span>
 </span><span class="hll"><span class="sd">    tasks:</span>
-</span><span class="hll"><span class="sd">    - name: &quot;Isaac-Cartpole-v0-multi-node-train-1&quot;</span>
-</span><span class="hll"><span class="sd">        py_args: &quot;-m torch.distributed.run --nproc_per_node=1 --nnodes=2 --node_rank=0 --rdzv_id=123 --rdzv_backend=c10d --rdzv_endpoint=localhost:5555 /workspace/isaaclab/scripts/reinforcement_learning/rsl_rl/train.py --task=Isaac-Cartpole-v0 --headless --distributed --max_iterations 1000&quot;</span>
+</span><span class="hll"><span class="sd">    - name: &quot;Isaac-Cartpole-multi-node-train-1&quot;</span>
+</span><span class="hll"><span class="sd">        py_args: &quot;-m torch.distributed.run --nproc_per_node=1 --nnodes=2 --node_rank=0 --rdzv_id=123 --rdzv_backend=c10d --rdzv_endpoint=localhost:5555 /workspace/isaaclab/scripts/reinforcement_learning/rsl_rl/train.py --task=Isaac-Cartpole --headless --distributed --max_iterations 1000&quot;</span>
 </span><span class="hll"><span class="sd">        num_gpus: 1</span>
 </span><span class="hll"><span class="sd">        num_cpus: 10</span>
 </span><span class="hll"><span class="sd">        memory: 10*1024*1024*1024</span>
 </span><span class="hll"><span class="sd">        node:</span>
 </span><span class="hll"><span class="sd">          specific: &quot;hostname&quot;</span>
 </span><span class="hll"><span class="sd">          hostname: &quot;xxx&quot;</span>
-</span><span class="hll"><span class="sd">    - name: &quot;Isaac-Cartpole-v0-multi-node-train-2&quot;</span>
-</span><span class="hll"><span class="sd">        py_args: &quot;-m torch.distributed.run --nproc_per_node=1 --nnodes=2 --node_rank=1 --rdzv_id=123 --rdzv_backend=c10d --rdzv_endpoint=x.x.x.x:5555 /workspace/isaaclab/scripts/reinforcement_learning/rsl_rl/train.py --task=Isaac-Cartpole-v0 --headless --distributed --max_iterations 1000&quot;</span>
+</span><span class="hll"><span class="sd">    - name: &quot;Isaac-Cartpole-multi-node-train-2&quot;</span>
+</span><span class="hll"><span class="sd">        py_args: &quot;-m torch.distributed.run --nproc_per_node=1 --nnodes=2 --node_rank=1 --rdzv_id=123 --rdzv_backend=c10d --rdzv_endpoint=x.x.x.x:5555 /workspace/isaaclab/scripts/reinforcement_learning/rsl_rl/train.py --task=Isaac-Cartpole --headless --distributed --max_iterations 1000&quot;</span>
 </span><span class="hll"><span class="sd">        num_gpus: 1</span>
 </span><span class="hll"><span class="sd">        num_cpus: 10</span>
 </span><span class="hll"><span class="sd">        memory: 10*1024*1024*1024</span>
@@ -3023,7 +3023,7 @@ environment entrypoints and hydra arguments, although other workflows will work 
         <span class="k">assert</span> <span class="s2">&quot;runner_args&quot;</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">,</span> <span class="s2">&quot;No runner arguments specified.&quot;</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Task is the desired task to train on. For example:</span>
-<span class="sd">        cfg[&quot;runner_args&quot;][&quot;--task&quot;] = tune.choice([&quot;Isaac-Cartpole-RGB-TheiaTiny-v0&quot;])</span>
+<span class="sd">        cfg[&quot;runner_args&quot;][&quot;--task&quot;] = tune.choice([&quot;Isaac-Cartpole-Camera&quot;])</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="s2">&quot;--task&quot;</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">],</span> <span class="s2">&quot;No task specified.&quot;</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -3061,35 +3061,39 @@ environment entrypoints and hydra arguments, although other workflows will work 
 <span class="k">class</span><span class="w"> </span><span class="nc">CartpoleRGBNoTuneJobCfg</span><span class="p">(</span><span class="n">vision_cfg</span><span class="o">.</span><span class="n">CameraJobCfg</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cfg</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
         <span class="n">cfg</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">populate_isaac_ray_cfg_args</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
-        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--task&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Isaac-Cartpole-RGB-v0&quot;</span><span class="p">])</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--task&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Isaac-Cartpole-Camera&quot;</span><span class="p">])</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">vary_env_count</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">vary_cnn</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">vary_mlp</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CartpoleRGBCNNOnlyJobCfg</span><span class="p">(</span><span class="n">vision_cfg</span><span class="o">.</span><span class="n">CameraJobCfg</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cfg</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
         <span class="n">cfg</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">populate_isaac_ray_cfg_args</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
-        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--task&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Isaac-Cartpole-RGB-v0&quot;</span><span class="p">])</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--task&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Isaac-Cartpole-Camera&quot;</span><span class="p">])</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">vary_env_count</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">vary_cnn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vary_mlp</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CartpoleRGBJobCfg</span><span class="p">(</span><span class="n">vision_cfg</span><span class="o">.</span><span class="n">CameraJobCfg</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cfg</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
         <span class="n">cfg</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">populate_isaac_ray_cfg_args</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
-        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--task&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Isaac-Cartpole-RGB-v0&quot;</span><span class="p">])</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--task&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Isaac-Cartpole-Camera&quot;</span><span class="p">])</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">vary_env_count</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vary_cnn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vary_mlp</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CartpoleResNetJobCfg</span><span class="p">(</span><span class="n">vision_cfg</span><span class="o">.</span><span class="n">ResNetCameraJob</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cfg</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
         <span class="n">cfg</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">populate_isaac_ray_cfg_args</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
-        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--task&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Isaac-Cartpole-RGB-ResNet18-v0&quot;</span><span class="p">])</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--task&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Isaac-Cartpole-Camera&quot;</span><span class="p">])</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--agent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;rl_games_feature_cfg_entry_point&quot;</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;hydra_args&quot;</span><span class="p">][</span><span class="s2">&quot;presets&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;resnet18&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CartpoleTheiaJobCfg</span><span class="p">(</span><span class="n">vision_cfg</span><span class="o">.</span><span class="n">TheiaCameraJob</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cfg</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
         <span class="n">cfg</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">populate_isaac_ray_cfg_args</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
-        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--task&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Isaac-Cartpole-RGB-TheiaTiny-v0&quot;</span><span class="p">])</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--task&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Isaac-Cartpole-Camera&quot;</span><span class="p">])</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--agent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;rl_games_feature_cfg_entry_point&quot;</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;hydra_args&quot;</span><span class="p">][</span><span class="s2">&quot;presets&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;theia_tiny&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
 
 
@@ -4108,7 +4112,7 @@ environment entrypoints and hydra arguments, although other workflows will work 
         <span class="k">assert</span> <span class="s2">&quot;runner_args&quot;</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">,</span> <span class="s2">&quot;No runner arguments specified.&quot;</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Task is the desired task to train on. For example:</span>
-<span class="sd">        cfg[&quot;runner_args&quot;][&quot;--task&quot;] = tune.choice([&quot;Isaac-Cartpole-RGB-TheiaTiny-v0&quot;])</span>
+<span class="sd">        cfg[&quot;runner_args&quot;][&quot;--task&quot;] = tune.choice([&quot;Isaac-Cartpole-Camera&quot;])</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="s2">&quot;--task&quot;</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">],</span> <span class="s2">&quot;No task specified.&quot;</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -4146,35 +4150,39 @@ environment entrypoints and hydra arguments, although other workflows will work 
 <span class="k">class</span><span class="w"> </span><span class="nc">CartpoleRGBNoTuneJobCfg</span><span class="p">(</span><span class="n">vision_cfg</span><span class="o">.</span><span class="n">CameraJobCfg</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cfg</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
         <span class="n">cfg</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">populate_isaac_ray_cfg_args</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
-        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--task&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Isaac-Cartpole-RGB-v0&quot;</span><span class="p">])</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--task&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Isaac-Cartpole-Camera&quot;</span><span class="p">])</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">vary_env_count</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">vary_cnn</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">vary_mlp</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CartpoleRGBCNNOnlyJobCfg</span><span class="p">(</span><span class="n">vision_cfg</span><span class="o">.</span><span class="n">CameraJobCfg</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cfg</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
         <span class="n">cfg</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">populate_isaac_ray_cfg_args</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
-        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--task&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Isaac-Cartpole-RGB-v0&quot;</span><span class="p">])</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--task&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Isaac-Cartpole-Camera&quot;</span><span class="p">])</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">vary_env_count</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">vary_cnn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vary_mlp</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CartpoleRGBJobCfg</span><span class="p">(</span><span class="n">vision_cfg</span><span class="o">.</span><span class="n">CameraJobCfg</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cfg</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
         <span class="n">cfg</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">populate_isaac_ray_cfg_args</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
-        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--task&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Isaac-Cartpole-RGB-v0&quot;</span><span class="p">])</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--task&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Isaac-Cartpole-Camera&quot;</span><span class="p">])</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">vary_env_count</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vary_cnn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vary_mlp</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CartpoleResNetJobCfg</span><span class="p">(</span><span class="n">vision_cfg</span><span class="o">.</span><span class="n">ResNetCameraJob</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cfg</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
         <span class="n">cfg</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">populate_isaac_ray_cfg_args</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
-        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--task&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Isaac-Cartpole-RGB-ResNet18-v0&quot;</span><span class="p">])</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--task&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Isaac-Cartpole-Camera&quot;</span><span class="p">])</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--agent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;rl_games_feature_cfg_entry_point&quot;</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;hydra_args&quot;</span><span class="p">][</span><span class="s2">&quot;presets&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;resnet18&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">CartpoleTheiaJobCfg</span><span class="p">(</span><span class="n">vision_cfg</span><span class="o">.</span><span class="n">TheiaCameraJob</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cfg</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
         <span class="n">cfg</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">populate_isaac_ray_cfg_args</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
-        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--task&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Isaac-Cartpole-RGB-TheiaTiny-v0&quot;</span><span class="p">])</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--task&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tune</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Isaac-Cartpole-Camera&quot;</span><span class="p">])</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;runner_args&quot;</span><span class="p">][</span><span class="s2">&quot;--agent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;rl_games_feature_cfg_entry_point&quot;</span>
+        <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;hydra_args&quot;</span><span class="p">][</span><span class="s2">&quot;presets&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;theia_tiny&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
 
 

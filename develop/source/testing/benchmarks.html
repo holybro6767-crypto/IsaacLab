@@ -884,7 +884,7 @@ performance using mock interfaces (without running full simulations), see
 <span class="c1"># Add metadata</span>
 <span class="n">benchmark</span><span class="o">.</span><span class="n">add_measurement</span><span class="p">(</span>
     <span class="n">phase_name</span><span class="o">=</span><span class="s2">&quot;simulation&quot;</span><span class="p">,</span>
-    <span class="n">metadata</span><span class="o">=</span><span class="n">StringMetadata</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;task&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s2">&quot;Isaac-Cartpole-v0&quot;</span><span class="p">),</span>
+    <span class="n">metadata</span><span class="o">=</span><span class="n">StringMetadata</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;task&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s2">&quot;Isaac-Cartpole&quot;</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="c1"># Finalize and write output</span>
@@ -903,7 +903,7 @@ performance using mock interfaces (without running full simulations), see
 
 <span class="c1"># Run a single benchmark manually</span>
 ./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/benchmarks/benchmark_non_rl.py<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--task<span class="w"> </span>Isaac-Cartpole-v0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--task<span class="w"> </span>Isaac-Cartpole<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--num_envs<span class="w"> </span><span class="m">4096</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--num_frames<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--headless<span class="w"> </span><span class="se">\</span>
@@ -920,7 +920,7 @@ performance using mock interfaces (without running full simulations), see
 
 <span class="c1"># Run manually with RSL-RL</span>
 ./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/benchmarks/benchmark_rsl_rl.py<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--task<span class="w"> </span>Isaac-Cartpole-v0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--task<span class="w"> </span>Isaac-Cartpole<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--num_envs<span class="w"> </span><span class="m">4096</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--max_iterations<span class="w"> </span><span class="m">500</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--headless<span class="w"> </span><span class="se">\</span>
@@ -1091,7 +1091,7 @@ the same keys.</p>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--task</span></code></p></td>
 <td><p>required</p></td>
-<td><p>Environment task name (e.g., <code class="docutils literal notranslate"><span class="pre">Isaac-Cartpole-v0</span></code>)</p></td>
+<td><p>Environment task name (e.g., <code class="docutils literal notranslate"><span class="pre">Isaac-Cartpole</span></code>)</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--num_envs</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">4096</span></code></p></td>
@@ -1250,7 +1250,7 @@ into logical groups. Common phases include:</p>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">],</span>
 <span class="w">    </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MyBenchmark simulation task&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Isaac-Cartpole-v0&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">}</span>
+<span class="w">      </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MyBenchmark simulation task&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Isaac-Cartpole&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">]</span>
@@ -1268,7 +1268,7 @@ into logical groups. Common phases include:</p>
 <span class="w">  </span><span class="nt">&quot;workflow_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MyBenchmark&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;phase&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;simulation&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;fps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1234.5</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;task&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Isaac-Cartpole-v0&quot;</span>
+<span class="w">  </span><span class="nt">&quot;task&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Isaac-Cartpole&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>

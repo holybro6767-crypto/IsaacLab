@@ -1757,7 +1757,7 @@ automatically determining maximum camera count.</p>
 the cartpole environment, with 2 cameras per environment (so 50 environments total)
 only in RGB mode, run</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/benchmarks/benchmark_cameras.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Cartpole-v0<span class="w"> </span>--num_tiled_cameras<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>Isaac-Cartpole<span class="w"> </span>--num_tiled_cameras<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="se">\</span>
 --task_num_cameras_per_env<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
 --tiled_camera_data_types<span class="w"> </span>rgb
 </pre></div>
@@ -1768,7 +1768,7 @@ a certain performance threshold (specified by max CPU utilization percent, max R
 max GPU compute percent, and max GPU memory percent). For example, to find the maximum number of cameras
 you can run with cartpole, you could run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/benchmarks/benchmark_cameras.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Cartpole-v0<span class="w"> </span>--num_tiled_cameras<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>Isaac-Cartpole<span class="w"> </span>--num_tiled_cameras<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="se">\</span>
 --task_num_cameras_per_env<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
 --tiled_camera_data_types<span class="w"> </span>rgb<span class="w"> </span>--autotune<span class="w"> </span><span class="se">\</span>
 --autotune_max_percentage_util<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">80</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="m">50</span>

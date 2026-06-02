@@ -783,11 +783,11 @@ HTTPS</label><div class="sd-tab-content docutils">
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Newton backend training without Isaac Sim</span>
 uv<span class="w"> </span>run<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>rsl_rl<span class="w"> </span><span class="se">\</span>
-<span class="w">   </span>--task<span class="w"> </span>Isaac-Cartpole-Direct-v0<span class="w"> </span><span class="nv">physics</span><span class="o">=</span>newton_mjwarp
+<span class="w">   </span>--task<span class="w"> </span>Isaac-Cartpole-Direct<span class="w"> </span><span class="nv">physics</span><span class="o">=</span>newton_mjwarp
 
 <span class="c1"># Add OVRTX/OVPhysX extras only when the workflow needs them</span>
 uv<span class="w"> </span>run<span class="w"> </span>--extra<span class="w"> </span>ov<span class="w"> </span>--extra<span class="w"> </span>rtx<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>rsl_rl<span class="w"> </span><span class="se">\</span>
-<span class="w">   </span>--task<span class="w"> </span>Isaac-Cartpole-Direct-v0<span class="w"> </span><span class="nv">physics</span><span class="o">=</span>newton_mjwarp
+<span class="w">   </span>--task<span class="w"> </span>Isaac-Cartpole-Direct<span class="w"> </span><span class="nv">physics</span><span class="o">=</span>newton_mjwarp
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">uv</span></code> resolves and manages the environment automatically on each invocation. Supported

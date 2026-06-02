@@ -769,21 +769,24 @@ the <a class="reference internal" href="register_rl_env_gym.html#tutorial-regist
 <code class="docutils literal notranslate"><span class="pre">gymnasium.register</span></code> method.</p>
 <section id="the-code">
 <h2>The Code<a class="headerlink" href="#the-code" title="Link to this heading">#</a></h2>
-<p>As an example, we will look at the configuration included for the task <code class="docutils literal notranslate"><span class="pre">Isaac-Cartpole-v0</span></code>
+<p>As an example, we will look at the configuration included for the task <code class="docutils literal notranslate"><span class="pre">Isaac-Cartpole</span></code>
 in the <code class="docutils literal notranslate"><span class="pre">isaaclab_tasks</span></code> package. This is the same task that we used in the
 <a class="reference internal" href="run_rl_training.html#tutorial-run-rl-training"><span class="std std-ref">Training with an RL Agent</span></a> tutorial.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gym</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
-    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;Isaac-Cartpole-v0&quot;</span><span class="p">,</span>
+    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;Isaac-Cartpole&quot;</span><span class="p">,</span>
     <span class="n">entry_point</span><span class="o">=</span><span class="s2">&quot;isaaclab.envs:ManagerBasedRLEnv&quot;</span><span class="p">,</span>
     <span class="n">disable_env_checker</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;env_cfg_entry_point&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.cartpole_env_cfg:CartpoleEnvCfg&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;rl_games_cfg_entry_point&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">agents</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">:rl_games_ppo_cfg.yaml&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;rsl_rl_cfg_entry_point&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">agents</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.rsl_rl_ppo_cfg:CartpolePPORunnerCfg&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;rsl_rl_with_symmetry_cfg_entry_point&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">agents</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.rsl_rl_ppo_cfg:CartpolePPORunnerWithSymmetryCfg&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;skrl_cfg_entry_point&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">agents</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">:skrl_ppo_cfg.yaml&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;sb3_cfg_entry_point&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">agents</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">:sb3_ppo_cfg.yaml&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;env_cfg_entry_point&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.cartpole_manager_env_cfg:CartpoleEnvCfg&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rl_games_cfg_entry_point&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">agents</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">:rl_games_manager_ppo_cfg.yaml&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rsl_rl_cfg_entry_point&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">agents</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.rsl_rl_manager_ppo_cfg:CartpolePPORunnerCfg&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rsl_rl_with_symmetry_cfg_entry_point&quot;</span><span class="p">:</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">agents</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.rsl_rl_manager_ppo_cfg:CartpolePPORunnerWithSymmetryCfg&quot;</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;skrl_cfg_entry_point&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">agents</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">:skrl_manager_ppo_cfg.yaml&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sb3_cfg_entry_point&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">agents</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">:sb3_manager_ppo_cfg.yaml&quot;</span><span class="p">,</span>
     <span class="p">},</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -804,12 +807,12 @@ are equivalent:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">agents</span>
 
 <span class="n">gym</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
-   <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;Isaac-Cartpole-v0&quot;</span><span class="p">,</span>
+   <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;Isaac-Cartpole&quot;</span><span class="p">,</span>
    <span class="n">entry_point</span><span class="o">=</span><span class="s2">&quot;isaaclab.envs:ManagerBasedRLEnv&quot;</span><span class="p">,</span>
    <span class="n">disable_env_checker</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
    <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span>
-      <span class="s2">&quot;env_cfg_entry_point&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.cartpole_env_cfg:CartpoleEnvCfg&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;rsl_rl_cfg_entry_point&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">agents</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.rsl_rl_ppo_cfg:CartpolePPORunnerCfg&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;env_cfg_entry_point&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.cartpole_manager_env_cfg:CartpoleEnvCfg&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;rsl_rl_cfg_entry_point&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">agents</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.rsl_rl_manager_ppo_cfg:CartpolePPORunnerCfg&quot;</span><span class="p">,</span>
    <span class="p">},</span>
 <span class="p">)</span>
 </pre></div>
@@ -821,12 +824,12 @@ are equivalent:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">agents</span>
 
 <span class="n">gym</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
-   <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;Isaac-Cartpole-v0&quot;</span><span class="p">,</span>
+   <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;Isaac-Cartpole&quot;</span><span class="p">,</span>
    <span class="n">entry_point</span><span class="o">=</span><span class="s2">&quot;isaaclab.envs:ManagerBasedRLEnv&quot;</span><span class="p">,</span>
    <span class="n">disable_env_checker</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
    <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span>
-      <span class="s2">&quot;env_cfg_entry_point&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.cartpole_env_cfg:CartpoleEnvCfg&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;rsl_rl_cfg_entry_point&quot;</span><span class="p">:</span> <span class="n">agents</span><span class="o">.</span><span class="n">rsl_rl_ppo_cfg</span><span class="o">.</span><span class="n">CartpolePPORunnerCfg</span><span class="p">,</span>
+      <span class="s2">&quot;env_cfg_entry_point&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.cartpole_manager_env_cfg:CartpoleEnvCfg&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;rsl_rl_cfg_entry_point&quot;</span><span class="p">:</span> <span class="n">agents</span><span class="o">.</span><span class="n">rsl_rl_manager_ppo_cfg</span><span class="o">.</span><span class="n">CartpolePPORunnerCfg</span><span class="p">,</span>
    <span class="p">},</span>
 <span class="p">)</span>
 </pre></div>
@@ -856,7 +859,7 @@ instance for the Stable-Baselines3 library:</p>
 <span class="linenos"> 11</span><span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
 <span class="linenos"> 12</span>    <span class="s2">&quot;scripts/reinforcement_learning/sb3/train.py is deprecated. Use &quot;</span>
 <span class="linenos"> 13</span>    <span class="s2">&quot;`./isaaclab.sh train --rl_library sb3 --task &lt;TASK&gt;` instead. &quot;</span>
-<span class="linenos"> 14</span>    <span class="s2">&quot;Example: `./isaaclab.sh train --rl_library sb3 --task Isaac-Cartpole-v0`.&quot;</span><span class="p">,</span>
+<span class="linenos"> 14</span>    <span class="s2">&quot;Example: `./isaaclab.sh train --rl_library sb3 --task Isaac-Cartpole`.&quot;</span><span class="p">,</span>
 <span class="linenos"> 15</span>    <span class="ne">DeprecationWarning</span><span class="p">,</span>
 <span class="linenos"> 16</span>    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
 <span class="linenos"> 17</span><span class="p">)</span>
@@ -1096,19 +1099,19 @@ we can use the <code class="docutils literal notranslate"><span class="pre">--ag
 <ul>
 <li><p>Training with the standard PPO configuration:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># standard PPO training</span>
-./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/reinforcement_learning/rsl_rl/train.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Cartpole-v0<span class="w"> </span>--headless<span class="w"> </span><span class="se">\</span>
+./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/reinforcement_learning/rsl_rl/train.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Cartpole<span class="w"> </span>--headless<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--run_name<span class="w"> </span>ppo
 </pre></div>
 </div>
 </li>
 <li><p>Training with the PPO configuration with symmetry augmentation:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># PPO training with symmetry augmentation</span>
-./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/reinforcement_learning/rsl_rl/train.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Cartpole-v0<span class="w"> </span>--headless<span class="w"> </span><span class="se">\</span>
+./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/reinforcement_learning/rsl_rl/train.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Cartpole<span class="w"> </span>--headless<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--agent<span class="w"> </span>rsl_rl_with_symmetry_cfg_entry_point<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--run_name<span class="w"> </span>ppo_with_symmetry_data_augmentation
 
 <span class="c1"># you can use hydra to disable symmetry augmentation but enable mirror loss computation</span>
-./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/reinforcement_learning/rsl_rl/train.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Cartpole-v0<span class="w"> </span>--headless<span class="w"> </span><span class="se">\</span>
+./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/reinforcement_learning/rsl_rl/train.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Cartpole<span class="w"> </span>--headless<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--agent<span class="w"> </span>rsl_rl_with_symmetry_cfg_entry_point<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--run_name<span class="w"> </span>ppo_without_symmetry_data_augmentation<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>agent.algorithm.symmetry_cfg.use_data_augmentation<span class="o">=</span><span class="nb">false</span>
