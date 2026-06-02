@@ -687,10 +687,12 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
-
-<span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span><span class="p">,</span> <span class="n">UsdGeom</span><span class="p">,</span> <span class="n">UsdSemantics</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">.stage</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_current_stage</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span><span class="p">,</span> <span class="n">UsdGeom</span><span class="p">,</span> <span class="n">UsdSemantics</span>  <span class="c1"># noqa: F401</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -711,6 +713,8 @@
 <span class="sd">        overwrite: Whether to overwrite existing labels for this instance. If False,</span>
 <span class="sd">          the new labels are appended to existing ones (if any). Defaults to True.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">UsdSemantics</span>  <span class="c1"># noqa: PLC0415</span>
+
     <span class="n">labels_api</span> <span class="o">=</span> <span class="n">UsdSemantics</span><span class="o">.</span><span class="n">LabelsAPI</span><span class="o">.</span><span class="n">Apply</span><span class="p">(</span><span class="n">prim</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">)</span>
     <span class="n">labels_attr</span> <span class="o">=</span> <span class="n">labels_api</span><span class="o">.</span><span class="n">CreateLabelsAttr</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">overwrite</span><span class="p">:</span>
@@ -737,6 +741,8 @@
 <span class="sd">        A dictionary mapping instance names to a list of labels.</span>
 <span class="sd">        If no labels are found, it returns an empty dictionary.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">UsdSemantics</span>  <span class="c1"># noqa: PLC0415</span>
+
     <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">schema_name</span> <span class="ow">in</span> <span class="n">prim</span><span class="o">.</span><span class="n">GetAppliedSchemas</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">schema_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;SemanticsLabelsAPI:&quot;</span><span class="p">):</span>
@@ -764,6 +770,7 @@
 <span class="sd">        include_descendants: Whether to also traverse children and remove labels recursively.</span>
 <span class="sd">            Defaults to False.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span><span class="p">,</span> <span class="n">UsdSemantics</span>  <span class="c1"># noqa: PLC0415</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_remove_single_prim_labels</span><span class="p">(</span><span class="n">target_prim</span><span class="p">:</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Prim</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Helper function to remove labels from a single prim.&quot;&quot;&quot;</span>
@@ -801,6 +808,8 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        A list containing prim paths to prims with no labels applied.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span><span class="p">,</span> <span class="n">UsdGeom</span>  <span class="c1"># noqa: PLC0415</span>
+
     <span class="c1"># check if stage is valid</span>
     <span class="n">stage</span> <span class="o">=</span> <span class="n">stage</span> <span class="k">if</span> <span class="n">stage</span> <span class="k">else</span> <span class="n">get_current_stage</span><span class="p">()</span>
 
@@ -844,6 +853,8 @@
 <span class="sd">        A dictionary mapping individual labels to their total count across all instances.</span>
 <span class="sd">        The dictionary includes a &#39;missing_labels&#39; count for prims with no labels.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span><span class="p">,</span> <span class="n">UsdGeom</span>  <span class="c1"># noqa: PLC0415</span>
+
     <span class="n">stage</span> <span class="o">=</span> <span class="n">stage</span> <span class="k">if</span> <span class="n">stage</span> <span class="k">else</span> <span class="n">get_current_stage</span><span class="p">()</span>
 
     <span class="n">start_prim</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">GetPrimAtPath</span><span class="p">(</span><span class="n">prim_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">prim_path</span> <span class="k">else</span> <span class="n">stage</span><span class="o">.</span><span class="n">GetPseudoRoot</span><span class="p">()</span>
