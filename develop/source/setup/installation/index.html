@@ -63,7 +63,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 01, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 02, 2026"/>
   </head>
   
   
@@ -840,9 +840,9 @@ is because cuRobo builds native CUDA/C++ extensions that requires specific tooli
 to encoding performance limitations that have not yet been fully investigated.</p></li>
 <li><p>Livestream and Hub Workstation Cache are not supported on the DGX spark.</p></li>
 <li><p><a class="reference internal" href="../../overview/imitation-learning/augmented_imitation.html#running-cosmos"><span class="std std-ref">Running Cosmos Transfer1</span></a> is not currently supported on the DGX Spark.</p></li>
-<li><p>Newton VBD deformable support is limited on DGX Spark due to the availability of the
-<code class="docutils literal notranslate"><span class="pre">pytetwild</span></code> library on ARM (aarch64). <code class="docutils literal notranslate"><span class="pre">pytetwild</span></code> is required for automatic
-tetrahedral mesh generation of volume deformables.</p></li>
+<li><p>Newton VBD deformable support is limited on DGX Spark because no pre-built
+<code class="docutils literal notranslate"><span class="pre">pytetwild</span></code> wheel is available for ARM (aarch64). <code class="docutils literal notranslate"><span class="pre">pytetwild</span></code> is required for
+automatic tetrahedral mesh generation of volume deformables.</p></li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1086,7 +1086,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 01, 2026.
+  Last updated on Jun 02, 2026.
   <br/>
 </p>
   </div>
