@@ -776,7 +776,7 @@
 <p class="admonition-title">Note</p>
 <p><strong>Isaac Lab 3.0 supports kit-less installation.</strong> You can install and use Isaac Lab with the
 Newton physics backend <em>without</em> installing Isaac Sim. Clone Isaac Lab and run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/isaac-sim/IsaacLab.git<span class="w"> </span>--branch<span class="w"> </span>develop
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/isaac-sim/IsaacLab.git<span class="w"> </span>--branch<span class="w"> </span>release/3.0.0-beta2
 <span class="nb">cd</span><span class="w"> </span>IsaacLab
 ./isaaclab.sh<span class="w"> </span>--install<span class="w">   </span><span class="c1"># or ./isaaclab.sh -i</span>
 </pre></div>
@@ -840,9 +840,9 @@ is because cuRobo builds native CUDA/C++ extensions that requires specific tooli
 to encoding performance limitations that have not yet been fully investigated.</p></li>
 <li><p>Livestream and Hub Workstation Cache are not supported on the DGX spark.</p></li>
 <li><p><a class="reference internal" href="../../overview/imitation-learning/augmented_imitation.html#running-cosmos"><span class="std std-ref">Running Cosmos Transfer1</span></a> is not currently supported on the DGX Spark.</p></li>
-<li><p>Newton VBD deformable support is limited on DGX Spark due to the availability of the
-<code class="docutils literal notranslate"><span class="pre">pytetwild</span></code> library on ARM (aarch64). <code class="docutils literal notranslate"><span class="pre">pytetwild</span></code> is required for automatic
-tetrahedral mesh generation of volume deformables.</p></li>
+<li><p>Newton VBD deformable support is limited on DGX Spark because no pre-built
+<code class="docutils literal notranslate"><span class="pre">pytetwild</span></code> wheel is available for ARM (aarch64). <code class="docutils literal notranslate"><span class="pre">pytetwild</span></code> is required for
+automatic tetrahedral mesh generation of volume deformables.</p></li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
