@@ -1880,7 +1880,9 @@
 
 <div class="viewcode-block" id="RigidObjectCollection.reshape_data_to_view_3d">
 <a class="viewcode-back" href="../../../../source/api/lab_physx/isaaclab_physx.assets.html#isaaclab_physx.assets.RigidObjectCollection.reshape_data_to_view_3d">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">reshape_data_to_view_3d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">data_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reshape_data_to_view_3d</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">wp</span><span class="o">.</span><span class="n">array</span> <span class="o">|</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">data_dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s2">&quot;cpu&quot;</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">wp</span><span class="o">.</span><span class="n">array</span> <span class="o">|</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Reshapes and arranges 3D data to (num_bodies * num_instances, data_dim).</span>
 
 <span class="sd">        Our internal methods consume and return data arranged as ``(num_instances, num_bodies, data_dim)``::</span>
@@ -1897,11 +1899,19 @@
 
 <span class="sd">        Args:</span>
 <span class="sd">            data: The data to be formatted for the view. Shape is (num_instances, num_bodies, data_dim).</span>
+<span class="sd">                Supports Warp arrays and torch tensors.</span>
 <span class="sd">            data_dim: The trailing dimension size.</span>
+<span class="sd">            device: The target device for the output.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            The data formatted for the view. Shape is (num_bodies * num_instances, data_dim).</span>
+<span class="sd">            Torch inputs return torch tensors, and Warp inputs return Warp arrays.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">device</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">device</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">device</span>
+            <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_bodies</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_instances</span><span class="p">,</span> <span class="n">data_dim</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
+
         <span class="n">element_size</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">type_size_in_bytes</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
         <span class="n">row_size</span> <span class="o">=</span> <span class="n">element_size</span> <span class="o">*</span> <span class="n">data_dim</span>
         <span class="n">strided_view</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
