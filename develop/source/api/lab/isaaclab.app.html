@@ -63,7 +63,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 02, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 03, 2026"/>
   </head>
   
   
@@ -753,6 +753,16 @@
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-launcher">Simulation Launcher</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.app.launch_simulation"><code class="docutils literal notranslate"><span class="pre">launch_simulation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.app.make_physics_cfg"><code class="docutils literal notranslate"><span class="pre">make_physics_cfg()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.app.scan"><code class="docutils literal notranslate"><span class="pre">scan()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.app.Scan"><code class="docutils literal notranslate"><span class="pre">Scan</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.app.Scan.__init__"><code class="docutils literal notranslate"><span class="pre">Scan.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -777,6 +787,24 @@
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab.app.AppLauncher" title="isaaclab.app.AppLauncher"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AppLauncher</span></code></a></p></td>
 <td><p>A utility class to launch Isaac Sim application based on command-line arguments and environment variables.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab.app.Scan" title="isaaclab.app.Scan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Scan</span></code></a></p></td>
+<td><p>Signals gathered from one walk of the config tree (see <a class="reference internal" href="#isaaclab.app.scan" title="isaaclab.app.scan"><code class="xref py py-func docutils literal notranslate"><span class="pre">scan()</span></code></a>).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Functions</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab.app.launch_simulation" title="isaaclab.app.launch_simulation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">launch_simulation</span></code></a>(cfg[, launcher_args])</p></td>
+<td><p>Context manager that launches the appropriate simulation runtime for <em>cfg</em>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab.app.make_physics_cfg" title="isaaclab.app.make_physics_cfg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_physics_cfg</span></code></a>(physics_cfg_str)</p></td>
+<td><p>Build a concrete physics config for the requested backend.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab.app.scan" title="isaaclab.app.scan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scan</span></code></a>(cfg[, physics_str])</p></td>
+<td><p>Walk <em>cfg</em> once, collecting all launch signals and applying <code class="docutils literal notranslate"><span class="pre">--physics</span></code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -922,7 +950,7 @@ value &gt;-1. In other words, if <code class="docutils literal notranslate"><spa
 <p>Callers may set <code class="docutils literal notranslate"><span class="pre">visualizer_explicit</span></code> / <code class="docutils literal notranslate"><span class="pre">visualizer_disable_all</span></code> when those values
 were resolved elsewhere (e.g. <a class="reference internal" href="#isaaclab.app.AppLauncher" title="isaaclab.app.AppLauncher"><code class="xref py py-class docutils literal notranslate"><span class="pre">AppLauncher</span></code></a> strips flags from <em>launcher_args</em>).
 Otherwise <code class="docutils literal notranslate"><span class="pre">disable_all</span></code> is inferred from <code class="docutils literal notranslate"><span class="pre">&quot;none&quot;</span></code> in <code class="docutils literal notranslate"><span class="pre">visualizer</span></code>.</p>
-<p>Also used when Kit is skipped (see <code class="xref py py-mod docutils literal notranslate"><span class="pre">isaaclab_tasks.utils.sim_launcher</span></code>).</p>
+<p>Also used when Kit is skipped (see <code class="xref py py-mod docutils literal notranslate"><span class="pre">isaaclab.app.sim_launcher</span></code>).</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1046,6 +1074,76 @@ More partial visualization configuration fields are available in the <code class
 </dd></dl>
 
 </section>
+<section id="simulation-launcher">
+<h2>Simulation Launcher<a class="headerlink" href="#simulation-launcher" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="isaaclab.app.launch_simulation">
+<span class="sig-prename descclassname"><span class="pre">isaaclab.app.</span></span><span class="sig-name descname"><span class="pre">launch_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">launcher_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.Namespace" title="(in Python v3.14)"><span class="pre">Namespace</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" title="(in Python v3.14)"><span class="pre">Generator</span></a><span class="p"><span class="pre">[</span></span><span class="pre">PhysicsCfg</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/isaaclab/app/sim_launcher.html#launch_simulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab.app.launch_simulation" title="Link to this definition">#</a></dt>
+<dd><p>Context manager that launches the appropriate simulation runtime for <em>cfg</em>.</p>
+<p>Walks the config tree once (resolving <code class="docutils literal notranslate"><span class="pre">--physics</span></code>, validating the
+physics/renderer/visualizer combination, and deciding whether Isaac Sim Kit is
+needed), then launches <code class="docutils literal notranslate"><span class="pre">AppLauncher</span></code> for Kit-based backends (closed on exit) or
+does nothing for kitless ones. Cameras are auto-enabled for Kit-renderer sensors.</p>
+<p>Yields the resolved physics config, so a script can pass a bare placeholder and
+pick the backend from the command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">launch_simulation</span><span class="p">(</span><span class="n">PhysicsCfg</span><span class="p">(),</span> <span class="n">args_cli</span><span class="p">)</span> <span class="k">as</span> <span class="n">physics_cfg</span><span class="p">:</span>
+    <span class="n">sim</span> <span class="o">=</span> <span class="n">SimulationContext</span><span class="p">(</span><span class="n">SimulationCfg</span><span class="p">(</span><span class="n">physics</span><span class="o">=</span><span class="n">physics_cfg</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Callers that do not need the value simply omit <code class="docutils literal notranslate"><span class="pre">as</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="isaaclab.app.make_physics_cfg">
+<span class="sig-prename descclassname"><span class="pre">isaaclab.app.</span></span><span class="sig-name descname"><span class="pre">make_physics_cfg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">physics_cfg_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">PhysicsCfg</span></span></span><a class="reference internal" href="../../../_modules/isaaclab/app/sim_launcher.html#make_physics_cfg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab.app.make_physics_cfg" title="Link to this definition">#</a></dt>
+<dd><p>Build a concrete physics config for the requested backend.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>physics_cfg_str</strong> – Backend selector: <code class="docutils literal notranslate"><span class="pre">&quot;physx&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;newton_mjwarp&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;ovphysx&quot;</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new physics config instance for the requested backend.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If <em>physics_cfg_str</em> does not name a known backend.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="isaaclab.app.scan">
+<span class="sig-prename descclassname"><span class="pre">isaaclab.app.</span></span><span class="sig-name descname"><span class="pre">scan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">physics_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#isaaclab.app.Scan" title="isaaclab.app.sim_launcher.Scan"><span class="pre">Scan</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab/app/sim_launcher.html#scan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab.app.scan" title="Link to this definition">#</a></dt>
+<dd><p>Walk <em>cfg</em> once, collecting all launch signals and applying <code class="docutils literal notranslate"><span class="pre">--physics</span></code>.</p>
+<p>When <em>physics_str</em> is set, every physics config is replaced by the requested
+backend (see <a class="reference internal" href="#isaaclab.app.make_physics_cfg" title="isaaclab.app.make_physics_cfg"><code class="xref py py-func docutils literal notranslate"><span class="pre">make_physics_cfg()</span></code></a>): nested configs in place, a root config
+via <code class="xref py py-attr docutils literal notranslate"><span class="pre">Scan.effective_cfg</span></code> (it cannot be mutated in place).</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="isaaclab.app.Scan">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isaaclab.app.</span></span><span class="sig-name descname"><span class="pre">Scan</span></span><a class="reference internal" href="../../../_modules/isaaclab/app/sim_launcher.html#Scan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab.app.Scan" title="Link to this definition">#</a></dt>
+<dd><p>Signals gathered from one walk of the config tree (see <a class="reference internal" href="#isaaclab.app.scan" title="isaaclab.app.scan"><code class="xref py py-func docutils literal notranslate"><span class="pre">scan()</span></code></a>).</p>
+<p>Every field is a plain snapshot computed during that single walk; nothing here
+is recomputed or mutated afterwards. <code class="docutils literal notranslate"><span class="pre">needs_kit</span></code> is the headline decision: a
+Kit-renderer camera or non-kitless physics requires Kit (the launcher additionally
+forces Kit when <code class="docutils literal notranslate"><span class="pre">--visualizer</span> <span class="pre">kit</span></code> is requested).</p>
+<p><strong>Methods:</strong></p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab.app.Scan.__init__" title="isaaclab.app.Scan.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(resolved_physics_cfg, ...)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab.app.Scan.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolved_physics_cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PhysicsCfg</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">effective_cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">visualizer_intent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_ovrtx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_kit_camera</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_kit_physics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_kitless_physics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_ovphysx_physics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">needs_kit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab.app.Scan.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
 </section>
 
 
@@ -1108,6 +1206,16 @@ More partial visualization configuration fields are available in the <code class
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-launcher">Simulation Launcher</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.app.launch_simulation"><code class="docutils literal notranslate"><span class="pre">launch_simulation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.app.make_physics_cfg"><code class="docutils literal notranslate"><span class="pre">make_physics_cfg()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.app.scan"><code class="docutils literal notranslate"><span class="pre">scan()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.app.Scan"><code class="docutils literal notranslate"><span class="pre">Scan</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab.app.Scan.__init__"><code class="docutils literal notranslate"><span class="pre">Scan.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
@@ -1141,7 +1249,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 02, 2026.
+  Last updated on Jun 03, 2026.
   <br/>
 </p>
   </div>

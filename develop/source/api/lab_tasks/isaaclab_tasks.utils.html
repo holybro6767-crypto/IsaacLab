@@ -63,7 +63,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 02, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 03, 2026"/>
   </head>
   
   
@@ -744,20 +744,16 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.PresetCfg.__init__"><code class="docutils literal notranslate"><span class="pre">PresetCfg.__init__()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.add_launcher_args"><code class="docutils literal notranslate"><span class="pre">add_launcher_args()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.compute_kit_requirements"><code class="docutils literal notranslate"><span class="pre">compute_kit_requirements()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.fold_preset_tokens"><code class="docutils literal notranslate"><span class="pre">fold_preset_tokens()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.get_checkpoint_path"><code class="docutils literal notranslate"><span class="pre">get_checkpoint_path()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.hydra_task_config"><code class="docutils literal notranslate"><span class="pre">hydra_task_config()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.import_packages"><code class="docutils literal notranslate"><span class="pre">import_packages()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.launch_simulation"><code class="docutils literal notranslate"><span class="pre">launch_simulation()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.load_cfg_from_registry"><code class="docutils literal notranslate"><span class="pre">load_cfg_from_registry()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.parse_env_cfg"><code class="docutils literal notranslate"><span class="pre">parse_env_cfg()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.preset"><code class="docutils literal notranslate"><span class="pre">preset()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.resolve_presets"><code class="docutils literal notranslate"><span class="pre">resolve_presets()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.resolve_task_config"><code class="docutils literal notranslate"><span class="pre">resolve_task_config()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.setup_preset_cli"><code class="docutils literal notranslate"><span class="pre">setup_preset_cli()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.validate_runtime_compatibility"><code class="docutils literal notranslate"><span class="pre">validate_runtime_compatibility()</span></code></a></li>
 </ul>
             </nav>
         </div>
@@ -784,12 +780,6 @@
 <p><strong>Functions:</strong></p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_tasks.utils.add_launcher_args" title="isaaclab_tasks.utils.add_launcher_args"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_launcher_args</span></code></a>(parser)</p></td>
-<td><p>Add simulation-launcher CLI arguments (<code class="docutils literal notranslate"><span class="pre">--headless</span></code>, <code class="docutils literal notranslate"><span class="pre">--device</span></code>, etc.) to <em>parser</em>.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_tasks.utils.compute_kit_requirements" title="isaaclab_tasks.utils.compute_kit_requirements"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_kit_requirements</span></code></a>(env_cfg[, ...])</p></td>
-<td><p>Compute whether Kit is needed and related flags.</p></td>
-</tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_tasks.utils.fold_preset_tokens" title="isaaclab_tasks.utils.fold_preset_tokens"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fold_preset_tokens</span></code></a>(tokens)</p></td>
 <td><p>Fold preset selector tokens into a single <code class="docutils literal notranslate"><span class="pre">presets=&lt;csv&gt;</span></code> token.</p></td>
 </tr>
@@ -802,29 +792,23 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_tasks.utils.import_packages" title="isaaclab_tasks.utils.import_packages"><code class="xref py py-obj docutils literal notranslate"><span class="pre">import_packages</span></code></a>(package_name[, blacklist_pkgs])</p></td>
 <td><p>Import all sub-packages in a package recursively.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_tasks.utils.launch_simulation" title="isaaclab_tasks.utils.launch_simulation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">launch_simulation</span></code></a>(env_cfg[, launcher_args])</p></td>
-<td><p>Context manager that launches the appropriate simulation runtime for <em>env_cfg</em>.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_tasks.utils.load_cfg_from_registry" title="isaaclab_tasks.utils.load_cfg_from_registry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_cfg_from_registry</span></code></a>(task_name, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_tasks.utils.load_cfg_from_registry" title="isaaclab_tasks.utils.load_cfg_from_registry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_cfg_from_registry</span></code></a>(task_name, ...)</p></td>
 <td><p>Load default configuration given its entry point from the gym registry.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_tasks.utils.parse_env_cfg" title="isaaclab_tasks.utils.parse_env_cfg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_env_cfg</span></code></a>(task_name[, device, num_envs, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_tasks.utils.parse_env_cfg" title="isaaclab_tasks.utils.parse_env_cfg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_env_cfg</span></code></a>(task_name[, device, num_envs, ...])</p></td>
 <td><p>Parse configuration for an environment and override based on inputs.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_tasks.utils.preset" title="isaaclab_tasks.utils.preset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">preset</span></code></a>(**options)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_tasks.utils.preset" title="isaaclab_tasks.utils.preset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">preset</span></code></a>(**options)</p></td>
 <td><p>Create a <a class="reference internal" href="#isaaclab_tasks.utils.PresetCfg" title="isaaclab_tasks.utils.PresetCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PresetCfg</span></code></a> instance from keyword arguments.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_tasks.utils.resolve_presets" title="isaaclab_tasks.utils.resolve_presets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resolve_presets</span></code></a>(cfg[, selected])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_tasks.utils.resolve_presets" title="isaaclab_tasks.utils.resolve_presets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resolve_presets</span></code></a>(cfg[, selected])</p></td>
 <td><p>Replace every <a class="reference internal" href="#isaaclab_tasks.utils.PresetCfg" title="isaaclab_tasks.utils.PresetCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">PresetCfg</span></code></a> in the tree with the best alternative.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_tasks.utils.resolve_task_config" title="isaaclab_tasks.utils.resolve_task_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resolve_task_config</span></code></a>(task_name, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_tasks.utils.resolve_task_config" title="isaaclab_tasks.utils.resolve_task_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">resolve_task_config</span></code></a>(task_name, ...)</p></td>
 <td><p>Resolve env and agent configs with Hydra overrides, presets, and scalars fully applied.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_tasks.utils.setup_preset_cli" title="isaaclab_tasks.utils.setup_preset_cli"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_preset_cli</span></code></a>(parser[, argv])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_tasks.utils.setup_preset_cli" title="isaaclab_tasks.utils.setup_preset_cli"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_preset_cli</span></code></a>(parser[, argv])</p></td>
 <td><p>Register the preset-selection help description and parse argv.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_tasks.utils.validate_runtime_compatibility" title="isaaclab_tasks.utils.validate_runtime_compatibility"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_runtime_compatibility</span></code></a>(env_cfg[, ...])</p></td>
-<td><p>Validate that the resolved physics, renderer, and visualizer combination is supported.</p></td>
 </tr>
 </tbody>
 </table>
@@ -876,33 +860,6 @@ module namespace:</p>
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_tasks.utils.PresetCfg.__init__" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="isaaclab_tasks.utils.add_launcher_args">
-<span class="sig-prename descclassname"><span class="pre">isaaclab_tasks.utils.</span></span><span class="sig-name descname"><span class="pre">add_launcher_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser" title="(in Python v3.14)"><span class="pre">ArgumentParser</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_tasks/utils/sim_launcher.html#add_launcher_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_tasks.utils.add_launcher_args" title="Link to this definition">#</a></dt>
-<dd><p>Add simulation-launcher CLI arguments (<code class="docutils literal notranslate"><span class="pre">--headless</span></code>, <code class="docutils literal notranslate"><span class="pre">--device</span></code>, etc.) to <em>parser</em>.</p>
-<p>Delegates to <code class="xref py py-meth docutils literal notranslate"><span class="pre">AppLauncher.add_app_launcher_args()</span></code> so that user scripts
-do not need to import <code class="docutils literal notranslate"><span class="pre">AppLauncher</span></code> directly.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="isaaclab_tasks.utils.compute_kit_requirements">
-<span class="sig-prename descclassname"><span class="pre">isaaclab_tasks.utils.</span></span><span class="sig-name descname"><span class="pre">compute_kit_requirements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">launcher_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.Namespace" title="(in Python v3.14)"><span class="pre">Namespace</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.14)"><span class="pre">set</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/isaaclab_tasks/utils/sim_launcher.html#compute_kit_requirements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_tasks.utils.compute_kit_requirements" title="Link to this definition">#</a></dt>
-<dd><p>Compute whether Kit is needed and related flags.</p>
-<p>Uses the same logic as <a class="reference internal" href="#isaaclab_tasks.utils.launch_simulation" title="isaaclab_tasks.utils.launch_simulation"><code class="xref py py-func docutils literal notranslate"><span class="pre">launch_simulation()</span></code></a> to decide whether Isaac Sim
-Kit must be launched.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>env_cfg</strong> – Resolved environment config (e.g. from <a class="reference internal" href="#isaaclab_tasks.utils.resolve_task_config" title="isaaclab_tasks.utils.resolve_task_config"><code class="xref py py-func docutils literal notranslate"><span class="pre">resolve_task_config()</span></code></a>).</p></li>
-<li><p><strong>launcher_args</strong> – Optional CLI args; if <code class="docutils literal notranslate"><span class="pre">--visualizer</span></code> includes <code class="docutils literal notranslate"><span class="pre">kit</span></code>, needs_kit is True.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>(needs_kit, has_kit_cameras, visualizer_types)</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -1002,26 +959,6 @@ which means no packages are blacklisted.</p></li>
 </ul>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="isaaclab_tasks.utils.launch_simulation">
-<span class="sig-prename descclassname"><span class="pre">isaaclab_tasks.utils.</span></span><span class="sig-name descname"><span class="pre">launch_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">launcher_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.Namespace" title="(in Python v3.14)"><span class="pre">Namespace</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Generator" title="(in Python v3.14)"><span class="pre">Generator</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/isaaclab_tasks/utils/sim_launcher.html#launch_simulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_tasks.utils.launch_simulation" title="Link to this definition">#</a></dt>
-<dd><p>Context manager that launches the appropriate simulation runtime for <em>env_cfg</em>.</p>
-<ul class="simple">
-<li><p>Recursively scans the config tree to decide whether Isaac Sim Kit is needed.</p></li>
-<li><p>Auto-enables <code class="docutils literal notranslate"><span class="pre">enable_cameras</span></code> when the scene contains camera sensors
-that use a Kit renderer (not Newton).</p></li>
-<li><p>For Kit-based backends, launches <code class="docutils literal notranslate"><span class="pre">AppLauncher</span></code> and calls <code class="docutils literal notranslate"><span class="pre">app.close()</span></code> on exit.</p></li>
-<li><p>For kitless backends (e.g. Newton with Newton Warp renderer only), this is a no-op.</p></li>
-<li><p>For Newton Physics + RTX Renderer (with Kit cameras): Kit is launched
-so that RTX can run; Newton syncs its state to the USD stage each step for rendering.</p></li>
-</ul>
-<p>Example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">launch_simulation</span><span class="p">(</span><span class="n">env_cfg</span><span class="p">,</span> <span class="n">args_cli</span><span class="p">):</span>
-    <span class="n">main</span><span class="p">()</span>
-</pre></div>
-</div>
 </dd></dl>
 
 <dl class="py function">
@@ -1202,30 +1139,6 @@ to <code class="docutils literal notranslate"><span class="pre">remaining</span>
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="isaaclab_tasks.utils.validate_runtime_compatibility">
-<span class="sig-prename descclassname"><span class="pre">isaaclab_tasks.utils.</span></span><span class="sig-name descname"><span class="pre">validate_runtime_compatibility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">launcher_args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.Namespace" title="(in Python v3.14)"><span class="pre">Namespace</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_tasks/utils/sim_launcher.html#validate_runtime_compatibility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_tasks.utils.validate_runtime_compatibility" title="Link to this definition">#</a></dt>
-<dd><p>Validate that the resolved physics, renderer, and visualizer combination is supported.</p>
-<p>The OVRTX renderer (<code class="docutils literal notranslate"><span class="pre">OVRTXRendererCfg</span></code>, <code class="docutils literal notranslate"><span class="pre">renderer_type=&quot;ovrtx&quot;</span></code>) is a kitless
-renderer that runs without Isaac Sim / Omniverse Kit. Combining it with Kit-based
-runtimes — Isaac Sim PhysX physics (<code class="docutils literal notranslate"><span class="pre">PhysxCfg</span></code>) or the Kit visualizer
-(<code class="docutils literal notranslate"><span class="pre">--visualizer</span> <span class="pre">kit</span></code> / a <code class="docutils literal notranslate"><span class="pre">visualizer_cfgs</span></code> entry with <code class="docutils literal notranslate"><span class="pre">visualizer_type=&quot;kit&quot;</span></code>) —
-is unsupported. OvPhysX physics (<code class="docutils literal notranslate"><span class="pre">OvPhysxCfg</span></code>) also cannot share a process with
-the Kit visualizer.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>env_cfg</strong> – Resolved environment config (e.g. from <a class="reference internal" href="#isaaclab_tasks.utils.resolve_task_config" title="isaaclab_tasks.utils.resolve_task_config"><code class="xref py py-func docutils literal notranslate"><span class="pre">resolve_task_config()</span></code></a>).</p></li>
-<li><p><strong>launcher_args</strong> – Optional CLI args. Inspected for <code class="docutils literal notranslate"><span class="pre">--visualizer</span> <span class="pre">kit</span></code>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If the OVRTX renderer is combined with Kit-based physics or the
-    Kit visualizer, or if OvPhysX physics is combined with the Kit visualizer.</p>
-</dd>
-</dl>
-</dd></dl>
-
 </section>
 
 
@@ -1279,20 +1192,16 @@ the Kit visualizer.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.PresetCfg.__init__"><code class="docutils literal notranslate"><span class="pre">PresetCfg.__init__()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.add_launcher_args"><code class="docutils literal notranslate"><span class="pre">add_launcher_args()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.compute_kit_requirements"><code class="docutils literal notranslate"><span class="pre">compute_kit_requirements()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.fold_preset_tokens"><code class="docutils literal notranslate"><span class="pre">fold_preset_tokens()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.get_checkpoint_path"><code class="docutils literal notranslate"><span class="pre">get_checkpoint_path()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.hydra_task_config"><code class="docutils literal notranslate"><span class="pre">hydra_task_config()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.import_packages"><code class="docutils literal notranslate"><span class="pre">import_packages()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.launch_simulation"><code class="docutils literal notranslate"><span class="pre">launch_simulation()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.load_cfg_from_registry"><code class="docutils literal notranslate"><span class="pre">load_cfg_from_registry()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.parse_env_cfg"><code class="docutils literal notranslate"><span class="pre">parse_env_cfg()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.preset"><code class="docutils literal notranslate"><span class="pre">preset()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.resolve_presets"><code class="docutils literal notranslate"><span class="pre">resolve_presets()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.resolve_task_config"><code class="docutils literal notranslate"><span class="pre">resolve_task_config()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.setup_preset_cli"><code class="docutils literal notranslate"><span class="pre">setup_preset_cli()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_tasks.utils.validate_runtime_compatibility"><code class="docutils literal notranslate"><span class="pre">validate_runtime_compatibility()</span></code></a></li>
 </ul>
   </nav></div>
 
@@ -1326,7 +1235,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 02, 2026.
+  Last updated on Jun 03, 2026.
   <br/>
 </p>
   </div>

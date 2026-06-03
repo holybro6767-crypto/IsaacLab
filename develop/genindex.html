@@ -60,7 +60,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 02, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 03, 2026"/>
   </head>
   
   
@@ -738,6 +738,8 @@
         <li><a href="source/api/lab/isaaclab.actuators.html#isaaclab.actuators.RemotizedPDActuator.__init__">(isaaclab.actuators.RemotizedPDActuator method)</a>
 </li>
         <li><a href="source/api/lab/isaaclab.app.html#isaaclab.app.AppLauncher.__init__">(isaaclab.app.AppLauncher method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.app.html#isaaclab.app.Scan.__init__">(isaaclab.app.Scan method)</a>
 </li>
         <li><a href="source/api/lab/isaaclab.assets.html#isaaclab.assets.Articulation.__init__">(isaaclab.assets.Articulation method)</a>
 </li>
@@ -1445,8 +1447,6 @@
 </li>
       </ul></li>
       <li><a href="source/api/lab/isaaclab.sim.utils.html#isaaclab.sim.utils.semantics.add_labels">add_labels() (in module isaaclab.sim.utils.semantics)</a>
-</li>
-      <li><a href="source/api/lab_tasks/isaaclab_tasks.utils.html#isaaclab_tasks.utils.add_launcher_args">add_launcher_args() (in module isaaclab_tasks.utils)</a>
 </li>
       <li><a href="source/api/lab_contrib/isaaclab_contrib.deformable.html#isaaclab_contrib.deformable.coupled_featherstone_vbd_manager.NewtonCoupledFeatherstoneVBDManager.add_model_change">add_model_change() (isaaclab_contrib.deformable.coupled_featherstone_vbd_manager.NewtonCoupledFeatherstoneVBDManager class method)</a>
 
@@ -3150,6 +3150,8 @@
       </ul></li>
       <li><a href="source/api/lab/isaaclab.sim.schemas.html#isaaclab.sim.schemas.CollisionBaseCfg">CollisionBaseCfg (class in isaaclab.sim.schemas)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/api/lab/isaaclab.sim.spawners.html#isaaclab.sim.spawners.from_files.GroundPlaneCfg.color">color (isaaclab.sim.spawners.from_files.GroundPlaneCfg attribute)</a>
 
       <ul>
@@ -3166,8 +3168,6 @@
         <li><a href="source/api/lab/isaaclab.sim.spawners.html#isaaclab.sim.spawners.lights.SphereLightCfg.color">(isaaclab.sim.spawners.lights.SphereLightCfg attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/api/lab/isaaclab.terrains.html#isaaclab.terrains.utils.color_meshes_by_height">color_meshes_by_height() (in module isaaclab.terrains.utils)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.terrains.html#isaaclab.terrains.TerrainGeneratorCfg.color_scheme">color_scheme (isaaclab.terrains.TerrainGeneratorCfg attribute)</a>
@@ -3329,8 +3329,6 @@
       <li><a href="source/api/lab/isaaclab.sensors.html#isaaclab.sensors.ContactSensor.compute_first_contact">compute_first_contact() (isaaclab.sensors.ContactSensor method)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.managers.html#isaaclab.managers.ObservationManager.compute_group">compute_group() (isaaclab.managers.ObservationManager method)</a>
-</li>
-      <li><a href="source/api/lab_tasks/isaaclab_tasks.utils.html#isaaclab_tasks.utils.compute_kit_requirements">compute_kit_requirements() (in module isaaclab_tasks.utils)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.math.compute_pose_error">compute_pose_error() (in module isaaclab.utils.math)</a>
 </li>
@@ -8296,7 +8294,7 @@
         <li><a href="source/api/lab_mimic/isaaclab_mimic.datagen.html#isaaclab_mimic.datagen.WaypointTrajectory.last_waypoint">(isaaclab_mimic.datagen.WaypointTrajectory property)</a>
 </li>
       </ul></li>
-      <li><a href="source/api/lab_tasks/isaaclab_tasks.utils.html#isaaclab_tasks.utils.launch_simulation">launch_simulation() (in module isaaclab_tasks.utils)</a>
+      <li><a href="source/api/lab/isaaclab.app.html#isaaclab.app.launch_simulation">launch_simulation() (in module isaaclab.app)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.scene.html#isaaclab.scene.InteractiveSceneCfg.lazy_sensor_update">lazy_sensor_update (isaaclab.scene.InteractiveSceneCfg attribute)</a>
 </li>
@@ -8506,6 +8504,8 @@
         <li><a href="source/api/lab/isaaclab.sim.spawners.html#isaaclab.sim.spawners.from_files.UrdfFileCfg.make_instanceable">(isaaclab.sim.spawners.from_files.UrdfFileCfg attribute)</a>
 </li>
       </ul></li>
+      <li><a href="source/api/lab/isaaclab.app.html#isaaclab.app.make_physics_cfg">make_physics_cfg() (in module isaaclab.app)</a>
+</li>
       <li><a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.math.make_pose">make_pose() (in module isaaclab.utils.math)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.envs.mdp.html#isaaclab.envs.mdp.commands.commands_cfg.UniformPoseCommandCfg.make_quat_unique">make_quat_unique (isaaclab.envs.mdp.commands.commands_cfg.UniformPoseCommandCfg attribute)</a>
@@ -8932,10 +8932,10 @@
 </li>
       <li><a href="source/api/lab/isaaclab.terrains.html#isaaclab.terrains.trimesh.mesh_terrains_cfg.MeshPyramidStairsTerrainCfg">MeshPyramidStairsTerrainCfg (class in isaaclab.terrains.trimesh.mesh_terrains_cfg)</a>
 </li>
-      <li><a href="source/api/lab/isaaclab.terrains.html#isaaclab.terrains.trimesh.mesh_terrains_cfg.MeshRailsTerrainCfg">MeshRailsTerrainCfg (class in isaaclab.terrains.trimesh.mesh_terrains_cfg)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/api/lab/isaaclab.terrains.html#isaaclab.terrains.trimesh.mesh_terrains_cfg.MeshRailsTerrainCfg">MeshRailsTerrainCfg (class in isaaclab.terrains.trimesh.mesh_terrains_cfg)</a>
+</li>
       <li><a href="source/api/lab/isaaclab.terrains.html#isaaclab.terrains.trimesh.mesh_terrains_cfg.MeshRandomGridTerrainCfg">MeshRandomGridTerrainCfg (class in isaaclab.terrains.trimesh.mesh_terrains_cfg)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.sim.spawners.html#isaaclab.sim.spawners.meshes.MeshRectangleCfg">MeshRectangleCfg (class in isaaclab.sim.spawners.meshes)</a>
@@ -12699,6 +12699,10 @@
 </li>
       <li><a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.math.scale_transform">scale_transform() (in module isaaclab.utils.math)</a>
 </li>
+      <li><a href="source/api/lab/isaaclab.app.html#isaaclab.app.Scan">Scan (class in isaaclab.app)</a>
+</li>
+      <li><a href="source/api/lab/isaaclab.app.html#isaaclab.app.scan">scan() (in module isaaclab.app)</a>
+</li>
       <li><a href="source/api/lab/isaaclab.envs.html#isaaclab.envs.DirectMARLEnvCfg.scene">scene (isaaclab.envs.DirectMARLEnvCfg attribute)</a>
 
       <ul>
@@ -13639,6 +13643,8 @@
         <li><a href="source/api/lab_physx/isaaclab_physx.assets.html#isaaclab_physx.assets.Articulation.set_spatial_tendon_damping_mask">(isaaclab_physx.assets.Articulation method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/api/lab/isaaclab.assets.html#isaaclab.assets.Articulation.set_spatial_tendon_limit_stiffness">set_spatial_tendon_limit_stiffness() (isaaclab.assets.Articulation method)</a>
 
       <ul>
@@ -13649,8 +13655,6 @@
         <li><a href="source/api/lab_physx/isaaclab_physx.assets.html#isaaclab_physx.assets.Articulation.set_spatial_tendon_limit_stiffness">(isaaclab_physx.assets.Articulation method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/api/lab/isaaclab.assets.html#isaaclab.assets.Articulation.set_spatial_tendon_limit_stiffness_index">set_spatial_tendon_limit_stiffness_index() (isaaclab.assets.Articulation method)</a>
 
       <ul>
@@ -15379,8 +15383,6 @@
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/api/lab_tasks/isaaclab_tasks.utils.html#isaaclab_tasks.utils.validate_runtime_compatibility">validate_runtime_compatibility() (in module isaaclab_tasks.utils)</a>
-</li>
       <li><a href="source/api/lab/isaaclab.sim.utils.html#isaaclab.sim.utils.transforms.validate_standard_xform_ops">validate_standard_xform_ops() (in module isaaclab.sim.utils.transforms)</a>
 </li>
       <li><a href="source/api/lab_rl/isaaclab_rl.html#isaaclab_rl.rsl_rl.RslRlPpoAlgorithmCfg.value_loss_coef">value_loss_coef (isaaclab_rl.rsl_rl.RslRlPpoAlgorithmCfg attribute)</a>
@@ -17205,7 +17207,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 02, 2026.
+  Last updated on Jun 03, 2026.
   <br/>
 </p>
   </div>

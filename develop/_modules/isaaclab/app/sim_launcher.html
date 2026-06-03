@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>isaaclab_tasks.utils.sim_launcher &#8212; Isaac Lab Documentation</title>
+    <title>isaaclab.app.sim_launcher &#8212; Isaac Lab Documentation</title>
   
   
   
@@ -53,14 +53,14 @@
     <script src="../../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/isaaclab_tasks/utils/sim_launcher';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/isaaclab/app/sim_launcher';</script>
     <link rel="icon" href="../../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 02, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 03, 2026"/>
   </head>
   
   
@@ -606,7 +606,7 @@
       
       
       
-      <li><a href="https://github.com/isaac-sim/IsaacLab/issues/new?title=Issue%20on%20page%20%2F_modules/isaaclab_tasks/utils/sim_launcher.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/isaac-sim/IsaacLab/issues/new?title=Issue%20on%20page%20%2F_modules/isaaclab/app/sim_launcher.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -676,21 +676,33 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <h1>Source code for isaaclab_tasks.utils.sim_launcher</h1><div class="highlight"><pre>
+  <h1>Source code for isaaclab.app.sim_launcher</h1><div class="highlight"><pre>
 <span></span><span class="c1"># Copyright (c) 2022-2026, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).</span>
 <span class="c1"># All rights reserved.</span>
 <span class="c1">#</span>
 <span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
 
-<span class="sd">&quot;&quot;&quot;Utilities for detecting and launching the appropriate simulation backend.&quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;Utilities for detecting and launching the appropriate simulation backend.</span>
+
+<span class="sd">The flow is intentionally simple: walk the config tree **once** to collect every</span>
+<span class="sd">signal we care about (physics backend, OVRTX renderer, Kit cameras, visualizer</span>
+<span class="sd">intent) into a :class:`Scan`, then decide how to launch from that scan.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Generator</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Generator</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">contextmanager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_newton.physics</span><span class="w"> </span><span class="kn">import</span> <span class="n">NewtonCfg</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_ovphysx.physics</span><span class="w"> </span><span class="kn">import</span> <span class="n">OvPhysxCfg</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_physx.physics</span><span class="w"> </span><span class="kn">import</span> <span class="n">PhysxCfg</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.physics.physics_manager_cfg</span><span class="w"> </span><span class="kn">import</span> <span class="n">PhysicsCfg</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.renderers.renderer_cfg</span><span class="w"> </span><span class="kn">import</span> <span class="n">RendererCfg</span>
@@ -698,9 +710,11 @@
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
+<span class="c1"># Class names of the kitless physics backends (Newton, OvPhysX). Matched by exact</span>
+<span class="c1"># name so subclasses with distinct names (e.g. ``DeformableNewtonCfg``) opt out.</span>
+<span class="n">_KITLESS_PHYSICS_CFGS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;NewtonCfg&quot;</span><span class="p">,</span> <span class="s2">&quot;OvPhysxCfg&quot;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="add_launcher_args">
-<a class="viewcode-back" href="../../../source/api/lab_tasks/isaaclab_tasks.utils.html#isaaclab_tasks.utils.add_launcher_args">[docs]</a>
+
 <span class="k">def</span><span class="w"> </span><span class="nf">add_launcher_args</span><span class="p">(</span><span class="n">parser</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Add simulation-launcher CLI arguments (``--headless``, ``--device``, etc.) to *parser*.</span>
 
@@ -709,105 +723,41 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.app</span><span class="w"> </span><span class="kn">import</span> <span class="n">AppLauncher</span>
 
-    <span class="n">AppLauncher</span><span class="o">.</span><span class="n">add_app_launcher_args</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span></div>
+    <span class="n">AppLauncher</span><span class="o">.</span><span class="n">add_app_launcher_args</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
 
 
+<div class="viewcode-block" id="make_physics_cfg">
+<a class="viewcode-back" href="../../../source/api/lab/isaaclab.app.html#isaaclab.app.make_physics_cfg">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_physics_cfg</span><span class="p">(</span><span class="n">physics_cfg_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PhysicsCfg</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build a concrete physics config for the requested backend.</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_scan_config</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">predicates</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">bool</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Recursively walk *cfg* and evaluate each predicate on every node.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        physics_cfg_str: Backend selector: ``&quot;physx&quot;``, ``&quot;newton_mjwarp&quot;``, or ``&quot;ovphysx&quot;``.</span>
 
-<span class="sd">    Returns a list of booleans, one per predicate, where ``True`` means at</span>
-<span class="sd">    least one node in the config tree satisfied that predicate.  Once a</span>
-<span class="sd">    predicate is satisfied it is no longer evaluated (short-circuit).</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        A new physics config instance for the requested backend.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If *physics_cfg_str* does not name a known backend.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">predicates</span><span class="p">)</span>
-    <span class="n">visited</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_visit</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
-            <span class="k">return</span>
-        <span class="n">node_id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
-            <span class="k">return</span>
-        <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
-
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pred</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">predicates</span><span class="p">):</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">and</span> <span class="n">pred</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
-                <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">children</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-            <span class="k">return</span>
-        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">child</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)):</span>
-                <span class="k">continue</span>
-            <span class="n">_visit</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
-
-    <span class="n">_visit</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">results</span>
+    <span class="k">if</span> <span class="n">physics_cfg_str</span> <span class="o">==</span> <span class="s2">&quot;physx&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">PhysxCfg</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">physics_cfg_str</span> <span class="o">==</span> <span class="s2">&quot;newton_mjwarp&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">NewtonCfg</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">physics_cfg_str</span> <span class="o">==</span> <span class="s2">&quot;ovphysx&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">OvPhysxCfg</span><span class="p">()</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid physics config: </span><span class="si">{</span><span class="n">physics_cfg_str</span><span class="si">!r}</span><span class="s2"> (expected &#39;physx&#39;, &#39;newton_mjwarp&#39;, or &#39;ovphysx&#39;).&quot;</span><span class="p">)</span></div>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_is_kitless_physics</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;True when the node is a kitless physics config (Newton or OvPhysX).&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">PhysicsCfg</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">node</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;NewtonCfg&quot;</span><span class="p">,</span> <span class="s2">&quot;OvPhysxCfg&quot;</span><span class="p">)</span>
 
-
-<span class="k">def</span><span class="w"> </span><span class="nf">_is_kit_physics</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;True when the node is a Kit-required physics config (Isaac Sim PhysX).&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">PhysicsCfg</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">node</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;PhysxCfg&quot;</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">_is_ovphysx_physics</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;True when the node is an OvPhysX physics config.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">PhysicsCfg</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">node</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;OvPhysxCfg&quot;</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Node Predicates.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_is_ovrtx_renderer</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;True when the node is an OVRTX renderer config.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">RendererCfg</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;renderer_type&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;ovrtx&quot;</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">_get_visualizer_types</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract requested visualizer type names from launcher args.&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">):</span>
-        <span class="n">visualizers</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;visualizer&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="n">visualizers</span> <span class="o">=</span> <span class="n">launcher_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;visualizer&quot;</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="nb">set</span><span class="p">()</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">visualizers</span><span class="p">:</span>
-        <span class="k">return</span> <span class="nb">set</span><span class="p">()</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">visualizers</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="c1"># CLI now uses comma-delimited syntax: --visualizer kit,newton,rerun</span>
-        <span class="n">visualizers</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">visualizers</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)]</span>
-    <span class="k">return</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">visualizers</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()}</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">_compute_visualizer_intent</span><span class="p">(</span><span class="n">env_cfg</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute upstream visualizer intent from ``env_cfg.sim.visualizer_cfgs``.&quot;&quot;&quot;</span>
-    <span class="n">sim_cfg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">env_cfg</span><span class="p">,</span> <span class="s2">&quot;sim&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="n">visualizer_cfgs</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sim_cfg</span><span class="p">,</span> <span class="s2">&quot;visualizer_cfgs&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">visualizer_cfgs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;has_any_visualizers&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;has_kit_visualizer&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
-
-    <span class="n">cfg_list</span> <span class="o">=</span> <span class="n">visualizer_cfgs</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">visualizer_cfgs</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="n">visualizer_cfgs</span><span class="p">]</span>
-    <span class="n">cfg_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">cfg</span> <span class="k">for</span> <span class="n">cfg</span> <span class="ow">in</span> <span class="n">cfg_list</span> <span class="k">if</span> <span class="n">cfg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
-    <span class="n">has_any</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cfg_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
-    <span class="n">has_kit</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="s2">&quot;visualizer_type&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;kit&quot;</span> <span class="k">for</span> <span class="n">cfg</span> <span class="ow">in</span> <span class="n">cfg_list</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;has_any_visualizers&quot;</span><span class="p">:</span> <span class="n">has_any</span><span class="p">,</span> <span class="s2">&quot;has_kit_visualizer&quot;</span><span class="p">:</span> <span class="n">has_kit</span><span class="p">}</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">_set_visualizer_intent_on_launcher_args</span><span class="p">(</span>
-    <span class="n">launcher_args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">visualizer_intent</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Attach visualizer intent to launcher args when possible.&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">launcher_args</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">):</span>
-        <span class="nb">setattr</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;visualizer_intent&quot;</span><span class="p">,</span> <span class="n">visualizer_intent</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="n">launcher_args</span><span class="p">[</span><span class="s2">&quot;visualizer_intent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">visualizer_intent</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_is_kit_camera</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -820,75 +770,163 @@
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">renderer_cfg</span><span class="p">,</span> <span class="n">RendererCfg</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">renderer_cfg</span><span class="o">.</span><span class="n">renderer_type</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="s2">&quot;isaac_rtx&quot;</span><span class="p">)</span>
     <span class="c1"># PresetCfg renderers (e.g. MultiBackendRendererCfg) are resolved during</span>
-    <span class="c1"># environment construction when the physics backend is known (see</span>
-    <span class="c1"># resolve_task_config and preset resolution in presets.py).  At this</span>
-    <span class="c1"># stage we assume they will match the physics backend, so not</span>
-    <span class="c1"># necessarily Kit.</span>
+    <span class="c1"># environment construction once the physics backend is known; assume they</span>
+    <span class="c1"># match the backend, so not necessarily Kit.</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_tasks.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">PresetCfg</span>
 
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">renderer_cfg</span><span class="p">,</span> <span class="n">PresetCfg</span><span class="p">):</span>
-        <span class="k">return</span> <span class="kc">False</span>
-    <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">renderer_cfg</span><span class="p">,</span> <span class="n">PresetCfg</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="compute_kit_requirements">
-<a class="viewcode-back" href="../../../source/api/lab_tasks/isaaclab_tasks.utils.html#isaaclab_tasks.utils.compute_kit_requirements">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">compute_kit_requirements</span><span class="p">(</span>
-    <span class="n">env_cfg</span><span class="p">,</span>
-    <span class="n">launcher_args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute whether Kit is needed and related flags.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Launcher Argument Helpers.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">    Uses the same logic as :func:`launch_simulation` to decide whether Isaac Sim</span>
-<span class="sd">    Kit must be launched.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        env_cfg: Resolved environment config (e.g. from :func:`resolve_task_config`).</span>
-<span class="sd">        launcher_args: Optional CLI args; if ``--visualizer`` includes ``kit``, needs_kit is True.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_arg</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read *key* from launcher args, whether a namespace, dict, or ``None``.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">launcher_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">default</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        (needs_kit, has_kit_cameras, visualizer_types)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_set_arg</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Write *key* on launcher args when it is a namespace or dict.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">):</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">launcher_args</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_visualizer_types</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract requested visualizer type names (``--visualizer kit,newton,...``).&quot;&quot;&quot;</span>
+    <span class="n">visualizers</span> <span class="o">=</span> <span class="n">_get_arg</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;visualizer&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">visualizers</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">visualizers</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">visualizers</span> <span class="o">=</span> <span class="n">visualizers</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">visualizers</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_visualizer_intent</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute upstream visualizer intent from ``cfg.sim.visualizer_cfgs``.&quot;&quot;&quot;</span>
+    <span class="n">visualizer_cfgs</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="s2">&quot;sim&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="s2">&quot;visualizer_cfgs&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">visualizer_cfgs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;has_any_visualizers&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;has_kit_visualizer&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="n">cfgs</span> <span class="o">=</span> <span class="n">visualizer_cfgs</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">visualizer_cfgs</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="n">visualizer_cfgs</span><span class="p">]</span>
+    <span class="n">cfgs</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cfgs</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;has_any_visualizers&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">cfgs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;has_kit_visualizer&quot;</span><span class="p">:</span> <span class="nb">any</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s2">&quot;visualizer_type&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;kit&quot;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cfgs</span><span class="p">),</span>
+    <span class="p">}</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The Single Scan.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="Scan">
+<a class="viewcode-back" href="../../../source/api/lab/isaaclab.app.html#isaaclab.app.Scan">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Scan</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Signals gathered from one walk of the config tree (see :func:`scan`).</span>
+
+<span class="sd">    Every field is a plain snapshot computed during that single walk; nothing here</span>
+<span class="sd">    is recomputed or mutated afterwards. ``needs_kit`` is the headline decision: a</span>
+<span class="sd">    Kit-renderer camera or non-kitless physics requires Kit (the launcher additionally</span>
+<span class="sd">    forces Kit when ``--visualizer kit`` is requested).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">is_kitless</span><span class="p">,</span> <span class="n">has_kit_cameras</span> <span class="o">=</span> <span class="n">_scan_config</span><span class="p">(</span><span class="n">env_cfg</span><span class="p">,</span> <span class="p">[</span><span class="n">_is_kitless_physics</span><span class="p">,</span> <span class="n">_is_kit_camera</span><span class="p">])</span>
-    <span class="n">needs_kit</span> <span class="o">=</span> <span class="n">has_kit_cameras</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">is_kitless</span>
-    <span class="n">visualizer_types</span> <span class="o">=</span> <span class="n">_get_visualizer_types</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">)</span>
-    <span class="k">if</span> <span class="s2">&quot;kit&quot;</span> <span class="ow">in</span> <span class="n">visualizer_types</span><span class="p">:</span>
-        <span class="n">needs_kit</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="k">return</span> <span class="n">needs_kit</span><span class="p">,</span> <span class="n">has_kit_cameras</span><span class="p">,</span> <span class="n">visualizer_types</span></div>
+
+    <span class="n">resolved_physics_cfg</span><span class="p">:</span> <span class="n">PhysicsCfg</span> <span class="o">|</span> <span class="kc">None</span>  <span class="c1"># first physics config in walk order (post --physics override)</span>
+    <span class="n">effective_cfg</span><span class="p">:</span> <span class="n">Any</span>  <span class="c1"># the input config, or its replacement when the config itself was an overridden physics config</span>
+    <span class="n">visualizer_intent</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span>
+    <span class="n">has_ovrtx</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">has_kit_camera</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">has_kit_physics</span><span class="p">:</span> <span class="nb">bool</span>  <span class="c1"># PhysX (Kit-based)</span>
+    <span class="n">has_kitless_physics</span><span class="p">:</span> <span class="nb">bool</span>  <span class="c1"># Newton or OvPhysX</span>
+    <span class="n">has_ovphysx_physics</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">needs_kit</span><span class="p">:</span> <span class="nb">bool</span></div>
 
 
 
-<div class="viewcode-block" id="validate_runtime_compatibility">
-<a class="viewcode-back" href="../../../source/api/lab_tasks/isaaclab_tasks.utils.html#isaaclab_tasks.utils.validate_runtime_compatibility">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">validate_runtime_compatibility</span><span class="p">(</span>
-    <span class="n">env_cfg</span><span class="p">,</span>
-    <span class="n">launcher_args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate that the resolved physics, renderer, and visualizer combination is supported.</span>
+<div class="viewcode-block" id="scan">
+<a class="viewcode-back" href="../../../source/api/lab/isaaclab.app.html#isaaclab.app.scan">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">scan</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">physics_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Scan</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Walk *cfg* once, collecting all launch signals and applying ``--physics``.</span>
 
-<span class="sd">    The OVRTX renderer (``OVRTXRendererCfg``, ``renderer_type=&quot;ovrtx&quot;``) is a kitless</span>
-<span class="sd">    renderer that runs without Isaac Sim / Omniverse Kit. Combining it with Kit-based</span>
-<span class="sd">    runtimes — Isaac Sim PhysX physics (``PhysxCfg``) or the Kit visualizer</span>
-<span class="sd">    (``--visualizer kit`` / a ``visualizer_cfgs`` entry with ``visualizer_type=&quot;kit&quot;``) —</span>
-<span class="sd">    is unsupported. OvPhysX physics (``OvPhysxCfg``) also cannot share a process with</span>
-<span class="sd">    the Kit visualizer.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        env_cfg: Resolved environment config (e.g. from :func:`resolve_task_config`).</span>
-<span class="sd">        launcher_args: Optional CLI args. Inspected for ``--visualizer kit``.</span>
-
-<span class="sd">    Raises:</span>
-<span class="sd">        ValueError: If the OVRTX renderer is combined with Kit-based physics or the</span>
-<span class="sd">            Kit visualizer, or if OvPhysX physics is combined with the Kit visualizer.</span>
+<span class="sd">    When *physics_str* is set, every physics config is replaced by the requested</span>
+<span class="sd">    backend (see :func:`make_physics_cfg`): nested configs in place, a root config</span>
+<span class="sd">    via :attr:`Scan.effective_cfg` (it cannot be mutated in place).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">has_kit_physics</span><span class="p">,</span> <span class="n">has_ovrtx_renderer</span><span class="p">,</span> <span class="n">has_ovphysx_physics</span> <span class="o">=</span> <span class="n">_scan_config</span><span class="p">(</span>
-        <span class="n">env_cfg</span><span class="p">,</span> <span class="p">[</span><span class="n">_is_kit_physics</span><span class="p">,</span> <span class="n">_is_ovrtx_renderer</span><span class="p">,</span> <span class="n">_is_ovphysx_physics</span><span class="p">]</span>
-    <span class="p">)</span>
-    <span class="n">visualizer_intent</span> <span class="o">=</span> <span class="n">_compute_visualizer_intent</span><span class="p">(</span><span class="n">env_cfg</span><span class="p">)</span>
-    <span class="n">visualizer_types</span> <span class="o">=</span> <span class="n">_get_visualizer_types</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">)</span>
-    <span class="n">has_kit_visualizer</span> <span class="o">=</span> <span class="s2">&quot;kit&quot;</span> <span class="ow">in</span> <span class="n">visualizer_types</span> <span class="ow">or</span> <span class="n">visualizer_intent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;has_kit_visualizer&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">physics_cfgs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">PhysicsCfg</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">effective_cfg</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">cfg</span>
+    <span class="n">has_ovrtx</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">has_kit_camera</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">visited</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
-    <span class="k">if</span> <span class="n">has_ovphysx_physics</span> <span class="ow">and</span> <span class="n">has_kit_visualizer</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">visit</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+        <span class="k">nonlocal</span> <span class="n">effective_cfg</span><span class="p">,</span> <span class="n">has_ovrtx</span><span class="p">,</span> <span class="n">has_kit_camera</span>
+        <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">node</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">PhysicsCfg</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">physics_str</span><span class="p">:</span>
+                <span class="n">node</span> <span class="o">=</span> <span class="n">make_physics_cfg</span><span class="p">(</span><span class="n">physics_str</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="nb">setattr</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">effective_cfg</span> <span class="o">=</span> <span class="n">node</span>
+            <span class="n">physics_cfgs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">_is_ovrtx_renderer</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+            <span class="n">has_ovrtx</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">_is_kit_camera</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+            <span class="n">has_kit_camera</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">children</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">child</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)):</span>
+                <span class="k">continue</span>
+            <span class="n">visit</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+    <span class="n">visit</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="nb">type</span><span class="p">(</span><span class="n">pcfg</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">pcfg</span> <span class="ow">in</span> <span class="n">physics_cfgs</span><span class="p">]</span>
+    <span class="n">has_kitless_physics</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">name</span> <span class="ow">in</span> <span class="n">_KITLESS_PHYSICS_CFGS</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Scan</span><span class="p">(</span>
+        <span class="n">resolved_physics_cfg</span><span class="o">=</span><span class="n">physics_cfgs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">physics_cfgs</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">effective_cfg</span><span class="o">=</span><span class="n">effective_cfg</span><span class="p">,</span>
+        <span class="n">visualizer_intent</span><span class="o">=</span><span class="n">_get_visualizer_intent</span><span class="p">(</span><span class="n">cfg</span><span class="p">),</span>
+        <span class="n">has_ovrtx</span><span class="o">=</span><span class="n">has_ovrtx</span><span class="p">,</span>
+        <span class="n">has_kit_camera</span><span class="o">=</span><span class="n">has_kit_camera</span><span class="p">,</span>
+        <span class="n">has_kit_physics</span><span class="o">=</span><span class="s2">&quot;PhysxCfg&quot;</span> <span class="ow">in</span> <span class="n">names</span><span class="p">,</span>
+        <span class="n">has_kitless_physics</span><span class="o">=</span><span class="n">has_kitless_physics</span><span class="p">,</span>
+        <span class="n">has_ovphysx_physics</span><span class="o">=</span><span class="s2">&quot;OvPhysxCfg&quot;</span> <span class="ow">in</span> <span class="n">names</span><span class="p">,</span>
+        <span class="n">needs_kit</span><span class="o">=</span><span class="n">has_kit_camera</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">has_kitless_physics</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Launch Decisions (derived purely from a scan).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_validate_runtime</span><span class="p">(</span><span class="n">scan</span><span class="p">:</span> <span class="n">Scan</span><span class="p">,</span> <span class="n">launcher_args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Raise if *scan*&#39;s physics/renderer/visualizer combination is unsupported.</span>
+
+<span class="sd">    OVRTX is kitless and cannot share a process with Kit-based runtimes (PhysX physics</span>
+<span class="sd">    or the Kit visualizer); OvPhysX physics likewise cannot run with the Kit visualizer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">visualizer_types</span> <span class="o">=</span> <span class="n">_get_visualizer_types</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">)</span>
+    <span class="n">has_kit_visualizer</span> <span class="o">=</span> <span class="s2">&quot;kit&quot;</span> <span class="ow">in</span> <span class="n">visualizer_types</span> <span class="ow">or</span> <span class="n">scan</span><span class="o">.</span><span class="n">visualizer_intent</span><span class="p">[</span><span class="s2">&quot;has_kit_visualizer&quot;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">scan</span><span class="o">.</span><span class="n">has_ovphysx_physics</span> <span class="ow">and</span> <span class="n">has_kit_visualizer</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="s2">&quot;Invalid backend combination: OvPhysX physics (`OvPhysxCfg`) is kitless and cannot be used together &quot;</span>
             <span class="s1">&#39;with the Kit visualizer (`--visualizer kit` / `visualizer_type=&quot;kit&quot;`). Use a kitless visualizer &#39;</span>
@@ -896,23 +934,19 @@
             <span class="s2">&quot;argument for headless execution.&quot;</span>
         <span class="p">)</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">has_ovrtx_renderer</span><span class="p">:</span>
-        <span class="k">return</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">has_kit_physics</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">has_kit_visualizer</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">scan</span><span class="o">.</span><span class="n">has_ovrtx</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="n">scan</span><span class="o">.</span><span class="n">has_kit_physics</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">has_kit_visualizer</span><span class="p">):</span>
         <span class="k">return</span>
 
     <span class="n">sources</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">if</span> <span class="n">has_kit_physics</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">scan</span><span class="o">.</span><span class="n">has_kit_physics</span><span class="p">:</span>
         <span class="n">sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Isaac Sim PhysX physics (`PhysxCfg`)&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">has_kit_visualizer</span><span class="p">:</span>
         <span class="n">sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;the Kit visualizer (`--visualizer kit` / `visualizer_type=&quot;kit&quot;`)&#39;</span><span class="p">)</span>
-    <span class="n">sources_text</span> <span class="o">=</span> <span class="s2">&quot; and &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span>
 
     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
         <span class="s2">&quot;Invalid backend combination: the OVRTX renderer (`OVRTXRendererCfg`,&quot;</span>
         <span class="s1">&#39; `renderer_type=&quot;ovrtx&quot;`) is a kitless renderer and cannot be used together&#39;</span>
-        <span class="sa">f</span><span class="s2">&quot; with Isaac Sim / Kit (</span><span class="si">{</span><span class="n">sources_text</span><span class="si">}</span><span class="s2">).</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot; with Isaac Sim / Kit (</span><span class="si">{</span><span class="s1">&#39; and &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span><span class="si">}</span><span class="s2">).</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="s2">&quot;To fix this, pick one of the following supported combinations:</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="s2">&quot;  * Keep Isaac Sim / Kit and switch the renderer:</span><span class="se">\n</span><span class="s2">&quot;</span>
@@ -921,60 +955,30 @@
         <span class="s2">&quot;  * Keep the OVRTX renderer and switch to a kitless physics backend</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="s2">&quot;    (and avoid `--visualizer kit`):</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="s2">&quot;      presets=newton_mjwarp,ovrtx_renderer</span><span class="se">\n</span><span class="s2">&quot;</span>
-    <span class="p">)</span></div>
+    <span class="p">)</span>
 
 
+<span class="k">def</span><span class="w"> </span><span class="nf">_resolve_distributed_device</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">launcher_args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Set ``cfg.sim.device`` for distributed training, mirroring AppLauncher&#39;s fallback.</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_resolve_distributed_device</span><span class="p">(</span>
-    <span class="n">env_cfg</span><span class="p">,</span>
-    <span class="n">launcher_args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Set ``env_cfg.sim.device`` for distributed training.</span>
-
-<span class="sd">    When ``--distributed`` is active and CUDA_VISIBLE_DEVICES restricts each</span>
-<span class="sd">    process to a single GPU, ``local_rank`` may exceed the visible device count.</span>
-<span class="sd">    This helper applies the same fallback logic used by :class:`AppLauncher` so</span>
-<span class="sd">    that **training scripts do not need their own device-resolution code**.</span>
-
-<span class="sd">    For the Kit path, :func:`launch_simulation` additionally propagates</span>
-<span class="sd">    ``AppLauncher.device`` after creation; this function handles the early</span>
-<span class="sd">    (pre-AppLauncher) and kitless cases.</span>
+<span class="sd">    When ``--distributed`` restricts each process to one GPU, ``local_rank`` may exceed</span>
+<span class="sd">    the visible device count. The Kit path later overwrites this with ``AppLauncher.device``;</span>
+<span class="sd">    the kitless path relies solely on this value.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">distributed</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">):</span>
-        <span class="n">distributed</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;distributed&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="n">distributed</span> <span class="o">=</span> <span class="n">launcher_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;distributed&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">distributed</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">_get_arg</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;distributed&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
         <span class="k">return</span>
-
-    <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
     <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
     <span class="n">local_rank</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;LOCAL_RANK&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">))</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;JAX_LOCAL_RANK&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">))</span>
     <span class="n">num_visible_gpus</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">()</span>
+    <span class="c1"># Compare against the local device count (not WORLD_SIZE) so multi-node runs work.</span>
+    <span class="n">device_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;cuda:</span><span class="si">{</span><span class="n">local_rank</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">local_rank</span> <span class="o">&lt;</span> <span class="n">num_visible_gpus</span> <span class="k">else</span> <span class="s2">&quot;cuda:0&quot;</span>
 
-    <span class="c1"># Compare local_rank against device_count (not WORLD_SIZE) so that</span>
-    <span class="c1"># multi-node setups work correctly: WORLD_SIZE is global across all</span>
-    <span class="c1"># nodes, but device_count is local.</span>
-    <span class="k">if</span> <span class="n">local_rank</span> <span class="o">&lt;</span> <span class="n">num_visible_gpus</span><span class="p">:</span>
-        <span class="n">device_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;cuda:</span><span class="si">{</span><span class="n">local_rank</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">device_str</span> <span class="o">=</span> <span class="s2">&quot;cuda:0&quot;</span>
-
-    <span class="n">sim_cfg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">env_cfg</span><span class="p">,</span> <span class="s2">&quot;sim&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">sim_cfg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="s2">&quot;sim&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">sim_cfg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">sim_cfg</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device_str</span>
-
-    <span class="c1"># Set CUDA device early so physics backends that allocate on the</span>
-    <span class="c1"># &quot;current&quot; device during init get the correct GPU. For the Kit path,</span>
-    <span class="c1"># AppLauncher._resolve_device_settings will call set_device again with</span>
-    <span class="c1"># the same value, which is harmless. For the kitless Newton path, this</span>
-    <span class="c1"># is the only place it gets set.</span>
     <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">set_device</span><span class="p">(</span><span class="n">device_str</span><span class="p">)</span>
-
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
         <span class="s2">&quot;Distributed device resolved to </span><span class="si">%s</span><span class="s2"> (local_rank=</span><span class="si">%d</span><span class="s2">, visible_gpus=</span><span class="si">%d</span><span class="s2">)&quot;</span><span class="p">,</span>
         <span class="n">device_str</span><span class="p">,</span>
@@ -984,151 +988,90 @@
 
 
 <div class="viewcode-block" id="launch_simulation">
-<a class="viewcode-back" href="../../../source/api/lab_tasks/isaaclab_tasks.utils.html#isaaclab_tasks.utils.launch_simulation">[docs]</a>
+<a class="viewcode-back" href="../../../source/api/lab/isaaclab.app.html#isaaclab.app.launch_simulation">[docs]</a>
 <span class="nd">@contextmanager</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">launch_simulation</span><span class="p">(</span>
-    <span class="n">env_cfg</span><span class="p">,</span>
+    <span class="n">cfg</span><span class="p">,</span>
     <span class="n">launcher_args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Context manager that launches the appropriate simulation runtime for *env_cfg*.</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">PhysicsCfg</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Context manager that launches the appropriate simulation runtime for *cfg*.</span>
 
-<span class="sd">    * Recursively scans the config tree to decide whether Isaac Sim Kit is needed.</span>
-<span class="sd">    * Auto-enables ``enable_cameras`` when the scene contains camera sensors</span>
-<span class="sd">      that use a Kit renderer (not Newton).</span>
-<span class="sd">    * For Kit-based backends, launches ``AppLauncher`` and calls ``app.close()`` on exit.</span>
-<span class="sd">    * For kitless backends (e.g. Newton with Newton Warp renderer only), this is a no-op.</span>
-<span class="sd">    * For Newton Physics + RTX Renderer (with Kit cameras): Kit is launched</span>
-<span class="sd">      so that RTX can run; Newton syncs its state to the USD stage each step for rendering.</span>
+<span class="sd">    Walks the config tree once (resolving ``--physics``, validating the</span>
+<span class="sd">    physics/renderer/visualizer combination, and deciding whether Isaac Sim Kit is</span>
+<span class="sd">    needed), then launches ``AppLauncher`` for Kit-based backends (closed on exit) or</span>
+<span class="sd">    does nothing for kitless ones. Cameras are auto-enabled for Kit-renderer sensors.</span>
 
-<span class="sd">    Example::</span>
+<span class="sd">    Yields the resolved physics config, so a script can pass a bare placeholder and</span>
+<span class="sd">    pick the backend from the command line::</span>
 
-<span class="sd">        with launch_simulation(env_cfg, args_cli):</span>
-<span class="sd">            main()</span>
+<span class="sd">        with launch_simulation(PhysicsCfg(), args_cli) as physics_cfg:</span>
+<span class="sd">            sim = SimulationContext(SimulationCfg(physics=physics_cfg))</span>
+
+<span class="sd">    Callers that do not need the value simply omit ``as``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># When --visualizer kit is explicitly requested alongside an ovrtx preset, fail early.</span>
-    <span class="c1"># ovrtx and Kit ship the same RTX hydra libraries under conflicting USD namespaces;</span>
-    <span class="c1"># loading both in the same process causes a dynamic-linker crash.  Use</span>
-    <span class="c1"># --visualizer newton instead, which is compatible with ovrtx presets.</span>
-    <span class="n">early_visualizer_types</span> <span class="o">=</span> <span class="n">_get_visualizer_types</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">)</span>
-    <span class="k">if</span> <span class="s2">&quot;kit&quot;</span> <span class="ow">in</span> <span class="n">early_visualizer_types</span><span class="p">:</span>
-        <span class="n">has_ovrtx</span> <span class="o">=</span> <span class="n">_scan_config</span><span class="p">(</span>
-            <span class="n">env_cfg</span><span class="p">,</span> <span class="p">[</span><span class="k">lambda</span> <span class="n">node</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">RendererCfg</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;renderer_type&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;ovrtx&quot;</span><span class="p">]</span>
-        <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">has_ovrtx</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;[launch_simulation] &#39;--visualizer kit&#39; is incompatible with &#39;ovrtx_renderer&#39;. &quot;</span>
-                <span class="s2">&quot;Both Kit (Isaac Sim) and ovrtx ship conflicting RTX hydra libraries &quot;</span>
-                <span class="s2">&quot;(librtx.hydra.so, liblegacy.hydra.so) compiled against different USD namespaces, &quot;</span>
-                <span class="s2">&quot;which causes a dynamic-linker crash when loaded into the same process. &quot;</span>
-                <span class="s2">&quot;Use &#39;--visualizer newton&#39; instead, which is fully compatible with ovrtx presets.&quot;</span>
-            <span class="p">)</span>
+    <span class="c1"># The single walk: collect every signal and apply the --physics override.</span>
+    <span class="n">config_scan</span> <span class="o">=</span> <span class="n">scan</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">_get_arg</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;physics&quot;</span><span class="p">))</span>
+    <span class="n">effective_cfg</span> <span class="o">=</span> <span class="n">config_scan</span><span class="o">.</span><span class="n">effective_cfg</span>
+    <span class="n">physics_cfg</span> <span class="o">=</span> <span class="n">config_scan</span><span class="o">.</span><span class="n">resolved_physics_cfg</span>
+    <span class="n">visualizer_types</span> <span class="o">=</span> <span class="n">_get_visualizer_types</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">)</span>
 
-    <span class="n">validate_runtime_compatibility</span><span class="p">(</span><span class="n">env_cfg</span><span class="p">,</span> <span class="n">launcher_args</span><span class="p">)</span>
-    <span class="n">needs_kit</span><span class="p">,</span> <span class="n">has_kit_cameras</span><span class="p">,</span> <span class="n">visualizer_types</span> <span class="o">=</span> <span class="n">compute_kit_requirements</span><span class="p">(</span><span class="n">env_cfg</span><span class="p">,</span> <span class="n">launcher_args</span><span class="p">)</span>
-    <span class="n">visualizer_intent</span> <span class="o">=</span> <span class="n">_compute_visualizer_intent</span><span class="p">(</span><span class="n">env_cfg</span><span class="p">)</span>
-    <span class="n">_set_visualizer_intent_on_launcher_args</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="n">visualizer_intent</span><span class="p">)</span>
+    <span class="c1"># ovrtx + Kit visualizer share conflicting RTX hydra libraries under different USD</span>
+    <span class="c1"># namespaces; loading both in one process crashes the dynamic linker. Fail early</span>
+    <span class="c1"># with a targeted hint (_validate_runtime covers the broader ovrtx-vs-Kit cases).</span>
+    <span class="k">if</span> <span class="s2">&quot;kit&quot;</span> <span class="ow">in</span> <span class="n">visualizer_types</span> <span class="ow">and</span> <span class="n">config_scan</span><span class="o">.</span><span class="n">has_ovrtx</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;[launch_simulation] &#39;--visualizer kit&#39; is incompatible with &#39;ovrtx_renderer&#39;. &quot;</span>
+            <span class="s2">&quot;Both Kit (Isaac Sim) and ovrtx ship conflicting RTX hydra libraries &quot;</span>
+            <span class="s2">&quot;(librtx.hydra.so, liblegacy.hydra.so) compiled against different USD namespaces, &quot;</span>
+            <span class="s2">&quot;which causes a dynamic-linker crash when loaded into the same process. &quot;</span>
+            <span class="s2">&quot;Use &#39;--visualizer newton&#39; instead, which is fully compatible with ovrtx presets.&quot;</span>
+        <span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">needs_kit</span> <span class="ow">and</span> <span class="n">has_kit_cameras</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">):</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;enable_cameras&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Auto-enabling cameras: scene contains camera sensors with a Kit renderer.&quot;</span><span class="p">)</span>
-                <span class="n">launcher_args</span><span class="o">.</span><span class="n">enable_cameras</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">launcher_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;enable_cameras&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Auto-enabling cameras: scene contains camera sensors with a Kit renderer.&quot;</span><span class="p">)</span>
-                <span class="n">launcher_args</span><span class="p">[</span><span class="s2">&quot;enable_cameras&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">_validate_runtime</span><span class="p">(</span><span class="n">config_scan</span><span class="p">,</span> <span class="n">launcher_args</span><span class="p">)</span>
+    <span class="n">needs_kit</span> <span class="o">=</span> <span class="n">config_scan</span><span class="o">.</span><span class="n">needs_kit</span> <span class="ow">or</span> <span class="s2">&quot;kit&quot;</span> <span class="ow">in</span> <span class="n">visualizer_types</span>
+    <span class="n">_set_arg</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;visualizer_intent&quot;</span><span class="p">,</span> <span class="n">config_scan</span><span class="o">.</span><span class="n">visualizer_intent</span><span class="p">)</span>
 
-    <span class="n">close_fn</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">needs_kit</span> <span class="ow">and</span> <span class="n">config_scan</span><span class="o">.</span><span class="n">has_kit_camera</span> <span class="ow">and</span> <span class="n">launcher_args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_get_arg</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;enable_cameras&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Auto-enabling cameras: scene contains camera sensors with a Kit renderer.&quot;</span><span class="p">)</span>
+            <span class="n">_set_arg</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;enable_cameras&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># Resolve distributed device early, before AppLauncher or physics init.</span>
-    <span class="n">_resolve_distributed_device</span><span class="p">(</span><span class="n">env_cfg</span><span class="p">,</span> <span class="n">launcher_args</span><span class="p">)</span>
+    <span class="n">_resolve_distributed_device</span><span class="p">(</span><span class="n">effective_cfg</span><span class="p">,</span> <span class="n">launcher_args</span><span class="p">)</span>
 
-    <span class="n">visualizer_explicit_none</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">):</span>
-        <span class="n">visualizer_explicit_none</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;visualizer&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span>
-            <span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;visualizer_explicit&quot;</span><span class="p">,</span> <span class="kc">False</span>
-        <span class="p">)</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="n">visualizer_explicit_none</span> <span class="o">=</span> <span class="n">launcher_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;visualizer&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">launcher_args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-            <span class="s2">&quot;visualizer_explicit&quot;</span><span class="p">,</span> <span class="kc">False</span>
-        <span class="p">)</span>
+    <span class="n">visualizer_explicit_none</span> <span class="o">=</span> <span class="n">_get_arg</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;visualizer&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">_get_arg</span><span class="p">(</span>
+        <span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;visualizer_explicit&quot;</span><span class="p">,</span> <span class="kc">False</span>
+    <span class="p">)</span>
 
+    <span class="n">close_fn</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">needs_kit</span><span class="p">:</span>
-        <span class="c1"># check if Isaac Sim is installed</span>
-        <span class="kn">import</span><span class="w"> </span><span class="nn">importlib.util</span>
-
-        <span class="k">if</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="s2">&quot;omni.kit&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="c1"># Print a more obvious hint when a local _isaac_sim symlink</span>
-            <span class="c1"># exists but its env wasn&#39;t sourced (typical on Win11 + conda</span>
-            <span class="c1"># when activate.d hooks didn&#39;t fire, e.g. under `conda run`).</span>
-            <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-            <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-
-            <span class="n">isaaclab_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ISAACLAB_PATH&quot;</span><span class="p">)</span>
-            <span class="n">local_sim</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">isaaclab_path</span><span class="p">,</span> <span class="s2">&quot;_isaac_sim&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">isaaclab_path</span> <span class="k">else</span> <span class="kc">None</span>
-            <span class="n">extra_hint</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-            <span class="k">if</span> <span class="n">local_sim</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">local_sim</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;win32&quot;</span><span class="p">:</span>
-                    <span class="n">extra_hint</span> <span class="o">=</span> <span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">&quot;  Found a local Isaac Sim at </span><span class="si">{</span><span class="n">local_sim</span><span class="si">}</span><span class="s2"> but its environment is not active.</span><span class="se">\n</span><span class="s2">&quot;</span>
-                        <span class="sa">f</span><span class="s2">&quot;  Either run via `isaaclab.bat ...` (which now sources setup_conda_env.bat</span><span class="se">\n</span><span class="s2">&quot;</span>
-                        <span class="sa">f</span><span class="s2">&quot;  automatically), or in your current shell run:</span><span class="se">\n</span><span class="s2">&quot;</span>
-                        <span class="sa">f</span><span class="s1">&#39;    call &quot;</span><span class="si">{</span><span class="n">local_sim</span><span class="si">}</span><span class="se">\\</span><span class="s1">setup_conda_env.bat&quot;</span><span class="se">\n</span><span class="s1">&#39;</span>
-                    <span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">extra_hint</span> <span class="o">=</span> <span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">&quot;  Found a local Isaac Sim at </span><span class="si">{</span><span class="n">local_sim</span><span class="si">}</span><span class="s2"> but its environment is not active.</span><span class="se">\n</span><span class="s2">&quot;</span>
-                        <span class="sa">f</span><span class="s2">&quot;  Either run via `./isaaclab.sh ...` (which now sources setup_conda_env.sh</span><span class="se">\n</span><span class="s2">&quot;</span>
-                        <span class="sa">f</span><span class="s2">&quot;  automatically), or in your current shell run:</span><span class="se">\n</span><span class="s2">&quot;</span>
-                        <span class="sa">f</span><span class="s1">&#39;    source &quot;</span><span class="si">{</span><span class="n">local_sim</span><span class="si">}</span><span class="s1">/setup_conda_env.sh&quot;</span><span class="se">\n</span><span class="s1">&#39;</span>
-                    <span class="p">)</span>
-
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[ERROR] Isaac Sim is not installed or not found on PYTHONPATH.</span><span class="se">\n</span><span class="s2">&quot;</span>
-                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
-                <span class="s2">&quot;  This environment requires Isaac Sim and Omniverse Kit.</span><span class="se">\n</span><span class="s2">&quot;</span>
-                <span class="s2">&quot;    PhysX backend and Kit visualizer currently requires Isaac Sim.</span><span class="se">\n</span><span class="s2">&quot;</span>
-                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">extra_hint</span><span class="si">}</span><span class="s2">&quot;</span>
-                <span class="s2">&quot;  To fix this, ensure Isaac Sim is installed and available in the current environment.</span><span class="se">\n</span><span class="s2">&quot;</span>
-                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
-                <span class="s2">&quot;  See https://isaac-sim.github.io/IsaacLab/main/source/setup/installation for details.</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="p">)</span>
-            <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-
-        <span class="c1"># If the simulation app is not launched, we launch it.</span>
+        <span class="n">_ensure_isaac_sim_available</span><span class="p">()</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">has_kit</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">has_kit</span><span class="p">():</span>
             <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.app</span><span class="w"> </span><span class="kn">import</span> <span class="n">AppLauncher</span>
 
             <span class="n">app_launcher</span> <span class="o">=</span> <span class="n">AppLauncher</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">)</span>
-            <span class="c1"># AppLauncher may refine the device choice (e.g. Kit-specific</span>
-            <span class="c1"># overrides), so propagate its final value to env_cfg.  This</span>
-            <span class="c1"># intentionally overwrites the earlier value set by</span>
-            <span class="c1"># _resolve_distributed_device.</span>
-            <span class="n">sim_cfg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">env_cfg</span><span class="p">,</span> <span class="s2">&quot;sim&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="c1"># AppLauncher may refine the device choice; propagate its final value,</span>
+            <span class="c1"># intentionally overwriting the value set by _resolve_distributed_device.</span>
+            <span class="n">sim_cfg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">effective_cfg</span><span class="p">,</span> <span class="s2">&quot;sim&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">sim_cfg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">app_launcher</span><span class="p">,</span> <span class="s2">&quot;device&quot;</span><span class="p">):</span>
                 <span class="n">sim_cfg</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">app_launcher</span><span class="o">.</span><span class="n">device</span>
             <span class="n">close_fn</span> <span class="o">=</span> <span class="n">app_launcher</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">close</span>
     <span class="k">elif</span> <span class="n">visualizer_types</span> <span class="ow">or</span> <span class="n">visualizer_explicit_none</span><span class="p">:</span>
-        <span class="c1"># Newton path without Kit: AppLauncher is skipped, so manually store the visualizer</span>
-        <span class="c1"># selection in SettingsManager (works in standalone mode via plain dict) so that</span>
-        <span class="c1"># SimulationContext._get_cli_visualizer_types() can find it.</span>
+        <span class="c1"># Kitless path: AppLauncher is skipped, so persist the visualizer selection in</span>
+        <span class="c1"># SettingsManager so SimulationContext._get_cli_visualizer_types() can find it.</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.app</span><span class="w"> </span><span class="kn">import</span> <span class="n">AppLauncher</span>
 
         <span class="n">disable_all</span> <span class="o">=</span> <span class="n">visualizer_explicit_none</span> <span class="ow">or</span> <span class="s2">&quot;none&quot;</span> <span class="ow">in</span> <span class="n">visualizer_types</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">):</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="k">else</span> <span class="n">launcher_args</span>
+        <span class="k">if</span> <span class="n">base</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">AppLauncher</span><span class="o">.</span><span class="n">sync_visualizer_cli_settings_to_carb</span><span class="p">(</span>
-                <span class="p">{</span><span class="o">**</span><span class="nb">vars</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">),</span> <span class="s2">&quot;visualizer_explicit&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;visualizer_disable_all&quot;</span><span class="p">:</span> <span class="n">disable_all</span><span class="p">}</span>
-            <span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="n">AppLauncher</span><span class="o">.</span><span class="n">sync_visualizer_cli_settings_to_carb</span><span class="p">(</span>
-                <span class="p">{</span><span class="o">**</span><span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;visualizer_explicit&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;visualizer_disable_all&quot;</span><span class="p">:</span> <span class="n">disable_all</span><span class="p">}</span>
+                <span class="p">{</span><span class="o">**</span><span class="n">base</span><span class="p">,</span> <span class="s2">&quot;visualizer_explicit&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;visualizer_disable_all&quot;</span><span class="p">:</span> <span class="n">disable_all</span><span class="p">}</span>
             <span class="p">)</span>
 
     <span class="k">try</span><span class="p">:</span>
-        <span class="k">yield</span>
+        <span class="k">yield</span> <span class="n">physics_cfg</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">traceback</span>
 
@@ -1138,6 +1081,41 @@
         <span class="k">if</span> <span class="n">close_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">close_fn</span><span class="p">()</span></div>
 
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_ensure_isaac_sim_available</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Raise ``SystemExit`` with an actionable hint when Isaac Sim / Kit is missing.&quot;&quot;&quot;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">importlib.util</span>
+
+    <span class="k">if</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="s2">&quot;omni.kit&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">isaaclab_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ISAACLAB_PATH&quot;</span><span class="p">)</span>
+    <span class="n">local_sim</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">isaaclab_path</span><span class="p">,</span> <span class="s2">&quot;_isaac_sim&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">isaaclab_path</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="n">extra_hint</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">local_sim</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">local_sim</span><span class="p">):</span>
+        <span class="n">launcher</span><span class="p">,</span> <span class="n">source</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;isaaclab.bat&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;call &quot;</span><span class="si">{</span><span class="n">local_sim</span><span class="si">}</span><span class="se">\\</span><span class="s1">setup_conda_env.bat&quot;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">!=</span> <span class="s2">&quot;win32&quot;</span><span class="p">:</span>
+            <span class="n">launcher</span><span class="p">,</span> <span class="n">source</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;./isaaclab.sh&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;source &quot;</span><span class="si">{</span><span class="n">local_sim</span><span class="si">}</span><span class="s1">/setup_conda_env.sh&quot;&#39;</span><span class="p">)</span>
+        <span class="n">extra_hint</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;  Found a local Isaac Sim at </span><span class="si">{</span><span class="n">local_sim</span><span class="si">}</span><span class="s2"> but its environment is not active.</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;  Either run via `</span><span class="si">{</span><span class="n">launcher</span><span class="si">}</span><span class="s2"> ...` (which sources the Isaac Sim env automatically),</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;  or in your current shell run:</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+        <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[ERROR] Isaac Sim is not installed or not found on PYTHONPATH.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;  This environment requires Isaac Sim and Omniverse Kit.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;    PhysX backend and Kit visualizer currently requires Isaac Sim.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">extra_hint</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;  To fix this, ensure Isaac Sim is installed and available in the current environment.</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;  See https://isaac-sim.github.io/IsaacLab/main/source/setup/installation for details.</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
                 </article>
@@ -1185,7 +1163,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 02, 2026.
+  Last updated on Jun 03, 2026.
   <br/>
 </p>
   </div>

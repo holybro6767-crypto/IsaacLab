@@ -63,7 +63,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="2.3.2" />
-    <meta name="docbuild:last-update" content="Jun 02, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 03, 2026"/>
   </head>
   
   
@@ -718,6 +718,7 @@
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_rl.rsl_rl.RslRlVecEnvWrapper.get_observations"><code class="docutils literal notranslate"><span class="pre">RslRlVecEnvWrapper.get_observations()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_rl.rsl_rl.handle_deprecated_rsl_rl_cfg"><code class="docutils literal notranslate"><span class="pre">handle_deprecated_rsl_rl_cfg()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_rl.rsl_rl.RslRlBaseRunnerCfg"><code class="docutils literal notranslate"><span class="pre">RslRlBaseRunnerCfg</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_rl.rsl_rl.RslRlBaseRunnerCfg.__init__"><code class="docutils literal notranslate"><span class="pre">RslRlBaseRunnerCfg.__init__()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_rl.rsl_rl.RslRlBaseRunnerCfg.seed"><code class="docutils literal notranslate"><span class="pre">RslRlBaseRunnerCfg.seed</span></code></a></li>
@@ -958,7 +959,7 @@
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_rl.rsl_rl.configclass"><code class="docutils literal notranslate"><span class="pre">configclass()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_rl.rsl_rl.handle_deprecated_rsl_rl_cfg"><code class="docutils literal notranslate"><span class="pre">handle_deprecated_rsl_rl_cfg()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_rl.rsl_rl.handle_deprecated_rsl_rl_checkpoint"><code class="docutils literal notranslate"><span class="pre">handle_deprecated_rsl_rl_checkpoint()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-isaaclab_rl.skrl">SKRL Wrapper</a><ul class="nav section-nav flex-column">
@@ -1023,11 +1024,14 @@ Thus, they should always be used in conjunction with the respective learning fra
 <tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_rl.rsl_rl.export_policy_as_onnx" title="isaaclab_rl.rsl_rl.export_policy_as_onnx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_policy_as_onnx</span></code></a>(policy, path[, ...])</p></td>
 <td><p>Export policy into a Torch ONNX file.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_rl.rsl_rl.configclass" title="isaaclab_rl.rsl_rl.configclass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">configclass</span></code></a>(cls, **kwargs)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_rl.rsl_rl.handle_deprecated_rsl_rl_cfg" title="isaaclab_rl.rsl_rl.handle_deprecated_rsl_rl_cfg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">handle_deprecated_rsl_rl_cfg</span></code></a>(agent_cfg, ...)</p></td>
+<td><p>Handle deprecated RSL-RL configurations across version boundaries.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_rl.rsl_rl.configclass" title="isaaclab_rl.rsl_rl.configclass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">configclass</span></code></a>(cls, **kwargs)</p></td>
 <td><p>Wrapper around <cite>dataclass</cite> functionality to add extra checks and utilities.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_rl.rsl_rl.handle_deprecated_rsl_rl_cfg" title="isaaclab_rl.rsl_rl.handle_deprecated_rsl_rl_cfg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">handle_deprecated_rsl_rl_cfg</span></code></a>(agent_cfg, ...)</p></td>
-<td><p>Handle deprecated RSL-RL configurations across version boundaries.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_rl.rsl_rl.handle_deprecated_rsl_rl_checkpoint" title="isaaclab_rl.rsl_rl.handle_deprecated_rsl_rl_checkpoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">handle_deprecated_rsl_rl_checkpoint</span></code></a>(...)</p></td>
+<td><p>Convert a pre-5.0 rsl-rl checkpoint to the layout expected by rsl-rl &gt;= 5.0.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1602,6 +1606,35 @@ wrapper.</p>
 <dd><p>Returns the current observations of the environment.</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="isaaclab_rl.rsl_rl.handle_deprecated_rsl_rl_cfg">
+<span class="sig-prename descclassname"><span class="pre">isaaclab_rl.rsl_rl.</span></span><span class="sig-name descname"><span class="pre">handle_deprecated_rsl_rl_cfg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">agent_cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#isaaclab_rl.rsl_rl.RslRlBaseRunnerCfg" title="isaaclab_rl.rsl_rl.RslRlBaseRunnerCfg"><span class="pre">RslRlBaseRunnerCfg</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">installed_version</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#isaaclab_rl.rsl_rl.RslRlBaseRunnerCfg" title="isaaclab_rl.rsl_rl.RslRlBaseRunnerCfg"><span class="pre">RslRlBaseRunnerCfg</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_rl/rsl_rl/utils.html#handle_deprecated_rsl_rl_cfg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_rl.rsl_rl.handle_deprecated_rsl_rl_cfg" title="Link to this definition">#</a></dt>
+<dd><p>Handle deprecated RSL-RL configurations across version boundaries.</p>
+<p>This function mutates <code class="docutils literal notranslate"><span class="pre">agent_cfg</span></code> to keep configurations compatible with the installed <code class="docutils literal notranslate"><span class="pre">rsl-rl</span></code> version:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>For <code class="docutils literal notranslate"><span class="pre">rsl-rl</span> <span class="pre">&lt;</span> <span class="pre">4.0.0</span></code>, <code class="docutils literal notranslate"><span class="pre">policy</span></code> is required; new model configs (<code class="docutils literal notranslate"><span class="pre">actor</span></code>, <code class="docutils literal notranslate"><span class="pre">critic</span></code>, <code class="docutils literal notranslate"><span class="pre">student</span></code>,</dt><dd><p><code class="docutils literal notranslate"><span class="pre">teacher</span></code>) are ignored and cleared.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>For <code class="docutils literal notranslate"><span class="pre">rsl-rl</span> <span class="pre">&gt;=</span> <span class="pre">4.0.0</span></code>, deprecated <code class="docutils literal notranslate"><span class="pre">policy</span></code> can be used to infer missing model configs, then <code class="docutils literal notranslate"><span class="pre">policy</span></code> is</dt><dd><p>cleared.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>For <code class="docutils literal notranslate"><span class="pre">rsl-rl</span> <span class="pre">&gt;=</span> <span class="pre">5.0.0</span></code>, legacy stochastic parameters are migrated to <code class="docutils literal notranslate"><span class="pre">distribution_cfg</span></code> when needed; for</dt><dd><p><code class="docutils literal notranslate"><span class="pre">4.0.0</span> <span class="pre">&lt;=</span> <span class="pre">rsl-rl</span> <span class="pre">&lt;</span> <span class="pre">5.0.0</span></code>, those legacy parameters are validated instead.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If required legacy parameters are missing for the selected <code class="docutils literal notranslate"><span class="pre">rsl-rl</span></code> version.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py class">
@@ -3824,30 +3857,28 @@ conversion and easily copying class instances.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="isaaclab_rl.rsl_rl.handle_deprecated_rsl_rl_cfg">
-<span class="sig-prename descclassname"><span class="pre">isaaclab_rl.rsl_rl.</span></span><span class="sig-name descname"><span class="pre">handle_deprecated_rsl_rl_cfg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">agent_cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#isaaclab_rl.rsl_rl.RslRlBaseRunnerCfg" title="isaaclab_rl.rsl_rl.RslRlBaseRunnerCfg"><span class="pre">RslRlBaseRunnerCfg</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">installed_version</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#isaaclab_rl.rsl_rl.RslRlBaseRunnerCfg" title="isaaclab_rl.rsl_rl.RslRlBaseRunnerCfg"><span class="pre">RslRlBaseRunnerCfg</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_rl/rsl_rl/utils.html#handle_deprecated_rsl_rl_cfg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_rl.rsl_rl.handle_deprecated_rsl_rl_cfg" title="Link to this definition">#</a></dt>
-<dd><p>Handle deprecated RSL-RL configurations across version boundaries.</p>
-<p>This function mutates <code class="docutils literal notranslate"><span class="pre">agent_cfg</span></code> to keep configurations compatible with the installed <code class="docutils literal notranslate"><span class="pre">rsl-rl</span></code> version:</p>
-<ul class="simple">
-<li><dl class="simple">
-<dt>For <code class="docutils literal notranslate"><span class="pre">rsl-rl</span> <span class="pre">&lt;</span> <span class="pre">4.0.0</span></code>, <code class="docutils literal notranslate"><span class="pre">policy</span></code> is required; new model configs (<code class="docutils literal notranslate"><span class="pre">actor</span></code>, <code class="docutils literal notranslate"><span class="pre">critic</span></code>, <code class="docutils literal notranslate"><span class="pre">student</span></code>,</dt><dd><p><code class="docutils literal notranslate"><span class="pre">teacher</span></code>) are ignored and cleared.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>For <code class="docutils literal notranslate"><span class="pre">rsl-rl</span> <span class="pre">&gt;=</span> <span class="pre">4.0.0</span></code>, deprecated <code class="docutils literal notranslate"><span class="pre">policy</span></code> can be used to infer missing model configs, then <code class="docutils literal notranslate"><span class="pre">policy</span></code> is</dt><dd><p>cleared.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>For <code class="docutils literal notranslate"><span class="pre">rsl-rl</span> <span class="pre">&gt;=</span> <span class="pre">5.0.0</span></code>, legacy stochastic parameters are migrated to <code class="docutils literal notranslate"><span class="pre">distribution_cfg</span></code> when needed; for</dt><dd><p><code class="docutils literal notranslate"><span class="pre">4.0.0</span> <span class="pre">&lt;=</span> <span class="pre">rsl-rl</span> <span class="pre">&lt;</span> <span class="pre">5.0.0</span></code>, those legacy parameters are validated instead.</p>
-</dd>
-</dl>
-</li>
-</ul>
+<dt class="sig sig-object py" id="isaaclab_rl.rsl_rl.handle_deprecated_rsl_rl_checkpoint">
+<span class="sig-prename descclassname"><span class="pre">isaaclab_rl.rsl_rl.</span></span><span class="sig-name descname"><span class="pre">handle_deprecated_rsl_rl_checkpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">checkpoint_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">installed_version</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_rl/rsl_rl/utils.html#handle_deprecated_rsl_rl_checkpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_rl.rsl_rl.handle_deprecated_rsl_rl_checkpoint" title="Link to this definition">#</a></dt>
+<dd><p>Convert a pre-5.0 rsl-rl checkpoint to the layout expected by rsl-rl &gt;= 5.0.</p>
+<p>Older rsl-rl versions saved a single combined <code class="docutils literal notranslate"><span class="pre">model_state_dict</span></code> (with <code class="docutils literal notranslate"><span class="pre">actor.*</span></code>, <code class="docutils literal notranslate"><span class="pre">critic.*</span></code>
+and a top-level <code class="docutils literal notranslate"><span class="pre">std</span></code> parameter). rsl-rl &gt;= 5.0 instead expects separate <code class="docutils literal notranslate"><span class="pre">actor_state_dict</span></code> and
+<code class="docutils literal notranslate"><span class="pre">critic_state_dict</span></code> entries, so the published pretrained checkpoints shipped with older asset
+releases fail to load with <code class="docutils literal notranslate"><span class="pre">KeyError:</span> <span class="pre">'actor_state_dict'</span></code>. This converts such a checkpoint into a
+sibling file and returns its path. New-layout checkpoints, unrecognized payloads, and installations
+of rsl-rl &lt; 5.0 are returned unchanged.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>checkpoint_path</strong> – Path to the checkpoint to (possibly) convert.</p></li>
+<li><p><strong>installed_version</strong> – Installed <code class="docutils literal notranslate"><span class="pre">rsl-rl-lib</span></code> version string.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Path to a checkpoint compatible with the installed rsl-rl version.</p>
+</dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If required legacy parameters are missing for the selected <code class="docutils literal notranslate"><span class="pre">rsl-rl</span></code> version.</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If the checkpoint uses the deprecated combined layout but contains a key that does
+    not map to the <code class="docutils literal notranslate"><span class="pre">actor</span></code>/<code class="docutils literal notranslate"><span class="pre">critic</span></code>/<code class="docutils literal notranslate"><span class="pre">std</span></code> structure expected from older rsl-rl versions.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4179,6 +4210,7 @@ wrapper.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_rl.rsl_rl.RslRlVecEnvWrapper.get_observations"><code class="docutils literal notranslate"><span class="pre">RslRlVecEnvWrapper.get_observations()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_rl.rsl_rl.handle_deprecated_rsl_rl_cfg"><code class="docutils literal notranslate"><span class="pre">handle_deprecated_rsl_rl_cfg()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_rl.rsl_rl.RslRlBaseRunnerCfg"><code class="docutils literal notranslate"><span class="pre">RslRlBaseRunnerCfg</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_rl.rsl_rl.RslRlBaseRunnerCfg.__init__"><code class="docutils literal notranslate"><span class="pre">RslRlBaseRunnerCfg.__init__()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_rl.rsl_rl.RslRlBaseRunnerCfg.seed"><code class="docutils literal notranslate"><span class="pre">RslRlBaseRunnerCfg.seed</span></code></a></li>
@@ -4419,7 +4451,7 @@ wrapper.</p>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_rl.rsl_rl.configclass"><code class="docutils literal notranslate"><span class="pre">configclass()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_rl.rsl_rl.handle_deprecated_rsl_rl_cfg"><code class="docutils literal notranslate"><span class="pre">handle_deprecated_rsl_rl_cfg()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_rl.rsl_rl.handle_deprecated_rsl_rl_checkpoint"><code class="docutils literal notranslate"><span class="pre">handle_deprecated_rsl_rl_checkpoint()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-isaaclab_rl.skrl">SKRL Wrapper</a><ul class="nav section-nav flex-column">
@@ -4471,7 +4503,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 02, 2026.
+  Last updated on Jun 03, 2026.
   <br/>
 </p>
   </div>

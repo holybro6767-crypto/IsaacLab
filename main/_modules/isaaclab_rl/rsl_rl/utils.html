@@ -60,7 +60,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="2.3.2" />
-    <meta name="docbuild:last-update" content="Jun 02, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 03, 2026"/>
   </head>
   
   
@@ -804,6 +804,72 @@
 
 
 
+<div class="viewcode-block" id="handle_deprecated_rsl_rl_checkpoint">
+<a class="viewcode-back" href="../../../source/api/lab_rl/isaaclab_rl.html#isaaclab_rl.rsl_rl.handle_deprecated_rsl_rl_checkpoint">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">handle_deprecated_rsl_rl_checkpoint</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">installed_version</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a pre-5.0 rsl-rl checkpoint to the layout expected by rsl-rl &gt;= 5.0.</span>
+
+<span class="sd">    Older rsl-rl versions saved a single combined ``model_state_dict`` (with ``actor.*``, ``critic.*``</span>
+<span class="sd">    and a top-level ``std`` parameter). rsl-rl &gt;= 5.0 instead expects separate ``actor_state_dict`` and</span>
+<span class="sd">    ``critic_state_dict`` entries, so the published pretrained checkpoints shipped with older asset</span>
+<span class="sd">    releases fail to load with ``KeyError: &#39;actor_state_dict&#39;``. This converts such a checkpoint into a</span>
+<span class="sd">    sibling file and returns its path. New-layout checkpoints, unrecognized payloads, and installations</span>
+<span class="sd">    of rsl-rl &lt; 5.0 are returned unchanged.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        checkpoint_path: Path to the checkpoint to (possibly) convert.</span>
+<span class="sd">        installed_version: Installed ``rsl-rl-lib`` version string.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Path to a checkpoint compatible with the installed rsl-rl version.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the checkpoint uses the deprecated combined layout but contains a key that does</span>
+<span class="sd">            not map to the ``actor``/``critic``/``std`` structure expected from older rsl-rl versions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+    <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+    <span class="k">if</span> <span class="n">version</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">installed_version</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">_V5_0_0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">checkpoint_path</span>
+
+    <span class="n">loaded</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">,</span> <span class="n">weights_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+    <span class="c1"># Only the deprecated combined layout needs conversion; leave new-layout/unknown payloads untouched.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">loaded</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;actor_state_dict&quot;</span> <span class="ow">in</span> <span class="n">loaded</span> <span class="ow">or</span> <span class="s2">&quot;model_state_dict&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">loaded</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">checkpoint_path</span>
+
+    <span class="n">actor_state_dict</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">critic_state_dict</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">loaded</span><span class="p">[</span><span class="s2">&quot;model_state_dict&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;std&quot;</span><span class="p">:</span>
+            <span class="n">actor_state_dict</span><span class="p">[</span><span class="s2">&quot;distribution.std_param&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">elif</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;actor.&quot;</span><span class="p">):</span>
+            <span class="n">actor_state_dict</span><span class="p">[</span><span class="s2">&quot;mlp.&quot;</span> <span class="o">+</span> <span class="n">key</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot;actor.&quot;</span><span class="p">)</span> <span class="p">:]]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">elif</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;critic.&quot;</span><span class="p">):</span>
+            <span class="n">critic_state_dict</span><span class="p">[</span><span class="s2">&quot;mlp.&quot;</span> <span class="o">+</span> <span class="n">key</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot;critic.&quot;</span><span class="p">)</span> <span class="p">:]]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Unrecognized key &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; while converting deprecated rsl-rl checkpoint &#39;</span><span class="si">{</span><span class="n">checkpoint_path</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+                <span class="s2">&quot; Only MLP actor-critic checkpoints from rsl-rl &lt; 5.0 are supported for automatic conversion.&quot;</span>
+            <span class="p">)</span>
+
+    <span class="n">converted</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;actor_state_dict&quot;</span><span class="p">:</span> <span class="n">actor_state_dict</span><span class="p">,</span>
+        <span class="s2">&quot;critic_state_dict&quot;</span><span class="p">:</span> <span class="n">critic_state_dict</span><span class="p">,</span>
+        <span class="c1"># Carry the remaining payload so the runner&#39;s loader behaves as it does for native checkpoints.</span>
+        <span class="s2">&quot;optimizer_state_dict&quot;</span><span class="p">:</span> <span class="n">loaded</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;optimizer_state_dict&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;iter&quot;</span><span class="p">:</span> <span class="n">loaded</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;iter&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="s2">&quot;infos&quot;</span><span class="p">:</span> <span class="n">loaded</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;infos&quot;</span><span class="p">),</span>
+    <span class="p">}</span>
+    <span class="n">root</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">)</span>
+    <span class="n">converted_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">root</span><span class="si">}</span><span class="s2">_rslrl5</span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">converted</span><span class="p">,</span> <span class="n">converted_path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[INFO]: Converted deprecated rsl-rl checkpoint to &#39;</span><span class="si">{</span><span class="n">converted_path</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">converted_path</span></div>
+
+
+
 <span class="k">def</span><span class="w"> </span><span class="nf">_is_missing</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">MISSING</span><span class="p">))</span>
 
@@ -916,7 +982,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 02, 2026.
+  Last updated on Jun 03, 2026.
   <br/>
 </p>
   </div>
