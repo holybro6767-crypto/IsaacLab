@@ -776,7 +776,6 @@ simulation parameters except for the <code class="docutils literal notranslate">
     <span class="n">nconmax</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
     <span class="n">ls_iterations</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
     <span class="n">cone</span><span class="o">=</span><span class="s2">&quot;pyramidal&quot;</span><span class="p">,</span>
-    <span class="n">ls_parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">impratio</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">newton_cfg</span> <span class="o">=</span> <span class="n">NewtonCfg</span><span class="p">(</span>
@@ -794,20 +793,14 @@ given environment. A large value will slow down the simulation, while a too smal
 value may lead to missing constraints.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">nconmax</span></code>: This is the maximum number of contact points MuJoCo-Warp pre-allocates
 for a given environment. Set it high enough for the expected contact count.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ls_iterations</span></code>: The number of line searches performed by the MuJoCo Warp solver.
-Line searches are used to find an optimal step size, and for each solver step,
-at most <code class="docutils literal notranslate"><span class="pre">ls_iterations</span></code> line searches will be performed. Keeping this number low
-is important for performance. This number is also an upper bound when
-<code class="docutils literal notranslate"><span class="pre">ls_parallel</span></code> is not set.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ls_iterations</span></code>: The number of iterative line searches performed by the
+MuJoCo Warp solver. Line searches are used to find an acceptable step size,
+and the solver stops early when convergence is reached. Tune this cap together
+with <code class="docutils literal notranslate"><span class="pre">iterations</span></code> and <code class="docutils literal notranslate"><span class="pre">tolerance</span></code> when balancing convergence and runtime.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cone</span></code>: This parameter provides a choice between pyramidal and elliptic
 approximations for the friction cone used in contact handling. Please see the
 MuJoCo documentation for additional information on contact:
 <a class="reference external" href="https://mujoco.readthedocs.io/en/stable/computation/index.html#contact">https://mujoco.readthedocs.io/en/stable/computation/index.html#contact</a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ls_parallel</span></code>: This switches line searches from iterative to parallel execution.
-Enabling <code class="docutils literal notranslate"><span class="pre">ls_parallel</span></code> provides a performance boost, but at the cost of some
-simulation stability. To ensure good simulation behaviour when enabled, a higher
-<code class="docutils literal notranslate"><span class="pre">ls_iterations</span></code> setting is required. Usually an increase of approximately 50% is
-best over the <code class="docutils literal notranslate"><span class="pre">ls_iterations</span></code> setting when <code class="docutils literal notranslate"><span class="pre">ls_parallel</span></code> is disabled.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">impratio</span></code>: This is the frictional-to-normal constraint impedance ratio that
 enables finer-grained control of the significance of the tangential forces
 compared to the normal forces. Larger values signify more emphasis on harder

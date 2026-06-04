@@ -964,9 +964,9 @@ Newton/CG iterations and
 <a class="reference internal" href="../../../api/lab_newton/isaaclab_newton.physics.html#isaaclab_newton.physics.MJWarpSolverCfg.ls_iterations" title="isaaclab_newton.physics.MJWarpSolverCfg.ls_iterations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ls_iterations</span></code></a> line
 searches per outer iteration. Convergence gate:
 <a class="reference internal" href="../../../api/lab_newton/isaaclab_newton.physics.html#isaaclab_newton.physics.MJWarpSolverCfg.tolerance" title="isaaclab_newton.physics.MJWarpSolverCfg.tolerance"><code class="xref py py-attr docutils literal notranslate"><span class="pre">tolerance</span></code></a> (default
-<code class="docutils literal notranslate"><span class="pre">1e-6</span></code>).
-<a class="reference internal" href="../../../api/lab_newton/isaaclab_newton.physics.html#isaaclab_newton.physics.MJWarpSolverCfg.ls_parallel" title="isaaclab_newton.physics.MJWarpSolverCfg.ls_parallel"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ls_parallel</span></code></a> switches
-line search to parallel execution at a small accuracy cost.</p></td>
+<code class="docutils literal notranslate"><span class="pre">1e-6</span></code>). The line-search cap stops early when convergence is reached;
+tune it together with the outer iteration count for the target runtime
+and convergence behaviour.</p></td>
 </tr>
 <tr class="row-even"><td><p>Kamino</p></td>
 <td><p>P-ADMM with separate

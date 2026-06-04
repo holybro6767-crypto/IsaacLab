@@ -2215,7 +2215,7 @@ retained as metadata for logging and debugging only.  Do not branch on
 <td><p>Maximum iterations for convex collision detection (GJK/EPA).</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.MJWarpSolverCfg.ls_parallel" title="isaaclab_newton.physics.MJWarpSolverCfg.ls_parallel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ls_parallel</span></code></a></p></td>
-<td><p>Whether to use parallel line search.</p></td>
+<td><p>Deprecated parallel line search option.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.MJWarpSolverCfg.use_mujoco_contacts" title="isaaclab_newton.physics.MJWarpSolverCfg.use_mujoco_contacts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">use_mujoco_contacts</span></code></a></p></td>
 <td><p>Whether to use MuJoCo's internal contact solver.</p></td>
@@ -2335,7 +2335,10 @@ which typically occurs with complex collision geometries (e.g. multi-finger hand
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isaaclab_newton.physics.MJWarpSolverCfg.ls_parallel">
 <span class="sig-name descname"><span class="pre">ls_parallel</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#isaaclab_newton.physics.MJWarpSolverCfg.ls_parallel" title="Link to this definition">#</a></dt>
-<dd><p>Whether to use parallel line search.</p>
+<dd><p>Deprecated parallel line search option.</p>
+<p>Setting this to <code class="docutils literal notranslate"><span class="pre">True</span></code> emits a <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#DeprecationWarning" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeprecationWarning</span></code></a> and is ignored.
+MuJoCo Warp is dropping support for parallel line search; Isaac Lab uses
+iterative line search for performance.</p>
 </dd></dl>
 
 <dl class="py attribute">

@@ -1439,8 +1439,8 @@ subclass that carries both a PhysX and a Newton variant.</p>
     <span class="n">newton_mjwarp</span><span class="p">:</span>  <span class="n">NewtonCfg</span> <span class="o">=</span> <span class="n">NewtonCfg</span><span class="p">(</span>
         <span class="n">solver_cfg</span><span class="o">=</span><span class="n">MJWarpSolverCfg</span><span class="p">(</span>
             <span class="n">njmax</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">nconmax</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">ls_iterations</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-            <span class="n">cone</span><span class="o">=</span><span class="s2">&quot;pyramidal&quot;</span><span class="p">,</span> <span class="n">ls_parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">integrator</span><span class="o">=</span><span class="s2">&quot;implicitfast&quot;</span><span class="p">,</span> <span class="n">impratio</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">cone</span><span class="o">=</span><span class="s2">&quot;pyramidal&quot;</span><span class="p">,</span> <span class="n">integrator</span><span class="o">=</span><span class="s2">&quot;implicitfast&quot;</span><span class="p">,</span>
+            <span class="n">impratio</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="n">num_substeps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">debug_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -1471,7 +1471,8 @@ subclass that carries both a PhysX and a Newton variant.</p>
 <td><p>Max contacts per env</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ls_iterations</span></code></p></td>
-<td><p>Linear solver iterations (higher = more stable, slower)</p></td>
+<td><p>Iterative line search cap; stops early when convergence is reached.
+Tune alongside outer solver iterations for runtime and convergence.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cone</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">&quot;pyramidal&quot;</span></code> (fast) or <code class="docutils literal notranslate"><span class="pre">&quot;elliptic&quot;</span></code> (more accurate)</p></td>
