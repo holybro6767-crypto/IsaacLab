@@ -32,9 +32,10 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="../../../_static/twemoji.css" />
-    <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/css/all.min.css?v=53359634" />
+    <link rel="stylesheet" type="text/css" href="/home/runner/work/IsaacLab/IsaacLab/.venv/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/css/all.min.css?v=53359634" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_paramlinks.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=83908d17" />
   
   <!-- So that users can add custom icons -->
@@ -48,7 +49,7 @@
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="https://unpkg.com/twemoji@latest/dist/twemoji.min.js"></script>
     <script src="../../../_static/twemoji.js"></script>
-    <script src="/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/js/all.min.js?v=ec35c6c9"></script>
+    <script src="/home/runner/work/IsaacLab/IsaacLab/.venv/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/js/all.min.js?v=ec35c6c9"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
@@ -715,7 +716,6 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.sim.utils.stage</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_current_stage</span><span class="p">,</span> <span class="n">get_current_stage_id</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.sim.views</span><span class="w"> </span><span class="kn">import</span> <span class="n">FrameView</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.terrains</span><span class="w"> </span><span class="kn">import</span> <span class="n">TerrainImporter</span><span class="p">,</span> <span class="n">TerrainImporterCfg</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.utils.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">has_kit</span>
 
 <span class="c1"># Note: This is a temporary import for the VisuoTactileSensorCfg class.</span>
 <span class="c1"># It will be removed once the VisuoTactileSensor class is added to the core Isaac Lab framework.</span>
@@ -786,12 +786,20 @@
 <span class="sd">        robot = scene.articulations[&quot;robot&quot;]</span>
 
 <span class="sd">    If the :class:`InteractiveSceneCfg` class does not include asset entities, the cloning process</span>
-<span class="sd">    can still be triggered if assets were added to the stage outside of the :class:`InteractiveScene` class:</span>
+<span class="sd">    can still be triggered by constructing assets directly on the stage and then calling</span>
+<span class="sd">    :func:`isaaclab.cloner.replicate` with a single-source :class:`~isaaclab.cloner.ClonePlan`:</span>
 
 <span class="sd">    .. code-block:: python</span>
 
+<span class="sd">        from isaaclab import cloner</span>
+<span class="sd">        from isaaclab.assets import Articulation</span>
+
 <span class="sd">        scene = InteractiveScene(cfg=InteractiveSceneCfg(num_envs=128, replicate_physics=True))</span>
-<span class="sd">        scene.clone_environments()</span>
+<span class="sd">        robot = Articulation(robot_cfg)</span>
+<span class="sd">        src, dest = &quot;/World/envs/env_0&quot;, &quot;/World/envs/env_{}&quot;</span>
+<span class="sd">        pos = cloner.grid_transforms(scene.num_envs, scene.cfg.env_spacing, device=scene.device)[0]</span>
+<span class="sd">        plan = cloner.ClonePlan.from_env_0(src, dest, scene.num_envs, scene.device, pos)</span>
+<span class="sd">        cloner.replicate(plan, stage=scene.stage)</span>
 
 <span class="sd">    .. note::</span>
 <span class="sd">        It is important to note that the scene only performs common operations on the entities. For example,</span>
@@ -829,200 +837,69 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">stage_id</span> <span class="o">=</span> <span class="n">get_current_stage_id</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">physics_backend</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">physics_manager</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
         <span class="n">requested_viz_types</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">resolve_visualizer_types</span><span class="p">())</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">physics_backend</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;ovphysx&quot;</span><span class="p">):</span>
-            <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_ovphysx.cloner</span><span class="w"> </span><span class="kn">import</span> <span class="n">ovphysx_replicate</span>
-
-            <span class="n">physics_clone_fn</span> <span class="o">=</span> <span class="n">ovphysx_replicate</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">physics_backend</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;physx&quot;</span><span class="p">):</span>
-            <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_physx.cloner</span><span class="w"> </span><span class="kn">import</span> <span class="n">physx_replicate</span>
-
-            <span class="n">physics_clone_fn</span> <span class="o">=</span> <span class="n">physx_replicate</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">physics_backend</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;newton&quot;</span><span class="p">):</span>
-            <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_newton.cloner</span><span class="w"> </span><span class="kn">import</span> <span class="n">newton_physics_replicate</span>
-
-            <span class="n">physics_clone_fn</span> <span class="o">=</span> <span class="n">newton_physics_replicate</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported physics backend: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">physics_backend</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="c1"># physics scene path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_physics_scene_path</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="c1"># prepare cloner for environment replication</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">env_prim_paths</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">env_ns</span><span class="si">}</span><span class="s2">/env_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_envs</span><span class="p">)]</span>
-        <span class="n">is_newton_replicated_scene</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">replicate_physics</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">physics_backend</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;newton&quot;</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">cloner_cfg</span> <span class="o">=</span> <span class="n">cloner</span><span class="o">.</span><span class="n">CloneCfg</span><span class="p">(</span>
-            <span class="n">clone_regex</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">env_regex_ns</span><span class="p">,</span>
-            <span class="n">clone_in_fabric</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">clone_in_fabric</span><span class="p">,</span>
-            <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
-            <span class="n">physics_clone_fn</span><span class="o">=</span><span class="n">physics_clone_fn</span><span class="p">,</span>
-            <span class="n">clone_usd</span><span class="o">=</span><span class="ow">not</span> <span class="n">is_newton_replicated_scene</span> <span class="ow">or</span> <span class="n">has_kit</span><span class="p">(),</span>
-        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cloner_cfg</span> <span class="o">=</span> <span class="n">cloner</span><span class="o">.</span><span class="n">CloneCfg</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">env_root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cloner_cfg</span><span class="o">.</span><span class="n">clone_regex</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env_prim_paths</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">env_root</span><span class="si">}</span><span class="s2">/env_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_envs</span><span class="p">)]</span>
 
         <span class="c1"># create source prim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stage</span><span class="o">.</span><span class="n">DefinePrim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env_prim_paths</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;Xform&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">env_fmt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env_regex_ns</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.*&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="c1"># allocate env indices</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ALL_INDICES</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_envs</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
-        <span class="n">pos</span><span class="p">,</span> <span class="n">quat</span> <span class="o">=</span> <span class="n">cloner</span><span class="o">.</span><span class="n">grid_transforms</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_envs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">env_spacing</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_default_env_pose</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">pos</span><span class="p">,</span> <span class="n">quat</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-
-        <span class="n">homo_mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_envs</span><span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
-        <span class="c1"># Suspend Fabric&#39;s USD notice listener enable fast usd cloning</span>
+        <span class="c1"># clone env_0 xform to env_1..env_{N-1} at grid origins</span>
+        <span class="n">env_origins</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">cloner</span><span class="o">.</span><span class="n">grid_transforms</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_envs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">env_spacing</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
         <span class="k">with</span> <span class="n">cloner</span><span class="o">.</span><span class="n">disabled_fabric_change_notifies</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stage</span><span class="p">,</span> <span class="n">restore</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-            <span class="c1"># copy empty prim of env_0 to env_1, env_2, ..., env_{num_envs-1} with correct location.</span>
-            <span class="n">rep_args</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stage</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">env_fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">0</span><span class="p">)],</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">env_fmt</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ALL_INDICES</span><span class="p">,</span> <span class="n">homo_mask</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">quat</span><span class="p">)</span>
-            <span class="n">cloner</span><span class="o">.</span><span class="n">usd_replicate</span><span class="p">(</span><span class="o">*</span><span class="n">rep_args</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_global_prim_paths</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-        <span class="n">has_scene_cfg_entities</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_scene_setup_from_cfg</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">has_scene_cfg_entities</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_clone_plan</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_clone_plan_from_cfg</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">set_clone_plan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clone_plan</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_add_entities_from_cfg</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_clone_plan</span> <span class="o">=</span> <span class="n">cloner</span><span class="o">.</span><span class="n">ClonePlan</span><span class="p">(</span>
-                <span class="n">sources</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env_fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">0</span><span class="p">),),</span>
-                <span class="n">destinations</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env_fmt</span><span class="p">,),</span>
-                <span class="n">clone_mask</span><span class="o">=</span><span class="n">homo_mask</span><span class="p">,</span>
+            <span class="n">cloner</span><span class="o">.</span><span class="n">usd_replicate</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stage</span><span class="p">,</span>
+                <span class="p">[</span><span class="s2">&quot;/World/envs/env_0&quot;</span><span class="p">],</span>
+                <span class="p">[</span><span class="s2">&quot;/World/envs/env_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ALL_INDICES</span><span class="p">,</span>
+                <span class="n">positions</span><span class="o">=</span><span class="n">env_origins</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">set_clone_plan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clone_plan</span><span class="p">)</span>
 
-        <span class="c1"># Aggregate scene-data requirements from declared visualizers and constructed sensors,</span>
-        <span class="c1"># then publish to ``SimulationContext`` so downstream providers (constructed later by</span>
-        <span class="c1"># :meth:`SimulationContext.initialize_visualizers`) see the full picture in one read.</span>
+        <span class="c1"># Always enter so a ClonePlan is published even when the scene cfg has no entities.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_global_prim_paths</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">cloner</span><span class="o">.</span><span class="n">ReplicateSession</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_collect_asset_cfgs</span><span class="p">(),</span>
+            <span class="n">num_clones</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_envs</span><span class="p">,</span>
+            <span class="n">env_spacing</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">env_spacing</span><span class="p">,</span>
+            <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
+            <span class="n">stage</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">stage</span><span class="p">,</span>
+            <span class="n">clone_strategy</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cloner_cfg</span><span class="o">.</span><span class="n">clone_strategy</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_scene_setup_from_cfg</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_add_entities_from_cfg</span><span class="p">()</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_aggregate_scene_data_requirements</span><span class="p">(</span><span class="n">requested_viz_types</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">has_scene_cfg_entities</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">clone_environments</span><span class="p">(</span><span class="n">copy_from_source</span><span class="o">=</span><span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">replicate_physics</span><span class="p">))</span>
-            <span class="c1"># Collision filtering is PhysX-specific (PhysxSchema.PhysxSceneAPI)</span>
-            <span class="c1"># Intentionally matches both physx and ovphysx (both are PhysX-based)</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">filter_collisions</span> <span class="ow">and</span> <span class="s2">&quot;physx&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">physics_backend</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">filter_collisions</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_global_prim_paths</span><span class="p">)</span></div>
+        <span class="c1"># Collision filtering is PhysX-only (matches both physx and ovphysx).</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">filter_collisions</span> <span class="ow">and</span> <span class="s2">&quot;physx&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">physics_backend</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_scene_setup_from_cfg</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filter_collisions</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_global_prim_paths</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">_build_clone_plan_from_cfg</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">cloner</span><span class="o">.</span><span class="n">ClonePlan</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Build a clone plan from scene cfg spawn variants and write planned spawn paths.</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_collect_asset_cfgs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Flatten user-declared cfgs for :func:`~isaaclab.cloner.make_clone_plan`.</span>
 
-<span class="sd">        Returns ``None`` when the cfg has no env-scoped spawned assets.</span>
+<span class="sd">        Expands :class:`~isaaclab.assets.RigidObjectCollectionCfg` into its members,</span>
+<span class="sd">        resolves ``{ENV_REGEX_NS}`` macros, and orders sensors after non-sensors.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">def</span><span class="w"> </span><span class="nf">num_variants</span><span class="p">(</span><span class="n">spawn_cfg</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spawn_cfg</span><span class="p">,</span> <span class="n">sim_utils</span><span class="o">.</span><span class="n">MultiAssetSpawnerCfg</span><span class="p">):</span>
-                <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">spawn_cfg</span><span class="o">.</span><span class="n">assets_cfg</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spawn_cfg</span><span class="p">,</span> <span class="n">sim_utils</span><span class="o">.</span><span class="n">MultiUsdFileCfg</span><span class="p">):</span>
-                <span class="k">return</span> <span class="mi">1</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spawn_cfg</span><span class="o">.</span><span class="n">usd_path</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="nb">len</span><span class="p">(</span><span class="n">spawn_cfg</span><span class="o">.</span><span class="n">usd_path</span><span class="p">)</span>
-            <span class="k">return</span> <span class="mi">1</span>
-
-        <span class="k">def</span><span class="w"> </span><span class="nf">set_spawn_paths</span><span class="p">(</span><span class="n">spawn_cfg</span><span class="p">,</span> <span class="n">paths</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spawn_cfg</span><span class="p">,</span> <span class="p">(</span><span class="n">sim_utils</span><span class="o">.</span><span class="n">MultiAssetSpawnerCfg</span><span class="p">,</span> <span class="n">sim_utils</span><span class="o">.</span><span class="n">MultiUsdFileCfg</span><span class="p">)):</span>
-                <span class="n">spawn_cfg</span><span class="o">.</span><span class="n">spawn_paths</span> <span class="o">=</span> <span class="n">paths</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">active</span> <span class="o">=</span> <span class="p">[</span><span class="n">path</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span> <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">active</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Single spawner expects exactly one planned source path.&quot;</span><span class="p">)</span>
-                <span class="n">spawn_cfg</span><span class="o">.</span><span class="n">spawn_path</span> <span class="o">=</span> <span class="n">active</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
         <span class="n">cfg_fields</span> <span class="o">=</span> <span class="n">InteractiveSceneCfg</span><span class="o">.</span><span class="n">__dataclass_fields__</span>
         <span class="n">items</span> <span class="o">=</span> <span class="p">[(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cfg_fields</span> <span class="ow">and</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
-        <span class="n">ordered_items</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">SensorBaseCfg</span><span class="p">)]</span>
-        <span class="n">ordered_items</span> <span class="o">+=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">SensorBaseCfg</span><span class="p">)]</span>
+        <span class="n">ordered_items</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">items</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">SensorBaseCfg</span><span class="p">)]</span>
+        <span class="n">ordered_items</span> <span class="o">+=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">items</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">SensorBaseCfg</span><span class="p">)]</span>
 
-        <span class="c1"># One group is one cfg&#39;s prim path template plus its spawn variants.</span>
-        <span class="n">groups</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">asset_cfg</span> <span class="ow">in</span> <span class="n">ordered_items</span><span class="p">:</span>
-            <span class="n">cfgs</span> <span class="o">=</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">rigid_objects</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">asset_cfg</span><span class="p">,</span> <span class="n">RigidObjectCollectionCfg</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="n">asset_cfg</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">cfg</span> <span class="ow">in</span> <span class="p">(</span><span class="n">cfg</span> <span class="k">for</span> <span class="n">cfg</span> <span class="ow">in</span> <span class="n">cfgs</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="s2">&quot;prim_path&quot;</span><span class="p">)):</span>
-                <span class="n">prim_path</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">prim_path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ENV_REGEX_NS</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">env_regex_ns</span><span class="p">)</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="s2">&quot;spawn&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">cfg</span><span class="o">.</span><span class="n">spawn</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">env_ns</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">prim_path</span><span class="p">:</span>
-                    <span class="k">continue</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">:=</span> <span class="n">num_variants</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">spawn</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">groups</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">cfg</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">spawn</span><span class="p">,</span> <span class="n">prim_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env_regex_ns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">env_fmt</span><span class="p">),</span> <span class="n">count</span><span class="p">))</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">groups</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-
-        <span class="c1"># Homogeneous scenes still spawn sources at env_0, but publish the simpler env-root plan.</span>
-        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">count</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">spawn_cfg</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">:</span>
-                <span class="n">set_spawn_paths</span><span class="p">(</span><span class="n">spawn_cfg</span><span class="p">,</span> <span class="p">[</span><span class="n">destination</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">0</span><span class="p">)])</span>
-            <span class="n">clone_mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_envs</span><span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">cloner</span><span class="o">.</span><span class="n">ClonePlan</span><span class="p">(</span>
-                <span class="n">sources</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env_fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">0</span><span class="p">),),</span>
-                <span class="n">destinations</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env_fmt</span><span class="p">,),</span>
-                <span class="n">clone_mask</span><span class="o">=</span><span class="n">clone_mask</span><span class="p">,</span>
+        <span class="n">cfgs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">asset_cfg</span> <span class="ow">in</span> <span class="n">ordered_items</span><span class="p">:</span>
+            <span class="n">children</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">asset_cfg</span><span class="o">.</span><span class="n">rigid_objects</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">asset_cfg</span><span class="p">,</span> <span class="n">RigidObjectCollectionCfg</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="n">asset_cfg</span><span class="p">]</span>
             <span class="p">)</span>
-
-        <span class="n">sources</span><span class="p">,</span> <span class="n">destinations</span><span class="p">,</span> <span class="n">clone_mask</span> <span class="o">=</span> <span class="n">cloner</span><span class="o">.</span><span class="n">make_clone_plan</span><span class="p">(</span>
-            <span class="n">sources</span><span class="o">=</span><span class="p">[[</span><span class="n">destination</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">)]</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">],</span>
-            <span class="n">destinations</span><span class="o">=</span><span class="p">[</span><span class="n">destination</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">],</span>
-            <span class="n">num_clones</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">num_envs</span><span class="p">,</span>
-            <span class="n">clone_strategy</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cloner_cfg</span><span class="o">.</span><span class="n">clone_strategy</span><span class="p">,</span>
-            <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
-        <span class="p">)</span>
-
-        <span class="c1"># Move each planned source entry to the first environment that actually uses it.</span>
-        <span class="n">source_start</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">sources</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">spawn_cfg</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">:</span>
-            <span class="n">submask</span> <span class="o">=</span> <span class="n">clone_mask</span><span class="p">[</span><span class="n">source_start</span> <span class="p">:</span> <span class="n">source_start</span> <span class="o">+</span> <span class="n">count</span><span class="p">]</span>
-            <span class="n">env_ids</span> <span class="o">=</span> <span class="n">submask</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">int</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-            <span class="n">active</span> <span class="o">=</span> <span class="n">submask</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-            <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">destination</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eid</span><span class="p">)</span> <span class="k">if</span> <span class="n">a</span> <span class="k">else</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">eid</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">env_ids</span><span class="p">,</span> <span class="n">active</span><span class="p">)]</span>
-            <span class="k">for</span> <span class="n">offset</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">paths</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">sources</span><span class="p">[</span><span class="n">source_start</span> <span class="o">+</span> <span class="n">offset</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
-            <span class="n">set_spawn_paths</span><span class="p">(</span><span class="n">spawn_cfg</span><span class="p">,</span> <span class="n">paths</span><span class="p">)</span>
-            <span class="n">source_start</span> <span class="o">+=</span> <span class="n">count</span>
-
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Built heterogeneous ClonePlan with </span><span class="si">%d</span><span class="s2"> source entries.&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sources</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">cloner</span><span class="o">.</span><span class="n">ClonePlan</span><span class="p">(</span><span class="n">sources</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">sources</span><span class="p">),</span> <span class="n">destinations</span><span class="o">=</span><span class="n">destinations</span><span class="p">,</span> <span class="n">clone_mask</span><span class="o">=</span><span class="n">clone_mask</span><span class="p">)</span>
-
-<div class="viewcode-block" id="InteractiveScene.clone_environments">
-<a class="viewcode-back" href="../../../source/api/lab/isaaclab.scene.html#isaaclab.scene.InteractiveScene.clone_environments">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">clone_environments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">copy_from_source</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Creates clones of the environment ``/World/envs/env_0``.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            copy_from_source: (bool): If set to False, clones inherit from /World/envs/env_0 and mirror its changes.</span>
-<span class="sd">            If True, clones are independent copies of the source prim and won&#39;t reflect its changes (start-up time</span>
-<span class="sd">            may increase). Defaults to False.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">plan</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone_plan</span>
-        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">sim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="n">plan</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">set_clone_plan</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
-            <span class="k">return</span>
-
-        <span class="c1"># PhysX-only: set env id bit count for replicated physics. Newton handles env separation in its own API.</span>
-        <span class="c1"># Intentionally matches both physx and ovphysx (both are PhysX-based)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">replicate_physics</span> <span class="ow">and</span> <span class="s2">&quot;physx&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">physics_backend</span><span class="p">:</span>
-            <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sdf</span>  <span class="c1"># noqa: PLC0415</span>
-
-            <span class="n">prim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stage</span><span class="o">.</span><span class="n">GetPrimAtPath</span><span class="p">(</span><span class="s2">&quot;/physicsScene&quot;</span><span class="p">)</span>
-            <span class="n">prim</span><span class="o">.</span><span class="n">CreateAttribute</span><span class="p">(</span><span class="s2">&quot;physxScene:envIdInBoundsBitCount&quot;</span><span class="p">,</span> <span class="n">Sdf</span><span class="o">.</span><span class="n">ValueTypeNames</span><span class="o">.</span><span class="n">Int</span><span class="p">)</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-
-        <span class="c1"># Suspend Fabric&#39;s USD notice listener around bulk authoring. ``restore=False`` because the downstream</span>
-        <span class="c1"># ``SimulationContext.reset`` does the Fabric resync — re-enabling here would batch-resync everything</span>
-        <span class="c1"># we just authored, which is slower than the unsuppressed baseline.</span>
-        <span class="k">with</span> <span class="n">cloner</span><span class="o">.</span><span class="n">disabled_fabric_change_notifies</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stage</span><span class="p">,</span> <span class="n">restore</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-            <span class="n">replicate_args</span> <span class="o">=</span> <span class="p">(</span><span class="n">plan</span><span class="o">.</span><span class="n">sources</span><span class="p">,</span> <span class="n">plan</span><span class="o">.</span><span class="n">destinations</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ALL_INDICES</span><span class="p">,</span> <span class="n">plan</span><span class="o">.</span><span class="n">clone_mask</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">copy_from_source</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">cloner_cfg</span><span class="o">.</span><span class="n">physics_clone_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">cloner_cfg</span><span class="o">.</span><span class="n">physics_clone_fn</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">stage</span><span class="p">,</span>
-                    <span class="o">*</span><span class="n">replicate_args</span><span class="p">,</span>
-                    <span class="n">positions</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_default_env_pose</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">],</span>
-                    <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cloner_cfg</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cloner_cfg</span><span class="o">.</span><span class="n">clone_usd</span><span class="p">:</span>
-                <span class="n">is_env_root_plan</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">plan</span><span class="o">.</span><span class="n">sources</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">plan</span><span class="o">.</span><span class="n">destinations</span> <span class="o">==</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env_fmt</span><span class="p">,)</span>
-                <span class="n">usd_positions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_env_pose</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="k">if</span> <span class="n">is_env_root_plan</span> <span class="k">else</span> <span class="kc">None</span>
-                <span class="n">cloner</span><span class="o">.</span><span class="n">usd_replicate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stage</span><span class="p">,</span> <span class="o">*</span><span class="n">replicate_args</span><span class="p">,</span> <span class="n">positions</span><span class="o">=</span><span class="n">usd_positions</span><span class="p">)</span>
-
-        <span class="c1"># Publish to ``SimulationContext`` (the canonical owner). The :attr:`clone_plan`</span>
-        <span class="c1"># property below forwards reads back through ``sim.get_clone_plan()`` so consumers</span>
-        <span class="c1"># holding a scene reference still see the published plan without a duplicate cache.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">set_clone_plan</span><span class="p">(</span><span class="n">plan</span><span class="p">)</span></div>
-
+            <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="s2">&quot;prim_path&quot;</span><span class="p">):</span>
+                    <span class="n">child</span><span class="o">.</span><span class="n">prim_path</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">prim_path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ENV_REGEX_NS</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cloner_cfg</span><span class="o">.</span><span class="n">clone_regex</span><span class="p">)</span>
+                <span class="n">cfgs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cfgs</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_aggregate_scene_data_requirements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">visualizer_types</span><span class="o">=</span><span class="p">())</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Aggregate scene-data requirements from visualizers and sensor renderers.</span>
@@ -1172,31 +1049,18 @@
         <span class="k">return</span> <span class="n">sim_utils</span><span class="o">.</span><span class="n">SimulationContext</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">device</span>  <span class="c1"># pyright: ignore [reportOptionalMemberAccess]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">env_ns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The namespace ``/World/envs`` in which all environments created.</span>
-
-<span class="sd">        The environments are present w.r.t. this namespace under &quot;env_{N}&quot; prim,</span>
-<span class="sd">        where N is a natural number.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="s2">&quot;/World/envs&quot;</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">env_regex_ns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The namespace ``/World/envs/env_.*`` in which all environments created.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">env_ns</span><span class="si">}</span><span class="s2">/env_.*&quot;</span>
-
-    <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">num_envs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;The number of environments handled by the scene.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">num_envs</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">env_origins</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The origins of the environments in the scene. Shape is (num_envs, 3).&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Per-env world origins, shape ``(num_envs, 3)``. From the terrain when registered,</span>
+<span class="sd">        else from the published :class:`~isaaclab.cloner.ClonePlan`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_terrain</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_terrain</span><span class="o">.</span><span class="n">env_origins</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_env_pose</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">get_clone_plan</span><span class="p">()</span><span class="o">.</span><span class="n">positions</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">terrain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TerrainImporter</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
@@ -1240,11 +1104,11 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">clone_plan</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">cloner</span><span class="o">.</span><span class="n">ClonePlan</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clone plan produced by :meth:`clone_environments`.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clone plan produced by the most recent replication.</span>
 
 <span class="sd">        Forwards to :meth:`SimulationContext.get_clone_plan`, which is the canonical owner.</span>
 <span class="sd">        The plan records the source paths, destination templates, and the per-env source</span>
-<span class="sd">        assignment mask. ``None`` until :meth:`clone_environments` runs.</span>
+<span class="sd">        assignment mask. ``None`` until :func:`isaaclab.cloner.replicate` has run.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sim</span><span class="o">.</span><span class="n">get_clone_plan</span><span class="p">()</span>
 
@@ -1588,6 +1452,9 @@
 
         <span class="c1"># store paths that are in global collision filter</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_global_prim_paths</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="c1"># Resolve the env-namespace convention from the cloner cfg once for this pass.</span>
+        <span class="n">env_regex_ns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cloner_cfg</span><span class="o">.</span><span class="n">clone_regex</span>
+        <span class="n">env_root</span> <span class="o">=</span> <span class="n">env_regex_ns</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="c1"># Process non-sensor entities before sensors so that asset prims exist in the template</span>
         <span class="c1"># when sensors (e.g. cameras attached to robot links) need to spawn under them.</span>
         <span class="n">all_items</span> <span class="o">=</span> <span class="p">[</span>
@@ -1602,13 +1469,13 @@
         <span class="k">for</span> <span class="n">asset_name</span><span class="p">,</span> <span class="n">asset_cfg</span> <span class="ow">in</span> <span class="n">ordered_items</span><span class="p">:</span>
             <span class="c1"># resolve prim_path with env regex</span>
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">asset_cfg</span><span class="p">,</span> <span class="s2">&quot;prim_path&quot;</span><span class="p">):</span>
-                <span class="n">asset_cfg</span><span class="o">.</span><span class="n">prim_path</span> <span class="o">=</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">prim_path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ENV_REGEX_NS</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">env_regex_ns</span><span class="p">)</span>
+                <span class="n">asset_cfg</span><span class="o">.</span><span class="n">prim_path</span> <span class="o">=</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">prim_path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ENV_REGEX_NS</span><span class="o">=</span><span class="n">env_regex_ns</span><span class="p">)</span>
             <span class="c1"># set spawn_path on spawner if cloning is needed</span>
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">asset_cfg</span><span class="p">,</span> <span class="s2">&quot;spawn&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">spawn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">is_multi_spawner</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span>
                     <span class="n">asset_cfg</span><span class="o">.</span><span class="n">spawn</span><span class="p">,</span> <span class="p">(</span><span class="n">sim_utils</span><span class="o">.</span><span class="n">MultiAssetSpawnerCfg</span><span class="p">,</span> <span class="n">sim_utils</span><span class="o">.</span><span class="n">MultiUsdFileCfg</span><span class="p">)</span>
                 <span class="p">)</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">env_ns</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">prim_path</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">env_root</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">prim_path</span><span class="p">:</span>
                     <span class="n">asset_cfg</span><span class="o">.</span><span class="n">spawn</span><span class="o">.</span><span class="n">spawn_path</span> <span class="o">=</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">prim_path</span>
                 <span class="k">elif</span> <span class="n">is_multi_spawner</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">spawn</span><span class="o">.</span><span class="n">spawn_paths</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Clone planning did not assign spawn_paths for &#39;</span><span class="si">{</span><span class="n">asset_cfg</span><span class="o">.</span><span class="n">prim_path</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
@@ -1628,13 +1495,13 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_rigid_objects</span><span class="p">[</span><span class="n">asset_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">class_type</span><span class="p">(</span><span class="n">asset_cfg</span><span class="p">)</span>
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">asset_cfg</span><span class="p">,</span> <span class="n">RigidObjectCollectionCfg</span><span class="p">):</span>
                 <span class="k">for</span> <span class="n">rigid_object_cfg</span> <span class="ow">in</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">rigid_objects</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                    <span class="n">rigid_object_cfg</span><span class="o">.</span><span class="n">prim_path</span> <span class="o">=</span> <span class="n">rigid_object_cfg</span><span class="o">.</span><span class="n">prim_path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ENV_REGEX_NS</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">env_regex_ns</span><span class="p">)</span>
+                    <span class="n">rigid_object_cfg</span><span class="o">.</span><span class="n">prim_path</span> <span class="o">=</span> <span class="n">rigid_object_cfg</span><span class="o">.</span><span class="n">prim_path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ENV_REGEX_NS</span><span class="o">=</span><span class="n">env_regex_ns</span><span class="p">)</span>
                     <span class="c1"># set spawn_path on spawner if cloning is needed</span>
                     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">rigid_object_cfg</span><span class="p">,</span> <span class="s2">&quot;spawn&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">rigid_object_cfg</span><span class="o">.</span><span class="n">spawn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="n">is_multi_spawner</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span>
                             <span class="n">rigid_object_cfg</span><span class="o">.</span><span class="n">spawn</span><span class="p">,</span> <span class="p">(</span><span class="n">sim_utils</span><span class="o">.</span><span class="n">MultiAssetSpawnerCfg</span><span class="p">,</span> <span class="n">sim_utils</span><span class="o">.</span><span class="n">MultiUsdFileCfg</span><span class="p">)</span>
                         <span class="p">)</span>
-                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">env_ns</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">rigid_object_cfg</span><span class="o">.</span><span class="n">prim_path</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">env_root</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">rigid_object_cfg</span><span class="o">.</span><span class="n">prim_path</span><span class="p">:</span>
                             <span class="n">rigid_object_cfg</span><span class="o">.</span><span class="n">spawn</span><span class="o">.</span><span class="n">spawn_path</span> <span class="o">=</span> <span class="n">rigid_object_cfg</span><span class="o">.</span><span class="n">prim_path</span>
                         <span class="k">elif</span> <span class="n">is_multi_spawner</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">rigid_object_cfg</span><span class="o">.</span><span class="n">spawn</span><span class="o">.</span><span class="n">spawn_paths</span><span class="p">:</span>
                             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
@@ -1657,32 +1524,32 @@
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">asset_cfg</span><span class="p">,</span> <span class="n">FrameTransformerCfg</span><span class="p">):</span>
                     <span class="n">updated_target_frames</span> <span class="o">=</span> <span class="p">[]</span>
                     <span class="k">for</span> <span class="n">target_frame</span> <span class="ow">in</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">target_frames</span><span class="p">:</span>
-                        <span class="n">target_frame</span><span class="o">.</span><span class="n">prim_path</span> <span class="o">=</span> <span class="n">target_frame</span><span class="o">.</span><span class="n">prim_path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ENV_REGEX_NS</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">env_regex_ns</span><span class="p">)</span>
+                        <span class="n">target_frame</span><span class="o">.</span><span class="n">prim_path</span> <span class="o">=</span> <span class="n">target_frame</span><span class="o">.</span><span class="n">prim_path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ENV_REGEX_NS</span><span class="o">=</span><span class="n">env_regex_ns</span><span class="p">)</span>
                         <span class="n">updated_target_frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target_frame</span><span class="p">)</span>
                     <span class="n">asset_cfg</span><span class="o">.</span><span class="n">target_frames</span> <span class="o">=</span> <span class="n">updated_target_frames</span>
                 <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">asset_cfg</span><span class="p">,</span> <span class="n">ContactSensorCfg</span><span class="p">):</span>
                     <span class="n">asset_cfg</span><span class="o">.</span><span class="n">filter_prim_paths_expr</span> <span class="o">=</span> <span class="p">[</span>
-                        <span class="n">p</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ENV_REGEX_NS</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">env_regex_ns</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">filter_prim_paths_expr</span>
+                        <span class="n">p</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ENV_REGEX_NS</span><span class="o">=</span><span class="n">env_regex_ns</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">filter_prim_paths_expr</span>
                     <span class="p">]</span>
                     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">asset_cfg</span><span class="p">,</span> <span class="s2">&quot;sensor_shape_prim_expr&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">sensor_shape_prim_expr</span><span class="p">:</span>
                         <span class="n">asset_cfg</span><span class="o">.</span><span class="n">sensor_shape_prim_expr</span> <span class="o">=</span> <span class="p">[</span>
-                            <span class="n">p</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ENV_REGEX_NS</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">env_regex_ns</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">sensor_shape_prim_expr</span>
+                            <span class="n">p</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ENV_REGEX_NS</span><span class="o">=</span><span class="n">env_regex_ns</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">sensor_shape_prim_expr</span>
                         <span class="p">]</span>
                     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">asset_cfg</span><span class="p">,</span> <span class="s2">&quot;filter_shape_prim_expr&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">filter_shape_prim_expr</span><span class="p">:</span>
                         <span class="n">asset_cfg</span><span class="o">.</span><span class="n">filter_shape_prim_expr</span> <span class="o">=</span> <span class="p">[</span>
-                            <span class="n">p</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ENV_REGEX_NS</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">env_regex_ns</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">filter_shape_prim_expr</span>
+                            <span class="n">p</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ENV_REGEX_NS</span><span class="o">=</span><span class="n">env_regex_ns</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">filter_shape_prim_expr</span>
                         <span class="p">]</span>
                 <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">asset_cfg</span><span class="p">,</span> <span class="n">VisuoTactileSensorCfg</span><span class="p">):</span>
                     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">asset_cfg</span><span class="p">,</span> <span class="s2">&quot;camera_cfg&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">camera_cfg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="n">asset_cfg</span><span class="o">.</span><span class="n">camera_cfg</span><span class="o">.</span><span class="n">prim_path</span> <span class="o">=</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">camera_cfg</span><span class="o">.</span><span class="n">prim_path</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="n">ENV_REGEX_NS</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">env_regex_ns</span>
+                            <span class="n">ENV_REGEX_NS</span><span class="o">=</span><span class="n">env_regex_ns</span>
                         <span class="p">)</span>
                     <span class="k">if</span> <span class="p">(</span>
                         <span class="nb">hasattr</span><span class="p">(</span><span class="n">asset_cfg</span><span class="p">,</span> <span class="s2">&quot;contact_object_prim_path_expr&quot;</span><span class="p">)</span>
                         <span class="ow">and</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">contact_object_prim_path_expr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
                     <span class="p">):</span>
                         <span class="n">asset_cfg</span><span class="o">.</span><span class="n">contact_object_prim_path_expr</span> <span class="o">=</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">contact_object_prim_path_expr</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                            <span class="n">ENV_REGEX_NS</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">env_regex_ns</span>
+                            <span class="n">ENV_REGEX_NS</span><span class="o">=</span><span class="n">env_regex_ns</span>
                         <span class="p">)</span>
 
                 <span class="bp">self</span><span class="o">.</span><span class="n">_sensors</span><span class="p">[</span><span class="n">asset_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">class_type</span><span class="p">(</span><span class="n">asset_cfg</span><span class="p">)</span>

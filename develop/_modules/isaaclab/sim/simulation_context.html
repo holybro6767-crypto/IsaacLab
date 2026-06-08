@@ -32,9 +32,10 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="../../../_static/twemoji.css" />
-    <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/css/all.min.css?v=53359634" />
+    <link rel="stylesheet" type="text/css" href="/home/runner/work/IsaacLab/IsaacLab/.venv/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/css/all.min.css?v=53359634" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_paramlinks.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=83908d17" />
   
   <!-- So that users can add custom icons -->
@@ -48,7 +49,7 @@
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="https://unpkg.com/twemoji@latest/dist/twemoji.min.js"></script>
     <script src="../../../_static/twemoji.js"></script>
-    <script src="/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/js/all.min.js?v=ec35c6c9"></script>
+    <script src="/home/runner/work/IsaacLab/IsaacLab/.venv/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/js/all.min.js?v=ec35c6c9"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
@@ -872,7 +873,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_scene_data_requirements</span> <span class="o">=</span> <span class="n">SceneDataRequirement</span><span class="p">()</span>
         <span class="c1"># Clone plan published by InteractiveScene after cloning. Providers (e.g. the</span>
         <span class="c1"># Newton visualizer model rebuilder on a PhysX backend) consume this to derive</span>
-        <span class="c1"># their own backend args. None until :meth:`InteractiveScene.clone_environments` runs.</span>
+        <span class="c1"># their own backend args. None until a replication session publishes a plan.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clone_plan</span><span class="p">:</span> <span class="n">ClonePlan</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="c1"># Default visualization dt used before/without visualizer initialization.</span>
         <span class="n">physics_dt</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">physics</span><span class="p">,</span> <span class="s2">&quot;dt&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -1404,9 +1405,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">get_clone_plan</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ClonePlan</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the clone plan published by the scene.</span>
 
-<span class="sd">        Set by :meth:`InteractiveScene.clone_environments` after replication. Consumed by</span>
-<span class="sd">        scene data providers that build backend models (e.g. Newton visualizer model on a</span>
-<span class="sd">        PhysX backend) from the same plan the cloner used. ``None`` until the scene clones.</span>
+<span class="sd">        Set after replication. Consumed by scene data providers that build backend models</span>
+<span class="sd">        (e.g. Newton visualizer model on a PhysX backend) from the same plan the cloner used.</span>
+<span class="sd">        ``None`` until the scene replicates.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone_plan</span></div>
 

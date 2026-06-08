@@ -32,9 +32,10 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="../../../_static/twemoji.css" />
-    <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/css/all.min.css?v=53359634" />
+    <link rel="stylesheet" type="text/css" href="/home/runner/work/IsaacLab/IsaacLab/.venv/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/css/all.min.css?v=53359634" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_paramlinks.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=83908d17" />
   
   <!-- So that users can add custom icons -->
@@ -48,7 +49,7 @@
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="https://unpkg.com/twemoji@latest/dist/twemoji.min.js"></script>
     <script src="../../../_static/twemoji.js"></script>
-    <script src="/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/js/all.min.js?v=ec35c6c9"></script>
+    <script src="/home/runner/work/IsaacLab/IsaacLab/.venv/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/js/all.min.js?v=ec35c6c9"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
@@ -719,7 +720,7 @@
 
 
 <div class="viewcode-block" id="SensorBase">
-<a class="viewcode-back" href="../../../source/api/lab/isaaclab.sensors.html#isaaclab.sensors.SensorBase">[docs]</a>
+<a class="viewcode-back" href="../../../source/api/lab/isaaclab.sensors.html#isaaclab_contrib.sensors.SensorBase">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">SensorBase</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The base class for implementing a sensor.</span>
 
@@ -733,7 +734,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SensorBase.__init__">
-<a class="viewcode-back" href="../../../source/api/lab/isaaclab.sensors.html#isaaclab.sensors.SensorBase.__init__">[docs]</a>
+<a class="viewcode-back" href="../../../source/api/lab/isaaclab.sensors.html#isaaclab_contrib.sensors.SensorBase.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cfg</span><span class="p">:</span> <span class="n">SensorBaseCfg</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the sensor class.</span>
 
@@ -743,6 +744,7 @@
         <span class="c1"># check that the config is valid</span>
         <span class="n">cfg</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
         <span class="c1"># store inputs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_source_cfg</span> <span class="o">=</span> <span class="n">cfg</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="c1"># flag for whether the sensor is initialized</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_initialized</span> <span class="o">=</span> <span class="kc">False</span>
@@ -823,7 +825,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SensorBase.set_debug_vis">
-<a class="viewcode-back" href="../../../source/api/lab/isaaclab.sensors.html#isaaclab.sensors.SensorBase.set_debug_vis">[docs]</a>
+<a class="viewcode-back" href="../../../source/api/lab/isaaclab.sensors.html#isaaclab_contrib.sensors.SensorBase.set_debug_vis">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_debug_vis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">debug_vis</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets whether to visualize the sensor data.</span>
 
@@ -860,7 +862,7 @@
 
 
 <div class="viewcode-block" id="SensorBase.reset">
-<a class="viewcode-back" href="../../../source/api/lab/isaaclab.sensors.html#isaaclab.sensors.SensorBase.reset">[docs]</a>
+<a class="viewcode-back" href="../../../source/api/lab/isaaclab.sensors.html#isaaclab_contrib.sensors.SensorBase.reset">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env_ids</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">env_mask</span><span class="p">:</span> <span class="n">wp</span><span class="o">.</span><span class="n">array</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Resets the sensor internals.</span>
 
@@ -915,7 +917,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">device</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">backend</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sim_physics_dt</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_physics_dt</span><span class="p">()</span>
-        <span class="c1"># Count number of environments.</span>
+        <span class="c1"># Count number of environments. Prefer the active simulation&#39;s clone plan when USD</span>
+        <span class="c1"># only carries the env_0 prototype (e.g. Newton clones solver-side).</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_clone_plan</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">get_clone_plan</span><span class="p">()</span>
         <span class="n">clone_plan</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone_plan</span>
         <span class="n">clone_plan_matches</span> <span class="o">=</span> <span class="p">()</span>
@@ -924,6 +927,10 @@
         <span class="k">if</span> <span class="n">clone_plan_matches</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_parent_prims</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_num_envs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">clone_plan</span><span class="o">.</span><span class="n">clone_mask</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">clone_plan</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">env_prim_path_expr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">prim_path</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parent_prims</span> <span class="o">=</span> <span class="n">sim_utils</span><span class="o">.</span><span class="n">find_matching_prims</span><span class="p">(</span><span class="n">env_prim_path_expr</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_num_envs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">clone_plan</span><span class="o">.</span><span class="n">env_ids</span><span class="o">.</span><span class="n">numel</span><span class="p">())</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">env_prim_path_expr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">prim_path</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_parent_prims</span> <span class="o">=</span> <span class="n">sim_utils</span><span class="o">.</span><span class="n">find_matching_prims</span><span class="p">(</span><span class="n">env_prim_path_expr</span><span class="p">)</span>

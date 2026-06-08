@@ -32,9 +32,10 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/twemoji.css" />
-    <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/css/all.min.css?v=53359634" />
+    <link rel="stylesheet" type="text/css" href="/home/runner/work/IsaacLab/IsaacLab/.venv/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/css/all.min.css?v=53359634" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx_paramlinks.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css?v=83908d17" />
   
   <!-- So that users can add custom icons -->
@@ -48,7 +49,7 @@
     <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="https://unpkg.com/twemoji@latest/dist/twemoji.min.js"></script>
     <script src="../../../../_static/twemoji.js"></script>
-    <script src="/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/js/all.min.js?v=ec35c6c9"></script>
+    <script src="/home/runner/work/IsaacLab/IsaacLab/.venv/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/js/all.min.js?v=ec35c6c9"></script>
     <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
@@ -696,6 +697,7 @@
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">isaaclab.sim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sim_utils</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">isaaclab.utils.sensors</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sensor_utils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.cloner</span><span class="w"> </span><span class="kn">import</span> <span class="n">queue_usd_replication</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.renderers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseRenderer</span><span class="p">,</span> <span class="n">CameraRenderSpec</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.sim.views</span><span class="w"> </span><span class="kn">import</span> <span class="n">FrameView</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_camel_case</span>
@@ -854,6 +856,7 @@
                 <span class="n">spawn</span><span class="o">.</span><span class="n">func</span><span class="p">(</span><span class="n">spawn_target</span><span class="p">,</span> <span class="n">spawn</span><span class="p">,</span> <span class="n">translation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">offset</span><span class="o">.</span><span class="n">pos</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="n">rot_offset</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">sim_utils</span><span class="o">.</span><span class="n">find_matching_prims</span><span class="p">(</span><span class="n">spawn_target</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not find prim with path </span><span class="si">{</span><span class="n">spawn_target</span><span class="si">!r}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        <span class="n">queue_usd_replication</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_source_cfg</span><span class="p">)</span>
 
         <span class="c1"># An ISP (any ``isp_cfg`` other than ``None``) requires the HDR AOV;</span>
         <span class="c1"># an explicit ``&quot;rgb_hdr&quot;`` in ``data_types`` also requires the</span>
