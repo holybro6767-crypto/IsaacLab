@@ -966,11 +966,7 @@ robots.</span><a class="headerlink" href="#id2" title="Link to this image">#</a>
 <p>Note, you can also display the main visualizer camera and the tiled camera view side by
 side for dual monitoring.</p>
 <p>To run the tutorial with the args for this example, use:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/tutorials/07_visualizers/run_tiled_camera_visualizer.py<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--enable_cameras<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--task<span class="w"> </span>Isaac-Velocity-Rough-Anymal-D-v0<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--num_envs<span class="w"> </span><span class="m">256</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--viz<span class="w"> </span>kit
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>scripts/tutorials/07_visualizers/run_tiled_camera_visualizer.py<span class="w"> </span>--enable_cameras<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Rough-Anymal-D-v0<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">256</span><span class="w"> </span>--viz<span class="w"> </span>kit
 </pre></div>
 </div>
 <p>Within the script, you’ll find the <code class="docutils literal notranslate"><span class="pre">KitVisualizerCfg</span></code> configuration used to
@@ -1010,10 +1006,7 @@ camera panel.</span><a class="headerlink" href="#id4" title="Link to this image"
 built-in wrist-mounted cameras. This setup provides an egocentric view of the
 gripper, table, and cubes in each selected environment.</p>
 <p>To launch this example, run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/tutorials/07_visualizers/run_tiled_camera_visualizer.py<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--task<span class="w"> </span>Isaac-Stack-Cube-Galbot-Left-Arm-Gripper-Visuomotor-v0<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--num_envs<span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--viz<span class="w"> </span>newton
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>scripts/tutorials/07_visualizers/run_tiled_camera_visualizer.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Stack-Cube-Galbot-Left-Arm-Gripper-Visuomotor-v0<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">25</span><span class="w"> </span>--viz<span class="w"> </span>newton
 </pre></div>
 </div>
 <p>Within the script, the <code class="docutils literal notranslate"><span class="pre">NewtonVisualizerCfg</span></code> is configured to stream images from the

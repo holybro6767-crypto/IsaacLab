@@ -783,7 +783,7 @@
 <ul>
 <li><p><a class="reference external" href="https://developer.nvidia.com/nsight-systems">Nsight Systems</a> - install for your platform.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">nvtx</span></code> Python package for source code instrumentation, installed into your Isaac Lab environment:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>nvtx
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>nvtx
 </pre></div>
 </div>
 </li>
@@ -833,7 +833,7 @@
 </pre></div>
 </div>
 <p>After editing the JSON, run the sync test to confirm every entry resolves:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>scripts/benchmarks/test/test_nsys_trace.py
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>scripts/benchmarks/test/test_nsys_trace.py
 </pre></div>
 </div>
 </section>
@@ -842,7 +842,7 @@
 <ul class="simple">
 <li><p><strong>An expected domain doesn’t appear in the timeline:</strong></p>
 <ul>
-<li><p>Confirm <code class="docutils literal notranslate"><span class="pre">nvtx</span></code> is installed in your Isaac Lab environment (<code class="docutils literal notranslate"><span class="pre">./isaaclab.sh</span> <span class="pre">-p</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">show</span> <span class="pre">nvtx</span></code>).</p></li>
+<li><p>Confirm <code class="docutils literal notranslate"><span class="pre">nvtx</span></code> is installed in your Isaac Lab environment (<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">show</span> <span class="pre">nvtx</span></code>).</p></li>
 <li><p>Make sure the function is actually called during the profiled run.</p></li>
 <li><p>Verify the JSON entry by running the sync test (above).</p></li>
 </ul>

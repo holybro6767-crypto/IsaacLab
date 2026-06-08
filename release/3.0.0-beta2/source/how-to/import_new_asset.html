@@ -914,7 +914,7 @@ git<span class="w"> </span>clone<span class="w"> </span>git@github.com:isaac-orb
 <span class="c1"># go to top of the Isaac Lab repository</span>
 <span class="nb">cd</span><span class="w"> </span>IsaacLab
 <span class="c1"># run the converter</span>
-./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/tools/convert_urdf.py<span class="w"> </span><span class="se">\</span>
+python<span class="w"> </span>scripts/tools/convert_urdf.py<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>../anymal_d_simple_description/urdf/anymal.urdf<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>source/isaaclab_assets/data/Robots/ANYbotics/<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--merge-joints<span class="w"> </span><span class="se">\</span>
@@ -934,7 +934,7 @@ git clone git@github.com:isaac-orbit/anymal_d_simple_description.git
 <span class="p">:</span><span class="c1">: go to top of the Isaac Lab repository</span>
 <span class="k">cd</span> IsaacLab
 <span class="p">:</span><span class="c1">: run the converter</span>
-isaaclab.bat -p scripts\tools\convert_urdf.py <span class="se">^</span>
+python scripts\tools\convert_urdf.py <span class="se">^</span>
 <span class="se"> </span> ..\anymal_d_simple_description\urdf\anymal.urdf <span class="se">^</span>
 <span class="se"> </span> source\isaaclab_assets\data\Robots\ANYbotics\ <span class="se">^</span>
 <span class="se"> </span> --merge-joints <span class="se">^</span>
@@ -1058,7 +1058,7 @@ git<span class="w"> </span>clone<span class="w"> </span>git@github.com:google-de
 <span class="c1"># go to top of the Isaac Lab repository</span>
 <span class="nb">cd</span><span class="w"> </span>IsaacLab
 <span class="c1"># run the converter</span>
-./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/tools/convert_mjcf.py<span class="w"> </span><span class="se">\</span>
+python<span class="w"> </span>scripts/tools/convert_mjcf.py<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>../mujoco_menagerie/unitree_h1/h1.xml<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>source/isaaclab_assets/data/Robots/Unitree/h1.usd<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--merge-mesh<span class="w"> </span><span class="se">\</span>
@@ -1075,7 +1075,7 @@ git clone git@github.com:google-deepmind/mujoco_menagerie.git
 <span class="p">:</span><span class="c1">: go to top of the Isaac Lab repository</span>
 <span class="k">cd</span> IsaacLab
 <span class="p">:</span><span class="c1">: run the converter</span>
-isaaclab.bat -p scripts\tools\convert_mjcf.py <span class="se">^</span>
+python scripts\tools\convert_mjcf.py <span class="se">^</span>
 <span class="se"> </span> ..\mujoco_menagerie\unitree_h1\h1.xml <span class="se">^</span>
 <span class="se"> </span> source\isaaclab_assets\data\Robots\Unitree\h1.usd <span class="se">^</span>
 <span class="se"> </span> --merge-mesh <span class="se">^</span>
@@ -1171,13 +1171,13 @@ the steps to clone the repository and run the converter:</p>
 <input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
 <label class="sd-tab-label" data-sync-group="os" data-sync-id="linux" for="sd-tab-item-4">
 <i class="fa-brands fa-linux"></i> Linux</label><div class="sd-tab-content docutils">
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># clone a repository with URDF files</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># clone a repository with mesh files</span>
 git<span class="w"> </span>clone<span class="w"> </span>git@github.com:NVIDIA-Omniverse/IsaacGymEnvs.git
 
 <span class="c1"># go to top of the Isaac Lab repository</span>
 <span class="nb">cd</span><span class="w"> </span>IsaacLab
 <span class="c1"># run the converter</span>
-./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/tools/convert_mesh.py<span class="w"> </span><span class="se">\</span>
+python<span class="w"> </span>scripts/tools/convert_mesh.py<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>../IsaacGymEnvs/assets/trifinger/objects/meshes/cube_multicolor.obj<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>source/isaaclab_assets/data/Props/CubeMultiColor/cube_multicolor.usd<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--make-instanceable<span class="w"> </span><span class="se">\</span>
@@ -1189,13 +1189,13 @@ git<span class="w"> </span>clone<span class="w"> </span>git@github.com:NVIDIA-Om
 <input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
 <label class="sd-tab-label" data-sync-group="os" data-sync-id="windows" for="sd-tab-item-5">
 <i class="fa-brands fa-windows"></i> Windows</label><div class="sd-tab-content docutils">
-<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="c1">: clone a repository with URDF files</span>
+<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="c1">: clone a repository with mesh files</span>
 git clone git@github.com:NVIDIA-Omniverse/IsaacGymEnvs.git
 
 <span class="p">:</span><span class="c1">: go to top of the Isaac Lab repository</span>
 <span class="k">cd</span> IsaacLab
 <span class="p">:</span><span class="c1">: run the converter</span>
-isaaclab.bat -p scripts\tools\convert_mesh.py <span class="se">^</span>
+python scripts\tools\convert_mesh.py <span class="se">^</span>
 <span class="se"> </span> ..\IsaacGymEnvs\assets\trifinger\objects\meshes\cube_multicolor.obj <span class="se">^</span>
 <span class="se"> </span> source\isaaclab_assets\data\Props\CubeMultiColor\cube_multicolor.usd <span class="se">^</span>
 <span class="se"> </span> --make-instanceable <span class="se">^</span>
