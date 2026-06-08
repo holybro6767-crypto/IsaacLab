@@ -33,9 +33,10 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="../../_static/twemoji.css" />
-    <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/css/all.min.css?v=53359634" />
+    <link rel="stylesheet" type="text/css" href="/home/runner/work/IsaacLab/IsaacLab/.venv/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/css/all.min.css?v=53359634" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_paramlinks.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=83908d17" />
   
   <!-- So that users can add custom icons -->
@@ -49,7 +50,7 @@
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="https://unpkg.com/twemoji@latest/dist/twemoji.min.js"></script>
     <script src="../../_static/twemoji.js"></script>
-    <script src="/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/js/all.min.js?v=ec35c6c9"></script>
+    <script src="/home/runner/work/IsaacLab/IsaacLab/.venv/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/js/all.min.js?v=ec35c6c9"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
@@ -1743,7 +1744,7 @@ directory.</p>
 </details><section id="possible-parameters">
 <h2>Possible Parameters<a class="headerlink" href="#possible-parameters" title="Link to this heading">#</a></h2>
 <p>First, run</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/benchmarks/benchmark_cameras.py<span class="w"> </span>-h
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>scripts/benchmarks/benchmark_cameras.py<span class="w"> </span>-h
 </pre></div>
 </div>
 <p>to see all possible parameters you can vary with this utility.</p>
@@ -1756,22 +1757,15 @@ automatically determining maximum camera count.</p>
 <p>For example, to see how your system could handle 100 tiled cameras in
 the cartpole environment, with 2 cameras per environment (so 50 environments total)
 only in RGB mode, run</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/benchmarks/benchmark_cameras.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Cartpole<span class="w"> </span>--num_tiled_cameras<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="se">\</span>
---task_num_cameras_per_env<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
---tiled_camera_data_types<span class="w"> </span>rgb
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>scripts/benchmarks/benchmark_cameras.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Cartpole<span class="w"> </span>--num_tiled_cameras<span class="w"> </span><span class="m">100</span><span class="w"> </span>--task_num_cameras_per_env<span class="w"> </span><span class="m">2</span><span class="w"> </span>--tiled_camera_data_types<span class="w"> </span>rgb
 </pre></div>
 </div>
-<p>If you have pynvml installed, (<code class="docutils literal notranslate"><span class="pre">./isaaclab.sh</span> <span class="pre">-p</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pynvml</span></code>), you can also
+<p>If you have pynvml installed, (<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pynvml</span></code>), you can also
 find the maximum number of cameras that you could run in the specified environment up to
 a certain performance threshold (specified by max CPU utilization percent, max RAM utilization percent,
 max GPU compute percent, and max GPU memory percent). For example, to find the maximum number of cameras
 you can run with cartpole, you could run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/benchmarks/benchmark_cameras.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Cartpole<span class="w"> </span>--num_tiled_cameras<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="se">\</span>
---task_num_cameras_per_env<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
---tiled_camera_data_types<span class="w"> </span>rgb<span class="w"> </span>--autotune<span class="w"> </span><span class="se">\</span>
---autotune_max_percentage_util<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">80</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="m">50</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>scripts/benchmarks/benchmark_cameras.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Cartpole<span class="w"> </span>--num_tiled_cameras<span class="w"> </span><span class="m">100</span><span class="w"> </span>--task_num_cameras_per_env<span class="w"> </span><span class="m">2</span><span class="w"> </span>--tiled_camera_data_types<span class="w"> </span>rgb<span class="w"> </span>--autotune<span class="w"> </span>--autotune_max_percentage_util<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="m">80</span><span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="m">50</span>
 </pre></div>
 </div>
 <p>Autotune may lead to the program crashing, which means that it tried to run too many cameras at once.
@@ -1785,10 +1779,7 @@ by the number of cameras per environment.</p>
 <h2>Compare Camera Type and Performance (Without a Specified Task)<a class="headerlink" href="#compare-camera-type-and-performance-without-a-specified-task" title="Link to this heading">#</a></h2>
 <p>This tool can also asses performance without a task environment.
 For example, to view 100 random objects with 2 standard cameras, one could run</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/benchmarks/benchmark_cameras.py<span class="w"> </span><span class="se">\</span>
---height<span class="w"> </span><span class="m">100</span><span class="w"> </span>--width<span class="w"> </span><span class="m">100</span><span class="w"> </span>--num_standard_cameras<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
---standard_camera_data_types<span class="w"> </span>instance_segmentation_fast<span class="w"> </span>normals<span class="w"> </span>--num_objects<span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="se">\</span>
---experiment_length<span class="w"> </span><span class="m">100</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>scripts/benchmarks/benchmark_cameras.py<span class="w"> </span>--height<span class="w"> </span><span class="m">100</span><span class="w"> </span>--width<span class="w"> </span><span class="m">100</span><span class="w"> </span>--num_standard_cameras<span class="w"> </span><span class="m">2</span><span class="w"> </span>--standard_camera_data_types<span class="w"> </span>instance_segmentation_fast<span class="w"> </span>normals<span class="w"> </span>--num_objects<span class="w"> </span><span class="m">100</span><span class="w"> </span>--experiment_length<span class="w"> </span><span class="m">100</span>
 </pre></div>
 </div>
 <p>If your system cannot handle this due to performance reasons, then the process will be killed.

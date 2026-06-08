@@ -33,9 +33,10 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="../../_static/twemoji.css" />
-    <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/css/all.min.css?v=53359634" />
+    <link rel="stylesheet" type="text/css" href="/home/runner/work/IsaacLab/IsaacLab/.venv/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/css/all.min.css?v=53359634" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_paramlinks.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=83908d17" />
   
   <!-- So that users can add custom icons -->
@@ -49,7 +50,7 @@
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="https://unpkg.com/twemoji@latest/dist/twemoji.min.js"></script>
     <script src="../../_static/twemoji.js"></script>
-    <script src="/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/js/all.min.js?v=ec35c6c9"></script>
+    <script src="/home/runner/work/IsaacLab/IsaacLab/.venv/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/js/all.min.js?v=ec35c6c9"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
@@ -876,7 +877,7 @@ you can override or inspect these by using the Stage Recorder extension directly
 <section id="example-usage">
 <h3>Example Usage<a class="headerlink" href="#example-usage" title="Link to this heading">#</a></h3>
 <p>In standalone Isaac Lab environments, pass the <code class="docutils literal notranslate"><span class="pre">--disable_fabric</span></code> flag:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/state_machine/lift_cube_sm.py<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">8</span><span class="w"> </span>--device<span class="w"> </span>cpu<span class="w"> </span>--disable_fabric<span class="w"> </span>--viz<span class="w"> </span>kit
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>scripts/environments/state_machine/lift_cube_sm.py<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">8</span><span class="w"> </span>--device<span class="w"> </span>cpu<span class="w"> </span>--disable_fabric<span class="w"> </span>--viz<span class="w"> </span>kit
 </pre></div>
 </div>
 <p>After launching, the Isaac Lab UI window will display a “Record Animation” button.
@@ -886,9 +887,22 @@ Click to begin recording. Click again to stop.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">Stage.usd</span></code> — the original stage with physics disabled</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">TimeSample_tk001.usd</span></code> — the animation (time-sampled) layer</p></li>
 </ul>
-<p>To play back:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-s<span class="w">  </span><span class="c1"># Opens Isaac Sim</span>
+<p>To play back, open Isaac Sim:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="os" data-sync-id="linux" for="sd-tab-item-0">
+<i class="fa-brands fa-linux"></i> Linux</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-s
 </pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" data-sync-group="os" data-sync-id="windows" for="sd-tab-item-1">
+<i class="fa-brands fa-windows"></i> Windows</label><div class="sd-tab-content docutils">
+<div class="highlight-batch notranslate"><div class="highlight"><pre><span></span>isaaclab.bat -s
+</pre></div>
+</div>
+</div>
 </div>
 <p>Inside the Layers panel, insert both <code class="docutils literal notranslate"><span class="pre">Stage.usd</span></code> and <code class="docutils literal notranslate"><span class="pre">TimeSample_tk001.usd</span></code> as sublayers.
 The animation will now play back when you hit the play button.</p>
@@ -913,10 +927,7 @@ This method is more scalable and better suited for large-scale training scenario
 <section id="id1">
 <h3>Example Usage<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>To record an animation:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/tutorials/03_envs/run_cartpole_rl_env.py<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--anim_recording_enabled<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--anim_recording_start_time<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--anim_recording_stop_time<span class="w"> </span><span class="m">3</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>scripts/tutorials/03_envs/run_cartpole_rl_env.py<span class="w"> </span>--anim_recording_enabled<span class="w"> </span>--anim_recording_start_time<span class="w"> </span><span class="m">1</span><span class="w"> </span>--anim_recording_stop_time<span class="w"> </span><span class="m">3</span>
 </pre></div>
 </div>
 <div class="admonition note">
