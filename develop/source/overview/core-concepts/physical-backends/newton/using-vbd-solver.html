@@ -33,9 +33,10 @@
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/twemoji.css" />
-    <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/css/all.min.css?v=53359634" />
+    <link rel="stylesheet" type="text/css" href="/home/runner/work/IsaacLab/IsaacLab/.venv/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/css/all.min.css?v=53359634" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx_paramlinks.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/custom.css?v=83908d17" />
   
   <!-- So that users can add custom icons -->
@@ -49,7 +50,7 @@
     <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="https://unpkg.com/twemoji@latest/dist/twemoji.min.js"></script>
     <script src="../../../../../_static/twemoji.js"></script>
-    <script src="/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/js/all.min.js?v=ec35c6c9"></script>
+    <script src="/home/runner/work/IsaacLab/IsaacLab/.venv/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/js/all.min.js?v=ec35c6c9"></script>
     <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../../../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
@@ -790,11 +791,11 @@ solver advances rigid bodies and VBD advances deformable particles.</p>
 <h2>Start from a Supported Deformable Task<a class="headerlink" href="#start-from-a-supported-deformable-task" title="Link to this heading">#</a></h2>
 <p>Before adding VBD to a new task, first run one of the experimental Franka
 deformable tasks:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/zero_agent.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Lift-Soft-Franka-v0<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">1</span><span class="w"> </span>--visualizer<span class="w"> </span>kit
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/zero_agent.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Lift-Soft-Franka<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">1</span><span class="w"> </span>--visualizer<span class="w"> </span>kit
 </pre></div>
 </div>
 <p>For the surface-deformable cloth variant, use:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/zero_agent.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Lift-Cloth-Franka-v0<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">1</span><span class="w"> </span>--visualizer<span class="w"> </span>kit
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/zero_agent.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Lift-Cloth-Franka<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">1</span><span class="w"> </span>--visualizer<span class="w"> </span>kit
 </pre></div>
 </div>
 <p>Both tasks configure MJWarp for the rigid Franka and VBD for the deformable
@@ -824,27 +825,9 @@ normal Newton fields:</p>
 <p>The Franka soft-body task defines a <code class="docutils literal notranslate"><span class="pre">newton_mjwarp_vbd</span></code> preset that couples
 MJWarp and VBD:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">PhysicsCfg</span><span class="p">(</span><span class="n">PresetCfg</span><span class="p">):</span>
-    <span class="c1"># Newton physics: MJWarp rigid + VBD soft, one-way coupled</span>
-    <span class="c1"># (matches newton/examples/softbody/example_softbody_franka.py)</span>
+    <span class="c1"># Newton physics: MJWarp rigid + VBD soft, two-way coupled</span>
 <span class="hll">    <span class="n">newton_mjwarp_vbd</span><span class="p">:</span> <span class="n">DeformableNewtonCfg</span> <span class="o">=</span> <span class="n">DeformableNewtonCfg</span><span class="p">(</span>
-</span><span class="hll">        <span class="n">solver_cfg</span><span class="o">=</span><span class="n">CoupledMJWarpVBDSolverCfg</span><span class="p">(</span>
-</span><span class="hll">            <span class="n">rigid_solver_cfg</span><span class="o">=</span><span class="n">MJWarpSolverCfg</span><span class="p">(</span>
-</span><span class="hll">                <span class="n">njmax</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
-</span><span class="hll">                <span class="n">nconmax</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-</span><span class="hll">                <span class="n">ls_iterations</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-</span><span class="hll">                <span class="n">cone</span><span class="o">=</span><span class="s2">&quot;pyramidal&quot;</span><span class="p">,</span>
-</span><span class="hll">                <span class="n">impratio</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-</span><span class="hll">                <span class="n">integrator</span><span class="o">=</span><span class="s2">&quot;implicitfast&quot;</span><span class="p">,</span>
-</span><span class="hll">                <span class="n">ccd_iterations</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-</span><span class="hll">            <span class="p">),</span>
-</span><span class="hll">            <span class="n">soft_solver_cfg</span><span class="o">=</span><span class="n">VBDSolverCfg</span><span class="p">(</span>
-</span><span class="hll">                <span class="n">iterations</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-</span><span class="hll">                <span class="n">integrate_with_external_rigid_solver</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span class="hll">                <span class="n">particle_enable_self_contact</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span><span class="hll">                <span class="n">particle_collision_detection_interval</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
-</span><span class="hll">            <span class="p">),</span>
-</span><span class="hll">            <span class="n">coupling_mode</span><span class="o">=</span><span class="s2">&quot;two_way&quot;</span><span class="p">,</span>
-</span><span class="hll">        <span class="p">),</span>
+</span><span class="hll">        <span class="n">solver_cfg</span><span class="o">=</span><span class="n">coupled_mjwarp_vbd_solver_cfg</span><span class="p">(),</span>
 </span><span class="hll">        <span class="n">model_cfg</span><span class="o">=</span><span class="n">NewtonModelCfg</span><span class="p">(</span>
 </span><span class="hll">            <span class="n">soft_contact_ke</span><span class="o">=</span><span class="mf">1e4</span><span class="p">,</span>
 </span><span class="hll">            <span class="n">soft_contact_kd</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span>
@@ -855,8 +838,8 @@ MJWarp and VBD:</p>
 </span><span class="hll">        <span class="p">),</span>
 </span><span class="hll">        <span class="n">num_substeps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
 </span><span class="hll">        <span class="n">use_cuda_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span>    <span class="p">)</span>
-
+</span><span class="hll">    <span class="p">)</span>
+</span>
     <span class="n">physx</span><span class="p">:</span> <span class="n">PhysxCfg</span> <span class="o">=</span> <span class="n">PhysxCfg</span><span class="p">()</span>
 
     <span class="n">default</span> <span class="o">=</span> <span class="n">newton_mjwarp_vbd</span>
@@ -875,11 +858,11 @@ self-contact values need task-level tuning.</p></li>
 <a class="reference internal" href="../../../../api/lab/isaaclab.sim.html#isaaclab.sim.SimulationCfg" title="isaaclab.sim.SimulationCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimulationCfg</span></code></a>, for example <code class="docutils literal notranslate"><span class="pre">env.sim.physics</span></code>.</p></li>
 </ul>
 <p>You can select the deformable Newton preset globally:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>rsl_rl<span class="w"> </span>--task<span class="o">=</span>Isaac-Lift-Soft-Franka-v0<span class="w"> </span><span class="nv">physics</span><span class="o">=</span>newton_mjwarp_vbd
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>rsl_rl<span class="w"> </span>--task<span class="o">=</span>Isaac-Lift-Soft-Franka<span class="w"> </span><span class="nv">physics</span><span class="o">=</span>newton_mjwarp_vbd
 </pre></div>
 </div>
 <p>or select the physics field directly:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>rsl_rl<span class="w"> </span>--task<span class="o">=</span>Isaac-Lift-Soft-Franka-v0<span class="w"> </span>env.sim.physics<span class="o">=</span>newton_mjwarp_vbd
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>rsl_rl<span class="w"> </span>--task<span class="o">=</span>Isaac-Lift-Soft-Franka<span class="w"> </span>env.sim.physics<span class="o">=</span>newton_mjwarp_vbd
 </pre></div>
 </div>
 <p>Use the direct path override when only one task field should use the VBD preset.
