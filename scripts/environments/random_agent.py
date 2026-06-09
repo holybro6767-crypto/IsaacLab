@@ -6,16 +6,19 @@
 """Script to an environment with random action agent."""
 
 import argparse
+import contextlib
 import sys
 
 import gymnasium as gym
 import torch
 
 import isaaclab_tasks  # noqa: F401
+
+with contextlib.suppress(ImportError):
+    import isaaclab_tasks_experimental  # noqa: F401
+from isaaclab.app import add_launcher_args, launch_simulation
+
 from isaaclab_tasks.utils import (
-    add_launcher_args,
-    fold_preset_tokens,
-    launch_simulation,
     resolve_task_config,
     setup_preset_cli,
 )
@@ -30,7 +33,7 @@ parser.add_argument("--task", type=str, default=None, help="Name of the task.")
 # append AppLauncher cli args
 add_launcher_args(parser)
 args_cli, hydra_args = setup_preset_cli(parser)
-sys.argv = [sys.argv[0]] + fold_preset_tokens(hydra_args)
+sys.argv = [sys.argv[0]] + hydra_args
 
 # PLACEHOLDER: Extension template (do not remove this comment)
 

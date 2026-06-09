@@ -55,6 +55,7 @@ all = [
     "isaaclab-mimic",
     "isaaclab-newton[all]",
     "isaaclab-physx[newton]",
+    "isaaclab-ppisp",
     "isaaclab-rl[all]",
     "isaaclab-visualizers[all]",
 ]
@@ -199,6 +200,7 @@ markers = [
     "windows_ci: mark test to run on Windows platforms in CI",
     "arm: mark test as runnable on ARM platforms (e.g. NVIDIA DGX Spark)",
     "arm_ci: mark test to run on ARM platforms in CI (e.g. NVIDIA DGX Spark)",
+    "device_split: re-invoke this file once per device (CPU and GPU) in CI due to process-global device locks (e.g., ovphysx<=0.3.7 gap G5)",
 ]
 
 # Add pypi.nvidia.com so that `uv pip install isaaclab[isaacsim]` works without --extra-index-url.
