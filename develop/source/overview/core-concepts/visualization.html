@@ -1292,6 +1292,10 @@ open the browser tab instead.</p>
 <p>Rerun startup uses the Python SDK through <code class="docutils literal notranslate"><span class="pre">newton.viewer.ViewerRerun</span></code> (no external <code class="docutils literal notranslate"><span class="pre">rerun</span></code> CLI process
 management). If <code class="docutils literal notranslate"><span class="pre">grpc_port</span></code> is already active, Isaac Lab reuses that server. If <code class="docutils literal notranslate"><span class="pre">web_port</span></code> is occupied while
 starting a new server, initialization fails with a clear port-conflict error.</p>
+<p>To save a replay, set <code class="docutils literal notranslate"><span class="pre">record_to_rrd</span></code> to the output <code class="docutils literal notranslate"><span class="pre">.rrd</span></code> path. Enable
+<code class="docutils literal notranslate"><span class="pre">keep_historical_data</span></code> and <code class="docutils literal notranslate"><span class="pre">keep_scalar_history</span></code> when you want transform and scalar history to be available
+for timeline scrubbing. After the run, open the Rerun web viewer and press <code class="docutils literal notranslate"><span class="pre">Ctrl+O</span></code> to load the saved <code class="docutils literal notranslate"><span class="pre">.rrd</span></code> file.</p>
+<p>Note, the timeline UI elements are for .rrd recording playback timeline scrubbing.</p>
 </section>
 <section id="viser-visualizer">
 <h3>Viser Visualizer<a class="headerlink" href="#viser-visualizer" title="Link to this heading">#</a></h3>

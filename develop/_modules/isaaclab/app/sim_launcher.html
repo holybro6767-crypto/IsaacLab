@@ -810,6 +810,39 @@
     <span class="k">return</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">visualizers</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()}</span>
 
 
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_livestream_mode</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return effective livestream mode using the same CLI-over-env precedence as AppLauncher.&quot;&quot;&quot;</span>
+    <span class="n">livestream_arg</span> <span class="o">=</span> <span class="n">_get_arg</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;livestream&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">livestream_arg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">livestream_arg</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">livestream_arg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;LIVESTREAM&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_ensure_livestream_kit_visualizer</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Request the Kit visualizer when livestreaming needs a video-producing viewport.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">launcher_args</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">_get_livestream_mode</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">visualizer_explicit</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">_get_arg</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;visualizer_explicit&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+    <span class="n">visualizers</span> <span class="o">=</span> <span class="n">_get_arg</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;visualizer&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">visualizer_explicit</span> <span class="ow">and</span> <span class="p">(</span><span class="n">visualizers</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="s2">&quot;none&quot;</span> <span class="ow">in</span> <span class="n">_get_visualizer_types</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Livestreaming requires the Kit visualizer. Remove &#39;--viz none&#39; or pass &#39;--viz kit&#39;.&quot;</span><span class="p">)</span>
+
+    <span class="n">visualizer_types</span> <span class="o">=</span> <span class="n">_get_visualizer_types</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;kit&quot;</span> <span class="ow">in</span> <span class="n">visualizer_types</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">requested_visualizers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">visualizers</span><span class="p">:</span>
+        <span class="n">requested_visualizers</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">[</span><span class="n">visualizer</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">visualizer</span> <span class="ow">in</span> <span class="n">visualizers</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">visualizers</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+            <span class="k">else</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">visualizer</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">visualizer</span> <span class="ow">in</span> <span class="n">visualizers</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">visualizer</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+        <span class="p">)</span>
+    <span class="n">requested_visualizers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;kit&quot;</span><span class="p">)</span>
+    <span class="n">_set_arg</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;visualizer&quot;</span><span class="p">,</span> <span class="n">requested_visualizers</span><span class="p">)</span>
+
+
 <span class="k">def</span><span class="w"> </span><span class="nf">_get_visualizer_intent</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute upstream visualizer intent from ``cfg.sim.visualizer_cfgs``.&quot;&quot;&quot;</span>
     <span class="n">visualizer_cfgs</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="s2">&quot;sim&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="s2">&quot;visualizer_cfgs&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -1014,6 +1047,7 @@
     <span class="n">config_scan</span> <span class="o">=</span> <span class="n">scan</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">_get_arg</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">,</span> <span class="s2">&quot;physics&quot;</span><span class="p">))</span>
     <span class="n">effective_cfg</span> <span class="o">=</span> <span class="n">config_scan</span><span class="o">.</span><span class="n">effective_cfg</span>
     <span class="n">physics_cfg</span> <span class="o">=</span> <span class="n">config_scan</span><span class="o">.</span><span class="n">resolved_physics_cfg</span>
+    <span class="n">_ensure_livestream_kit_visualizer</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">)</span>
     <span class="n">visualizer_types</span> <span class="o">=</span> <span class="n">_get_visualizer_types</span><span class="p">(</span><span class="n">launcher_args</span><span class="p">)</span>
 
     <span class="c1"># ovrtx + Kit visualizer share conflicting RTX hydra libraries under different USD</span>
