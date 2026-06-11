@@ -80,6 +80,7 @@ class ArticulationData(BaseArticulationData):
         # Set initial time stamp
         self._sim_timestamp = 0.0
         self._is_primed = False
+        self._fk_timestamp = 0.0
 
         # obtain global simulation view
         self._physics_sim_view = SimulationManager.get_physics_sim_view()
@@ -126,9 +127,80 @@ class ArticulationData(BaseArticulationData):
         """
         # update the simulation timestamp
         self._sim_timestamp += dt
+        # FK is current after a sim step. Keep fk_timestamp in sync unless it was explicitly invalidated.
+        if self._fk_timestamp >= 0.0:
+            self._fk_timestamp = self._sim_timestamp
         # Trigger an update of the joint acceleration buffer at a higher frequency
         # since we do finite differencing.
         self.joint_acc
+
+    def _ensure_fk_fresh(self) -> None:
+        """Run forward kinematics if the joint / body state has changed since the last FK update."""
+        if self._fk_timestamp < self._sim_timestamp:
+            self._physics_sim_view.update_articulations_kinematic()
+            self._fk_timestamp = self._sim_timestamp
+
+    def reset_pose(self, from_link: bool = True) -> None:
+        """Reset pose-dependent cached articulation properties.
+
+        Args:
+            from_link: Whether to reset the pose from the link frame. Defaults to True.
+        """
+        # Reset the root com pose only if needed.
+        if from_link:
+            self._root_com_pose_w.timestamp = -1.0
+        # Always reset the body poses
+        self._body_link_pose_w.timestamp = -1.0
+        self._body_com_pose_w.timestamp = -1.0
+        # Force refresh on all the root states
+        if self._root_state_w is not None:
+            self._root_state_w.timestamp = -1.0
+        if self._root_link_state_w is not None:
+            self._root_link_state_w.timestamp = -1.0
+        if self._root_com_state_w is not None:
+            self._root_com_state_w.timestamp = -1.0
+        # Force refresh on all the body com states
+        if self._body_state_w is not None:
+            self._body_state_w.timestamp = -1.0
+        if self._body_link_state_w is not None:
+            self._body_link_state_w.timestamp = -1.0
+        if self._body_com_state_w is not None:
+            self._body_com_state_w.timestamp = -1.0
+        # Force refresh on all the dynamics properties
+        if self._body_com_jacobian_w is not None:
+            self._body_com_jacobian_w.timestamp = -1.0
+        if self._gravity_compensation_forces is not None:
+            self._gravity_compensation_forces.timestamp = -1.0
+        if self._mass_matrix is not None:
+            self._mass_matrix.timestamp = -1.0
+        self._fk_timestamp = -1.0
+
+    def reset_velocity(self, from_com: bool = True) -> None:
+        """Reset velocity-dependent cached articulation properties.
+
+        Args:
+            from_com: Whether to reset the velocity from the com frame. Defaults to True.
+        """
+        if from_com:
+            self._root_link_vel_w.timestamp = -1.0
+        # Always reset the body velocities
+        self._body_com_vel_w.timestamp = -1.0
+        self._body_link_vel_w.timestamp = -1.0
+        # Force a refresh on all the root states
+        if self._root_state_w is not None:
+            self._root_state_w.timestamp = -1.0
+        if self._root_link_state_w is not None:
+            self._root_link_state_w.timestamp = -1.0
+        if self._root_com_state_w is not None:
+            self._root_com_state_w.timestamp = -1.0
+        # Force refresh on all the body com states
+        if self._body_state_w is not None:
+            self._body_state_w.timestamp = -1.0
+        if self._body_link_state_w is not None:
+            self._body_link_state_w.timestamp = -1.0
+        if self._body_com_state_w is not None:
+            self._body_com_state_w.timestamp = -1.0
+        self._fk_timestamp = -1.0
 
     """
     Names.
@@ -739,7 +811,7 @@ class ArticulationData(BaseArticulationData):
         """
         if self._body_link_pose_w.timestamp < self._sim_timestamp:
             # perform forward kinematics (shouldn't cause overhead if it happened already)
-            self._physics_sim_view.update_articulations_kinematic()
+            self._ensure_fk_fresh()
             # set the buffer data and timestamp
             self._body_link_pose_w.data = self._root_view.get_link_transforms().view(wp.transformf)
             self._body_link_pose_w.timestamp = self._sim_timestamp
@@ -815,6 +887,7 @@ class ArticulationData(BaseArticulationData):
         relative to the world.
         """
         if self._body_com_vel_w.timestamp < self._sim_timestamp:
+            self._ensure_fk_fresh()
             self._body_com_vel_w.data = self._root_view.get_link_velocities().view(wp.spatial_vectorf)
             self._body_com_vel_w.timestamp = self._sim_timestamp
 

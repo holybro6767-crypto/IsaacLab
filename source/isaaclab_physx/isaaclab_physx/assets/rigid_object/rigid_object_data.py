@@ -125,6 +125,40 @@ class RigidObjectData(BaseRigidObjectData):
         # update the simulation timestamp
         self._sim_timestamp += dt
 
+    def reset_pose(self, from_link: bool = True) -> None:
+        """Reset pose-dependent cached rigid object properties.
+
+        Args:
+            from_link: Whether the root link pose was written. Defaults to True.
+        """
+        if from_link:
+            self._root_com_pose_w.timestamp = -1.0
+        for attr_name in (
+            "_root_state_w",
+            "_root_link_state_w",
+            "_root_com_state_w",
+        ):
+            buffer = getattr(self, attr_name, None)
+            if buffer is not None:
+                buffer.timestamp = -1.0
+
+    def reset_velocity(self, from_com: bool = True) -> None:
+        """Reset velocity-dependent cached rigid object properties.
+
+        Args:
+            from_com: Whether the root center-of-mass velocity was written. Defaults to True.
+        """
+        if from_com:
+            self._root_link_vel_w.timestamp = -1.0
+        for attr_name in (
+            "_root_state_w",
+            "_root_link_state_w",
+            "_root_com_state_w",
+        ):
+            buffer = getattr(self, attr_name, None)
+            if buffer is not None:
+                buffer.timestamp = -1.0
+
     """
     Names.
     """

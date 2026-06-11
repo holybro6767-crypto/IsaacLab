@@ -386,6 +386,7 @@ class RigidObjectCollection(BaseRigidObjectCollection):
         body_ids: Sequence[int] | torch.Tensor | wp.array | slice | None = None,
         env_ids: Sequence[int] | torch.Tensor | wp.array | None = None,
         full_data: bool = False,
+        skip_forward: bool = False,
     ) -> None:
         """Set the body link pose over selected environment and body indices into the simulation.
 
@@ -393,6 +394,9 @@ class RigidObjectCollection(BaseRigidObjectCollection):
 
         .. note::
             This method expects partial data.
+
+        .. note::
+            May trigger per-environment FK recomputation and solver reset (Kamino) for the affected environments.
 
         .. tip::
             Both the index and mask methods have dedicated optimized implementations. Performance is similar for both.
@@ -405,9 +409,7 @@ class RigidObjectCollection(BaseRigidObjectCollection):
             body_ids: Body indices. If None, then all indices are used.
             env_ids: Environment indices. If None, then all indices are used.
             full_data: Whether to expect full data. Defaults to False.
-
-        Note:
-            Triggers per-environment FK recomputation and solver reset (Kamino) for the affected environments.
+            skip_forward: Whether to skip the forward pass. Defaults to False.
         """
         env_ids = self._resolve_env_ids(env_ids)
         body_ids = self._resolve_body_ids(body_ids)
@@ -427,17 +429,12 @@ class RigidObjectCollection(BaseRigidObjectCollection):
             ],
             outputs=[
                 self.data.body_link_pose_w,
-                None,  # body_link_state_w
-                None,  # body_state_w
             ],
             device=self.device,
         )
         # Invalidate dependent timestamps
-        self.data._body_com_pose_w.timestamp = -1.0
-        self.data._body_com_state_w.timestamp = -1.0
-        self.data._body_link_state_w.timestamp = -1.0
-        self.data._body_state_w.timestamp = -1.0
-        SimulationManager.invalidate_fk(env_ids=env_ids, articulation_ids=self._root_view.articulation_ids)
+        if not skip_forward:
+            self.data.reset_pose(env_ids=env_ids)
 
     def write_body_link_pose_to_sim_mask(
         self,
@@ -445,6 +442,7 @@ class RigidObjectCollection(BaseRigidObjectCollection):
         body_poses: torch.Tensor | wp.array,
         env_mask: wp.array | None = None,
         body_ids: Sequence[int] | torch.Tensor | wp.array | slice | None = None,
+        skip_forward: bool = False,
     ) -> None:
         """Set the body link pose over selected environment mask into the simulation.
 
@@ -452,6 +450,9 @@ class RigidObjectCollection(BaseRigidObjectCollection):
 
         .. note::
             This method expects full data.
+
+        .. note::
+            May trigger per-environment FK recomputation and solver reset (Kamino) for the affected environments.
 
         .. tip::
             Both the index and mask methods have dedicated optimized implementations. Performance is similar for both.
@@ -462,9 +463,7 @@ class RigidObjectCollection(BaseRigidObjectCollection):
                 or (num_instances, num_bodies) with dtype wp.transformf.
             env_mask: Environment mask. If None, then all the instances are updated. Shape is (num_instances,).
             body_ids: Body indices. If None, then all indices are used.
-
-        Note:
-            Triggers per-environment FK recomputation and solver reset (Kamino) for the affected environments.
+            skip_forward: Whether to skip the forward pass. Defaults to False.
         """
         if env_mask is not None:
             env_ids = self._resolve_env_mask(env_mask)
@@ -474,6 +473,8 @@ class RigidObjectCollection(BaseRigidObjectCollection):
         self.write_body_link_pose_to_sim_index(
             body_poses=body_poses, env_ids=env_ids, body_ids=body_ids, full_data=True
         )
+        if not skip_forward:
+            self.data.reset_pose(env_ids=env_ids)
 
     def write_body_com_pose_to_sim_index(
         self,
@@ -482,6 +483,7 @@ class RigidObjectCollection(BaseRigidObjectCollection):
         body_ids: Sequence[int] | torch.Tensor | wp.array | slice | None = None,
         env_ids: Sequence[int] | torch.Tensor | wp.array | None = None,
         full_data: bool = False,
+        skip_forward: bool = False,
     ) -> None:
         """Set the body center of mass pose over selected environment and body indices into the simulation.
 
@@ -490,6 +492,9 @@ class RigidObjectCollection(BaseRigidObjectCollection):
 
         .. note::
             This method expects partial data.
+
+        .. note::
+            May trigger per-environment FK recomputation and solver reset (Kamino) for the affected environments.
 
         .. tip::
             Both the index and mask methods have dedicated optimized implementations. Performance is similar for both.
@@ -502,9 +507,7 @@ class RigidObjectCollection(BaseRigidObjectCollection):
             body_ids: Body indices. If None, then all indices are used.
             env_ids: Environment indices. If None, then all indices are used.
             full_data: Whether to expect full data. Defaults to False.
-
-        Note:
-            Triggers per-environment FK recomputation and solver reset (Kamino) for the affected environments.
+            skip_forward: Whether to skip the forward pass. Defaults to False.
         """
         env_ids = self._resolve_env_ids(env_ids)
         body_ids = self._resolve_body_ids(body_ids)
@@ -526,17 +529,12 @@ class RigidObjectCollection(BaseRigidObjectCollection):
             outputs=[
                 self.data.body_com_pose_w,
                 self.data.body_link_pose_w,
-                None,  # body_com_state_w
-                None,  # body_link_state_w
-                None,  # body_state_w
             ],
             device=self.device,
         )
         # Invalidate dependent timestamps
-        self.data._body_link_state_w.timestamp = -1.0
-        self.data._body_state_w.timestamp = -1.0
-        self.data._body_com_state_w.timestamp = -1.0
-        SimulationManager.invalidate_fk(env_ids=env_ids, articulation_ids=self._root_view.articulation_ids)
+        if not skip_forward:
+            self.data.reset_pose(env_ids=env_ids)
 
     def write_body_com_pose_to_sim_mask(
         self,
@@ -544,6 +542,7 @@ class RigidObjectCollection(BaseRigidObjectCollection):
         body_poses: torch.Tensor | wp.array,
         env_mask: wp.array | None = None,
         body_ids: Sequence[int] | torch.Tensor | wp.array | slice | None = None,
+        skip_forward: bool = False,
     ) -> None:
         """Set the body center of mass pose over selected environment mask into the simulation.
 
@@ -552,6 +551,9 @@ class RigidObjectCollection(BaseRigidObjectCollection):
 
         .. note::
             This method expects full data.
+
+        .. note::
+            May trigger per-environment FK recomputation and solver reset (Kamino) for the affected environments.
 
         .. tip::
             Both the index and mask methods have dedicated optimized implementations. Performance is similar for both.
@@ -562,9 +564,7 @@ class RigidObjectCollection(BaseRigidObjectCollection):
                 or (num_instances, num_bodies) with dtype wp.transformf.
             env_mask: Environment mask. If None, then all the instances are updated. Shape is (num_instances,).
             body_ids: Body indices. If None, then all indices are used.
-
-        Note:
-            Triggers per-environment FK recomputation and solver reset (Kamino) for the affected environments.
+            skip_forward: Whether to skip the forward pass. Defaults to False.
         """
         if env_mask is not None:
             env_ids = self._resolve_env_mask(env_mask)
@@ -572,6 +572,8 @@ class RigidObjectCollection(BaseRigidObjectCollection):
             env_mask = self._ALL_ENV_MASK
             env_ids = self._ALL_ENV_INDICES
         self.write_body_com_pose_to_sim_index(body_poses=body_poses, env_ids=env_ids, body_ids=body_ids, full_data=True)
+        if not skip_forward:
+            self.data.reset_pose(env_ids=env_ids)
 
     def write_body_com_velocity_to_sim_index(
         self,
@@ -580,6 +582,7 @@ class RigidObjectCollection(BaseRigidObjectCollection):
         body_ids: Sequence[int] | torch.Tensor | wp.array | slice | None = None,
         env_ids: Sequence[int] | torch.Tensor | wp.array | None = None,
         full_data: bool = False,
+        skip_forward: bool = False,
     ) -> None:
         """Set the body center of mass velocity over selected environment and body indices into the simulation.
 
@@ -590,6 +593,9 @@ class RigidObjectCollection(BaseRigidObjectCollection):
 
         .. note::
             This method expects partial data.
+
+        .. note::
+            May trigger per-environment FK recomputation and solver reset (Kamino) for the affected environments.
 
         .. tip::
             Both the index and mask methods have dedicated optimized implementations. Performance is similar for both.
@@ -602,9 +608,7 @@ class RigidObjectCollection(BaseRigidObjectCollection):
             body_ids: Body indices. If None, then all indices are used.
             env_ids: Environment indices. If None, then all indices are used.
             full_data: Whether to expect full data. Defaults to False.
-
-        Note:
-            Triggers per-environment FK recomputation and solver reset (Kamino) for the affected environments.
+            skip_forward: Whether to skip the forward pass. Defaults to False.
         """
         env_ids = self._resolve_env_ids(env_ids)
         body_ids = self._resolve_body_ids(body_ids)
@@ -629,17 +633,12 @@ class RigidObjectCollection(BaseRigidObjectCollection):
             outputs=[
                 self.data.body_com_vel_w,
                 self.data.body_com_acc_w,
-                None,  # body_state_w
-                None,  # body_com_state_w
             ],
             device=self.device,
         )
         # Invalidate dependent timestamps
-        self.data._body_link_vel_w.timestamp = -1.0
-        self.data._body_state_w.timestamp = -1.0
-        self.data._body_com_state_w.timestamp = -1.0
-        self.data._body_link_state_w.timestamp = -1.0
-        SimulationManager.invalidate_fk(env_ids=env_ids, articulation_ids=self._root_view.articulation_ids)
+        if not skip_forward:
+            self.data.reset_velocity(env_ids=env_ids)
 
     def write_body_com_velocity_to_sim_mask(
         self,
@@ -647,6 +646,7 @@ class RigidObjectCollection(BaseRigidObjectCollection):
         body_velocities: torch.Tensor | wp.array,
         env_mask: wp.array | None = None,
         body_ids: Sequence[int] | torch.Tensor | wp.array | slice | None = None,
+        skip_forward: bool = False,
     ) -> None:
         """Set the body center of mass velocity over selected environment mask into the simulation.
 
@@ -658,6 +658,9 @@ class RigidObjectCollection(BaseRigidObjectCollection):
         .. note::
             This method expects full data.
 
+        .. note::
+            May trigger per-environment FK recomputation and solver reset (Kamino) for the affected environments.
+
         .. tip::
             Both the index and mask methods have dedicated optimized implementations. Performance is similar for both.
             However, to allow graphed pipelines, the mask method must be used.
@@ -668,9 +671,7 @@ class RigidObjectCollection(BaseRigidObjectCollection):
                 or (num_instances, num_bodies) with dtype wp.spatial_vectorf.
             env_mask: Environment mask. If None, then all the instances are updated. Shape is (num_instances,).
             body_ids: Body indices. If None, then all indices are used.
-
-        Note:
-            Triggers per-environment FK recomputation and solver reset (Kamino) for the affected environments.
+            skip_forward: Whether to skip the forward pass. Defaults to False.
         """
         if env_mask is not None:
             env_ids = self._resolve_env_mask(env_mask)
@@ -680,6 +681,8 @@ class RigidObjectCollection(BaseRigidObjectCollection):
         self.write_body_com_velocity_to_sim_index(
             body_velocities=body_velocities, env_ids=env_ids, body_ids=body_ids, full_data=True
         )
+        if not skip_forward:
+            self.data.reset_velocity(env_ids=env_ids)
 
     def write_body_link_velocity_to_sim_index(
         self,
@@ -688,6 +691,7 @@ class RigidObjectCollection(BaseRigidObjectCollection):
         body_ids: Sequence[int] | torch.Tensor | wp.array | slice | None = None,
         env_ids: Sequence[int] | torch.Tensor | wp.array | None = None,
         full_data: bool = False,
+        skip_forward: bool = False,
     ) -> None:
         """Set the body link velocity over selected environment and body indices into the simulation.
 
@@ -698,6 +702,9 @@ class RigidObjectCollection(BaseRigidObjectCollection):
 
         .. note::
             This method expects partial data.
+
+        .. note::
+            May trigger per-environment FK recomputation and solver reset (Kamino) for the affected environments.
 
         .. tip::
             Both the index and mask methods have dedicated optimized implementations. Performance is similar for both.
@@ -710,9 +717,7 @@ class RigidObjectCollection(BaseRigidObjectCollection):
             body_ids: Body indices. If None, then all indices are used.
             env_ids: Environment indices. If None, then all indices are used.
             full_data: Whether to expect full data. Defaults to False.
-
-        Note:
-            Triggers per-environment FK recomputation and solver reset (Kamino) for the affected environments.
+            skip_forward: Whether to skip the forward pass. Defaults to False.
         """
         env_ids = self._resolve_env_ids(env_ids)
         body_ids = self._resolve_body_ids(body_ids)
@@ -740,16 +745,12 @@ class RigidObjectCollection(BaseRigidObjectCollection):
                 self.data.body_link_vel_w,
                 self.data.body_com_vel_w,
                 self.data.body_com_acc_w,
-                None,  # body_link_state_w
-                None,  # body_state_w
-                None,  # body_com_state_w
             ],
             device=self.device,
         )
         # Invalidate dependent timestamps
-        self.data._body_link_state_w.timestamp = -1.0
-        self.data._body_state_w.timestamp = -1.0
-        self.data._body_com_state_w.timestamp = -1.0
+        if not skip_forward:
+            self.data.reset_velocity(env_ids=env_ids)
         SimulationManager.invalidate_fk(env_ids=env_ids, articulation_ids=self._root_view.articulation_ids)
 
     def write_body_link_velocity_to_sim_mask(
@@ -758,6 +759,7 @@ class RigidObjectCollection(BaseRigidObjectCollection):
         body_velocities: torch.Tensor | wp.array,
         env_mask: wp.array | None = None,
         body_ids: Sequence[int] | torch.Tensor | wp.array | slice | None = None,
+        skip_forward: bool = False,
     ) -> None:
         """Set the body link velocity over selected environment mask into the simulation.
 
@@ -769,6 +771,9 @@ class RigidObjectCollection(BaseRigidObjectCollection):
         .. note::
             This method expects full data.
 
+        .. note::
+            May trigger per-environment FK recomputation and solver reset (Kamino) for the affected environments.
+
         .. tip::
             Both the index and mask methods have dedicated optimized implementations. Performance is similar for both.
             However, to allow graphed pipelines, the mask method must be used.
@@ -778,9 +783,7 @@ class RigidObjectCollection(BaseRigidObjectCollection):
                 or (num_instances, num_bodies) with dtype wp.spatial_vectorf.
             env_mask: Environment mask. If None, then all the instances are updated. Shape is (num_instances,).
             body_ids: Body indices. If None, then all indices are used.
-
-        Note:
-            Triggers per-environment FK recomputation and solver reset (Kamino) for the affected environments.
+            skip_forward: Whether to skip the forward pass. Defaults to False.
         """
         if env_mask is not None:
             env_ids = self._resolve_env_mask(env_mask)
@@ -790,6 +793,8 @@ class RigidObjectCollection(BaseRigidObjectCollection):
         self.write_body_link_velocity_to_sim_index(
             body_velocities=body_velocities, env_ids=env_ids, body_ids=body_ids, full_data=True
         )
+        if not skip_forward:
+            self.data.reset_velocity(env_ids=env_ids)
 
     """
     Operations - Setters.
@@ -1125,6 +1130,7 @@ class RigidObjectCollection(BaseRigidObjectCollection):
             self._body_names_list.append(name)
 
         # Build a single pattern that matches ALL body types by wildcarding the differing path segment
+        # TODO: Remove when https://github.com/newton-physics/newton/pull/3071 lands.
         combined_pattern = self._build_combined_pattern(root_prim_path_exprs)
 
         # Create a single ArticulationView matching all body types.

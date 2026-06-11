@@ -134,6 +134,72 @@ class ArticulationData(BaseArticulationData):
             SimulationManager.forward()
             self._fk_timestamp = self._sim_timestamp
 
+    def reset_pose(self, env_ids: wp.array | None = None, env_mask: wp.array | None = None) -> None:
+        """Reset the pose of the articulation.
+
+        This will mark all the pose related properties as stale, and trigger a FK refresh.
+
+        Args:
+            env_ids: Environment indices. If None, then all indices are used.
+            env_mask: Environment mask. If None, then all the instances are updated. Shape is (num_instances,).
+        """
+        self._root_com_pose_w.timestamp = -1.0
+        self._body_com_pose_w.timestamp = -1.0
+        # Force refresh on all the root states
+        if self._root_state_w is not None:
+            self._root_state_w.timestamp = -1.0
+        if self._root_link_state_w is not None:
+            self._root_link_state_w.timestamp = -1.0
+        if self._root_com_state_w is not None:
+            self._root_com_state_w.timestamp = -1.0
+        # Force refresh on all the body com states
+        if self._body_state_w is not None:
+            self._body_state_w.timestamp = -1.0
+        if self._body_link_state_w is not None:
+            self._body_link_state_w.timestamp = -1.0
+        if self._body_com_state_w is not None:
+            self._body_com_state_w.timestamp = -1.0
+        # Why do we have _fk_timestamp and invalidate_fk? _fk_timestamp is on the data-side,
+        # it's meant to force a refresh on the next outdated read. invalidate_fk is simulation-manager-side, it's meant
+        # to let the solver know things changed before it performs its next step.
+        self._fk_timestamp = -1.0
+        SimulationManager.invalidate_fk(
+            env_mask=env_mask, env_ids=env_ids, articulation_ids=self._root_view.articulation_ids
+        )
+
+    def reset_velocity(self, env_ids: wp.array | None = None, env_mask: wp.array | None = None) -> None:
+        """Reset the velocity of the articulation.
+
+        This will mark all the velocity related properties as stale, and trigger a FK refresh.
+        
+        Args:
+            env_ids: Environment indices. If None, then all indices are used.
+            env_mask: Environment mask. If None, then all the instances are updated. Shape is (num_instances,).
+        """
+        self._root_link_vel_w.timestamp = -1.0
+        self._body_link_vel_w.timestamp = -1.0
+        # Force a refresh on all the root states
+        if self._root_state_w is not None:
+            self._root_state_w.timestamp = -1.0
+        if self._root_link_state_w is not None:
+            self._root_link_state_w.timestamp = -1.0
+        if self._root_com_state_w is not None:
+            self._root_com_state_w.timestamp = -1.0
+        # Force refresh on all the body com states
+        if self._body_state_w is not None:
+            self._body_state_w.timestamp = -1.0
+        if self._body_link_state_w is not None:
+            self._body_link_state_w.timestamp = -1.0
+        if self._body_com_state_w is not None:
+            self._body_com_state_w.timestamp = -1.0
+        # Why do we have _fk_timestamp and invalidate_fk? _fk_timestamp is on the data-side,
+        # it's meant to force a refresh on the next outdated read. invalidate_fk is simulation-manager-side, it's meant
+        # to let the solver know things changed before it performs its next step.
+        self._fk_timestamp = -1.0
+        SimulationManager.invalidate_fk(
+            env_mask=env_mask, env_ids=env_ids, articulation_ids=self._root_view.articulation_ids
+        )
+
     """
     Names.
     """
@@ -717,6 +783,7 @@ class ArticulationData(BaseArticulationData):
         This quantity is the pose of the center of mass frame of the articulation links relative to the world.
         The orientation is provided in (x, y, z, w) format.
         """
+        self._ensure_fk_fresh()
         if self._body_com_pose_w.timestamp < self._sim_timestamp:
             wp.launch(
                 shared_kernels.get_body_com_pose_from_body_link_pose,
@@ -744,6 +811,7 @@ class ArticulationData(BaseArticulationData):
         This quantity contains the linear and angular velocities of the articulation links' center of mass frame
         relative to the world.
         """
+        self._ensure_fk_fresh()
         return self._body_com_vel_w_ta
 
     @property

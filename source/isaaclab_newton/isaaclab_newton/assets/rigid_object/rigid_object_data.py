@@ -123,6 +123,60 @@ class RigidObjectData(BaseRigidObjectData):
         # since we do finite differencing.
         self.body_com_acc_w
 
+    def _ensure_fk_fresh(self) -> None:
+        """Run forward kinematics if joint state has changed since the last FK update.
+
+        Newton's ``state.body_q`` (per-body world transforms) is updated by ``eval_fk``,
+        invoked here through ``SimulationManager.forward()``. After a manual joint or root
+        write that bypassed the sim step (``write_*_to_sim_*``), ``_fk_timestamp`` is set
+        to ``-1.0`` to force a refresh on the next read of any property that depends on
+        body poses (``body_link_pose_w``, the Jacobian properties, ``mass_matrix``).
+        """
+        if self._fk_timestamp < self._sim_timestamp:
+            SimulationManager.forward()
+            self._fk_timestamp = self._sim_timestamp
+
+    def reset_pose(self, env_ids: wp.array | None = None, env_mask: wp.array | None = None) -> None:
+        """Reset pose-dependent cached rigid object properties.
+
+        Args:
+            env_ids: Environment indices. If None, then all indices are used.
+            env_mask: Environment mask. If None, then all instances are updated. Shape is (num_instances,).
+        """
+        self._root_com_pose_w.timestamp = -1.0
+        # Force refresh on all the root states
+        if self._root_state_w is not None:
+            self._root_state_w.timestamp = -1.0
+        if self._root_link_state_w is not None:
+            self._root_link_state_w.timestamp = -1.0
+        if self._root_com_state_w is not None:
+            self._root_com_state_w.timestamp = -1.0
+        self._fk_timestamp = -1.0
+        SimulationManager.invalidate_fk(
+            env_mask=env_mask, env_ids=env_ids, articulation_ids=self._root_view.articulation_ids
+        )
+
+    def reset_velocity(self, env_ids: wp.array | None = None, env_mask: wp.array | None = None) -> None:
+        """Reset velocity-dependent cached rigid object properties.
+
+        Args:
+            env_ids: Environment indices. If None, then all indices are used.
+            env_mask: Environment mask. If None, then all instances are updated. Shape is (num_instances,).
+        """
+        self._root_link_vel_w.timestamp = -1.0
+        self._body_link_vel_w.timestamp = -1.0
+        # Force a refresh on all the root states
+        if self._root_state_w is not None:
+            self._root_state_w.timestamp = -1.0
+        if self._root_link_state_w is not None:
+            self._root_link_state_w.timestamp = -1.0
+        if self._root_com_state_w is not None:
+            self._root_com_state_w.timestamp = -1.0
+        self._fk_timestamp = -1.0
+        SimulationManager.invalidate_fk(
+            env_mask=env_mask, env_ids=env_ids, articulation_ids=self._root_view.articulation_ids
+        )
+
     """
     Names.
     """
@@ -289,9 +343,7 @@ class RigidObjectData(BaseRigidObjectData):
         This quantity is the pose of the actor frame of the rigid body relative to the world.
         The orientation is provided in (x, y, z, w) format.
         """
-        if self._fk_timestamp < self._sim_timestamp:
-            SimulationManager.forward()
-            self._fk_timestamp = self._sim_timestamp
+        self._ensure_fk_fresh()
         return self._body_link_pose_w_ta
 
     @property
@@ -328,6 +380,7 @@ class RigidObjectData(BaseRigidObjectData):
         This quantity contains the linear and angular velocities of the root rigid body's center of mass frame
         relative to the world.
         """
+        self._ensure_fk_fresh()
         return self._body_com_vel_w_ta
 
     @property

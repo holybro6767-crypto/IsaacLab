@@ -179,6 +179,52 @@ class ArticulationData(BaseArticulationData):
             self._joint_acc.timestamp = self._sim_timestamp
             wp.copy(self._previous_joint_vel, cur_vel_buf.data)
 
+    def reset_pose(self, from_link: bool = True) -> None:
+        """Reset pose-dependent cached articulation properties.
+
+        Args:
+            from_link: Whether to reset the pose from the link frame. Defaults to True.
+        """
+        attr_names = [
+            "_body_link_pose_w",
+            "_body_com_pose_w",
+            "_root_state_w_buf",
+            "_root_link_state_w_buf",
+            "_root_com_state_w_buf",
+            "_body_state_w_buf",
+            "_body_link_state_w_buf",
+            "_body_com_state_w_buf",
+        ]
+        if from_link:
+            attr_names.append("_root_com_pose_w")
+        for attr_name in attr_names:
+            buffer = getattr(self, attr_name, None)
+            if buffer is not None:
+                buffer.timestamp = -1.0
+
+    def reset_velocity(self, from_com: bool = True) -> None:
+        """Reset velocity-dependent cached articulation properties.
+
+        Args:
+            from_com: Whether to reset the velocity from the com frame. Defaults to True.
+        """
+        attr_names = [
+            "_body_com_vel_w",
+            "_body_link_vel_w",
+            "_root_state_w_buf",
+            "_root_link_state_w_buf",
+            "_root_com_state_w_buf",
+            "_body_state_w_buf",
+            "_body_link_state_w_buf",
+            "_body_com_state_w_buf",
+        ]
+        if from_com:
+            attr_names.append("_root_link_vel_w")
+        for attr_name in attr_names:
+            buffer = getattr(self, attr_name, None)
+            if buffer is not None:
+                buffer.timestamp = -1.0
+
     """
     Names.
     """
