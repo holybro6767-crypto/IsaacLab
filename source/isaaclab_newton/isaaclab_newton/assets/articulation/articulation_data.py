@@ -171,7 +171,7 @@ class ArticulationData(BaseArticulationData):
         """Reset the velocity of the articulation.
 
         This will mark all the velocity related properties as stale, and trigger a FK refresh.
-        
+
         Args:
             env_ids: Environment indices. If None, then all indices are used.
             env_mask: Environment mask. If None, then all the instances are updated. Shape is (num_instances,).

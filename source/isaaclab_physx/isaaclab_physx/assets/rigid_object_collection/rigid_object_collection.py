@@ -709,7 +709,11 @@ class RigidObjectCollection(BaseRigidObjectCollection):
         else:
             env_ids = self._ALL_ENV_INDICES
         self.write_body_com_velocity_to_sim_index(
-            body_velocities=body_velocities, env_ids=env_ids, body_ids=body_ids, full_data=True, skip_forward=skip_forward
+            body_velocities=body_velocities,
+            env_ids=env_ids,
+            body_ids=body_ids,
+            full_data=True,
+            skip_forward=skip_forward,
         )
 
     def write_body_link_velocity_to_sim_index(
@@ -823,7 +827,11 @@ class RigidObjectCollection(BaseRigidObjectCollection):
         else:
             env_ids = self._ALL_ENV_INDICES
         self.write_body_link_velocity_to_sim_index(
-            body_velocities=body_velocities, env_ids=env_ids, body_ids=body_ids, full_data=True, skip_forward=skip_forward
+            body_velocities=body_velocities,
+            env_ids=env_ids,
+            body_ids=body_ids,
+            full_data=True,
+            skip_forward=skip_forward,
         )
 
     """

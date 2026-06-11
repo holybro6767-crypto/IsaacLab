@@ -290,7 +290,9 @@ class RigidObject(BaseRigidObject):
             env_ids: Environment indices. If None, then all indices are used.
             skip_forward: Whether to skip the forward pass. Defaults to False.
         """
-        self.write_root_com_velocity_to_sim_index(root_velocity=root_velocity, env_ids=env_ids, skip_forward=skip_forward)
+        self.write_root_com_velocity_to_sim_index(
+            root_velocity=root_velocity, env_ids=env_ids, skip_forward=skip_forward
+        )
 
     def write_root_velocity_to_sim_mask(
         self,
@@ -314,7 +316,9 @@ class RigidObject(BaseRigidObject):
             env_mask: Environment mask. If None, then all the instances are updated. Shape is (num_instances,).
             skip_forward: Whether to skip the forward pass. Defaults to False.
         """
-        self.write_root_com_velocity_to_sim_mask(root_velocity=root_velocity, env_mask=env_mask, skip_forward=skip_forward)
+        self.write_root_com_velocity_to_sim_mask(
+            root_velocity=root_velocity, env_mask=env_mask, skip_forward=skip_forward
+        )
 
     def write_root_link_pose_to_sim_index(
         self,
