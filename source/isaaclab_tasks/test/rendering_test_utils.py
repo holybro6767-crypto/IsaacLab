@@ -37,7 +37,8 @@ MAX_DIFFERENT_PIXELS_PERCENTAGE_BY_ENV_NAME = {
     # headroom above that without masking real regressions, which the SSIM gate still catches.
     "shadow_hand": 5.0,
     # Texture aliasing artifacts on the ground (NVBUG#6116767)
-    "dexsuite_kuka": 8.0,
+    "dexsuite_kuka_homo": 8.0,
+    "dexsuite_kuka_hetero": 8.0,
 }
 
 # Minimum SSIM score below which two images are considered structurally different. SSIM is a perceptual metric
@@ -50,7 +51,8 @@ _SSIM_THRESHOLD = 0.985
 # (not globally) to keep the strict gate active everywhere it already passes.
 _SSIM_THRESHOLD_BY_ENV_NAME = {
     # Texture aliasing artifacts on the ground (NVBUG#6116767)
-    "dexsuite_kuka": 0.95,
+    "dexsuite_kuka_homo": 0.95,
+    "dexsuite_kuka_hetero": 0.95,
 }
 
 # Data types for which the SSIM gate is not enforced. SSIM assumes natural-image statistics and is unreliable on
@@ -871,25 +873,37 @@ def rendering_test_dexsuite_kuka(
     physics_backend: str,
     renderer: str,
     data_type: str,
+    setup_homogeneous_envs: bool,
     comparison_scores: list[dict],
 ) -> None:
     if physics_backend == "ovphysx":
         pytest.skip("ovphysx is not supported yet.")
 
+    from isaaclab.app.settings_manager import get_settings_manager
     from isaaclab.envs import ManagerBasedRLEnv
 
     from isaaclab_tasks.manager_based.manipulation.dexsuite.config.kuka_allegro.dexsuite_kuka_allegro_env_cfg import (
         DexsuiteKukaAllegroLiftEnvCfg,
     )
 
-    override_args = [f"presets={_physics_preset_name(physics_backend)},{renderer},{data_type}64,single_camera,cube"]
+    override_arg = f"presets={_physics_preset_name(physics_backend)},{renderer},{data_type}64,single_camera"
+
+    # The default setup uses heterogeneous environments with multiple asset spawner to place random objects.
+    # For homogeneous environments, we use a fixed object config - cube.
+    if setup_homogeneous_envs:
+        override_arg += ",cube"
 
     env_cfg = DexsuiteKukaAllegroLiftEnvCfg()
-    env_cfg = _apply_overrides_to_env_cfg(env_cfg, override_args)
+    env_cfg = _apply_overrides_to_env_cfg(env_cfg, [override_arg])
 
     env_cfg.scene.num_envs = 4
 
     if renderer == "ovrtx_renderer":
+        # PR#5979 followup: on release/3.0.0-beta2, the flag is set in launch_simulation() as a workaround to keep
+        # USD cloning enabled when using OVRTX renderer. The test has to set the flag manually here to match the
+        # behavior of training.
+        get_settings_manager().set_bool("/isaaclab/runtime/has_ovrtx_renderer", True)
+
         _redirect_ovrtx_renderer_log_to_stdout(env_cfg)
 
     # Disable the observation point-cloud visualisation markers (/Visuals/ObservationPointCloud).
@@ -907,17 +921,19 @@ def rendering_test_dexsuite_kuka(
     for marker_cfg in env_cfg.commands.object_pose.success_visualizer_cfg.markers.values():
         marker_cfg.visible = False
 
+    test_name = f"dexsuite_kuka_{'homo' if setup_homogeneous_envs else 'hetero'}"
+
     env = None
 
     try:
         env = ManagerBasedRLEnv(env_cfg)
-        maybe_save_stage("dexsuite_kuka", physics_backend, renderer, data_type)
+        maybe_save_stage(test_name, physics_backend, renderer, data_type)
         validate_camera_outputs(
-            "dexsuite_kuka",
+            test_name,
             physics_backend,
             renderer,
             env.scene.sensors["base_camera"].data.output,
-            max_different_pixels_percentage=MAX_DIFFERENT_PIXELS_PERCENTAGE_BY_ENV_NAME["dexsuite_kuka"],
+            max_different_pixels_percentage=MAX_DIFFERENT_PIXELS_PERCENTAGE_BY_ENV_NAME[test_name],
             comparison_scores=comparison_scores,
         )
     finally:
@@ -927,3 +943,7 @@ def rendering_test_dexsuite_kuka(
             # This invokes camera sensor and renderer cleanup explicitly before pytest teardown, otherwise OV
             # native code could probably complain about leaks and trigger segmentation fault.
             env = None
+
+        if renderer == "ovrtx_renderer":
+            # Reset the flag to False to avoid affecting other tests.
+            get_settings_manager().set_bool("/isaaclab/runtime/has_ovrtx_renderer", False)
