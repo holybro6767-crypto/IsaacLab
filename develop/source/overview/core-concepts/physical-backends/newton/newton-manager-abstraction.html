@@ -63,7 +63,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 11, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 12, 2026"/>
   </head>
   
   
@@ -838,6 +838,22 @@ such as rebuilding a BVH.</p></li>
 notification before delegating to the base manager.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">start_simulation()</span></code> or <code class="docutils literal notranslate"><span class="pre">instantiate_builder_from_stage()</span></code>: customize model
 building or post-finalize setup.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_register_builder_attributes(builder)</span></code>: register solver-specific Newton
+custom attributes (particle, shape, body) on the builder before particles or
+finalize run. The active manager class invokes this hook from
+<code class="docutils literal notranslate"><span class="pre">create_builder()</span></code>, <code class="docutils literal notranslate"><span class="pre">start_simulation()</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">instantiate_builder_from_stage()</span></code>.
+<a class="reference internal" href="../../../../api/lab_newton/isaaclab_newton.physics.html#isaaclab_newton.physics.NewtonMPMManager" title="isaaclab_newton.physics.NewtonMPMManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">NewtonMPMManager</span></code></a> is the in-tree example —
+it registers <code class="docutils literal notranslate"><span class="pre">mpm:young_modulus</span></code> and the rest of the implicit MPM
+particle attributes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_prepare_builder_for_finalize(builder)</span></code>: normalize imported or replicated
+builder data right before <code class="docutils literal notranslate"><span class="pre">ModelBuilder.finalize()</span></code>.
+<a class="reference internal" href="../../../../api/lab_newton/isaaclab_newton.physics.html#isaaclab_newton.physics.NewtonMPMManager" title="isaaclab_newton.physics.NewtonMPMManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">NewtonMPMManager</span></code></a> uses this to clear mass and
+inertia on kinematic bodies so implicit MPM treats them as massless colliders.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_supports_cuda_graph_capture()</span></code>: return <code class="docutils literal notranslate"><span class="pre">False</span></code> to opt the solver out of
+CUDA graph capture and fall back to eager execution. Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>;
+<a class="reference internal" href="../../../../api/lab_newton/isaaclab_newton.physics.html#isaaclab_newton.physics.NewtonMPMManager" title="isaaclab_newton.physics.NewtonMPMManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">NewtonMPMManager</span></code></a> returns <code class="docutils literal notranslate"><span class="pre">True</span></code> only for a
+fixed grid, since sparse/dense MPM grids reallocate as particles move.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">_solver_specific_clear()</span></code>: release any class-level state owned by the
 solver manager.</p></li>
 </ul>
@@ -1049,7 +1065,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 11, 2026.
+  Last updated on Jun 12, 2026.
   <br/>
 </p>
   </div>

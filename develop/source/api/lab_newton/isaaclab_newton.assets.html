@@ -65,7 +65,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 11, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 12, 2026"/>
   </head>
   
   
@@ -1365,6 +1365,73 @@
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mpm-object">MPM Object</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject"><code class="docutils literal notranslate"><span class="pre">MPMObject</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.cfg"><code class="docutils literal notranslate"><span class="pre">MPMObject.cfg</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.__init__"><code class="docutils literal notranslate"><span class="pre">MPMObject.__init__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.data"><code class="docutils literal notranslate"><span class="pre">MPMObject.data</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.num_instances"><code class="docutils literal notranslate"><span class="pre">MPMObject.num_instances</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.num_bodies"><code class="docutils literal notranslate"><span class="pre">MPMObject.num_bodies</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.max_sim_vertices_per_body"><code class="docutils literal notranslate"><span class="pre">MPMObject.max_sim_vertices_per_body</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.particles_per_object"><code class="docutils literal notranslate"><span class="pre">MPMObject.particles_per_object</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.reset"><code class="docutils literal notranslate"><span class="pre">MPMObject.reset()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_data_to_sim"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_data_to_sim()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.update"><code class="docutils literal notranslate"><span class="pre">MPMObject.update()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_state_to_sim_index"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_state_to_sim_index()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_pos_to_sim_index"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_pos_to_sim_index()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_velocity_to_sim_index"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_velocity_to_sim_index()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_kinematic_target_to_sim_index"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_kinematic_target_to_sim_index()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_state_to_sim_mask"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_state_to_sim_mask()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_pos_to_sim_mask"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_pos_to_sim_mask()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_velocity_to_sim_mask"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_velocity_to_sim_mask()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_kinematic_target_to_sim_mask"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_kinematic_target_to_sim_mask()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_particle_state_to_sim_index"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_particle_state_to_sim_index()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_particle_pos_to_sim_index"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_particle_pos_to_sim_index()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_particle_velocity_to_sim_index"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_particle_velocity_to_sim_index()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_particle_state_to_sim_mask"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_particle_state_to_sim_mask()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_particle_pos_to_sim_mask"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_particle_pos_to_sim_mask()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_particle_velocity_to_sim_mask"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_particle_velocity_to_sim_mask()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.assert_shape_and_dtype"><code class="docutils literal notranslate"><span class="pre">MPMObject.assert_shape_and_dtype()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.assert_shape_and_dtype_mask"><code class="docutils literal notranslate"><span class="pre">MPMObject.assert_shape_and_dtype_mask()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.device"><code class="docutils literal notranslate"><span class="pre">MPMObject.device</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.has_debug_vis_implementation"><code class="docutils literal notranslate"><span class="pre">MPMObject.has_debug_vis_implementation</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.is_initialized"><code class="docutils literal notranslate"><span class="pre">MPMObject.is_initialized</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.set_debug_vis"><code class="docutils literal notranslate"><span class="pre">MPMObject.set_debug_vis()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.set_visibility"><code class="docutils literal notranslate"><span class="pre">MPMObject.set_visibility()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.transform_nodal_pos"><code class="docutils literal notranslate"><span class="pre">MPMObject.transform_nodal_pos()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_kinematic_target_to_sim"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_kinematic_target_to_sim()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_pos_to_sim"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_pos_to_sim()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_state_to_sim"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_state_to_sim()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_velocity_to_sim"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_velocity_to_sim()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectCfg"><code class="docutils literal notranslate"><span class="pre">MPMObjectCfg</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectCfg.class_type"><code class="docutils literal notranslate"><span class="pre">MPMObjectCfg.class_type</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectCfg.prim_path"><code class="docutils literal notranslate"><span class="pre">MPMObjectCfg.prim_path</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectCfg.spawn"><code class="docutils literal notranslate"><span class="pre">MPMObjectCfg.spawn</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectCfg.init_state"><code class="docutils literal notranslate"><span class="pre">MPMObjectCfg.init_state</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectCfg.collision_group"><code class="docutils literal notranslate"><span class="pre">MPMObjectCfg.collision_group</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectCfg.debug_vis"><code class="docutils literal notranslate"><span class="pre">MPMObjectCfg.debug_vis</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectCfg.disable_shape_checks"><code class="docutils literal notranslate"><span class="pre">MPMObjectCfg.disable_shape_checks</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectCfg.visualizer_cfg"><code class="docutils literal notranslate"><span class="pre">MPMObjectCfg.visualizer_cfg</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData"><code class="docutils literal notranslate"><span class="pre">MPMObjectData</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.default_nodal_state_w"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.default_nodal_state_w</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.nodal_kinematic_target"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.nodal_kinematic_target</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.particle_pos_w"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.particle_pos_w</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.particle_vel_w"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.particle_vel_w</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.particle_state_w"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.particle_state_w</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.nodal_pos_w"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.nodal_pos_w</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.nodal_vel_w"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.nodal_vel_w</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.nodal_state_w"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.nodal_state_w</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.root_pos_w"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.root_pos_w</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.root_vel_w"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.root_vel_w</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.update"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -1404,6 +1471,15 @@
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.DeformableObjectData" title="isaaclab_newton.assets.DeformableObjectData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeformableObjectData</span></code></a></p></td>
 <td><p>Data container for a deformable object (Newton backend).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject" title="isaaclab_newton.assets.MPMObject"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MPMObject</span></code></a></p></td>
+<td><p>Newton MPM particle object asset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectCfg" title="isaaclab_newton.assets.MPMObjectCfg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MPMObjectCfg</span></code></a></p></td>
+<td><p>Configuration parameters for a Newton MPM particle object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectData" title="isaaclab_newton.assets.MPMObjectData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MPMObjectData</span></code></a></p></td>
+<td><p>Data container for a Newton MPM particle object.</p></td>
 </tr>
 </tbody>
 </table>
@@ -10288,6 +10364,839 @@ Shape is (num_instances, particles_per_body) with dtype vec4f.</p>
 </dd></dl>
 
 </section>
+<section id="mpm-object">
+<h2>MPM Object<a class="headerlink" href="#mpm-object" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isaaclab_newton.assets.</span></span><span class="sig-name descname"><span class="pre">MPMObject</span></span><a class="reference internal" href="../../../_modules/isaaclab_newton/assets/mpm_object/mpm_object.html#MPMObject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.assets.MPMObject" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../lab/isaaclab.assets.html#isaaclab.assets.BaseDeformableObject" title="isaaclab.assets.deformable_object.base_deformable_object.BaseDeformableObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDeformableObject</span></code></a></p>
+<p>Newton MPM particle object asset.</p>
+<p>The object is presented through Isaac Lab’s deformable-object interface so it
+can participate in existing scene reset/update/state workflows while exposing
+particle-specific aliases on <a class="reference internal" href="#isaaclab_newton.assets.MPMObject.data" title="isaaclab_newton.assets.MPMObject.data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code></a>.</p>
+<p><strong>Attributes:</strong></p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.cfg" title="isaaclab_newton.assets.MPMObject.cfg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cfg</span></code></a></p></td>
+<td><p>Configuration instance for the deformable object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.data" title="isaaclab_newton.assets.MPMObject.data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></a></p></td>
+<td><p>Data container for the deformable object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.num_instances" title="isaaclab_newton.assets.MPMObject.num_instances"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_instances</span></code></a></p></td>
+<td><p>Number of instances of the asset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.num_bodies" title="isaaclab_newton.assets.MPMObject.num_bodies"><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_bodies</span></code></a></p></td>
+<td><p>Number of bodies in the asset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.max_sim_vertices_per_body" title="isaaclab_newton.assets.MPMObject.max_sim_vertices_per_body"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_sim_vertices_per_body</span></code></a></p></td>
+<td><p>The maximum number of simulation mesh vertices per deformable body.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.particles_per_object" title="isaaclab_newton.assets.MPMObject.particles_per_object"><code class="xref py py-obj docutils literal notranslate"><span class="pre">particles_per_object</span></code></a></p></td>
+<td><p>Number of particles generated for each environment instance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.device" title="isaaclab_newton.assets.MPMObject.device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device</span></code></a></p></td>
+<td><p>Memory device for computation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.has_debug_vis_implementation" title="isaaclab_newton.assets.MPMObject.has_debug_vis_implementation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_debug_vis_implementation</span></code></a></p></td>
+<td><p>Whether the asset has a debug visualization implemented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.is_initialized" title="isaaclab_newton.assets.MPMObject.is_initialized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_initialized</span></code></a></p></td>
+<td><p>Whether the asset is initialized.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Methods:</strong></p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.__init__" title="isaaclab_newton.assets.MPMObject.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(cfg)</p></td>
+<td><p>Initialize the deformable object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.reset" title="isaaclab_newton.assets.MPMObject.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a>([env_ids, env_mask])</p></td>
+<td><p>Reset selected particle instances to their default particle state.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_data_to_sim" title="isaaclab_newton.assets.MPMObject.write_data_to_sim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_data_to_sim</span></code></a>()</p></td>
+<td><p>No-op; MPM particle writes are applied immediately by write methods.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.update" title="isaaclab_newton.assets.MPMObject.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a>(dt)</p></td>
+<td><p>Update the internal buffers.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_nodal_state_to_sim_index" title="isaaclab_newton.assets.MPMObject.write_nodal_state_to_sim_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_nodal_state_to_sim_index</span></code></a>(nodal_state)</p></td>
+<td><p>Set the nodal state over selected environment indices into the simulation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_nodal_pos_to_sim_index" title="isaaclab_newton.assets.MPMObject.write_nodal_pos_to_sim_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_nodal_pos_to_sim_index</span></code></a>(nodal_pos[, ...])</p></td>
+<td><p>Set the nodal positions over selected environment indices into the simulation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_nodal_velocity_to_sim_index" title="isaaclab_newton.assets.MPMObject.write_nodal_velocity_to_sim_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_nodal_velocity_to_sim_index</span></code></a>(nodal_vel)</p></td>
+<td><p>Set the nodal velocity over selected environment indices into the simulation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_nodal_kinematic_target_to_sim_index" title="isaaclab_newton.assets.MPMObject.write_nodal_kinematic_target_to_sim_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_nodal_kinematic_target_to_sim_index</span></code></a>(targets)</p></td>
+<td><p>Set the kinematic targets of the simulation mesh for the deformable bodies using indices.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_nodal_state_to_sim_mask" title="isaaclab_newton.assets.MPMObject.write_nodal_state_to_sim_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_nodal_state_to_sim_mask</span></code></a>(nodal_state[, ...])</p></td>
+<td><p>Set the nodal state over selected environment mask into the simulation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_nodal_pos_to_sim_mask" title="isaaclab_newton.assets.MPMObject.write_nodal_pos_to_sim_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_nodal_pos_to_sim_mask</span></code></a>(nodal_pos[, ...])</p></td>
+<td><p>Set the nodal positions over selected environment mask into the simulation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_nodal_velocity_to_sim_mask" title="isaaclab_newton.assets.MPMObject.write_nodal_velocity_to_sim_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_nodal_velocity_to_sim_mask</span></code></a>(nodal_vel)</p></td>
+<td><p>Set the nodal velocity over selected environment mask into the simulation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_nodal_kinematic_target_to_sim_mask" title="isaaclab_newton.assets.MPMObject.write_nodal_kinematic_target_to_sim_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_nodal_kinematic_target_to_sim_mask</span></code></a>(targets)</p></td>
+<td><p>Set the kinematic targets of the simulation mesh for the deformable bodies using mask.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_particle_state_to_sim_index" title="isaaclab_newton.assets.MPMObject.write_particle_state_to_sim_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_particle_state_to_sim_index</span></code></a>(nodal_state)</p></td>
+<td><p>Set the nodal state over selected environment indices into the simulation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_particle_pos_to_sim_index" title="isaaclab_newton.assets.MPMObject.write_particle_pos_to_sim_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_particle_pos_to_sim_index</span></code></a>(nodal_pos[, ...])</p></td>
+<td><p>Set the nodal positions over selected environment indices into the simulation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_particle_velocity_to_sim_index" title="isaaclab_newton.assets.MPMObject.write_particle_velocity_to_sim_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_particle_velocity_to_sim_index</span></code></a>(nodal_vel)</p></td>
+<td><p>Set the nodal velocity over selected environment indices into the simulation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_particle_state_to_sim_mask" title="isaaclab_newton.assets.MPMObject.write_particle_state_to_sim_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_particle_state_to_sim_mask</span></code></a>(nodal_state)</p></td>
+<td><p>Set the nodal state over selected environment mask into the simulation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_particle_pos_to_sim_mask" title="isaaclab_newton.assets.MPMObject.write_particle_pos_to_sim_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_particle_pos_to_sim_mask</span></code></a>(nodal_pos[, ...])</p></td>
+<td><p>Set the nodal positions over selected environment mask into the simulation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_particle_velocity_to_sim_mask" title="isaaclab_newton.assets.MPMObject.write_particle_velocity_to_sim_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_particle_velocity_to_sim_mask</span></code></a>(nodal_vel)</p></td>
+<td><p>Set the nodal velocity over selected environment mask into the simulation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.assert_shape_and_dtype" title="isaaclab_newton.assets.MPMObject.assert_shape_and_dtype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_shape_and_dtype</span></code></a>(tensor, shape, dtype)</p></td>
+<td><p>Assert the shape and dtype of a tensor or warp array.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.assert_shape_and_dtype_mask" title="isaaclab_newton.assets.MPMObject.assert_shape_and_dtype_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assert_shape_and_dtype_mask</span></code></a>(tensor, masks, dtype)</p></td>
+<td><p>Assert the shape of a tensor or warp array against mask dimensions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.set_debug_vis" title="isaaclab_newton.assets.MPMObject.set_debug_vis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_debug_vis</span></code></a>(debug_vis)</p></td>
+<td><p>Sets whether to visualize the asset data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.set_visibility" title="isaaclab_newton.assets.MPMObject.set_visibility"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_visibility</span></code></a>(visible[, env_ids])</p></td>
+<td><p>Set the visibility of the prims corresponding to the asset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.transform_nodal_pos" title="isaaclab_newton.assets.MPMObject.transform_nodal_pos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transform_nodal_pos</span></code></a>(nodal_pos[, pos, quat])</p></td>
+<td><p>Transform the nodal positions based on the pose transformation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_nodal_kinematic_target_to_sim" title="isaaclab_newton.assets.MPMObject.write_nodal_kinematic_target_to_sim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_nodal_kinematic_target_to_sim</span></code></a>(targets)</p></td>
+<td><p>Deprecated.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_nodal_pos_to_sim" title="isaaclab_newton.assets.MPMObject.write_nodal_pos_to_sim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_nodal_pos_to_sim</span></code></a>(nodal_pos[, env_ids])</p></td>
+<td><p>Deprecated.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_nodal_state_to_sim" title="isaaclab_newton.assets.MPMObject.write_nodal_state_to_sim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_nodal_state_to_sim</span></code></a>(nodal_state[, env_ids])</p></td>
+<td><p>Deprecated.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_nodal_velocity_to_sim" title="isaaclab_newton.assets.MPMObject.write_nodal_velocity_to_sim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_nodal_velocity_to_sim</span></code></a>(nodal_vel[, env_ids])</p></td>
+<td><p>Deprecated.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.cfg">
+<span class="sig-name descname"><span class="pre">cfg</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectCfg" title="isaaclab_newton.assets.MPMObjectCfg"><span class="pre">MPMObjectCfg</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.cfg" title="Link to this definition">#</a></dt>
+<dd><p>Configuration instance for the deformable object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectCfg" title="isaaclab_newton.assets.MPMObjectCfg"><span class="pre">MPMObjectCfg</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/isaaclab_newton/assets/mpm_object/mpm_object.html#MPMObject.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Initialize the deformable object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cfg</strong> – A configuration instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.data">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectData" title="isaaclab_newton.assets.mpm_object.mpm_object_data.MPMObjectData"><span class="pre">MPMObjectData</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.data" title="Link to this definition">#</a></dt>
+<dd><p>Data container for the deformable object.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.num_instances">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_instances</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.num_instances" title="Link to this definition">#</a></dt>
+<dd><p>Number of instances of the asset.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.num_bodies">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">num_bodies</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.num_bodies" title="Link to this definition">#</a></dt>
+<dd><p>Number of bodies in the asset.</p>
+<p>This is always 1 since each object is a single deformable body.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.max_sim_vertices_per_body">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">max_sim_vertices_per_body</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.max_sim_vertices_per_body" title="Link to this definition">#</a></dt>
+<dd><p>The maximum number of simulation mesh vertices per deformable body.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.particles_per_object">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">particles_per_object</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.particles_per_object" title="Link to this definition">#</a></dt>
+<dd><p>Number of particles generated for each environment instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_newton/assets/mpm_object/mpm_object.html#MPMObject.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.reset" title="Link to this definition">#</a></dt>
+<dd><p>Reset selected particle instances to their default particle state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.write_data_to_sim">
+<span class="sig-name descname"><span class="pre">write_data_to_sim</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/isaaclab_newton/assets/mpm_object/mpm_object.html#MPMObject.write_data_to_sim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.write_data_to_sim" title="Link to this definition">#</a></dt>
+<dd><p>No-op; MPM particle writes are applied immediately by write methods.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/isaaclab_newton/assets/mpm_object/mpm_object.html#MPMObject.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.update" title="Link to this definition">#</a></dt>
+<dd><p>Update the internal buffers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dt</strong> – The amount of time passed from last <a class="reference internal" href="#isaaclab_newton.assets.MPMObject.update" title="isaaclab_newton.assets.MPMObject.update"><code class="xref py py-meth docutils literal notranslate"><span class="pre">update()</span></code></a> call [s].</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.write_nodal_state_to_sim_index">
+<span class="sig-name descname"><span class="pre">write_nodal_state_to_sim_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodal_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.ProxyArray"><span class="pre">ProxyArray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_newton/assets/mpm_object/mpm_object.html#MPMObject.write_nodal_state_to_sim_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.write_nodal_state_to_sim_index" title="Link to this definition">#</a></dt>
+<dd><p>Set the nodal state over selected environment indices into the simulation.</p>
+<p>The nodal state comprises of the nodal positions and velocities. Since these are nodes,
+the velocity only has a translational component. All the quantities are in the simulation frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodal_state</strong> – Nodal state in simulation frame [m, m/s].
+Shape is (len(env_ids), max_sim_vertices_per_body, 6)
+or (num_instances, max_sim_vertices_per_body, 6).</p></li>
+<li><p><strong>env_ids</strong> – Environment indices. If None, then all indices are used.</p></li>
+<li><p><strong>full_data</strong> – Whether to expect full data. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.write_nodal_pos_to_sim_index">
+<span class="sig-name descname"><span class="pre">write_nodal_pos_to_sim_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodal_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.ProxyArray"><span class="pre">ProxyArray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_newton/assets/mpm_object/mpm_object.html#MPMObject.write_nodal_pos_to_sim_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.write_nodal_pos_to_sim_index" title="Link to this definition">#</a></dt>
+<dd><p>Set the nodal positions over selected environment indices into the simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodal_pos</strong> – Nodal positions in simulation frame [m].
+Shape is (len(env_ids), max_sim_vertices_per_body, 3)
+or (num_instances, max_sim_vertices_per_body, 3).</p></li>
+<li><p><strong>env_ids</strong> – Environment indices. If None, then all indices are used.</p></li>
+<li><p><strong>full_data</strong> – Whether to expect full data. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.write_nodal_velocity_to_sim_index">
+<span class="sig-name descname"><span class="pre">write_nodal_velocity_to_sim_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodal_vel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.ProxyArray"><span class="pre">ProxyArray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_newton/assets/mpm_object/mpm_object.html#MPMObject.write_nodal_velocity_to_sim_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.write_nodal_velocity_to_sim_index" title="Link to this definition">#</a></dt>
+<dd><p>Set the nodal velocity over selected environment indices into the simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodal_vel</strong> – Nodal velocities in simulation frame [m/s].
+Shape is (len(env_ids), max_sim_vertices_per_body, 3)
+or (num_instances, max_sim_vertices_per_body, 3).</p></li>
+<li><p><strong>env_ids</strong> – Environment indices. If None, then all indices are used.</p></li>
+<li><p><strong>full_data</strong> – Whether to expect full data. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.write_nodal_kinematic_target_to_sim_index">
+<span class="sig-name descname"><span class="pre">write_nodal_kinematic_target_to_sim_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.ProxyArray"><span class="pre">ProxyArray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_newton/assets/mpm_object/mpm_object.html#MPMObject.write_nodal_kinematic_target_to_sim_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.write_nodal_kinematic_target_to_sim_index" title="Link to this definition">#</a></dt>
+<dd><p>Set the kinematic targets of the simulation mesh for the deformable bodies using indices.</p>
+<p>The kinematic targets comprise of individual nodal positions of the simulation mesh
+for the deformable body and a flag indicating whether the node is kinematically driven or not.
+The positions are in the simulation frame.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The flag is set to 0.0 for kinematically driven nodes and 1.0 for free nodes.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>targets</strong> – The kinematic targets comprising of nodal positions and flags [m].
+Shape is (len(env_ids), max_sim_vertices_per_body, 4)
+or (num_instances, max_sim_vertices_per_body, 4).</p></li>
+<li><p><strong>env_ids</strong> – Environment indices. If None, then all indices are used.</p></li>
+<li><p><strong>full_data</strong> – Whether to expect full data. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.write_nodal_state_to_sim_mask">
+<span class="sig-name descname"><span class="pre">write_nodal_state_to_sim_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodal_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.ProxyArray"><span class="pre">ProxyArray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_newton/assets/mpm_object/mpm_object.html#MPMObject.write_nodal_state_to_sim_mask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.write_nodal_state_to_sim_mask" title="Link to this definition">#</a></dt>
+<dd><p>Set the nodal state over selected environment mask into the simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodal_state</strong> – Nodal state in simulation frame [m, m/s].
+Shape is (num_instances, max_sim_vertices_per_body, 6).</p></li>
+<li><p><strong>env_mask</strong> – Environment mask. If None, then all indices are used.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.write_nodal_pos_to_sim_mask">
+<span class="sig-name descname"><span class="pre">write_nodal_pos_to_sim_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodal_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.ProxyArray"><span class="pre">ProxyArray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_newton/assets/mpm_object/mpm_object.html#MPMObject.write_nodal_pos_to_sim_mask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.write_nodal_pos_to_sim_mask" title="Link to this definition">#</a></dt>
+<dd><p>Set the nodal positions over selected environment mask into the simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodal_pos</strong> – Nodal positions in simulation frame [m].
+Shape is (num_instances, max_sim_vertices_per_body, 3).</p></li>
+<li><p><strong>env_mask</strong> – Environment mask. If None, then all indices are used.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.write_nodal_velocity_to_sim_mask">
+<span class="sig-name descname"><span class="pre">write_nodal_velocity_to_sim_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodal_vel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.ProxyArray"><span class="pre">ProxyArray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_newton/assets/mpm_object/mpm_object.html#MPMObject.write_nodal_velocity_to_sim_mask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.write_nodal_velocity_to_sim_mask" title="Link to this definition">#</a></dt>
+<dd><p>Set the nodal velocity over selected environment mask into the simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodal_vel</strong> – Nodal velocities in simulation frame [m/s].
+Shape is (num_instances, max_sim_vertices_per_body, 3).</p></li>
+<li><p><strong>env_mask</strong> – Environment mask. If None, then all indices are used.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.write_nodal_kinematic_target_to_sim_mask">
+<span class="sig-name descname"><span class="pre">write_nodal_kinematic_target_to_sim_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.ProxyArray"><span class="pre">ProxyArray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_newton/assets/mpm_object/mpm_object.html#MPMObject.write_nodal_kinematic_target_to_sim_mask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.write_nodal_kinematic_target_to_sim_mask" title="Link to this definition">#</a></dt>
+<dd><p>Set the kinematic targets of the simulation mesh for the deformable bodies using mask.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>targets</strong> – The kinematic targets comprising of nodal positions and flags [m].
+Shape is (num_instances, max_sim_vertices_per_body, 4).</p></li>
+<li><p><strong>env_mask</strong> – Environment mask. If None, then all indices are used.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.write_particle_state_to_sim_index">
+<span class="sig-name descname"><span class="pre">write_particle_state_to_sim_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodal_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.ProxyArray"><span class="pre">ProxyArray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.write_particle_state_to_sim_index" title="Link to this definition">#</a></dt>
+<dd><p>Set the nodal state over selected environment indices into the simulation.</p>
+<p>The nodal state comprises of the nodal positions and velocities. Since these are nodes,
+the velocity only has a translational component. All the quantities are in the simulation frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodal_state</strong> – Nodal state in simulation frame [m, m/s].
+Shape is (len(env_ids), max_sim_vertices_per_body, 6)
+or (num_instances, max_sim_vertices_per_body, 6).</p></li>
+<li><p><strong>env_ids</strong> – Environment indices. If None, then all indices are used.</p></li>
+<li><p><strong>full_data</strong> – Whether to expect full data. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.write_particle_pos_to_sim_index">
+<span class="sig-name descname"><span class="pre">write_particle_pos_to_sim_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodal_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.ProxyArray"><span class="pre">ProxyArray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.write_particle_pos_to_sim_index" title="Link to this definition">#</a></dt>
+<dd><p>Set the nodal positions over selected environment indices into the simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodal_pos</strong> – Nodal positions in simulation frame [m].
+Shape is (len(env_ids), max_sim_vertices_per_body, 3)
+or (num_instances, max_sim_vertices_per_body, 3).</p></li>
+<li><p><strong>env_ids</strong> – Environment indices. If None, then all indices are used.</p></li>
+<li><p><strong>full_data</strong> – Whether to expect full data. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.write_particle_velocity_to_sim_index">
+<span class="sig-name descname"><span class="pre">write_particle_velocity_to_sim_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodal_vel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.ProxyArray"><span class="pre">ProxyArray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.write_particle_velocity_to_sim_index" title="Link to this definition">#</a></dt>
+<dd><p>Set the nodal velocity over selected environment indices into the simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodal_vel</strong> – Nodal velocities in simulation frame [m/s].
+Shape is (len(env_ids), max_sim_vertices_per_body, 3)
+or (num_instances, max_sim_vertices_per_body, 3).</p></li>
+<li><p><strong>env_ids</strong> – Environment indices. If None, then all indices are used.</p></li>
+<li><p><strong>full_data</strong> – Whether to expect full data. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.write_particle_state_to_sim_mask">
+<span class="sig-name descname"><span class="pre">write_particle_state_to_sim_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodal_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.ProxyArray"><span class="pre">ProxyArray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.write_particle_state_to_sim_mask" title="Link to this definition">#</a></dt>
+<dd><p>Set the nodal state over selected environment mask into the simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodal_state</strong> – Nodal state in simulation frame [m, m/s].
+Shape is (num_instances, max_sim_vertices_per_body, 6).</p></li>
+<li><p><strong>env_mask</strong> – Environment mask. If None, then all indices are used.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.write_particle_pos_to_sim_mask">
+<span class="sig-name descname"><span class="pre">write_particle_pos_to_sim_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodal_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.ProxyArray"><span class="pre">ProxyArray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.write_particle_pos_to_sim_mask" title="Link to this definition">#</a></dt>
+<dd><p>Set the nodal positions over selected environment mask into the simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodal_pos</strong> – Nodal positions in simulation frame [m].
+Shape is (num_instances, max_sim_vertices_per_body, 3).</p></li>
+<li><p><strong>env_mask</strong> – Environment mask. If None, then all indices are used.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.write_particle_velocity_to_sim_mask">
+<span class="sig-name descname"><span class="pre">write_particle_velocity_to_sim_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodal_vel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.ProxyArray"><span class="pre">ProxyArray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.write_particle_velocity_to_sim_mask" title="Link to this definition">#</a></dt>
+<dd><p>Set the nodal velocity over selected environment mask into the simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodal_vel</strong> – Nodal velocities in simulation frame [m/s].
+Shape is (num_instances, max_sim_vertices_per_body, 3).</p></li>
+<li><p><strong>env_mask</strong> – Environment mask. If None, then all indices are used.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.assert_shape_and_dtype">
+<span class="sig-name descname"><span class="pre">assert_shape_and_dtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.14)"><span class="pre">type</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.assert_shape_and_dtype" title="Link to this definition">#</a></dt>
+<dd><p>Assert the shape and dtype of a tensor or warp array.</p>
+<p>Controlled by <code class="xref py py-attr docutils literal notranslate"><span class="pre">AssetBaseCfg.disable_shape_checks</span></code>. When checks are
+disabled this method is a no-op.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tensor</strong> – The tensor or warp array to assert the shape of. Floats are skipped.</p></li>
+<li><p><strong>shape</strong> – The expected leading dimensions (e.g. <code class="docutils literal notranslate"><span class="pre">(num_envs,</span> <span class="pre">num_joints)</span></code>).</p></li>
+<li><p><strong>dtype</strong> – The expected warp dtype.</p></li>
+<li><p><strong>name</strong> – Optional parameter name for error messages.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.assert_shape_and_dtype_mask">
+<span class="sig-name descname"><span class="pre">assert_shape_and_dtype_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">masks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">wp.array</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.14)"><span class="pre">type</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trailing_dims</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.assert_shape_and_dtype_mask" title="Link to this definition">#</a></dt>
+<dd><p>Assert the shape of a tensor or warp array against mask dimensions.</p>
+<p>Mask-based write methods expect <strong>full-sized</strong> data — one element per entry in each mask
+dimension, regardless of how many entries are <code class="docutils literal notranslate"><span class="pre">True</span></code>. The expected leading shape is therefore
+<code class="docutils literal notranslate"><span class="pre">(mask_0.shape[0],</span> <span class="pre">mask_1.shape[0],</span> <span class="pre">...)</span></code> (i.e. the <em>total</em> size of each dimension, not the
+number of selected entries).</p>
+<p>Controlled by <code class="xref py py-attr docutils literal notranslate"><span class="pre">AssetBaseCfg.disable_shape_checks</span></code>. When checks are
+disabled this method is a no-op.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tensor</strong> – The tensor or warp array to assert the shape of. Floats are skipped.</p></li>
+<li><p><strong>masks</strong> – Tuple of mask arrays whose <code class="docutils literal notranslate"><span class="pre">shape[0]</span></code> dimensions form the expected leading shape.</p></li>
+<li><p><strong>dtype</strong> – The expected warp dtype.</p></li>
+<li><p><strong>name</strong> – Optional parameter name for error messages.</p></li>
+<li><p><strong>trailing_dims</strong> – Extra trailing dimensions to append (e.g. <code class="docutils literal notranslate"><span class="pre">(9,)</span></code> for inertias with <code class="docutils literal notranslate"><span class="pre">wp.float32</span></code>).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.device">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.device" title="Link to this definition">#</a></dt>
+<dd><p>Memory device for computation.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.has_debug_vis_implementation">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">has_debug_vis_implementation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.has_debug_vis_implementation" title="Link to this definition">#</a></dt>
+<dd><p>Whether the asset has a debug visualization implemented.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.is_initialized">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_initialized</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.is_initialized" title="Link to this definition">#</a></dt>
+<dd><p>Whether the asset is initialized.</p>
+<p>Returns True if the asset is initialized, False otherwise.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.set_debug_vis">
+<span class="sig-name descname"><span class="pre">set_debug_vis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">debug_vis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.set_debug_vis" title="Link to this definition">#</a></dt>
+<dd><p>Sets whether to visualize the asset data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>debug_vis</strong> – Whether to visualize the asset data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Whether the debug visualization was successfully set. False if the asset
+does not support debug visualization.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.set_visibility">
+<span class="sig-name descname"><span class="pre">set_visibility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">visible</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://trimesh.org/trimesh.typed.html#trimesh.typed.Sequence" title="(in trimesh)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.set_visibility" title="Link to this definition">#</a></dt>
+<dd><p>Set the visibility of the prims corresponding to the asset.</p>
+<p>This operation affects the visibility of the prims corresponding to the asset in the USD stage.
+It is useful for toggling the visibility of the asset in the simulator. For instance, one can
+hide the asset when it is not being used to reduce the rendering overhead.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This operation uses the PXR API to set the visibility of the prims. Thus, the operation
+may have an overhead if the number of prims is large.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>visible</strong> – Whether to make the prims visible or not.</p></li>
+<li><p><strong>env_ids</strong> – The indices of the object to set visibility. Defaults to None (all instances).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.transform_nodal_pos">
+<span class="sig-name descname"><span class="pre">transform_nodal_pos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodal_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a></span></span><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.transform_nodal_pos" title="Link to this definition">#</a></dt>
+<dd><p>Transform the nodal positions based on the pose transformation.</p>
+<p>This function computes the transformation of the nodal positions based on the pose transformation.
+It multiplies the nodal positions with the rotation matrix of the pose and adds the translation.
+Internally, it calls the <a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.math.transform_points" title="isaaclab.utils.math.transform_points"><code class="xref py py-meth docutils literal notranslate"><span class="pre">isaaclab.utils.math.transform_points()</span></code></a> function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodal_pos</strong> – The nodal positions in the simulation frame [m].
+Shape is (N, max_sim_vertices_per_body, 3).</p></li>
+<li><p><strong>pos</strong> – The position transformation [m]. Shape is (N, 3).
+Defaults to None, in which case the position is assumed to be zero.</p></li>
+<li><p><strong>quat</strong> – The orientation transformation as quaternion (x, y, z, w). Shape is (N, 4).
+Defaults to None, in which case the orientation is assumed to be identity.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The transformed nodal positions [m]. Shape is (N, max_sim_vertices_per_body, 3).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.write_nodal_kinematic_target_to_sim">
+<span class="sig-name descname"><span class="pre">write_nodal_kinematic_target_to_sim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.ProxyArray"><span class="pre">ProxyArray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.write_nodal_kinematic_target_to_sim" title="Link to this definition">#</a></dt>
+<dd><p>Deprecated. Please use <a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_nodal_kinematic_target_to_sim_index" title="isaaclab_newton.assets.MPMObject.write_nodal_kinematic_target_to_sim_index"><code class="xref py py-meth docutils literal notranslate"><span class="pre">write_nodal_kinematic_target_to_sim_index()</span></code></a> instead.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.write_nodal_pos_to_sim">
+<span class="sig-name descname"><span class="pre">write_nodal_pos_to_sim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodal_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.ProxyArray"><span class="pre">ProxyArray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.write_nodal_pos_to_sim" title="Link to this definition">#</a></dt>
+<dd><p>Deprecated. Please use <a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_nodal_pos_to_sim_index" title="isaaclab_newton.assets.MPMObject.write_nodal_pos_to_sim_index"><code class="xref py py-meth docutils literal notranslate"><span class="pre">write_nodal_pos_to_sim_index()</span></code></a> instead.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.write_nodal_state_to_sim">
+<span class="sig-name descname"><span class="pre">write_nodal_state_to_sim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodal_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.ProxyArray"><span class="pre">ProxyArray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.write_nodal_state_to_sim" title="Link to this definition">#</a></dt>
+<dd><p>Deprecated. Please use <a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_nodal_state_to_sim_index" title="isaaclab_newton.assets.MPMObject.write_nodal_state_to_sim_index"><code class="xref py py-meth docutils literal notranslate"><span class="pre">write_nodal_state_to_sim_index()</span></code></a> instead.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObject.write_nodal_velocity_to_sim">
+<span class="sig-name descname"><span class="pre">write_nodal_velocity_to_sim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodal_vel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.ProxyArray"><span class="pre">ProxyArray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><span class="pre">torch.Tensor</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">wp.array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#isaaclab_newton.assets.MPMObject.write_nodal_velocity_to_sim" title="Link to this definition">#</a></dt>
+<dd><p>Deprecated. Please use <a class="reference internal" href="#isaaclab_newton.assets.MPMObject.write_nodal_velocity_to_sim_index" title="isaaclab_newton.assets.MPMObject.write_nodal_velocity_to_sim_index"><code class="xref py py-meth docutils literal notranslate"><span class="pre">write_nodal_velocity_to_sim_index()</span></code></a> instead.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectCfg">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isaaclab_newton.assets.</span></span><span class="sig-name descname"><span class="pre">MPMObjectCfg</span></span><a class="reference internal" href="../../../_modules/isaaclab_newton/assets/mpm_object/mpm_object_cfg.html#MPMObjectCfg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectCfg" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../lab/isaaclab.assets.html#isaaclab.assets.DeformableObjectCfg" title="isaaclab.assets.deformable_object.deformable_object_cfg.DeformableObjectCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeformableObjectCfg</span></code></a></p>
+<p>Configuration parameters for a Newton MPM particle object.</p>
+<p><strong>Attributes:</strong></p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectCfg.class_type" title="isaaclab_newton.assets.MPMObjectCfg.class_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">class_type</span></code></a></p></td>
+<td><p>The associated asset class.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectCfg.prim_path" title="isaaclab_newton.assets.MPMObjectCfg.prim_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prim_path</span></code></a></p></td>
+<td><p>Prim path (or expression) to the asset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectCfg.spawn" title="isaaclab_newton.assets.MPMObjectCfg.spawn"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spawn</span></code></a></p></td>
+<td><p>Particle generation configuration for this MPM object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectCfg.init_state" title="isaaclab_newton.assets.MPMObjectCfg.init_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init_state</span></code></a></p></td>
+<td><p>Initial state of the rigid object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectCfg.collision_group" title="isaaclab_newton.assets.MPMObjectCfg.collision_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">collision_group</span></code></a></p></td>
+<td><p>Collision group of the asset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectCfg.debug_vis" title="isaaclab_newton.assets.MPMObjectCfg.debug_vis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">debug_vis</span></code></a></p></td>
+<td><p>Whether to enable debug visualization for the asset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectCfg.disable_shape_checks" title="isaaclab_newton.assets.MPMObjectCfg.disable_shape_checks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">disable_shape_checks</span></code></a></p></td>
+<td><p>Disable shape/dtype validation in setter and writer methods.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectCfg.visualizer_cfg" title="isaaclab_newton.assets.MPMObjectCfg.visualizer_cfg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visualizer_cfg</span></code></a></p></td>
+<td><p>The configuration object for the visualization markers.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectCfg.class_type">
+<span class="sig-name descname"><span class="pre">class_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.14)"><span class="pre">type</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#isaaclab_newton.assets.MPMObject" title="isaaclab_newton.assets.MPMObject"><span class="pre">MPMObject</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectCfg.class_type" title="Link to this definition">#</a></dt>
+<dd><p>The associated asset class. Defaults to None, which means that the asset will be spawned
+but cannot be interacted with via the asset class.</p>
+<p>The class should inherit from <a class="reference internal" href="../lab/isaaclab.assets.html#isaaclab.assets.AssetBase" title="isaaclab.assets.asset_base.AssetBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">isaaclab.assets.asset_base.AssetBase</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectCfg.prim_path">
+<span class="sig-name descname"><span class="pre">prim_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectCfg.prim_path" title="Link to this definition">#</a></dt>
+<dd><p>Prim path (or expression) to the asset.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The expression can contain the environment namespace regex <code class="docutils literal notranslate"><span class="pre">{ENV_REGEX_NS}</span></code> which
+will be replaced with the environment namespace.</p>
+<p>Example: <code class="docutils literal notranslate"><span class="pre">{ENV_REGEX_NS}/Robot</span></code> will be replaced with <code class="docutils literal notranslate"><span class="pre">/World/envs/env_.*/Robot</span></code>.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectCfg.spawn">
+<span class="sig-name descname"><span class="pre">spawn</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab_newton.sim.spawners.html#isaaclab_newton.sim.spawners.mpm.MPMParticleSpawnerCfg" title="isaaclab_newton.sim.spawners.mpm.MPMParticleSpawnerCfg"><span class="pre">MPMParticleSpawnerCfg</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectCfg.spawn" title="Link to this definition">#</a></dt>
+<dd><p>Particle generation configuration for this MPM object.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectCfg.init_state">
+<span class="sig-name descname"><span class="pre">init_state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.assets.html#isaaclab.assets.RigidObjectCfg.InitialStateCfg" title="isaaclab.assets.RigidObjectCfg.InitialStateCfg"><span class="pre">InitialStateCfg</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectCfg.init_state" title="Link to this definition">#</a></dt>
+<dd><p>Initial state of the rigid object. Defaults to identity pose.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectCfg.collision_group">
+<span class="sig-name descname"><span class="pre">collision_group</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">0</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectCfg.collision_group" title="Link to this definition">#</a></dt>
+<dd><p>Collision group of the asset. Defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-1</span></code>: global collision group (collides with all assets in the scene).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code>: local collision group (collides with other assets in the same environment).</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectCfg.debug_vis">
+<span class="sig-name descname"><span class="pre">debug_vis</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectCfg.debug_vis" title="Link to this definition">#</a></dt>
+<dd><p>Whether to enable debug visualization for the asset. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectCfg.disable_shape_checks">
+<span class="sig-name descname"><span class="pre">disable_shape_checks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectCfg.disable_shape_checks" title="Link to this definition">#</a></dt>
+<dd><p>Disable shape/dtype validation in setter and writer methods.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">True</span></code>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">assert_shape_and_dtype()</span></code> and
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">assert_shape_and_dtype_mask()</span></code> become no-ops,
+eliminating per-call assertion overhead.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">False</span></code>, shape checks are always enabled, even under <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-O</span></code>.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">None</span></code> (the default), shape checks follow Python’s <code class="docutils literal notranslate"><span class="pre">__debug__</span></code>
+flag — enabled in normal mode, disabled with <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-O</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectCfg.visualizer_cfg">
+<span class="sig-name descname"><span class="pre">visualizer_cfg</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.markers.html#isaaclab.markers.VisualizationMarkersCfg" title="isaaclab.markers.VisualizationMarkersCfg"><span class="pre">VisualizationMarkersCfg</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectCfg.visualizer_cfg" title="Link to this definition">#</a></dt>
+<dd><p>The configuration object for the visualization markers. Defaults to DEFORMABLE_TARGET_MARKER_CFG.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This attribute is only used when debug visualization is enabled.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectData">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isaaclab_newton.assets.</span></span><span class="sig-name descname"><span class="pre">MPMObjectData</span></span><a class="reference internal" href="../../../_modules/isaaclab_newton/assets/mpm_object/mpm_object_data.html#MPMObjectData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectData" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../lab/isaaclab.assets.html#isaaclab.assets.BaseDeformableObjectData" title="isaaclab.assets.deformable_object.base_deformable_object_data.BaseDeformableObjectData"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDeformableObjectData</span></code></a></p>
+<p>Data container for a Newton MPM particle object.</p>
+<p><strong>Attributes:</strong></p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectData.default_nodal_state_w" title="isaaclab_newton.assets.MPMObjectData.default_nodal_state_w"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_nodal_state_w</span></code></a></p></td>
+<td><p>Default nodal state <code class="docutils literal notranslate"><span class="pre">[nodal_pos,</span> <span class="pre">nodal_vel]</span></code> in simulation world frame.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectData.nodal_kinematic_target" title="isaaclab_newton.assets.MPMObjectData.nodal_kinematic_target"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nodal_kinematic_target</span></code></a></p></td>
+<td><p>Simulation mesh kinematic targets for the deformable bodies.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectData.particle_pos_w" title="isaaclab_newton.assets.MPMObjectData.particle_pos_w"><code class="xref py py-obj docutils literal notranslate"><span class="pre">particle_pos_w</span></code></a></p></td>
+<td><p>Particle positions in simulation world frame [m].</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectData.particle_vel_w" title="isaaclab_newton.assets.MPMObjectData.particle_vel_w"><code class="xref py py-obj docutils literal notranslate"><span class="pre">particle_vel_w</span></code></a></p></td>
+<td><p>Particle velocities in simulation world frame [m/s].</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectData.particle_state_w" title="isaaclab_newton.assets.MPMObjectData.particle_state_w"><code class="xref py py-obj docutils literal notranslate"><span class="pre">particle_state_w</span></code></a></p></td>
+<td><p>Particle state <code class="docutils literal notranslate"><span class="pre">[pos,</span> <span class="pre">vel]</span></code> in simulation world frame [m, m/s].</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectData.nodal_pos_w" title="isaaclab_newton.assets.MPMObjectData.nodal_pos_w"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nodal_pos_w</span></code></a></p></td>
+<td><p>Nodal positions in simulation world frame [m].</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectData.nodal_vel_w" title="isaaclab_newton.assets.MPMObjectData.nodal_vel_w"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nodal_vel_w</span></code></a></p></td>
+<td><p>Nodal velocities in simulation world frame [m/s].</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectData.nodal_state_w" title="isaaclab_newton.assets.MPMObjectData.nodal_state_w"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nodal_state_w</span></code></a></p></td>
+<td><p>Nodal state <code class="docutils literal notranslate"><span class="pre">[nodal_pos,</span> <span class="pre">nodal_vel]</span></code> in simulation world frame [m, m/s].</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectData.root_pos_w" title="isaaclab_newton.assets.MPMObjectData.root_pos_w"><code class="xref py py-obj docutils literal notranslate"><span class="pre">root_pos_w</span></code></a></p></td>
+<td><p>Mean particle position per instance in simulation world frame [m].</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectData.root_vel_w" title="isaaclab_newton.assets.MPMObjectData.root_vel_w"><code class="xref py py-obj docutils literal notranslate"><span class="pre">root_vel_w</span></code></a></p></td>
+<td><p>Mean particle velocity per instance in simulation world frame [m/s].</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Methods:</strong></p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.assets.MPMObjectData.update" title="isaaclab_newton.assets.MPMObjectData.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a>(dt)</p></td>
+<td><p>Update the data for the deformable object.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectData.default_nodal_state_w">
+<span class="sig-name descname"><span class="pre">default_nodal_state_w</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.proxy_array.ProxyArray"><span class="pre">ProxyArray</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectData.default_nodal_state_w" title="Link to this definition">#</a></dt>
+<dd><p>Default nodal state <code class="docutils literal notranslate"><span class="pre">[nodal_pos,</span> <span class="pre">nodal_vel]</span></code> in simulation world frame.</p>
+<p>Shape is (num_instances, max_sim_vertices_per_body), dtype <code class="docutils literal notranslate"><span class="pre">vec6f</span></code>.
+Use <code class="xref py py-attr docutils literal notranslate"><span class="pre">ProxyArray.warp</span></code> for the underlying <a class="reference external" href="https://nvidia.github.io/warp/stable/api_reference/_generated/warp.array.html#warp.array" title="(in Warp v1.14.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">warp.array</span></code></a> or
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">ProxyArray.torch</span></code> for a cached zero-copy <a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> view.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectData.nodal_kinematic_target">
+<span class="sig-name descname"><span class="pre">nodal_kinematic_target</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.proxy_array.ProxyArray"><span class="pre">ProxyArray</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectData.nodal_kinematic_target" title="Link to this definition">#</a></dt>
+<dd><p>Simulation mesh kinematic targets for the deformable bodies.</p>
+<p>Shape is (num_instances, max_sim_vertices_per_body), dtype <code class="docutils literal notranslate"><span class="pre">wp.vec4f</span></code>.
+Use <code class="xref py py-attr docutils literal notranslate"><span class="pre">ProxyArray.warp</span></code> for the underlying <a class="reference external" href="https://nvidia.github.io/warp/stable/api_reference/_generated/warp.array.html#warp.array" title="(in Warp v1.14.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">warp.array</span></code></a> or
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">ProxyArray.torch</span></code> for a cached zero-copy <a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> view.</p>
+<p>The kinematic targets are used to drive the simulation mesh vertices to the target positions.
+The targets are stored as (x, y, z, is_not_kinematic) where “is_not_kinematic” is a binary
+flag indicating whether the vertex is kinematic or not. The flag is set to 0 for kinematic vertices
+and 1 for non-kinematic vertices.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectData.particle_pos_w">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">particle_pos_w</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.proxy_array.ProxyArray"><span class="pre">ProxyArray</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectData.particle_pos_w" title="Link to this definition">#</a></dt>
+<dd><p>Particle positions in simulation world frame [m].</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectData.particle_vel_w">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">particle_vel_w</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.proxy_array.ProxyArray"><span class="pre">ProxyArray</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectData.particle_vel_w" title="Link to this definition">#</a></dt>
+<dd><p>Particle velocities in simulation world frame [m/s].</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectData.particle_state_w">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">particle_state_w</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.proxy_array.ProxyArray"><span class="pre">ProxyArray</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectData.particle_state_w" title="Link to this definition">#</a></dt>
+<dd><p>Particle state <code class="docutils literal notranslate"><span class="pre">[pos,</span> <span class="pre">vel]</span></code> in simulation world frame [m, m/s].</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectData.nodal_pos_w">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nodal_pos_w</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.proxy_array.ProxyArray"><span class="pre">ProxyArray</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectData.nodal_pos_w" title="Link to this definition">#</a></dt>
+<dd><p>Nodal positions in simulation world frame [m].</p>
+<p>Shape is (num_instances, max_sim_vertices_per_body), dtype <code class="docutils literal notranslate"><span class="pre">wp.vec3f</span></code>.
+Use <code class="xref py py-attr docutils literal notranslate"><span class="pre">ProxyArray.warp</span></code> for the underlying <a class="reference external" href="https://nvidia.github.io/warp/stable/api_reference/_generated/warp.array.html#warp.array" title="(in Warp v1.14.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">warp.array</span></code></a> or
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">ProxyArray.torch</span></code> for a cached zero-copy <a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> view.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectData.nodal_vel_w">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nodal_vel_w</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.proxy_array.ProxyArray"><span class="pre">ProxyArray</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectData.nodal_vel_w" title="Link to this definition">#</a></dt>
+<dd><p>Nodal velocities in simulation world frame [m/s].</p>
+<p>Shape is (num_instances, max_sim_vertices_per_body), dtype <code class="docutils literal notranslate"><span class="pre">wp.vec3f</span></code>.
+Use <code class="xref py py-attr docutils literal notranslate"><span class="pre">ProxyArray.warp</span></code> for the underlying <a class="reference external" href="https://nvidia.github.io/warp/stable/api_reference/_generated/warp.array.html#warp.array" title="(in Warp v1.14.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">warp.array</span></code></a> or
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">ProxyArray.torch</span></code> for a cached zero-copy <a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> view.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectData.nodal_state_w">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nodal_state_w</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.proxy_array.ProxyArray"><span class="pre">ProxyArray</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectData.nodal_state_w" title="Link to this definition">#</a></dt>
+<dd><p>Nodal state <code class="docutils literal notranslate"><span class="pre">[nodal_pos,</span> <span class="pre">nodal_vel]</span></code> in simulation world frame [m, m/s].</p>
+<p>Shape is (num_instances, max_sim_vertices_per_body), dtype <code class="docutils literal notranslate"><span class="pre">vec6f</span></code>.
+Use <code class="xref py py-attr docutils literal notranslate"><span class="pre">ProxyArray.warp</span></code> for the underlying <a class="reference external" href="https://nvidia.github.io/warp/stable/api_reference/_generated/warp.array.html#warp.array" title="(in Warp v1.14.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">warp.array</span></code></a> or
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">ProxyArray.torch</span></code> for a cached zero-copy <a class="reference external" href="https://docs.pytorch.org/docs/2.11/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.Tensor</span></code></a> view.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectData.root_pos_w">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">root_pos_w</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.proxy_array.ProxyArray"><span class="pre">ProxyArray</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectData.root_pos_w" title="Link to this definition">#</a></dt>
+<dd><p>Mean particle position per instance in simulation world frame [m].</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectData.root_vel_w">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">root_vel_w</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray" title="isaaclab.utils.warp.proxy_array.ProxyArray"><span class="pre">ProxyArray</span></a></em><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectData.root_vel_w" title="Link to this definition">#</a></dt>
+<dd><p>Mean particle velocity per instance in simulation world frame [m/s].</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.assets.MPMObjectData.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#isaaclab_newton.assets.MPMObjectData.update" title="Link to this definition">#</a></dt>
+<dd><p>Update the data for the deformable object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dt</strong> – The time step for the update [s]. This must be a positive value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 </section>
 
 
@@ -10961,6 +11870,73 @@ Shape is (num_instances, particles_per_body) with dtype vec4f.</p>
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mpm-object">MPM Object</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject"><code class="docutils literal notranslate"><span class="pre">MPMObject</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.cfg"><code class="docutils literal notranslate"><span class="pre">MPMObject.cfg</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.__init__"><code class="docutils literal notranslate"><span class="pre">MPMObject.__init__()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.data"><code class="docutils literal notranslate"><span class="pre">MPMObject.data</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.num_instances"><code class="docutils literal notranslate"><span class="pre">MPMObject.num_instances</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.num_bodies"><code class="docutils literal notranslate"><span class="pre">MPMObject.num_bodies</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.max_sim_vertices_per_body"><code class="docutils literal notranslate"><span class="pre">MPMObject.max_sim_vertices_per_body</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.particles_per_object"><code class="docutils literal notranslate"><span class="pre">MPMObject.particles_per_object</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.reset"><code class="docutils literal notranslate"><span class="pre">MPMObject.reset()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_data_to_sim"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_data_to_sim()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.update"><code class="docutils literal notranslate"><span class="pre">MPMObject.update()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_state_to_sim_index"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_state_to_sim_index()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_pos_to_sim_index"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_pos_to_sim_index()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_velocity_to_sim_index"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_velocity_to_sim_index()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_kinematic_target_to_sim_index"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_kinematic_target_to_sim_index()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_state_to_sim_mask"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_state_to_sim_mask()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_pos_to_sim_mask"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_pos_to_sim_mask()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_velocity_to_sim_mask"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_velocity_to_sim_mask()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_kinematic_target_to_sim_mask"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_kinematic_target_to_sim_mask()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_particle_state_to_sim_index"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_particle_state_to_sim_index()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_particle_pos_to_sim_index"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_particle_pos_to_sim_index()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_particle_velocity_to_sim_index"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_particle_velocity_to_sim_index()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_particle_state_to_sim_mask"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_particle_state_to_sim_mask()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_particle_pos_to_sim_mask"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_particle_pos_to_sim_mask()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_particle_velocity_to_sim_mask"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_particle_velocity_to_sim_mask()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.assert_shape_and_dtype"><code class="docutils literal notranslate"><span class="pre">MPMObject.assert_shape_and_dtype()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.assert_shape_and_dtype_mask"><code class="docutils literal notranslate"><span class="pre">MPMObject.assert_shape_and_dtype_mask()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.device"><code class="docutils literal notranslate"><span class="pre">MPMObject.device</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.has_debug_vis_implementation"><code class="docutils literal notranslate"><span class="pre">MPMObject.has_debug_vis_implementation</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.is_initialized"><code class="docutils literal notranslate"><span class="pre">MPMObject.is_initialized</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.set_debug_vis"><code class="docutils literal notranslate"><span class="pre">MPMObject.set_debug_vis()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.set_visibility"><code class="docutils literal notranslate"><span class="pre">MPMObject.set_visibility()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.transform_nodal_pos"><code class="docutils literal notranslate"><span class="pre">MPMObject.transform_nodal_pos()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_kinematic_target_to_sim"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_kinematic_target_to_sim()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_pos_to_sim"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_pos_to_sim()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_state_to_sim"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_state_to_sim()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObject.write_nodal_velocity_to_sim"><code class="docutils literal notranslate"><span class="pre">MPMObject.write_nodal_velocity_to_sim()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectCfg"><code class="docutils literal notranslate"><span class="pre">MPMObjectCfg</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectCfg.class_type"><code class="docutils literal notranslate"><span class="pre">MPMObjectCfg.class_type</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectCfg.prim_path"><code class="docutils literal notranslate"><span class="pre">MPMObjectCfg.prim_path</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectCfg.spawn"><code class="docutils literal notranslate"><span class="pre">MPMObjectCfg.spawn</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectCfg.init_state"><code class="docutils literal notranslate"><span class="pre">MPMObjectCfg.init_state</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectCfg.collision_group"><code class="docutils literal notranslate"><span class="pre">MPMObjectCfg.collision_group</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectCfg.debug_vis"><code class="docutils literal notranslate"><span class="pre">MPMObjectCfg.debug_vis</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectCfg.disable_shape_checks"><code class="docutils literal notranslate"><span class="pre">MPMObjectCfg.disable_shape_checks</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectCfg.visualizer_cfg"><code class="docutils literal notranslate"><span class="pre">MPMObjectCfg.visualizer_cfg</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData"><code class="docutils literal notranslate"><span class="pre">MPMObjectData</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.default_nodal_state_w"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.default_nodal_state_w</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.nodal_kinematic_target"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.nodal_kinematic_target</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.particle_pos_w"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.particle_pos_w</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.particle_vel_w"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.particle_vel_w</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.particle_state_w"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.particle_state_w</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.nodal_pos_w"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.nodal_pos_w</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.nodal_vel_w"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.nodal_vel_w</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.nodal_state_w"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.nodal_state_w</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.root_pos_w"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.root_pos_w</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.root_vel_w"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.root_vel_w</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.assets.MPMObjectData.update"><code class="docutils literal notranslate"><span class="pre">MPMObjectData.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
@@ -10994,7 +11970,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 11, 2026.
+  Last updated on Jun 12, 2026.
   <br/>
 </p>
   </div>

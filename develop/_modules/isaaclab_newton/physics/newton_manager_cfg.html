@@ -60,7 +60,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 11, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 12, 2026"/>
   </head>
   
   
@@ -812,6 +812,9 @@
 <span class="sd">    - :class:`XPBDSolverCfg` (always),</span>
 <span class="sd">    - :class:`FeatherstoneSolverCfg` (always).</span>
 
+<span class="sd">    :class:`~isaaclab_newton.physics.MPMSolverCfg` does not use this pipeline;</span>
+<span class="sd">    implicit MPM treats rigid geometry as colliders internally.</span>
+
 <span class="sd">    If ``None`` (default), a pipeline with ``broad_phase=&quot;explicit&quot;`` is created</span>
 <span class="sd">    automatically.  Set this to a :class:`NewtonCollisionPipelineCfg` to customize</span>
 <span class="sd">    parameters such as broad phase algorithm, contact limits, or hydroelastic mode.</span>
@@ -828,6 +831,13 @@
 <span class="sd">    Forwarded to Newton&#39;s :attr:`ModelBuilder.default_shape_cfg` at builder</span>
 <span class="sd">    construction via :func:`~isaaclab.utils.checked_apply`. See</span>
 <span class="sd">    :class:`NewtonShapeCfg` for the declared fields.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">simplify_meshes</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Whether Newton replication simplifies mesh colliders to convex hulls.</span>
+
+<span class="sd">    Keep this enabled for most rigid-body scenes. Disable it when exact triangle</span>
+<span class="sd">    meshes are intentional, for example thin or hollow MPM colliders.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -898,7 +908,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 11, 2026.
+  Last updated on Jun 12, 2026.
   <br/>
 </p>
   </div>

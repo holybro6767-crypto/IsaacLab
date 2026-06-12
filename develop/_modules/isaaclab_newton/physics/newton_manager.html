@@ -60,7 +60,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 11, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 12, 2026"/>
   </head>
   
   
@@ -689,7 +689,8 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">ctypes</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">warp</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">wp</span>
@@ -722,6 +723,8 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">.newton_manager_cfg</span><span class="w"> </span><span class="kn">import</span> <span class="n">NewtonCfg</span><span class="p">,</span> <span class="n">NewtonShapeCfg</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Usd</span>
+
     <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.sim.simulation_context</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimulationContext</span>
 
     <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_newton.actuators</span><span class="w"> </span><span class="kn">import</span> <span class="n">NewtonActuatorAdapter</span>
@@ -780,6 +783,17 @@
 
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_points</span><span class="p">):</span>
         <span class="n">fabric_points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">transform_point</span><span class="p">(</span><span class="n">inv_world_matrix</span><span class="p">,</span> <span class="n">particle_q</span><span class="p">[</span><span class="n">offset</span> <span class="o">+</span> <span class="n">j</span><span class="p">])</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">_ParticleVisualPrim</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A ``UsdGeom.Points`` prim mirroring a slice of Newton&#39;s particle state.&quot;&quot;&quot;</span>
+
+    <span class="n">points_attr</span><span class="p">:</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Attribute</span>
+    <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">count</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">sync_frequency</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">frames_since_sync</span><span class="p">:</span> <span class="nb">int</span>
 
 
 <span class="nd">@wp</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="n">enable_backward</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -857,7 +871,8 @@
 <span class="sd">    state, contacts/collision pipeline, sensors, replication, and CUDA-graph</span>
 <span class="sd">    orchestration.</span>
 <span class="sd">    Concrete subclasses (one per solver) implement :meth:`_build_solver` and</span>
-<span class="sd">    may extend :meth:`_initialize_contacts`, :meth:`_step_solver`,</span>
+<span class="sd">    may extend :meth:`_initialize_contacts`, :meth:`_prepare_builder_for_finalize`,</span>
+<span class="sd">    :meth:`_step_solver`, :meth:`_supports_cuda_graph_capture`,</span>
 <span class="sd">    :meth:`_solver_specific_clear`, and :meth:`_log_solver_debug`.</span>
 
 <span class="sd">    Subclasses are selected via :attr:`NewtonSolverCfg.class_type`, which</span>
@@ -899,6 +914,7 @@
     <span class="c1"># Collision and contacts</span>
     <span class="n">_contacts</span><span class="p">:</span> <span class="n">Contacts</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">_needs_collision_pipeline</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">_needs_fk_before_step</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">_collision_pipeline</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">_collision_cfg</span><span class="p">:</span> <span class="n">NewtonCollisionPipelineCfg</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">_newton_contact_sensors</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Maps sensor_key to NewtonContactSensor</span>
@@ -931,6 +947,7 @@
     <span class="n">_particles_dirty</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">_newton_particle_offset_attr</span> <span class="o">=</span> <span class="s2">&quot;newton:particleOffset&quot;</span>
     <span class="n">_newton_particle_count_attr</span> <span class="o">=</span> <span class="s2">&quot;newton:particleCount&quot;</span>
+    <span class="n">_particle_visual_prims</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_ParticleVisualPrim</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="c1"># cubric GPU transform hierarchy (replaces CPU update_world_xforms)</span>
     <span class="n">_cubric</span> <span class="o">=</span> <span class="kc">None</span>
@@ -951,6 +968,7 @@
 
     <span class="c1"># Views list for assets to register their views</span>
     <span class="n">_views</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">_mpm_object_registry</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="c1"># CL: Cloning / Replication logic</span>
     <span class="c1"># TODO: These attributes support cloning-specific logic and should be moved into a cloner class</span>
@@ -1142,49 +1160,81 @@
 <a class="viewcode-back" href="../../../source/api/lab_newton/isaaclab_newton.physics.html#isaaclab_newton.physics.NewtonManager.sync_particles_to_usd">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">sync_particles_to_usd</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Write Newton particle_q to Fabric mesh point arrays for Kit viewport rendering.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Write Newton particle positions to USD/Fabric for Kit viewport rendering.</span>
 
-<span class="sd">        For each deformable body whose mesh prim carries a ``newton:particleOffset``</span>
-<span class="sd">        attribute, this function copies the corresponding slice of ``state_0.particle_q``</span>
-<span class="sd">        into the Fabric ``points`` array so the Kit viewport reflects the current</span>
-<span class="sd">        deformation.</span>
+<span class="sd">        Two prim families are synced from ``state_0.particle_q``:</span>
 
-<span class="sd">        No-op when there is no ``_usdrt_stage``, no simulation state, or no</span>
-<span class="sd">        deformable bodies registered.</span>
+<span class="sd">        * Fabric mesh prims tagged with ``newton:particleOffset`` /</span>
+<span class="sd">          ``newton:particleCount`` (deformable visual meshes) receive</span>
+<span class="sd">          local-frame points on the GPU via :meth:`_sync_fabric_mesh_particles`.</span>
+<span class="sd">        * ``UsdGeom.Points`` prims registered through</span>
+<span class="sd">          :meth:`register_particle_visual_prim` (MPM particle clouds) receive</span>
+<span class="sd">          world-frame points via :meth:`_sync_particle_points_prims`.</span>
+
+<span class="sd">        No-op when there is no particle state or nothing changed since the</span>
+<span class="sd">        last sync.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_usdrt_stage</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_state_0</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_state_0</span><span class="o">.</span><span class="n">particle_q</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_particles_dirty</span> <span class="ow">or</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_state_0</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_state_0</span><span class="o">.</span><span class="n">particle_q</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_particles_dirty</span><span class="p">:</span>
-            <span class="k">return</span>
-        <span class="n">pq</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_state_0</span><span class="o">.</span><span class="n">particle_q</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="kn">import</span><span class="w"> </span><span class="nn">usdrt</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">_sync_fabric_mesh_particles</span><span class="p">()</span>
+            <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_particles_dirty</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_sync_particle_points_prims</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;[NewtonManager] sync_particles_to_usd FAILED&quot;</span><span class="p">)</span></div>
 
-            <span class="n">selection</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_usdrt_stage</span><span class="o">.</span><span class="n">SelectPrims</span><span class="p">(</span>
-                <span class="n">require_attrs</span><span class="o">=</span><span class="p">[</span>
-                    <span class="p">(</span><span class="n">usdrt</span><span class="o">.</span><span class="n">Sdf</span><span class="o">.</span><span class="n">ValueTypeNames</span><span class="o">.</span><span class="n">Point3fArray</span><span class="p">,</span> <span class="s2">&quot;points&quot;</span><span class="p">,</span> <span class="n">usdrt</span><span class="o">.</span><span class="n">Usd</span><span class="o">.</span><span class="n">Access</span><span class="o">.</span><span class="n">ReadWrite</span><span class="p">),</span>
-                    <span class="p">(</span><span class="n">usdrt</span><span class="o">.</span><span class="n">Sdf</span><span class="o">.</span><span class="n">ValueTypeNames</span><span class="o">.</span><span class="n">UInt</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_newton_particle_offset_attr</span><span class="p">,</span> <span class="n">usdrt</span><span class="o">.</span><span class="n">Usd</span><span class="o">.</span><span class="n">Access</span><span class="o">.</span><span class="n">Read</span><span class="p">),</span>
-                    <span class="p">(</span><span class="n">usdrt</span><span class="o">.</span><span class="n">Sdf</span><span class="o">.</span><span class="n">ValueTypeNames</span><span class="o">.</span><span class="n">UInt</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_newton_particle_count_attr</span><span class="p">,</span> <span class="n">usdrt</span><span class="o">.</span><span class="n">Usd</span><span class="o">.</span><span class="n">Access</span><span class="o">.</span><span class="n">Read</span><span class="p">),</span>
-                    <span class="p">(</span><span class="n">usdrt</span><span class="o">.</span><span class="n">Sdf</span><span class="o">.</span><span class="n">ValueTypeNames</span><span class="o">.</span><span class="n">Matrix4d</span><span class="p">,</span> <span class="s2">&quot;omni:fabric:worldMatrix&quot;</span><span class="p">,</span> <span class="n">usdrt</span><span class="o">.</span><span class="n">Usd</span><span class="o">.</span><span class="n">Access</span><span class="o">.</span><span class="n">Read</span><span class="p">),</span>
-                <span class="p">],</span>
-                <span class="n">device</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">PhysicsManager</span><span class="o">.</span><span class="n">_device</span><span class="p">),</span>
-            <span class="p">)</span>
-            <span class="k">if</span> <span class="n">selection</span><span class="o">.</span><span class="n">GetCount</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">return</span>
-            <span class="n">fabric_points</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">fabricarrayarray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">attrib</span><span class="o">=</span><span class="s2">&quot;points&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">vec3f</span><span class="p">)</span>
-            <span class="n">fabric_offsets</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">fabricarray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">attrib</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_newton_particle_offset_attr</span><span class="p">)</span>
-            <span class="n">fabric_counts</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">fabricarray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">attrib</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_newton_particle_count_attr</span><span class="p">)</span>
-            <span class="n">fabric_world_matrices</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">fabricarray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">attrib</span><span class="o">=</span><span class="s2">&quot;omni:fabric:worldMatrix&quot;</span><span class="p">)</span>
-            <span class="n">wp</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span>
-                <span class="n">_sync_particle_points</span><span class="p">,</span>
-                <span class="n">dim</span><span class="o">=</span><span class="n">selection</span><span class="o">.</span><span class="n">GetCount</span><span class="p">(),</span>
-                <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">fabric_points</span><span class="p">,</span> <span class="n">fabric_world_matrices</span><span class="p">,</span> <span class="n">fabric_offsets</span><span class="p">,</span> <span class="n">fabric_counts</span><span class="p">,</span> <span class="n">pq</span><span class="p">],</span>
-                <span class="n">device</span><span class="o">=</span><span class="n">PhysicsManager</span><span class="o">.</span><span class="n">_device</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_particles_dirty</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;[sync_particles_to_usd] </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">exc</span><span class="p">)</span></div>
 
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_sync_fabric_mesh_particles</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Write ``state_0.particle_q`` into Fabric mesh point arrays as local-frame points.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_usdrt_stage</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">usdrt</span>  <span class="c1"># noqa: PLC0415</span>
+
+        <span class="n">selection</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_usdrt_stage</span><span class="o">.</span><span class="n">SelectPrims</span><span class="p">(</span>
+            <span class="n">require_attrs</span><span class="o">=</span><span class="p">[</span>
+                <span class="p">(</span><span class="n">usdrt</span><span class="o">.</span><span class="n">Sdf</span><span class="o">.</span><span class="n">ValueTypeNames</span><span class="o">.</span><span class="n">Point3fArray</span><span class="p">,</span> <span class="s2">&quot;points&quot;</span><span class="p">,</span> <span class="n">usdrt</span><span class="o">.</span><span class="n">Usd</span><span class="o">.</span><span class="n">Access</span><span class="o">.</span><span class="n">ReadWrite</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">usdrt</span><span class="o">.</span><span class="n">Sdf</span><span class="o">.</span><span class="n">ValueTypeNames</span><span class="o">.</span><span class="n">UInt</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_newton_particle_offset_attr</span><span class="p">,</span> <span class="n">usdrt</span><span class="o">.</span><span class="n">Usd</span><span class="o">.</span><span class="n">Access</span><span class="o">.</span><span class="n">Read</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">usdrt</span><span class="o">.</span><span class="n">Sdf</span><span class="o">.</span><span class="n">ValueTypeNames</span><span class="o">.</span><span class="n">UInt</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_newton_particle_count_attr</span><span class="p">,</span> <span class="n">usdrt</span><span class="o">.</span><span class="n">Usd</span><span class="o">.</span><span class="n">Access</span><span class="o">.</span><span class="n">Read</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">usdrt</span><span class="o">.</span><span class="n">Sdf</span><span class="o">.</span><span class="n">ValueTypeNames</span><span class="o">.</span><span class="n">Matrix4d</span><span class="p">,</span> <span class="s2">&quot;omni:fabric:worldMatrix&quot;</span><span class="p">,</span> <span class="n">usdrt</span><span class="o">.</span><span class="n">Usd</span><span class="o">.</span><span class="n">Access</span><span class="o">.</span><span class="n">Read</span><span class="p">),</span>
+            <span class="p">],</span>
+            <span class="n">device</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">PhysicsManager</span><span class="o">.</span><span class="n">_device</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">selection</span><span class="o">.</span><span class="n">GetCount</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">wp</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span>
+            <span class="n">_sync_particle_points</span><span class="p">,</span>
+            <span class="n">dim</span><span class="o">=</span><span class="n">selection</span><span class="o">.</span><span class="n">GetCount</span><span class="p">(),</span>
+            <span class="n">inputs</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">wp</span><span class="o">.</span><span class="n">fabricarrayarray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">attrib</span><span class="o">=</span><span class="s2">&quot;points&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">wp</span><span class="o">.</span><span class="n">vec3f</span><span class="p">),</span>
+                <span class="n">wp</span><span class="o">.</span><span class="n">fabricarray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">attrib</span><span class="o">=</span><span class="s2">&quot;omni:fabric:worldMatrix&quot;</span><span class="p">),</span>
+                <span class="n">wp</span><span class="o">.</span><span class="n">fabricarray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">attrib</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_newton_particle_offset_attr</span><span class="p">),</span>
+                <span class="n">wp</span><span class="o">.</span><span class="n">fabricarray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">selection</span><span class="p">,</span> <span class="n">attrib</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_newton_particle_count_attr</span><span class="p">),</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">_state_0</span><span class="o">.</span><span class="n">particle_q</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="n">device</span><span class="o">=</span><span class="n">PhysicsManager</span><span class="o">.</span><span class="n">_device</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_sync_particle_points_prims</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Write registered ``UsdGeom.Points`` prims; return ``True`` while throttled prims remain.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_particle_visual_prims</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">due</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_particle_visual_prims</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">record</span><span class="o">.</span><span class="n">frames_since_sync</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">frames_since_sync</span> <span class="o">&gt;=</span> <span class="n">record</span><span class="o">.</span><span class="n">sync_frequency</span><span class="p">:</span>
+                <span class="n">record</span><span class="o">.</span><span class="n">frames_since_sync</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">due</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">due</span><span class="p">:</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sdf</span><span class="p">,</span> <span class="n">Vt</span>  <span class="c1"># noqa: PLC0415</span>
+
+            <span class="n">particle_q</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_state_0</span><span class="o">.</span><span class="n">particle_q</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="k">with</span> <span class="n">Sdf</span><span class="o">.</span><span class="n">ChangeBlock</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">due</span><span class="p">:</span>
+                    <span class="n">points</span> <span class="o">=</span> <span class="n">particle_q</span><span class="p">[</span><span class="n">record</span><span class="o">.</span><span class="n">offset</span> <span class="p">:</span> <span class="n">record</span><span class="o">.</span><span class="n">offset</span> <span class="o">+</span> <span class="n">record</span><span class="o">.</span><span class="n">count</span><span class="p">]</span>
+                    <span class="n">record</span><span class="o">.</span><span class="n">points_attr</span><span class="o">.</span><span class="n">Set</span><span class="p">(</span><span class="n">Vt</span><span class="o">.</span><span class="n">Vec3fArray</span><span class="o">.</span><span class="n">FromNumpy</span><span class="p">(</span><span class="n">points</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">due</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_particle_visual_prims</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_mark_transforms_dirty</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1213,6 +1263,32 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">_mark_transforms_dirty</span><span class="p">()</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">_mark_particles_dirty</span><span class="p">()</span>
+
+<div class="viewcode-block" id="NewtonManager.register_particle_visual_prim">
+<a class="viewcode-back" href="../../../source/api/lab_newton/isaaclab_newton.physics.html#isaaclab_newton.physics.NewtonManager.register_particle_visual_prim">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">register_particle_visual_prim</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">prim_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">particle_offset</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">particle_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sync_frequency</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Register a ``UsdGeom.Points`` prim whose points mirror a slice of Newton&#39;s particle state.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            prim_path: Stage path of an existing ``UsdGeom.Points`` prim.</span>
+<span class="sd">            particle_offset: First index of the prim&#39;s slice in ``state.particle_q``.</span>
+<span class="sd">            particle_count: Number of particles in the slice.</span>
+<span class="sd">            sync_frequency: Sync the prim every N dirty render frames.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">pxr</span><span class="w"> </span><span class="kn">import</span> <span class="n">UsdGeom</span>  <span class="c1"># noqa: PLC0415</span>
+
+        <span class="n">prim</span> <span class="o">=</span> <span class="n">get_current_stage</span><span class="p">()</span><span class="o">.</span><span class="n">GetPrimAtPath</span><span class="p">(</span><span class="n">prim_path</span><span class="p">)</span>
+        <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_particle_visual_prims</span><span class="p">[</span><span class="n">prim_path</span><span class="p">]</span> <span class="o">=</span> <span class="n">_ParticleVisualPrim</span><span class="p">(</span>
+            <span class="n">points_attr</span><span class="o">=</span><span class="n">UsdGeom</span><span class="o">.</span><span class="n">Points</span><span class="p">(</span><span class="n">prim</span><span class="p">)</span><span class="o">.</span><span class="n">GetPointsAttr</span><span class="p">(),</span>
+            <span class="n">offset</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">particle_offset</span><span class="p">),</span>
+            <span class="n">count</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">particle_count</span><span class="p">),</span>
+            <span class="n">sync_frequency</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">sync_frequency</span><span class="p">),</span>
+            <span class="n">frames_since_sync</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">sync_frequency</span><span class="p">),</span>
+        <span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="NewtonManager.step">
 <a class="viewcode-back" href="../../../source/api/lab_newton/isaaclab_newton.physics.html#isaaclab_newton.physics.NewtonManager.step">[docs]</a>
@@ -1264,11 +1340,13 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Newton deferred CUDA graph capture failed; using eager execution&quot;</span><span class="p">)</span>
 
-        <span class="c1"># Ensure body_q is up-to-date before collision detection.</span>
-        <span class="c1"># After env resets, joint_q is written but body_q (used by</span>
-        <span class="c1"># broadphase/narrowphase) is stale until FK runs.</span>
+        <span class="c1"># Ensure body_q is up-to-date before solvers read rigid transforms.</span>
+        <span class="c1"># After env resets or kinematic root writes, joint_q is written but</span>
+        <span class="c1"># body_q is stale until FK runs. Collision-based solvers need this for</span>
+        <span class="c1"># broadphase/narrowphase; collider-based solvers such as MPM need it</span>
+        <span class="c1"># for their internal collider queries.</span>
         <span class="c1"># Only runs FK for dirtied articulations via the accumulated mask.</span>
-        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_needs_collision_pipeline</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_needs_collision_pipeline</span> <span class="ow">or</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_needs_fk_before_step</span><span class="p">:</span>
             <span class="n">eval_fk</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_model</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_state_0</span><span class="o">.</span><span class="n">joint_q</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_state_0</span><span class="o">.</span><span class="n">joint_qd</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_state_0</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_fk_reset_mask</span><span class="p">)</span>
 
         <span class="c1"># Zero both masks after consumption</span>
@@ -1302,6 +1380,8 @@
 
         <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_usdrt_stage</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">cls</span><span class="o">.</span><span class="n">_mark_state_dirty</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_particle_visual_prims</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">_mark_particles_dirty</span><span class="p">()</span>
 
         <span class="c1"># Launch solver-specific debug logging after stepping.</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">_log_solver_debug</span><span class="p">()</span></div>
@@ -1381,6 +1461,7 @@
         <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_control</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_contacts</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_needs_collision_pipeline</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_needs_fk_before_step</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_collision_pipeline</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_collision_cfg</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_newton_contact_sensors</span> <span class="o">=</span> <span class="p">{}</span>
@@ -1404,6 +1485,8 @@
         <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_usdrt_stage</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_transforms_dirty</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_particles_dirty</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_particle_visual_prims</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_mpm_object_registry</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_up_axis</span> <span class="o">=</span> <span class="s2">&quot;Z&quot;</span>
         <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_scene_data</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_scene_data_mapping</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1447,6 +1530,7 @@
 <span class="sd">            New builder with up-axis and per-shape defaults (gap, margin) applied.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">builder</span> <span class="o">=</span> <span class="n">ModelBuilder</span><span class="p">(</span><span class="n">up_axis</span><span class="o">=</span><span class="n">up_axis</span> <span class="ow">or</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_up_axis</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_register_builder_attributes</span><span class="p">(</span><span class="n">builder</span><span class="p">)</span>
         <span class="c1"># Resolve which NewtonShapeCfg to apply: user override if active config</span>
         <span class="c1"># is NewtonCfg, else the wrapper&#39;s own defaults so callers from non-Newton</span>
         <span class="c1"># contexts (tests, early construction) still get the rough-terrain margin.</span>
@@ -1455,6 +1539,29 @@
         <span class="n">checked_apply</span><span class="p">(</span><span class="n">shape_cfg</span><span class="p">,</span> <span class="n">builder</span><span class="o">.</span><span class="n">default_shape_cfg</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">builder</span></div>
 
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_register_builder_attributes</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">builder</span><span class="p">:</span> <span class="n">ModelBuilder</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Subclass hook to register solver-specific custom attributes on *builder*.</span>
+
+<span class="sd">        Override in solver subclasses (e.g. :class:`NewtonMPMManager`) that need</span>
+<span class="sd">        Newton-side particle, shape, or body custom attributes registered before</span>
+<span class="sd">        the builder is finalized. The default implementation is a no-op so</span>
+<span class="sd">        solvers without custom attributes do not need to override it.</span>
+
+<span class="sd">        Implementations should be **idempotent** — the same builder may be</span>
+<span class="sd">        passed multiple times across :meth:`create_builder`,</span>
+<span class="sd">        :meth:`instantiate_builder_from_stage`, and :meth:`start_simulation`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_prepare_builder_for_finalize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">builder</span><span class="p">:</span> <span class="n">ModelBuilder</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Subclass hook to normalize *builder* before model finalization.</span>
+
+<span class="sd">        Override in solver subclasses that need to adapt imported or replicated</span>
+<span class="sd">        builder data before :meth:`ModelBuilder.finalize` allocates model arrays.</span>
+<span class="sd">        The default implementation is a no-op.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="NewtonManager.cl_register_site">
 <a class="viewcode-back" href="../../../source/api/lab_newton/isaaclab_newton.physics.html#isaaclab_newton.physics.NewtonManager.cl_register_site">[docs]</a>
@@ -1671,6 +1778,8 @@
 <span class="sd">                index. Shape ``(world_count, count_per_world)``. Obtained from</span>
 <span class="sd">                ``ArticulationView.articulation_ids``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_mark_transforms_dirty</span><span class="p">()</span>
+
         <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_world_reset_mask</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_fk_reset_mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
 
@@ -1711,6 +1820,7 @@
         <span class="c1"># Create builder from USD stage if not provided</span>
         <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_builder</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">cls</span><span class="o">.</span><span class="n">instantiate_builder_from_stage</span><span class="p">()</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_register_builder_attributes</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_builder</span><span class="p">)</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Dispatching MODEL_INIT callbacks&quot;</span><span class="p">)</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">dispatch_event</span><span class="p">(</span><span class="n">PhysicsEvent</span><span class="o">.</span><span class="n">MODEL_INIT</span><span class="p">)</span>
@@ -1726,6 +1836,7 @@
         <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_pending_extended_state_attributes</span><span class="p">:</span>
             <span class="bp">cls</span><span class="o">.</span><span class="n">_builder</span><span class="o">.</span><span class="n">request_state_attributes</span><span class="p">(</span><span class="o">*</span><span class="bp">cls</span><span class="o">.</span><span class="n">_pending_extended_state_attributes</span><span class="p">)</span>
             <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_pending_extended_state_attributes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_prepare_builder_for_finalize</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_builder</span><span class="p">)</span>
         <span class="k">with</span> <span class="n">Timer</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;newton_finalize_builder&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Finalize builder took:&quot;</span><span class="p">):</span>
             <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_builder</span><span class="o">.</span><span class="n">finalize</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
             <span class="bp">cls</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">set_gravity</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_gravity_vector</span><span class="p">)</span>
@@ -1773,9 +1884,16 @@
             <span class="p">)</span>
 
             <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_initialize_fabric_body_prims</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_usdrt_stage</span><span class="p">,</span> <span class="n">fabric_hierarchy</span><span class="p">,</span> <span class="n">usdrt</span><span class="p">,</span> <span class="n">body_bindings</span><span class="p">)</span>
+            <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_initialize_fabric_particle_prims</span><span class="p">(</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="n">_usdrt_stage</span><span class="p">,</span>
+                <span class="n">fabric_hierarchy</span><span class="p">,</span>
+                <span class="n">usdrt</span><span class="p">,</span>
+                <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_particle_visual_prims</span><span class="p">,</span>
+            <span class="p">)</span>
 
-            <span class="bp">cls</span><span class="o">.</span><span class="n">_mark_transforms_dirty</span><span class="p">()</span>
-            <span class="bp">cls</span><span class="o">.</span><span class="n">sync_transforms_to_usd</span><span class="p">()</span></div>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">_mark_state_dirty</span><span class="p">()</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">sync_transforms_to_usd</span><span class="p">()</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">sync_particles_to_usd</span><span class="p">()</span></div>
 
 
     <span class="nd">@staticmethod</span>
@@ -1799,6 +1917,18 @@
             <span class="n">prim</span><span class="o">.</span><span class="n">AddAppliedSchema</span><span class="p">(</span><span class="s2">&quot;PhysicsRigidBodyAPI&quot;</span><span class="p">)</span>
 
         <span class="n">fabric_hierarchy</span><span class="o">.</span><span class="n">update_world_xforms</span><span class="p">()</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_initialize_fabric_particle_prims</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">fabric_hierarchy</span><span class="p">,</span> <span class="n">usdrt</span><span class="p">,</span> <span class="n">prim_paths</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize Fabric world matrices for point prims used by particle sync.&quot;&quot;&quot;</span>
+        <span class="n">prim_paths</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">prim_paths</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">prim_path</span> <span class="ow">in</span> <span class="n">prim_paths</span><span class="p">:</span>
+            <span class="n">prim</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="n">GetPrimAtPath</span><span class="p">(</span><span class="n">prim_path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">prim</span><span class="o">.</span><span class="n">IsValid</span><span class="p">():</span>
+                <span class="n">usdrt</span><span class="o">.</span><span class="n">Rt</span><span class="o">.</span><span class="n">Xformable</span><span class="p">(</span><span class="n">prim</span><span class="p">)</span><span class="o">.</span><span class="n">SetWorldXformFromUsd</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">prim_paths</span><span class="p">:</span>
+            <span class="n">fabric_hierarchy</span><span class="o">.</span><span class="n">update_world_xforms</span><span class="p">()</span>
 
 <div class="viewcode-block" id="NewtonManager.instantiate_builder_from_stage">
 <a class="viewcode-back" href="../../../source/api/lab_newton/isaaclab_newton.physics.html#isaaclab_newton.physics.NewtonManager.instantiate_builder_from_stage">[docs]</a>
@@ -1829,7 +1959,7 @@
                     <span class="n">env_paths</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span> <span class="n">child</span><span class="o">.</span><span class="n">GetPath</span><span class="p">()</span><span class="o">.</span><span class="n">pathString</span><span class="p">))</span>
         <span class="n">env_paths</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
-        <span class="n">builder</span> <span class="o">=</span> <span class="n">ModelBuilder</span><span class="p">(</span><span class="n">up_axis</span><span class="o">=</span><span class="n">up_axis</span><span class="p">)</span>
+        <span class="n">builder</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_builder</span><span class="p">(</span><span class="n">up_axis</span><span class="o">=</span><span class="n">up_axis</span><span class="p">)</span>
 
         <span class="n">schema_resolvers</span> <span class="o">=</span> <span class="p">[</span><span class="n">SchemaResolverNewton</span><span class="p">(),</span> <span class="n">SchemaResolverPhysx</span><span class="p">()]</span>
 
@@ -1837,6 +1967,10 @@
             <span class="c1"># No env Xforms — flat loading</span>
             <span class="n">builder</span><span class="o">.</span><span class="n">add_usd</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">schema_resolvers</span><span class="o">=</span><span class="n">schema_resolvers</span><span class="p">)</span>
             <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_world_xforms</span> <span class="o">=</span> <span class="p">[</span><span class="n">wp</span><span class="o">.</span><span class="n">transform</span><span class="p">()]</span>
+            <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_mpm_object_registry</span><span class="p">:</span>
+                <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_newton.assets.mpm_object.mpm_object</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_registered_mpm_objects_to_builder</span>
+
+                <span class="n">add_registered_mpm_objects_to_builder</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Load everything except the env subtrees (ground plane, lights, etc.)</span>
             <span class="n">ignore_paths</span> <span class="o">=</span> <span class="p">[</span><span class="n">path</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">env_paths</span><span class="p">]</span>
@@ -1844,7 +1978,7 @@
 
             <span class="c1"># Build a prototype from the first env (all envs assumed identical)</span>
             <span class="n">_</span><span class="p">,</span> <span class="n">proto_path</span> <span class="o">=</span> <span class="n">env_paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">proto</span> <span class="o">=</span> <span class="n">ModelBuilder</span><span class="p">(</span><span class="n">up_axis</span><span class="o">=</span><span class="n">up_axis</span><span class="p">)</span>
+            <span class="n">proto</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">create_builder</span><span class="p">(</span><span class="n">up_axis</span><span class="o">=</span><span class="n">up_axis</span><span class="p">)</span>
             <span class="n">proto</span><span class="o">.</span><span class="n">add_usd</span><span class="p">(</span>
                 <span class="n">stage</span><span class="p">,</span>
                 <span class="n">root_path</span><span class="o">=</span><span class="n">proto_path</span><span class="p">,</span>
@@ -1887,6 +2021,10 @@
                         <span class="n">local_site_map</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_worlds</span><span class="p">)]</span>
                     <span class="k">for</span> <span class="n">proto_shape_idx</span> <span class="ow">in</span> <span class="n">proto_shape_indices</span><span class="p">:</span>
                         <span class="n">local_site_map</span><span class="p">[</span><span class="n">label</span><span class="p">][</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">offset</span> <span class="o">+</span> <span class="n">proto_shape_idx</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_mpm_object_registry</span><span class="p">:</span>
+                    <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_newton.assets.mpm_object.mpm_object</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_registered_mpm_objects_to_builder</span>
+
+                    <span class="n">add_registered_mpm_objects_to_builder</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">pos</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="n">quat</span><span class="p">))</span>
                 <span class="n">builder</span><span class="o">.</span><span class="n">end_world</span><span class="p">()</span>
 
             <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_cl_site_index_map</span> <span class="o">=</span> <span class="p">{</span>
@@ -2076,6 +2214,15 @@
             <span class="k">return</span>
 
         <span class="n">use_cuda_graph</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">use_cuda_graph</span> <span class="ow">and</span> <span class="s2">&quot;cuda&quot;</span> <span class="ow">in</span> <span class="n">device</span>
+        <span class="k">if</span> <span class="n">use_cuda_graph</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_supports_cuda_graph_capture</span><span class="p">():</span>
+            <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_graph_capture_pending</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> does not support CUDA graph capture for the current solver configuration; using eager execution.&quot;</span><span class="p">,</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">return</span>
+
         <span class="k">if</span> <span class="n">use_cuda_graph</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">Timer</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;newton_cuda_graph&quot;</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;CUDA graph took:&quot;</span><span class="p">):</span>
                 <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_usdrt_stage</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -2101,6 +2248,11 @@
                     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Newton CUDA graph capture deferred until first step() (RTX active)&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">NewtonManager</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_supports_cuda_graph_capture</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return whether the active solver configuration supports CUDA graph capture.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">True</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_capture_relaxed_graph</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -2989,7 +3141,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 11, 2026.
+  Last updated on Jun 12, 2026.
   <br/>
 </p>
   </div>
