@@ -36,7 +36,6 @@
     <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/css/all.min.css?v=53359634" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_paramlinks.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=8fb98eed" />
   
   <!-- So that users can add custom icons -->
@@ -161,6 +160,7 @@
           <select id="version-select" class="version-dropdown" style="margin: 0 auto; display: block;" onchange="location = this.value;">
             <option value="simulation_performance.html" selected>develop</option>
             <option value="../../../main/source/how-to/simulation_performance.html" >main</option>
+            <option value="../../../release/3.0.0-beta2/source/how-to/simulation_performance.html" >release/3.0.0-beta2</option>
             <option value="../../../v3.0.0-beta/source/how-to/simulation_performance.html" >v3.0.0-beta</option>
             <option value="../../../v2.3.2/source/how-to/simulation_performance.html" >v2.3.2</option>
             <option value="../../../v2.3.1/source/how-to/simulation_performance.html" >v2.3.1</option>
@@ -783,7 +783,7 @@ simplified collision geometries can improve performance and reduce the complexit
 <p>For example, if you have a complex mesh, you can create a simplified collision geometry that approximates the shape
 of the mesh. This can be done in Isaac Sim through the UI by modifying the collision mesh and approximation methods.</p>
 <p>Additionally, we can often remove collision geometries on areas of the robot that are not important for training.
-In the Anymal-C robot, we keep the collision geometries for the kneeds and feet, but remove the collision geometries
+In the AnymalC robot, we keep the collision geometries for the kneeds and feet, but remove the collision geometries
 on other parts of the legs to optimize for performance.</p>
 <p>Simpler collision geometries such as primitive shapes like spheres will also yield better performance than complex meshes.
 For example, an SDF mesh collider will be more expensive than a simple sphere.</p>

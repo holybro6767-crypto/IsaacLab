@@ -36,7 +36,6 @@
     <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/css/all.min.css?v=53359634" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_paramlinks.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=8fb98eed" />
   
   <!-- So that users can add custom icons -->
@@ -161,6 +160,7 @@
           <select id="version-select" class="version-dropdown" style="margin: 0 auto; display: block;" onchange="location = this.value;">
             <option value="multi_gpu.html" selected>develop</option>
             <option value="../../../main/source/features/multi_gpu.html" >main</option>
+            <option value="../../../release/3.0.0-beta2/source/features/multi_gpu.html" >release/3.0.0-beta2</option>
             <option value="../../../v3.0.0-beta/source/features/multi_gpu.html" >v3.0.0-beta</option>
             <option value="../../../v2.3.2/source/features/multi_gpu.html" >v2.3.2</option>
             <option value="../../../v2.3.1/source/features/multi_gpu.html" >v2.3.1</option>
@@ -1011,7 +1011,7 @@ It defaults to <code class="docutils literal notranslate"><span class="pre">rsl_
 <label class="sd-tab-label" data-sync-group="launcher" data-sync-id="isaaclab" for="sd-tab-item-15">
 isaaclab.sh</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/reinforcement_learning/train_multigpu.py<span class="w"> </span><span class="se">\</span>
-<span class="w">   </span>--task<span class="w"> </span>Isaac-Dexsuite-Kuka-Allegro-Reorient-v0<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--task<span class="w"> </span>Isaac-Reorient-KukaAllegro<span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--num_envs<span class="w"> </span><span class="m">4096</span><span class="w"> </span>--max_iterations<span class="w"> </span><span class="m">100</span>
 </pre></div>
 </div>
@@ -1020,7 +1020,7 @@ isaaclab.sh</label><div class="sd-tab-content docutils">
 <label class="sd-tab-label" data-sync-group="launcher" data-sync-id="uv" for="sd-tab-item-16">
 uv run</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>train_multigpu<span class="w"> </span><span class="se">\</span>
-<span class="w">   </span>--task<span class="w"> </span>Isaac-Dexsuite-Kuka-Allegro-Reorient-v0<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--task<span class="w"> </span>Isaac-Reorient-KukaAllegro<span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--num_envs<span class="w"> </span><span class="m">4096</span><span class="w"> </span>--max_iterations<span class="w"> </span><span class="m">100</span>
 </pre></div>
 </div>
@@ -1033,7 +1033,7 @@ uv run</label><div class="sd-tab-content docutils">
 isaaclab.sh</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/reinforcement_learning/train_multigpu.py<span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--num_gpus<span class="w"> </span><span class="m">4</span><span class="w"> </span>--master_port<span class="w"> </span><span class="m">29504</span><span class="w"> </span><span class="se">\</span>
-<span class="w">   </span>--task<span class="w"> </span>Isaac-Dexsuite-Kuka-Allegro-Reorient-v0<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--task<span class="w"> </span>Isaac-Reorient-KukaAllegro<span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--num_envs<span class="w"> </span><span class="m">4096</span><span class="w"> </span>--max_iterations<span class="w"> </span><span class="m">100</span>
 </pre></div>
 </div>
@@ -1042,7 +1042,7 @@ isaaclab.sh</label><div class="sd-tab-content docutils">
 <label class="sd-tab-label" data-sync-group="launcher" data-sync-id="uv" for="sd-tab-item-18">
 uv run</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>train_multigpu<span class="w"> </span>--num_gpus<span class="w"> </span><span class="m">4</span><span class="w"> </span>--master_port<span class="w"> </span><span class="m">29504</span><span class="w"> </span><span class="se">\</span>
-<span class="w">   </span>--task<span class="w"> </span>Isaac-Dexsuite-Kuka-Allegro-Reorient-v0<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--task<span class="w"> </span>Isaac-Reorient-KukaAllegro<span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--num_envs<span class="w"> </span><span class="m">4096</span><span class="w"> </span>--max_iterations<span class="w"> </span><span class="m">100</span>
 </pre></div>
 </div>
@@ -1057,7 +1057,7 @@ isaaclab.sh</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/reinforcement_learning/train_multigpu.py<span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--rl_library<span class="w"> </span>skrl<span class="w"> </span>--ml_framework<span class="w"> </span>jax<span class="w"> </span>--num_gpus<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--coordinator_address<span class="w"> </span>localhost:5000<span class="w"> </span><span class="se">\</span>
-<span class="w">   </span>--task<span class="w"> </span>Isaac-Dexsuite-Kuka-Allegro-Reorient-v0<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--task<span class="w"> </span>Isaac-Reorient-KukaAllegro<span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--num_envs<span class="w"> </span><span class="m">4096</span><span class="w"> </span>--max_iterations<span class="w"> </span><span class="m">100</span>
 </pre></div>
 </div>
@@ -1067,7 +1067,7 @@ isaaclab.sh</label><div class="sd-tab-content docutils">
 uv run</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>run<span class="w"> </span>train_multigpu<span class="w"> </span>--rl_library<span class="w"> </span>skrl<span class="w"> </span>--ml_framework<span class="w"> </span>jax<span class="w"> </span>--num_gpus<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--coordinator_address<span class="w"> </span>localhost:5000<span class="w"> </span><span class="se">\</span>
-<span class="w">   </span>--task<span class="w"> </span>Isaac-Dexsuite-Kuka-Allegro-Reorient-v0<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--task<span class="w"> </span>Isaac-Reorient-KukaAllegro<span class="w"> </span><span class="se">\</span>
 <span class="w">   </span>--num_envs<span class="w"> </span><span class="m">4096</span><span class="w"> </span>--max_iterations<span class="w"> </span><span class="m">100</span>
 </pre></div>
 </div>

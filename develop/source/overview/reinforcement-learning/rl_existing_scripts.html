@@ -36,7 +36,6 @@
     <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/css/all.min.css?v=53359634" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_paramlinks.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=8fb98eed" />
   
   <!-- So that users can add custom icons -->
@@ -161,6 +160,7 @@
           <select id="version-select" class="version-dropdown" style="margin: 0 auto; display: block;" onchange="location = this.value;">
             <option value="rl_existing_scripts.html" selected>develop</option>
             <option value="../../../../main/source/overview/reinforcement-learning/rl_existing_scripts.html" >main</option>
+            <option value="../../../../release/3.0.0-beta2/source/overview/reinforcement-learning/rl_existing_scripts.html" >release/3.0.0-beta2</option>
             <option value="../../../../v3.0.0-beta/source/overview/reinforcement-learning/rl_existing_scripts.html" >v3.0.0-beta</option>
             <option value="../../../../v2.3.2/source/overview/reinforcement-learning/rl_existing_scripts.html" >v2.3.2</option>
             <option value="../../../../v2.3.1/source/overview/reinforcement-learning/rl_existing_scripts.html" >v2.3.1</option>
@@ -905,7 +905,7 @@ isaaclab.bat play --rl_library rsl_rl --task Isaac-Reach-Franka --video --video_
 </div>
 </li>
 <li><p>Training and distilling an agent with
-<a class="reference external" href="https://github.com/leggedrobotics/rsl_rl">RSL-RL</a> on <code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-Flat-Anymal-D-v0</span></code>:</p>
+<a class="reference external" href="https://github.com/leggedrobotics/rsl_rl">RSL-RL</a> on <code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-Flat-AnymalD</span></code>:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
 <label class="sd-tab-label" data-sync-group="os" data-sync-id="linux" for="sd-tab-item-4">
@@ -913,13 +913,13 @@ isaaclab.bat play --rl_library rsl_rl --task Isaac-Reach-Franka --video --video_
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># install python module (for rsl-rl)</span>
 ./isaaclab.sh<span class="w"> </span>-i<span class="w"> </span>rsl_rl
 <span class="c1"># run command for rl training of the teacher agent</span>
-./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>rsl_rl<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-Anymal-D-v0
+./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>rsl_rl<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-AnymalD
 <span class="c1"># run command for rl training of the teacher agent with Newton backend</span>
-./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>rsl_rl<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-Anymal-D-v0<span class="w"> </span><span class="nv">physics</span><span class="o">=</span>newton_mjwarp
+./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>rsl_rl<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-AnymalD<span class="w"> </span><span class="nv">physics</span><span class="o">=</span>newton_mjwarp
 <span class="c1"># run command for distilling the teacher agent into a student agent</span>
-./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>rsl_rl<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-Anymal-D-v0<span class="w"> </span>--agent<span class="w"> </span>rsl_rl_distillation_cfg_entry_point<span class="w"> </span>--load_run<span class="w"> </span>teacher_run_folder_name
+./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>rsl_rl<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-AnymalD<span class="w"> </span>--agent<span class="w"> </span>rsl_rl_distillation_cfg_entry_point<span class="w"> </span>--load_run<span class="w"> </span>teacher_run_folder_name
 <span class="c1"># run command for playing the student with 64 environments</span>
-./isaaclab.sh<span class="w"> </span>play<span class="w"> </span>--rl_library<span class="w"> </span>rsl_rl<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-Anymal-D-v0<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">64</span><span class="w"> </span>--agent<span class="w"> </span>rsl_rl_distillation_cfg_entry_point
+./isaaclab.sh<span class="w"> </span>play<span class="w"> </span>--rl_library<span class="w"> </span>rsl_rl<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-AnymalD<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">64</span><span class="w"> </span>--agent<span class="w"> </span>rsl_rl_distillation_cfg_entry_point
 </pre></div>
 </div>
 </div>
@@ -929,13 +929,13 @@ isaaclab.bat play --rl_library rsl_rl --task Isaac-Reach-Franka --video --video_
 <div class="highlight-batch notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="c1">: install python module (for rsl-rl)</span>
 isaaclab.bat -i rsl_rl
 <span class="p">:</span><span class="c1">: run command for rl training of the teacher agent</span>
-isaaclab.bat train --rl_library rsl_rl --task Isaac-Velocity-Flat-Anymal-D-v0
+isaaclab.bat train --rl_library rsl_rl --task Isaac-Velocity-Flat-AnymalD
 <span class="p">:</span><span class="c1">: run command for rl training of the teacher agent with Newton backend</span>
-isaaclab.bat train --rl_library rsl_rl --task Isaac-Velocity-Flat-Anymal-D-v0 physics=newton_mjwarp
+isaaclab.bat train --rl_library rsl_rl --task Isaac-Velocity-Flat-AnymalD physics=newton_mjwarp
 <span class="p">:</span><span class="c1">: run command for distilling the teacher agent into a student agent</span>
-isaaclab.bat train --rl_library rsl_rl --task Isaac-Velocity-Flat-Anymal-D-v0 --agent rsl_rl_distillation_cfg_entry_point --load_run teacher_run_folder_name
+isaaclab.bat train --rl_library rsl_rl --task Isaac-Velocity-Flat-AnymalD --agent rsl_rl_distillation_cfg_entry_point --load_run teacher_run_folder_name
 <span class="p">:</span><span class="c1">: run command for playing the student with 64 environments</span>
-isaaclab.bat play --rl_library rsl_rl --task Isaac-Velocity-Flat-Anymal-D-v0 --num_envs 64 --agent rsl_rl_distillation_cfg_entry_point
+isaaclab.bat play --rl_library rsl_rl --task Isaac-Velocity-Flat-AnymalD --num_envs 64 --agent rsl_rl_distillation_cfg_entry_point
 </pre></div>
 </div>
 </div>
@@ -1079,7 +1079,7 @@ isaaclab.bat play --rl_library skrl --task Isaac-Shadow-Handover-Direct --num_en
 <ul>
 <li><p>Training an agent with
 <a class="reference external" href="https://stable-baselines3.readthedocs.io/en/master/index.html">Stable-Baselines3</a>
-on <code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-Flat-Unitree-A1-v0</span></code>:</p>
+on <code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-Flat-UnitreeA1-v0</span></code>:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-14" name="sd-tab-set-7" type="radio">
 <label class="sd-tab-label" data-sync-group="os" data-sync-id="linux" for="sd-tab-item-14">
@@ -1087,13 +1087,13 @@ on <code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-F
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># install python module (for stable-baselines3)</span>
 ./isaaclab.sh<span class="w"> </span>-i<span class="w"> </span>sb3
 <span class="c1"># run command for training</span>
-./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>sb3<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-Unitree-A1-v0
+./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>sb3<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-UnitreeA1-v0
 <span class="c1"># run command for training with Newton backend</span>
-./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>sb3<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-Unitree-A1-v0<span class="w"> </span><span class="nv">physics</span><span class="o">=</span>newton_mjwarp
+./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>sb3<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-UnitreeA1-v0<span class="w"> </span><span class="nv">physics</span><span class="o">=</span>newton_mjwarp
 <span class="c1"># run command for playing with 32 environments</span>
-./isaaclab.sh<span class="w"> </span>play<span class="w"> </span>--rl_library<span class="w"> </span>sb3<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-Unitree-A1-v0<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">32</span><span class="w"> </span>--checkpoint<span class="w"> </span>/PATH/TO/model.zip
+./isaaclab.sh<span class="w"> </span>play<span class="w"> </span>--rl_library<span class="w"> </span>sb3<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-UnitreeA1-v0<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">32</span><span class="w"> </span>--checkpoint<span class="w"> </span>/PATH/TO/model.zip
 <span class="c1"># run command for recording video of a trained agent (requires installing `ffmpeg`)</span>
-./isaaclab.sh<span class="w"> </span>play<span class="w"> </span>--rl_library<span class="w"> </span>sb3<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-Unitree-A1-v0<span class="w"> </span>--video<span class="w"> </span>--video_length<span class="w"> </span><span class="m">200</span>
+./isaaclab.sh<span class="w"> </span>play<span class="w"> </span>--rl_library<span class="w"> </span>sb3<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-UnitreeA1-v0<span class="w"> </span>--video<span class="w"> </span>--video_length<span class="w"> </span><span class="m">200</span>
 </pre></div>
 </div>
 </div>
@@ -1103,13 +1103,13 @@ on <code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-F
 <div class="highlight-batch notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="c1">: install python module (for stable-baselines3)</span>
 isaaclab.bat -i sb3
 <span class="p">:</span><span class="c1">: run command for training</span>
-isaaclab.bat train --rl_library sb3 --task Isaac-Velocity-Flat-Unitree-A1-v0
+isaaclab.bat train --rl_library sb3 --task Isaac-Velocity-Flat-UnitreeA1-v0
 <span class="p">:</span><span class="c1">: run command for training with Newton backend</span>
-isaaclab.bat train --rl_library sb3 --task Isaac-Velocity-Flat-Unitree-A1-v0 physics=newton_mjwarp
+isaaclab.bat train --rl_library sb3 --task Isaac-Velocity-Flat-UnitreeA1-v0 physics=newton_mjwarp
 <span class="p">:</span><span class="c1">: run command for playing with 32 environments</span>
-isaaclab.bat play --rl_library sb3 --task Isaac-Velocity-Flat-Unitree-A1-v0 --num_envs 32 --checkpoint /PATH/TO/model.zip
+isaaclab.bat play --rl_library sb3 --task Isaac-Velocity-Flat-UnitreeA1-v0 --num_envs 32 --checkpoint /PATH/TO/model.zip
 <span class="p">:</span><span class="c1">: run command for recording video of a trained agent (requires installing `ffmpeg`)</span>
-isaaclab.bat play --rl_library sb3 --task Isaac-Velocity-Flat-Unitree-A1-v0 --video --video_length 200
+isaaclab.bat play --rl_library sb3 --task Isaac-Velocity-Flat-UnitreeA1-v0 --video --video_length 200
 </pre></div>
 </div>
 </div>

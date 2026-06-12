@@ -36,7 +36,6 @@
     <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/css/all.min.css?v=53359634" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx_paramlinks.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/custom.css?v=8fb98eed" />
   
   <!-- So that users can add custom icons -->
@@ -161,6 +160,7 @@
           <select id="version-select" class="version-dropdown" style="margin: 0 auto; display: block;" onchange="location = this.value;">
             <option value="warp-environments.html" selected>develop</option>
             <option value="../../../../../../main/index.html" >main</option>
+            <option value="../../../../../../release/3.0.0-beta2/source/overview/core-concepts/physical-backends/newton/warp-environments.html" >release/3.0.0-beta2</option>
             <option value="../../../../../../v3.0.0-beta/index.html" >v3.0.0-beta</option>
             <option value="../../../../../../v2.3.2/index.html" >v2.3.2</option>
             <option value="../../../../../../v2.3.1/index.html" >v2.3.1</option>
@@ -801,16 +801,16 @@ standalone Warp-kernel functions and compose them via configuration.</p>
 </ul>
 <p><strong>Locomotion (Flat)</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-Flat-Anymal-B-Warp-v0</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-Flat-Anymal-C-Warp-v0</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-Flat-Anymal-D-Warp-v0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-Flat-AnymalB-Warp-v0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-Flat-AnymalC-Warp-v0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-Flat-AnymalD-Warp-v0</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-Flat-Cassie-Warp-v0</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-Flat-G1-Warp-v0</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-Flat-G1-Warp-v1</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-Flat-H1-Warp-v0</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-Flat-Unitree-A1-Warp-v0</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-Flat-Unitree-Go1-Warp-v0</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-Flat-Unitree-Go2-Warp-v0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-Flat-UnitreeA1-Warp-v0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-Flat-UnitreeGo1-Warp-v0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Isaac-Velocity-Flat-UnitreeGo2-Warp-v0</span></code></p></li>
 </ul>
 <p><strong>Manipulation</strong></p>
 <ul class="simple">
@@ -827,7 +827,7 @@ standalone Warp-kernel functions and compose them via configuration.</p>
 
 <span class="c1"># Manager-based workflow</span>
 ./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>rsl_rl<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--task<span class="w"> </span>Isaac-Velocity-Flat-Anymal-C-Warp-v0<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">4096</span>
+<span class="w">    </span>--task<span class="w"> </span>Isaac-Velocity-Flat-AnymalC-Warp-v0<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">4096</span>
 </pre></div>
 </div>
 <p>All RL libraries with warp-compatible wrappers are supported: RSL-RL, RL Games, SKRL, and
@@ -908,19 +908,19 @@ improvements are expected as these components are migrated.</p>
 <td><p>7,813</p></td>
 <td><p>-31.83%</p></td>
 </tr>
-<tr class="row-even"><td><p>Anymal-B</p></td>
+<tr class="row-even"><td><p>AnymalB</p></td>
 <td><p>Manager</p></td>
 <td><p>29,188</p></td>
 <td><p>21,781</p></td>
 <td><p>-25.38%</p></td>
 </tr>
-<tr class="row-odd"><td><p>Anymal-C</p></td>
+<tr class="row-odd"><td><p>AnymalC</p></td>
 <td><p>Manager</p></td>
 <td><p>30,938</p></td>
 <td><p>22,228</p></td>
 <td><p>-28.15%</p></td>
 </tr>
-<tr class="row-even"><td><p>Anymal-D</p></td>
+<tr class="row-even"><td><p>AnymalD</p></td>
 <td><p>Manager</p></td>
 <td><p>32,294</p></td>
 <td><p>23,977</p></td>

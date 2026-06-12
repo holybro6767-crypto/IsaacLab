@@ -36,7 +36,6 @@
     <link rel="stylesheet" type="text/css" href="/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/sphinxcontrib/icon/node_modules/@fortawesome/fontawesome-free/css/all.min.css?v=53359634" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_paramlinks.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=8fb98eed" />
   
   <!-- So that users can add custom icons -->
@@ -161,6 +160,7 @@
           <select id="version-select" class="version-dropdown" style="margin: 0 auto; display: block;" onchange="location = this.value;">
             <option value="io_descriptors_101.html" selected>develop</option>
             <option value="../../../../main/source/policy_deployment/01_io_descriptors/io_descriptors_101.html" >main</option>
+            <option value="../../../../release/3.0.0-beta2/source/policy_deployment/01_io_descriptors/io_descriptors_101.html" >release/3.0.0-beta2</option>
             <option value="../../../../v3.0.0-beta/source/policy_deployment/01_io_descriptors/io_descriptors_101.html" >v3.0.0-beta</option>
             <option value="../../../../v2.3.2/source/policy_deployment/01_io_descriptors/io_descriptors_101.html" >v2.3.2</option>
             <option value="../../../../v2.3.1/source/policy_deployment/01_io_descriptors/io_descriptors_101.html" >v2.3.1</option>
@@ -757,7 +757,7 @@
   <section id="io-descriptors-101">
 <h1>IO Descriptors 101<a class="headerlink" href="#io-descriptors-101" title="Link to this heading">#</a></h1>
 <p>In this tutorial, we will learn about IO descriptors, what they are, how to export them, and how to add them to
-your environments. We will use the Anymal-D robot as an example to demonstrate how to export IO descriptors from
+your environments. We will use the AnymalD robot as an example to demonstrate how to export IO descriptors from
 an environment, and use our own terms to demonstrate how to attach IO descriptors to custom action and observation terms.</p>
 <section id="what-are-io-descriptors">
 <h2>What are IO Descriptors?<a class="headerlink" href="#what-are-io-descriptors" title="Link to this heading">#</a></h2>
@@ -771,7 +771,7 @@ configuration of the action and observation terms.</p>
 - Some simulation parameters including the simulation time step, and the policy time step.
 - For some action and observation terms, it provides the joint names or body names in the same order as they appear in the action/observation terms.
 - For both the observation and action terms, it provides the terms in the exact same order as they appear in the managers. Making it easy to reconstruct them from the YAML file.</p>
-<p>Here is an example of what the action part of the YAML generated from the IO descriptors looks like for the Anymal-D robot:</p>
+<p>Here is an example of what the action part of the YAML generated from the IO descriptors looks like for the AnymalD robot:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Copyright (c) 2022-2026, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).</span>
 <span class="c1"># All rights reserved.</span>
 <span class="c1">#</span>
@@ -813,7 +813,7 @@ configuration of the action and observation terms.</p>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.800000011920929</span>
 </pre></div>
 </div>
-<p>Here is an example of what a portion of the observation part of the YAML generated from the IO descriptors looks like for the Anymal-D robot:</p>
+<p>Here is an example of what a portion of the observation part of the YAML generated from the IO descriptors looks like for the AnymalD robot:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RH_HFE</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LF_KFE</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LH_KFE</span>
@@ -942,16 +942,16 @@ Keep in mind that this feature is only available to the manager based RL environ
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/export_io_descriptors.py<span class="w"> </span>--task<span class="w"> </span>&lt;task_name&gt;<span class="w"> </span>--output_dir<span class="w"> </span>&lt;output_dir&gt;
 </pre></div>
 </div>
-<p>For example, if we want to export the IO descriptors for the Anymal-D robot, we can run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/export_io_descriptors.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-Anymal-D-v0<span class="w"> </span>--output_dir<span class="w"> </span>./io_descriptors
+<p>For example, if we want to export the IO descriptors for the AnymalD robot, we can run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/export_io_descriptors.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-AnymalD<span class="w"> </span>--output_dir<span class="w"> </span>./io_descriptors
 </pre></div>
 </div>
 <p>When training a policy, it is also possible to request the IO descriptors to be exported at the beginning of the training.
 This can be done by setting the <code class="docutils literal notranslate"><span class="pre">export_io_descriptors</span></code> flag in the command line.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>rsl_rl<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-Anymal-D-v0<span class="w"> </span>--export_io_descriptors
-./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>sb3<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-Anymal-D-v0<span class="w"> </span>--export_io_descriptors
-./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>rl_games<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-Anymal-D-v0<span class="w"> </span>--export_io_descriptors
-./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>skrl<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-Anymal-D-v0<span class="w"> </span>--export_io_descriptors
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>rsl_rl<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-AnymalD<span class="w"> </span>--export_io_descriptors
+./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>sb3<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-AnymalD<span class="w"> </span>--export_io_descriptors
+./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>rl_games<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-AnymalD<span class="w"> </span>--export_io_descriptors
+./isaaclab.sh<span class="w"> </span>train<span class="w"> </span>--rl_library<span class="w"> </span>skrl<span class="w"> </span>--task<span class="w"> </span>Isaac-Velocity-Flat-AnymalD<span class="w"> </span>--export_io_descriptors
 </pre></div>
 </div>
 </section>
