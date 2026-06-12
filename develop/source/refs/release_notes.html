@@ -1453,7 +1453,7 @@ to ensure the security and functionality of our software.</p></li>
 <li><p>Adds dgx spark limitations link to teleop docs by &#64;lotusl-code in <a class="github reference external" href="https://github.com/isaac-sim/IsaacLab/pull/3805">isaac-sim/IsaacLab#3805</a></p></li>
 <li><p>Adds Cosmos Transfer1 limitation for DGX spark by &#64;shauryadNv in <a class="github reference external" href="https://github.com/isaac-sim/IsaacLab/pull/3817">isaac-sim/IsaacLab#3817</a></p></li>
 <li><p>Updates DGX spark limitations for SkillGen in the documentation by &#64;njawale42 in <a class="github reference external" href="https://github.com/isaac-sim/IsaacLab/pull/3748">isaac-sim/IsaacLab#3748</a></p></li>
-<li><p>Adds the Isaac-PickPlace-G1-InspireFTP-Abs-v0 Task into Envs Docs by &#64;yami007007 in <a class="github reference external" href="https://github.com/isaac-sim/IsaacLab/pull/3479">isaac-sim/IsaacLab#3479</a></p></li>
+<li><p>Adds the IsaacContrib-PickPlace-G1-InspireFTP-Abs Task into Envs Docs by &#64;yami007007 in <a class="github reference external" href="https://github.com/isaac-sim/IsaacLab/pull/3479">isaac-sim/IsaacLab#3479</a></p></li>
 </ul>
 </section>
 <section id="id16">
@@ -2720,11 +2720,11 @@ The valid options for the device name are:</p>
 argument used for specifying the teleoperation-device in some of the standalone scripts. Thus, to fix
 this conflict, the teleoperation-device now needs to be specified through <code class="docutils literal notranslate"><span class="pre">--teleop_device</span></code> argument.</p>
 <p>Before:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>source/standalone/environments/teleoperation/teleop_se3_agent.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Lift-Cube-Franka-IK-Rel-v0<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">1</span><span class="w"> </span>--device<span class="w"> </span>keyboard
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>source/standalone/environments/teleoperation/teleop_se3_agent.py<span class="w"> </span>--task<span class="w"> </span>IsaacContrib-Lift-Cube-Franka-IK-Rel<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">1</span><span class="w"> </span>--device<span class="w"> </span>keyboard
 </pre></div>
 </div>
 <p>Now:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>source/standalone/environments/teleoperation/teleop_se3_agent.py<span class="w"> </span>--task<span class="w"> </span>Isaac-Lift-Cube-Franka-IK-Rel-v0<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">1</span><span class="w"> </span>--teleop_device<span class="w"> </span>keyboard
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>source/standalone/environments/teleoperation/teleop_se3_agent.py<span class="w"> </span>--task<span class="w"> </span>IsaacContrib-Lift-Cube-Franka-IK-Rel<span class="w"> </span>--num_envs<span class="w"> </span><span class="m">1</span><span class="w"> </span>--teleop_device<span class="w"> </span>keyboard
 </pre></div>
 </div>
 </section>

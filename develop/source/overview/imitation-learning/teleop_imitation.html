@@ -825,7 +825,7 @@ if you do not wish to collect your own demonstrations.</p>
 </div>
 <section id="environment-introduction">
 <h3>Environment Introduction<a class="headerlink" href="#environment-introduction" title="Link to this heading">#</a></h3>
-<p>The environment we will be using in this tutorial is <code class="docutils literal notranslate"><span class="pre">Isaac-Stack-Cube-Franka-IK-Rel-v0</span></code> and its variations.
+<p>The environment we will be using in this tutorial is <code class="docutils literal notranslate"><span class="pre">IsaacContrib-Stack-Cube-Franka-IK-Rel</span></code> and its variations.
 This environment contains a Franka robot attached to a table with three cubes.
 The task is to stack the cubes in the following order: blue (bottom), red (middle), green (top). As you proceed through
 the rest of this tutorial, you will encounter variations of this environment with different observation spaces
@@ -835,7 +835,7 @@ script provided by Isaac Lab. This script create and step through the environmen
 You will see the robot remain stationary while the environment is running. Use the scroll wheel to zoom in and out of the scene.
 Press and hold the alt key while clicking and dragging to pan around the scene.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/zero_agent.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Rel-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Rel<span class="w"> </span><span class="se">\</span>
 --viz<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
 --num_envs<span class="w"> </span><span class="m">1</span>
 </pre></div>
@@ -844,7 +844,7 @@ Press and hold the alt key while clicking and dragging to pan around the scene.<
 and step through the environment in a loop with random tensor actions. You will see the robot move in random
 directions.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/random_agent.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Rel-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Rel<span class="w"> </span><span class="se">\</span>
 --viz<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
 --num_envs<span class="w"> </span><span class="m">1</span>
 </pre></div>
@@ -865,7 +865,7 @@ with the controls and perform the stacking task. The order of the stacked cubes 
 Once you feel sufficiently comfortable with the controls, you may shutdown
 the environment by quitting the script with Ctrl+C.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/teleoperation/teleop_se3_agent.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Rel-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Rel<span class="w"> </span><span class="se">\</span>
 --viz<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
 --num_envs<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
 --sensitivity<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
@@ -891,7 +891,7 @@ Isaac Lab supports the 3Dconnexion <a class="reference external" href="https://3
 and <a class="reference external" href="https://3dconnexion.com/us/product/spacemouse-wireless/">SpaceMouse Wireless</a>.
 To use a SpaceMouse, simply change <code class="docutils literal notranslate"><span class="pre">--teleop_device</span></code> accordingly:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/teleoperation/teleop_se3_agent.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Rel-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Rel<span class="w"> </span><span class="se">\</span>
 --viz<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
 --num_envs<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
 --sensitivity<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
@@ -933,9 +933,9 @@ to immersively stream the scene to compatible XR devices for teleoperation.</p>
 <p>Follow the steps in <a class="reference internal" href="../../how-to/cloudxr_teleoperation.html#cloudxr-teleoperation"><span class="std std-ref">Setting up Isaac Teleop with CloudXR</span></a> to learn how to install Isaac Teleop and set up CloudXR for
 teleoperation. Once you have set it up, you can launch the cube stacking environment with the follow command to try it out
 with an XR headset. Note that when using hand tracking, we recommend using the absolute action space
-variant of the task (<code class="docutils literal notranslate"><span class="pre">Isaac-Stack-Cube-Franka-IK-Abs-v0</span></code>):</p>
+variant of the task (<code class="docutils literal notranslate"><span class="pre">IsaacContrib-Stack-Cube-Franka-IK-Abs</span></code>):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/teleoperation/teleop_se3_agent.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Abs-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Abs<span class="w"> </span><span class="se">\</span>
 --viz<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
 --xr
 </pre></div>
@@ -960,7 +960,7 @@ Select the tab that matches your input device:</p>
 <label class="sd-tab-label" for="sd-tab-item-0">
 Keyboard</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/tools/record_demos.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Rel-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Rel<span class="w"> </span><span class="se">\</span>
 --viz<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
 --dataset_file<span class="w"> </span>./datasets/dataset.hdf5<span class="w"> </span><span class="se">\</span>
 --num_demos<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
@@ -972,7 +972,7 @@ Keyboard</label><div class="sd-tab-content docutils">
 <label class="sd-tab-label" for="sd-tab-item-1">
 SpaceMouse</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/tools/record_demos.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Rel-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Rel<span class="w"> </span><span class="se">\</span>
 --viz<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
 --dataset_file<span class="w"> </span>./datasets/dataset.hdf5<span class="w"> </span><span class="se">\</span>
 --num_demos<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
@@ -987,7 +987,7 @@ XR Headset (Meta Quest / Pico)</label><div class="sd-tab-content docutils">
 variant of the task and omit <code class="docutils literal notranslate"><span class="pre">--teleop_device</span></code>. The IsaacTeleop pipeline
 is activated automatically via the <code class="docutils literal notranslate"><span class="pre">--xr</span></code> flag.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/tools/record_demos.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Abs-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Abs<span class="w"> </span><span class="se">\</span>
 --viz<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
 --dataset_file<span class="w"> </span>./datasets/dataset.hdf5<span class="w"> </span><span class="se">\</span>
 --num_demos<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
@@ -1015,7 +1015,7 @@ See <a class="reference internal" href="../../how-to/cloudxr_teleoperation.html#
 right button (if using a SpaceMouse) to discard the current demonstration and reset to a new starting position.</p>
 <p>You can replay the collected demonstrations by running:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/tools/replay_demos.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Rel-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Rel<span class="w"> </span><span class="se">\</span>
 --viz<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
 --num_envs<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
 --reset_sim_buffer_each_episode<span class="w"> </span><span class="se">\</span>
@@ -1176,14 +1176,14 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 <section id="train-an-agent">
 <h3>Train an Agent<a class="headerlink" href="#train-an-agent" title="Link to this heading">#</a></h3>
 <p>Using the Isaac Lab Mimic generated data we can now train a state-based BC RNN agent for
-<code class="docutils literal notranslate"><span class="pre">Isaac-Stack-Cube-Franka-IK-Rel-v0</span></code>, or a visuomotor BC RNN agent for
-<code class="docutils literal notranslate"><span class="pre">Isaac-Stack-Cube-Franka-IK-Rel-Visuomotor-v0</span></code>:</p>
+<code class="docutils literal notranslate"><span class="pre">IsaacContrib-Stack-Cube-Franka-IK-Rel</span></code>, or a visuomotor BC RNN agent for
+<code class="docutils literal notranslate"><span class="pre">IsaacContrib-Stack-Cube-Franka-IK-Rel-Visuomotor</span></code>:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-9" name="sd-tab-set-4" type="radio">
 <label class="sd-tab-label" data-sync-group="policy_type" data-sync-id="state" for="sd-tab-item-9">
 State-based policy</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/imitation_learning/robomimic/train.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Rel-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Rel<span class="w"> </span><span class="se">\</span>
 --algo<span class="w"> </span>bc<span class="w"> </span><span class="se">\</span>
 --dataset<span class="w"> </span>./datasets/generated_dataset.hdf5
 </pre></div>
@@ -1193,7 +1193,7 @@ State-based policy</label><div class="sd-tab-content docutils">
 <label class="sd-tab-label" data-sync-group="policy_type" data-sync-id="visuomotor" for="sd-tab-item-10">
 Visuomotor policy</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/imitation_learning/robomimic/train.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Rel-Visuomotor-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Rel-Visuomotor<span class="w"> </span><span class="se">\</span>
 --algo<span class="w"> </span>bc<span class="w"> </span><span class="se">\</span>
 --dataset<span class="w"> </span>./datasets/generated_dataset.hdf5
 </pre></div>
@@ -1213,7 +1213,7 @@ Visuomotor policy</label><div class="sd-tab-content docutils">
 <label class="sd-tab-label" data-sync-group="policy_type" data-sync-id="state" for="sd-tab-item-11">
 State-based policy</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/imitation_learning/robomimic/play.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Rel-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Rel<span class="w"> </span><span class="se">\</span>
 --viz<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
 --num_rollouts<span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="se">\</span>
 --checkpoint<span class="w"> </span>/PATH/TO/desired_model_checkpoint.pth
@@ -1224,7 +1224,7 @@ State-based policy</label><div class="sd-tab-content docutils">
 <label class="sd-tab-label" data-sync-group="policy_type" data-sync-id="visuomotor" for="sd-tab-item-12">
 Visuomotor policy</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/imitation_learning/robomimic/play.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Rel-Visuomotor-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Rel-Visuomotor<span class="w"> </span><span class="se">\</span>
 --viz<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
 --enable_cameras<span class="w"> </span><span class="se">\</span>
 --num_rollouts<span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="se">\</span>

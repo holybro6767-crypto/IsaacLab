@@ -853,7 +853,7 @@ documentation.</p>
 <p>The CloudXR runtime launches automatically when a teleop script is started. No separate
 terminal or <code class="docutils literal notranslate"><span class="pre">source</span></code> step is needed. Launch a teleoperation script directly:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/teleoperation/teleop_se3_agent.py<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--task<span class="w"> </span>Isaac-PickPlace-GR1T2-WaistEnabled-Abs-v0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--task<span class="w"> </span>IsaacContrib-PickPlace-GR1T2-WaistEnabled-Abs<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--visualizer<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--xr
 </pre></div>
@@ -875,7 +875,7 @@ few seconds.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">Isaac-PickPlace-GR1T2-WaistEnabled-Abs-v0</span></code> task above uses <strong>hand tracking</strong> as its
+<p>The <code class="docutils literal notranslate"><span class="pre">IsaacContrib-PickPlace-GR1T2-WaistEnabled-Abs</span></code> task above uses <strong>hand tracking</strong> as its
 input mode. Make sure your XR device has hand tracking enabled (optical hand tracking on
 Quest 3, or the built-in hand tracking on Apple Vision Pro). Different tasks require
 different input modes (motion controllers vs hand tracking) – see the
@@ -884,7 +884,7 @@ different input modes (motion controllers vs hand tracking) – see the
 <p>To switch the CloudXR device profile at launch time (e.g. from Quest to Apple Vision Pro),
 use the <code class="docutils literal notranslate"><span class="pre">--cloudxr_env</span></code> flag:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/teleoperation/teleop_se3_agent.py<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--task<span class="w"> </span>Isaac-PickPlace-GR1T2-WaistEnabled-Abs-v0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--task<span class="w"> </span>IsaacContrib-PickPlace-GR1T2-WaistEnabled-Abs<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--visualizer<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--xr<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--cloudxr_env<span class="w"> </span>avp
@@ -977,7 +977,7 @@ Apple Vision Pro</label><div class="sd-tab-content docutils">
 <p>Apple Vision Pro requires the <code class="docutils literal notranslate"><span class="pre">auto-native</span></code> device profile. Pass the <code class="docutils literal notranslate"><span class="pre">avp</span></code>
 shorthand when launching the teleop script:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/teleoperation/teleop_se3_agent.py<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--task<span class="w"> </span>Isaac-PickPlace-GR1T2-WaistEnabled-Abs-v0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--task<span class="w"> </span>IsaacContrib-PickPlace-GR1T2-WaistEnabled-Abs<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--visualizer<span class="w"> </span>kit<span class="w"> </span>--xr<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--cloudxr_env<span class="w"> </span>avp
 </pre></div>
@@ -1095,7 +1095,7 @@ cp<span class="w"> </span><span class="k">$(</span>python<span class="w"> </span
 sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/NV_CXR_ENABLE_PUSH_DEVICES=0/NV_CXR_ENABLE_PUSH_DEVICES=1/&#39;</span><span class="w"> </span>~/manus.env
 
 ./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/environments/teleoperation/teleop_se3_agent.py<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>--task<span class="w"> </span>Isaac-PickPlace-GR1T2-WaistEnabled-Abs-v0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--task<span class="w"> </span>IsaacContrib-PickPlace-GR1T2-WaistEnabled-Abs<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--visualizer<span class="w"> </span>kit<span class="w"> </span>--xr<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--cloudxr_env<span class="w"> </span>~/manus.env
 </pre></div>
@@ -1168,7 +1168,7 @@ them.</p></li>
 </div>
 <p>Run the teleop script (e.g. <code class="docutils literal notranslate"><span class="pre">record_demos.py</span></code> to record demonstrations):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/tools/record_demos.py<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--task<span class="w"> </span>Isaac-PickPlace-Locomanipulation-G1-Abs-v0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--task<span class="w"> </span>IsaacContrib-PickPlace-Locomanipulation-G1-Abs<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--num_demos<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--dataset_file<span class="w"> </span>./datasets/dataset.hdf5<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--xr<span class="w"> </span>--visualizer<span class="w"> </span>kit

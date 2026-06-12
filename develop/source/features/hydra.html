@@ -1182,7 +1182,7 @@ type annotations and multiline formatting.</p>
 <p>The preset system discovers <code class="docutils literal notranslate"><span class="pre">preset()</span></code> values anywhere in the config tree,
 including inside dict-valued fields such as <code class="docutils literal notranslate"><span class="pre">actuators</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select MJWarp preset globally -- sets armature to 0.01</span>
-python<span class="w"> </span>train.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Velocity-Rough-AnymalC-v0<span class="w"> </span><span class="nv">presets</span><span class="o">=</span>newton_mjwarp
+python<span class="w"> </span>train.py<span class="w"> </span>--task<span class="o">=</span>IsaacContrib-Velocity-Rough-AnymalC<span class="w"> </span><span class="nv">presets</span><span class="o">=</span>newton_mjwarp
 </pre></div>
 </div>
 </section>
@@ -1286,7 +1286,7 @@ are still accepted but emit a <a class="reference external" href="https://docs.p
 <h3>Using Presets<a class="headerlink" href="#using-presets" title="Link to this heading">#</a></h3>
 <p><strong>Typed selectors</strong> – preferred form for physics and renderer backends:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Switch to Newton MuJoCo-Warp physics</span>
-python<span class="w"> </span>train.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Velocity-Rough-AnymalC-v0<span class="w"> </span><span class="nv">physics</span><span class="o">=</span>newton_mjwarp
+python<span class="w"> </span>train.py<span class="w"> </span>--task<span class="o">=</span>IsaacContrib-Velocity-Rough-AnymalC<span class="w"> </span><span class="nv">physics</span><span class="o">=</span>newton_mjwarp
 
 <span class="c1"># Switch to Newton renderer for camera environments</span>
 python<span class="w"> </span>train.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Cartpole-Camera-Direct<span class="w"> </span><span class="nv">renderer</span><span class="o">=</span>newton_renderer
@@ -1297,23 +1297,23 @@ python<span class="w"> </span>train.py<span class="w"> </span>--task<span class=
 </pre></div>
 </div>
 <p><strong>Path presets</strong> – select a specific preset for one config path:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>train.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Velocity-Rough-AnymalC-v0<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>train.py<span class="w"> </span>--task<span class="o">=</span>IsaacContrib-Velocity-Rough-AnymalC<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>env.events<span class="o">=</span>newton_mjwarp
 </pre></div>
 </div>
 <p><strong>Global presets</strong> – apply the same preset name everywhere it exists:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Apply &quot;newton_mjwarp&quot; preset to all configs that define it</span>
-python<span class="w"> </span>train.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Velocity-Rough-AnymalC-v0<span class="w"> </span><span class="se">\</span>
+python<span class="w"> </span>train.py<span class="w"> </span>--task<span class="o">=</span>IsaacContrib-Velocity-Rough-AnymalC<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="nv">presets</span><span class="o">=</span>newton_mjwarp
 </pre></div>
 </div>
 <p><strong>Multiple global presets</strong> – apply several non-conflicting presets:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>train.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Velocity-Rough-AnymalC-v0<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>train.py<span class="w"> </span>--task<span class="o">=</span>IsaacContrib-Velocity-Rough-AnymalC<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="nv">presets</span><span class="o">=</span>newton_mjwarp,inference
 </pre></div>
 </div>
 <p><strong>Combined</strong> – global presets + scalar overrides:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>train.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Velocity-Rough-AnymalC-v0<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>train.py<span class="w"> </span>--task<span class="o">=</span>IsaacContrib-Velocity-Rough-AnymalC<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="nv">presets</span><span class="o">=</span>newton_mjwarp<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>env.sim.dt<span class="o">=</span><span class="m">0</span>.002
 </pre></div>
@@ -1361,10 +1361,10 @@ and <code class="docutils literal notranslate"><span class="pre">preset()</span>
 to Newton, <code class="docutils literal notranslate"><span class="pre">AnymalCEventsCfg</span></code> selects Newton-compatible events, and the
 actuator armature is set to <code class="docutils literal notranslate"><span class="pre">0.01</span></code>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Default (PhysX events, armature=0.0)</span>
-python<span class="w"> </span>train.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Velocity-Rough-AnymalC-v0
+python<span class="w"> </span>train.py<span class="w"> </span>--task<span class="o">=</span>IsaacContrib-Velocity-Rough-AnymalC
 
 <span class="c1"># MJWarp (Newton events, armature=0.01)</span>
-python<span class="w"> </span>train.py<span class="w"> </span>--task<span class="o">=</span>Isaac-Velocity-Rough-AnymalC-v0<span class="w"> </span><span class="nv">presets</span><span class="o">=</span>newton_mjwarp
+python<span class="w"> </span>train.py<span class="w"> </span>--task<span class="o">=</span>IsaacContrib-Velocity-Rough-AnymalC<span class="w"> </span><span class="nv">presets</span><span class="o">=</span>newton_mjwarp
 </pre></div>
 </div>
 </section>

@@ -945,7 +945,7 @@ mv<span class="w"> </span>/path/to/annotated_dataset_skillgen.hdf5<span class="w
 </ul>
 <p><strong>Record demonstrations</strong> (any teleop device is supported; replace <code class="docutils literal notranslate"><span class="pre">spacemouse</span></code> if needed):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/tools/record_demos.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Rel-Skillgen-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Rel-Skillgen<span class="w"> </span><span class="se">\</span>
 --teleop_device<span class="w"> </span>spacemouse<span class="w"> </span><span class="se">\</span>
 --dataset_file<span class="w"> </span>./datasets/dataset_skillgen.hdf5<span class="w"> </span><span class="se">\</span>
 --num_demos<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
@@ -955,7 +955,7 @@ mv<span class="w"> </span>/path/to/annotated_dataset_skillgen.hdf5<span class="w
 <p><strong>Annotate demonstrations for SkillGen</strong> (writes both term and start boundaries):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/imitation_learning/isaaclab_mimic/annotate_demos.py<span class="w"> </span><span class="se">\</span>
 --device<span class="w"> </span>cpu<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Rel-Skillgen-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Rel-Skillgen<span class="w"> </span><span class="se">\</span>
 --input_file<span class="w"> </span>./datasets/dataset_skillgen.hdf5<span class="w"> </span><span class="se">\</span>
 --output_file<span class="w"> </span>./datasets/annotated_dataset_skillgen.hdf5<span class="w"> </span><span class="se">\</span>
 --annotate_subtask_start_signals<span class="w"> </span><span class="se">\</span>
@@ -1050,7 +1050,7 @@ mv<span class="w"> </span>/path/to/annotated_dataset_skillgen.hdf5<span class="w
 --generation_num_trials<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
 --input_file<span class="w"> </span>./datasets/annotated_dataset_skillgen.hdf5<span class="w"> </span><span class="se">\</span>
 --output_file<span class="w"> </span>./datasets/generated_dataset_small_skillgen_cube_stack.hdf5<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Rel-Skillgen-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Rel-Skillgen<span class="w"> </span><span class="se">\</span>
 --use_skillgen<span class="w"> </span>--visualizer<span class="w"> </span>kit
 </pre></div>
 </div>
@@ -1064,7 +1064,7 @@ mv<span class="w"> </span>/path/to/annotated_dataset_skillgen.hdf5<span class="w
 --generation_num_trials<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
 --input_file<span class="w"> </span>./datasets/annotated_dataset_skillgen.hdf5<span class="w"> </span><span class="se">\</span>
 --output_file<span class="w"> </span>./datasets/generated_dataset_skillgen_cube_stack.hdf5<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Rel-Skillgen-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Rel-Skillgen<span class="w"> </span><span class="se">\</span>
 --use_skillgen
 </pre></div>
 </div>
@@ -1098,7 +1098,7 @@ mv<span class="w"> </span>/path/to/annotated_dataset_skillgen.hdf5<span class="w
 --generation_num_trials<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
 --input_file<span class="w"> </span>./datasets/annotated_dataset_skillgen.hdf5<span class="w"> </span><span class="se">\</span>
 --output_file<span class="w"> </span>./datasets/generated_dataset_small_skillgen_bin_cube_stack.hdf5<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Bin-Franka-IK-Rel-Mimic-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Bin-Franka-IK-Rel-Mimic<span class="w"> </span><span class="se">\</span>
 --use_skillgen<span class="w"> </span>--visualizer<span class="w"> </span>kit
 </pre></div>
 </div>
@@ -1112,7 +1112,7 @@ mv<span class="w"> </span>/path/to/annotated_dataset_skillgen.hdf5<span class="w
 --generation_num_trials<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
 --input_file<span class="w"> </span>./datasets/annotated_dataset_skillgen.hdf5<span class="w"> </span><span class="se">\</span>
 --output_file<span class="w"> </span>./datasets/generated_dataset_skillgen_bin_cube_stack.hdf5<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Bin-Franka-IK-Rel-Mimic-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Bin-Franka-IK-Rel-Mimic<span class="w"> </span><span class="se">\</span>
 --use_skillgen
 </pre></div>
 </div>
@@ -1146,7 +1146,7 @@ mv<span class="w"> </span>/path/to/annotated_dataset_skillgen.hdf5<span class="w
 <h3>Basic Cube Stacking Policy<a class="headerlink" href="#basic-cube-stacking-policy" title="Link to this heading">#</a></h3>
 <p>Train a state-based policy for the basic cube stacking task:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/imitation_learning/robomimic/train.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Rel-Skillgen-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Rel-Skillgen<span class="w"> </span><span class="se">\</span>
 --algo<span class="w"> </span>bc<span class="w"> </span><span class="se">\</span>
 --dataset<span class="w"> </span>./datasets/generated_dataset_skillgen_cube_stack.hdf5
 </pre></div>
@@ -1156,7 +1156,7 @@ mv<span class="w"> </span>/path/to/annotated_dataset_skillgen.hdf5<span class="w
 <h3>Adaptive Bin Cube Stacking Policy<a class="headerlink" href="#adaptive-bin-cube-stacking-policy" title="Link to this heading">#</a></h3>
 <p>Train a policy for the more complex adaptive bin stacking:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/imitation_learning/robomimic/train.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Bin-Franka-IK-Rel-Mimic-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Bin-Franka-IK-Rel-Mimic<span class="w"> </span><span class="se">\</span>
 --algo<span class="w"> </span>bc<span class="w"> </span><span class="se">\</span>
 --dataset<span class="w"> </span>./datasets/generated_dataset_skillgen_bin_cube_stack.hdf5
 </pre></div>
@@ -1172,7 +1172,7 @@ mv<span class="w"> </span>/path/to/annotated_dataset_skillgen.hdf5<span class="w
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Basic cube stacking evaluation</span>
 ./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/imitation_learning/robomimic/play.py<span class="w"> </span><span class="se">\</span>
 --device<span class="w"> </span>cpu<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Rel-Skillgen-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Rel-Skillgen<span class="w"> </span><span class="se">\</span>
 --num_rollouts<span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="se">\</span>
 --checkpoint<span class="w"> </span>/path/to/model_checkpoint.pth<span class="w"> </span><span class="se">\</span>
 --visualizer<span class="w"> </span>kit
@@ -1181,7 +1181,7 @@ mv<span class="w"> </span>/path/to/annotated_dataset_skillgen.hdf5<span class="w
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Adaptive bin cube stacking evaluation</span>
 ./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/imitation_learning/robomimic/play.py<span class="w"> </span><span class="se">\</span>
 --device<span class="w"> </span>cpu<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Bin-Franka-IK-Rel-Mimic-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Bin-Franka-IK-Rel-Mimic<span class="w"> </span><span class="se">\</span>
 --num_rollouts<span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="se">\</span>
 --checkpoint<span class="w"> </span>/path/to/model_checkpoint.pth<span class="w"> </span><span class="se">\</span>
 --visualizer<span class="w"> </span>kit

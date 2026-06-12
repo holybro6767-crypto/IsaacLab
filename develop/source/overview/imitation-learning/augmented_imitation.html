@@ -1077,9 +1077,9 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 </section>
 <section id="training-an-agent">
 <h3>Training an agent<a class="headerlink" href="#training-an-agent" title="Link to this heading">#</a></h3>
-<p>Using the generated data, we can now train a visuomotor BC agent for <code class="docutils literal notranslate"><span class="pre">Isaac-Stack-Cube-Franka-IK-Rel-Visuomotor-Cosmos-v0</span></code>:</p>
+<p>Using the generated data, we can now train a visuomotor BC agent for <code class="docutils literal notranslate"><span class="pre">IsaacContrib-Stack-Cube-Franka-IK-Rel-Visuomotor-Cosmos</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/imitation_learning/robomimic/train.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Rel-Visuomotor-Cosmos-v0<span class="w"> </span>--algo<span class="w"> </span>bc<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Rel-Visuomotor-Cosmos<span class="w"> </span>--algo<span class="w"> </span>bc<span class="w"> </span><span class="se">\</span>
 --dataset<span class="w"> </span>./datasets/mimic_cosmos_dataset.hdf5<span class="w"> </span><span class="se">\</span>
 --name<span class="w"> </span>bc_rnn_image_franka_stack_mimic_cosmos
 </pre></div>
@@ -1183,8 +1183,8 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 </div>
 <p>Example usage for the cube stacking task:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/imitation_learning/robomimic/robust_eval.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-Stack-Cube-Franka-IK-Rel-Visuomotor-Cosmos-v0<span class="w"> </span><span class="se">\</span>
---input_dir<span class="w"> </span>logs/robomimic/Isaac-Stack-Cube-Franka-IK-Rel-Visuomotor-Cosmos-v0/bc_rnn_image_franka_stack_mimic_cosmos/*/models<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-Stack-Cube-Franka-IK-Rel-Visuomotor-Cosmos<span class="w"> </span><span class="se">\</span>
+--input_dir<span class="w"> </span>logs/robomimic/IsaacContrib-Stack-Cube-Franka-IK-Rel-Visuomotor-Cosmos/bc_rnn_image_franka_stack_mimic_cosmos/*/models<span class="w"> </span><span class="se">\</span>
 --log_dir<span class="w"> </span>robust_results/bc_rnn_image_franka_stack_mimic_cosmos<span class="w"> </span><span class="se">\</span>
 --log_file<span class="w"> </span>result<span class="w"> </span><span class="se">\</span>
 --enable_cameras<span class="w"> </span><span class="se">\</span>

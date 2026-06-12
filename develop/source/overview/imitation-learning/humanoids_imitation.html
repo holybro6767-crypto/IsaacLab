@@ -841,7 +841,7 @@ Therefore, avoid moving the right hand while the left hand picks up the object a
 <p class="centered">
 <strong>Left: A good human demonstration with smooth and steady motion. Right: A bad demonstration with jerky and exaggerated motion.</strong></p><p>Collect five demonstrations by running the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/tools/record_demos.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-PickPlace-GR1T2-Abs-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-PickPlace-GR1T2-Abs<span class="w"> </span><span class="se">\</span>
 --visualizer<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
 --xr<span class="w"> </span><span class="se">\</span>
 --device<span class="w"> </span>cpu<span class="w"> </span><span class="se">\</span>
@@ -851,7 +851,7 @@ Therefore, avoid moving the right hand while the left hand picks up the object a
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>We also provide a GR-1 pick and place task with waist degrees-of-freedom enabled <code class="docutils literal notranslate"><span class="pre">Isaac-PickPlace-GR1T2-WaistEnabled-Abs-v0</span></code> (see <a class="reference internal" href="../environments.html#environments"><span class="std std-ref">Available Environments</span></a> for details on the available environments, including the GR1 Waist Enabled variant). The same command above applies but with the task name changed to <code class="docutils literal notranslate"><span class="pre">Isaac-PickPlace-GR1T2-WaistEnabled-Abs-v0</span></code>.</p>
+<p>We also provide a GR-1 pick and place task with waist degrees-of-freedom enabled <code class="docutils literal notranslate"><span class="pre">IsaacContrib-PickPlace-GR1T2-WaistEnabled-Abs</span></code> (see <a class="reference internal" href="../environments.html#environments"><span class="std std-ref">Available Environments</span></a> for details on the available environments, including the GR1 Waist Enabled variant). The same command above applies but with the task name changed to <code class="docutils literal notranslate"><span class="pre">IsaacContrib-PickPlace-GR1T2-WaistEnabled-Abs</span></code>.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -861,7 +861,7 @@ on the Apple Vision Pro or via voice control by saying “reset”. See <a class
 </div>
 <p>You can replay the collected demonstrations by running the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/tools/replay_demos.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-PickPlace-GR1T2-Abs-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-PickPlace-GR1T2-Abs<span class="w"> </span><span class="se">\</span>
 --visualizer<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
 --device<span class="w"> </span>cpu<span class="w"> </span><span class="se">\</span>
 --dataset_file<span class="w"> </span>./datasets/dataset_gr1.hdf5
@@ -931,7 +931,7 @@ Place the file under <code class="docutils literal notranslate"><span class="pre
 <h3>Train a policy<a class="headerlink" href="#train-a-policy" title="Link to this heading">#</a></h3>
 <p>Use <a class="reference external" href="https://robomimic.github.io/">Robomimic</a> to train a policy for the generated dataset.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/imitation_learning/robomimic/train.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-PickPlace-GR1T2-Abs-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-PickPlace-GR1T2-Abs<span class="w"> </span><span class="se">\</span>
 --algo<span class="w"> </span>bc<span class="w"> </span><span class="se">\</span>
 --normalize_training_actions<span class="w"> </span><span class="se">\</span>
 --dataset<span class="w"> </span>./datasets/generated_dataset_gr1.hdf5
@@ -949,7 +949,7 @@ Record the normalization parameters for later use in the visualization step.</p>
 <h3>Visualize the results<a class="headerlink" href="#visualize-the-results" title="Link to this heading">#</a></h3>
 <p>Visualize the results of the trained policy by running the following command, using the normalization parameters recorded in the prior training step:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/imitation_learning/robomimic/play.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-PickPlace-GR1T2-Abs-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-PickPlace-GR1T2-Abs<span class="w"> </span><span class="se">\</span>
 --visualizer<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
 --device<span class="w"> </span>cpu<span class="w"> </span><span class="se">\</span>
 --num_rollouts<span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="se">\</span>
@@ -1012,7 +1012,7 @@ and the yellow bowl to be placed on top of the white scale.</strong></p>
 </div>
 <p>To collect demonstrations:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/tools/record_demos.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-NutPour-GR1T2-Pink-IK-Abs-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-NutPour-GR1T2-Pink-IK-Abs<span class="w"> </span><span class="se">\</span>
 --visualizer<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
 --device<span class="w"> </span>cpu<span class="w"> </span><span class="se">\</span>
 --xr<span class="w"> </span><span class="se">\</span>
@@ -1053,7 +1053,7 @@ Make sure to annotate the right eef subtasks with different action indices.</p>
 <h3>Train a policy<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <p>Use <a class="reference external" href="https://robomimic.github.io/">Robomimic</a> to train a visuomotor BC agent for the task.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/imitation_learning/robomimic/train.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-NutPour-GR1T2-Pink-IK-Abs-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-NutPour-GR1T2-Pink-IK-Abs<span class="w"> </span><span class="se">\</span>
 --algo<span class="w"> </span>bc<span class="w"> </span><span class="se">\</span>
 --normalize_training_actions<span class="w"> </span><span class="se">\</span>
 --dataset<span class="w"> </span>./datasets/generated_dataset_gr1_nut_pouring.hdf5
@@ -1073,7 +1073,7 @@ Record the normalization parameters for later use in the visualization step.</p>
 <span id="id3"></span><h3>Visualize the results<a class="headerlink" href="#visualize-results-demo-2" title="Link to this heading">#</a></h3>
 <p>Visualize the results of the trained policy by running the following command, using the normalization parameters recorded in the prior training step:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/imitation_learning/robomimic/play.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-NutPour-GR1T2-Pink-IK-Abs-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-NutPour-GR1T2-Pink-IK-Abs<span class="w"> </span><span class="se">\</span>
 --visualizer<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
 --device<span class="w"> </span>cpu<span class="w"> </span><span class="se">\</span>
 --enable_cameras<span class="w"> </span><span class="se">\</span>
@@ -1137,7 +1137,7 @@ directly deployed. Users can also train their own locomotion or whole-body contr
 <span id="id4"></span><h3>Generate the manipulation dataset<a class="headerlink" href="#generate-the-manipulation-dataset" title="Link to this heading">#</a></h3>
 <p>The same data generation and policy training steps from Demo 1 can be applied to the G1 humanoid robot with locomanipulation capabilities.
 This demonstration shows how to train a G1 robot to perform pick and place tasks with full-body locomotion and manipulation.</p>
-<p>The process follows the same workflow as Demo 1, but uses the <code class="docutils literal notranslate"><span class="pre">Isaac-PickPlace-Locomanipulation-G1-Abs-v0</span></code> task environment.</p>
+<p>The process follows the same workflow as Demo 1, but uses the <code class="docutils literal notranslate"><span class="pre">IsaacContrib-PickPlace-Locomanipulation-G1-Abs</span></code> task environment.</p>
 <p>Follow the same data collection, annotation, and generation process as demonstrated in Demo 1, but adapted for the G1 locomanipulation task.</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
@@ -1149,7 +1149,7 @@ This demonstration shows how to train a G1 robot to perform pick and place tasks
 --device<span class="w"> </span>cpu<span class="w"> </span><span class="se">\</span>
 --xr<span class="w"> </span><span class="se">\</span>
 --visualizer<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-PickPlace-Locomanipulation-G1-Abs-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-PickPlace-Locomanipulation-G1-Abs<span class="w"> </span><span class="se">\</span>
 --dataset_file<span class="w"> </span>./datasets/dataset_g1_locomanip.hdf5<span class="w"> </span><span class="se">\</span>
 --num_demos<span class="w"> </span><span class="m">5</span>
 </pre></div>
@@ -1162,7 +1162,7 @@ This demonstration shows how to train a G1 robot to perform pick and place tasks
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/tools/replay_demos.py<span class="w"> </span><span class="se">\</span>
 --device<span class="w"> </span>cpu<span class="w"> </span><span class="se">\</span>
 --visualizer<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-PickPlace-Locomanipulation-G1-Abs-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-PickPlace-Locomanipulation-G1-Abs<span class="w"> </span><span class="se">\</span>
 --dataset_file<span class="w"> </span>./datasets/dataset_g1_locomanip.hdf5
 </pre></div>
 </div>
@@ -1189,7 +1189,7 @@ Place the file under <code class="docutils literal notranslate"><span class="pre
 <h3>Train a manipulation-only policy<a class="headerlink" href="#train-a-manipulation-only-policy" title="Link to this heading">#</a></h3>
 <p>At this point you can train a policy that only performs manipulation tasks using the generated dataset:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/imitation_learning/robomimic/train.py<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-PickPlace-Locomanipulation-G1-Abs-v0<span class="w"> </span>--algo<span class="w"> </span>bc<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-PickPlace-Locomanipulation-G1-Abs<span class="w"> </span>--algo<span class="w"> </span>bc<span class="w"> </span><span class="se">\</span>
 --normalize_training_actions<span class="w"> </span><span class="se">\</span>
 --dataset<span class="w"> </span>./datasets/generated_dataset_g1_locomanip.hdf5
 </pre></div>
@@ -1201,7 +1201,7 @@ Place the file under <code class="docutils literal notranslate"><span class="pre
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./isaaclab.sh<span class="w"> </span>-p<span class="w"> </span>scripts/imitation_learning/robomimic/play.py<span class="w"> </span><span class="se">\</span>
 --device<span class="w"> </span>cpu<span class="w"> </span><span class="se">\</span>
 --visualizer<span class="w"> </span>kit<span class="w"> </span><span class="se">\</span>
---task<span class="w"> </span>Isaac-PickPlace-Locomanipulation-G1-Abs-v0<span class="w"> </span><span class="se">\</span>
+--task<span class="w"> </span>IsaacContrib-PickPlace-Locomanipulation-G1-Abs<span class="w"> </span><span class="se">\</span>
 --num_rollouts<span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="se">\</span>
 --horizon<span class="w"> </span><span class="m">400</span><span class="w"> </span><span class="se">\</span>
 --norm_factor_min<span class="w"> </span>&lt;NORM_FACTOR_MIN&gt;<span class="w"> </span><span class="se">\</span>
