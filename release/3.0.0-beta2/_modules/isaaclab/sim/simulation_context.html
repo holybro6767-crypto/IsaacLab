@@ -1453,11 +1453,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">physics_manager</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">soft</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">viz</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visualizers</span><span class="p">:</span>
             <span class="n">viz</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">soft</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visualizers</span><span class="p">:</span>
+            <span class="c1"># Initialize visualizers after PhysX sim views are ready, but before play() pumps timeline events.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initialize_visualizers</span><span class="p">()</span>
         <span class="c1"># Start the timeline so the play button is pressed</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">physics_manager</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visualizers</span><span class="p">:</span>
-            <span class="c1"># Initialize visualizers after PhysX sim view is ready.</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">initialize_visualizers</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_playing</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_stopped</span> <span class="o">=</span> <span class="kc">False</span></div>
 
