@@ -982,15 +982,19 @@ to bring synthetic imagery — most notably 3D Gaussian splat reconstructions
 — closer to real-camera output without re-training the upstream model. See
 the project page: <a class="reference external" href="https://research.nvidia.com/labs/sil/projects/ppisp">https://research.nvidia.com/labs/sil/projects/ppisp</a> .</p>
 <p>PPISP is typically authored alongside a <a class="reference external" href="https://openusd.org/release/user_guides/schemas/usdVol/ParticleField3DGaussianSplat.html">ParticleField3DGaussianSplat</a>
-USD asset: it carries a <a class="reference external" href="https://openusd.org/release/user_guides/schemas/usdRender/RenderProduct.html">RenderProduct</a>
-whose target camera and PPISP <a class="reference external" href="https://openusd.org/release/api/class_usd_shade_shader.html">UsdShade.Shader</a>
-(a shader prim named <code class="docutils literal notranslate"><span class="pre">PPISP</span></code> whose inputs follow the PPISP naming
-convention) were calibrated against the real capture rig that produced
-the splats. Configuring the camera with the matching PPISP coefficients
-makes the rendered tile match the calibration target.</p>
-<p>The pipeline applies, in order: responsivity → exposure → vignetting →
-color homography → camera response function → uint8 clamp. It runs as a
-single Warp kernel.</p>
+USD asset: its camera prim authors <code class="docutils literal notranslate"><span class="pre">ppisp:*</span></code> attributes calibrated against
+the real capture rig that produced the splats. Configuring the camera with
+the matching PPISP coefficients makes the rendered tile match the calibration
+target.</p>
+<p>With static coefficients, the image pass applies, in order: responsivity →
+exposure → vignetting → color homography → camera response function → uint8
+clamp. It runs as a single Warp image kernel.</p>
+<p>When the camera also authors <code class="docutils literal notranslate"><span class="pre">ppisp:controllerWeights</span></code>, Isaac Lab runs the
+exported PPISP controller before the image pass. The controller reads the
+current HDR image, prior exposure, and controller responsivity, then predicts
+<code class="docutils literal notranslate"><span class="pre">exposureOffset</span></code> and the four color-latent pairs for each camera view. The
+image pass then uses those predicted exposure and color-latent values while
+static PPISP inputs still provide responsivity, vignetting, and CRF.</p>
 </section>
 <section id="configuration">
 <h4>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">#</a></h4>
@@ -998,15 +1002,18 @@ single Warp kernel.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> (default) — ISP disabled.</p></li>
 <li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">PpispCfg</span></code> — explicit PPISP coefficients
-(<code class="xref py py-attr docutils literal notranslate"><span class="pre">inputs</span></code>), or
-<code class="xref py py-attr docutils literal notranslate"><span class="pre">shader_prim_path</span></code> to import them from a
-PPISP <code class="docutils literal notranslate"><span class="pre">UsdShade.Shader</span></code> already on the stage.</p></li>
-<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">CameraISPMode</span></code> — auto-discover an ISP shader on the
+(<code class="xref py py-attr docutils literal notranslate"><span class="pre">inputs</span></code>) and, optionally, controller
+weights. Use <code class="xref py py-attr docutils literal notranslate"><span class="pre">camera_prim_path</span></code> to import
+static coefficients and camera-authored controller weights from a USD camera
+already on the stage.</p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">CameraISPMode</span></code> — auto-discover ISP camera attributes on the
 stage (see below).</p></li>
 </ul>
-<p>The cfg applies once per Camera sensor batch. The PPISP Warp kernel takes
-scalar coefficients, so every cloned view in a tiled batch shares the same
-ISP configuration — there is no per-view ISP today.</p>
+<p>The cfg applies once per Camera sensor batch. Static PPISP inputs are scalar
+coefficients shared by every cloned view in a tiled batch. When controller
+weights are present, the controller predicts per-view exposure and color-latent
+values from each HDR image, while responsivity, vignetting, and CRF remain
+shared by the batch.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.sensors.camera</span><span class="w"> </span><span class="kn">import</span> <span class="n">CameraCfg</span><span class="p">,</span> <span class="n">CameraISPMode</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_ppisp</span><span class="w"> </span><span class="kn">import</span> <span class="n">PpispCfg</span>
 
@@ -1016,8 +1023,8 @@ ISP configuration — there is no per-view ISP today.</p>
 <span class="c1"># explicit coefficients</span>
 <span class="n">cfg</span> <span class="o">=</span> <span class="n">CameraCfg</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">isp_cfg</span><span class="o">=</span><span class="n">PpispCfg</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;exposureOffset&quot;</span><span class="p">:</span> <span class="mf">1.5</span><span class="p">}))</span>
 
-<span class="c1"># import coefficients from a USD shader path</span>
-<span class="n">cfg</span> <span class="o">=</span> <span class="n">CameraCfg</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">isp_cfg</span><span class="o">=</span><span class="n">PpispCfg</span><span class="p">(</span><span class="n">shader_prim_path</span><span class="o">=</span><span class="s2">&quot;/World/Render/PPISP&quot;</span><span class="p">))</span>
+<span class="c1"># import coefficients from a USD camera path</span>
+<span class="n">cfg</span> <span class="o">=</span> <span class="n">CameraCfg</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">isp_cfg</span><span class="o">=</span><span class="n">PpispCfg</span><span class="p">(</span><span class="n">camera_prim_path</span><span class="o">=</span><span class="s2">&quot;/World/Camera_ppisp&quot;</span><span class="p">))</span>
 
 <span class="c1"># auto-discover from the stage</span>
 <span class="n">cfg</span> <span class="o">=</span> <span class="n">CameraCfg</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">isp_cfg</span><span class="o">=</span><span class="n">CameraISPMode</span><span class="o">.</span><span class="n">AUTO_ANY</span><span class="p">)</span>
@@ -1030,21 +1037,18 @@ ISP configuration — there is no per-view ISP today.</p>
 once at camera construction using the first matched camera prim in the Camera
 sensor batch:</p>
 <ol class="arabic simple">
-<li><p>Walk the stage for a USD <code class="docutils literal notranslate"><span class="pre">RenderProduct</span></code> whose <code class="docutils literal notranslate"><span class="pre">camera</span></code> relationship
-targets the first matched camera prim <strong>and</strong> that has a child
-<code class="docutils literal notranslate"><span class="pre">UsdShade.Shader</span></code> prim named <code class="docutils literal notranslate"><span class="pre">PPISP</span></code>. If found, import its inputs as a
-<code class="xref py py-class docutils literal notranslate"><span class="pre">PpispCfg</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">AUTO_ANY</span></code> only: if step 1 finds nothing, fall back to the first
-<code class="docutils literal notranslate"><span class="pre">UsdShade.Shader</span></code> prim named <code class="docutils literal notranslate"><span class="pre">PPISP</span></code> anywhere on the stage.</p></li>
+<li><p>Check the first matched camera prim for <code class="docutils literal notranslate"><span class="pre">ppisp:*</span></code> attributes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AUTO_ANY</span></code> only, or when no camera path is available: fall back to the
+first camera anywhere on the stage with <code class="docutils literal notranslate"><span class="pre">ppisp:*</span></code> attributes.</p></li>
 <li><p>Otherwise the ISP stays disabled for the whole Camera sensor batch.</p></li>
 </ol>
 <p>In practice this means: if the stage carries a <code class="docutils literal notranslate"><span class="pre">ParticleField3DGaussianSplat</span></code>
-together with a <code class="docutils literal notranslate"><span class="pre">RenderProduct</span></code> that binds a <code class="docutils literal notranslate"><span class="pre">PPISP</span></code> shader child to the
-batch’s first matched camera prim, the Camera sensor picks up the matching ISP
-automatically and no Python-side coefficient authoring is required.</p>
-<p><code class="docutils literal notranslate"><span class="pre">AUTO_CAMERA</span></code> runs step 1 only — useful when the stage carries multiple
-PPISP shaders and you want the Camera sensor batch to use exactly the one bound
-to its first matched camera prim.</p>
+together with a camera that authors <code class="docutils literal notranslate"><span class="pre">ppisp:*</span></code> attributes, the Camera sensor
+picks up the matching ISP automatically, including controller weights when
+authored, and no Python-side coefficient authoring is required.</p>
+<p><code class="docutils literal notranslate"><span class="pre">AUTO_CAMERA</span></code> runs only the camera-local discovery steps — useful when the
+stage carries multiple PPISP cameras and you want the Camera sensor batch to use
+the attributes authored on its first matched camera prim.</p>
 </section>
 <section id="renderer-support">
 <h4>Renderer support<a class="headerlink" href="#renderer-support" title="Link to this heading">#</a></h4>
@@ -1055,7 +1059,8 @@ internally: the Isaac RTX renderer sources HDR from the Replicator
 Newton Warp renderer from its native scene-linear color buffer. Each
 backend allocates its own HDR scratch buffer when the user did not request
 <code class="docutils literal notranslate"><span class="pre">&quot;rgb_hdr&quot;</span></code> in <a class="reference internal" href="../../../api/lab/isaaclab.sensors.html#isaaclab.sensors.CameraCfg.data_types" title="isaaclab.sensors.CameraCfg.data_types"><code class="xref py py-attr docutils literal notranslate"><span class="pre">data_types</span></code></a>, and dispatches the
-PPISP kernel into <code class="docutils literal notranslate"><span class="pre">rgb</span></code> / <code class="docutils literal notranslate"><span class="pre">rgba</span></code> after every render tick.</p>
+PPISP pipeline into <code class="docutils literal notranslate"><span class="pre">rgb</span></code> / <code class="docutils literal notranslate"><span class="pre">rgba</span></code> after every render tick. For controller
+configs, this is the controller pass followed by the PPISP image pass.</p>
 </section>
 <section id="usage-example">
 <h4>Usage example<a class="headerlink" href="#usage-example" title="Link to this heading">#</a></h4>
@@ -1069,19 +1074,21 @@ absolute-difference images.</p>
 </div>
 <p>Use <code class="docutils literal notranslate"><span class="pre">--renderer</span> <span class="pre">isaac_rtx</span></code> to run the same workflow with Isaac RTX. Pass
 <code class="docutils literal notranslate"><span class="pre">--input_scene</span></code> for a custom scene and <code class="docutils literal notranslate"><span class="pre">--camera_prim_path</span></code> if the stage
-contains multiple PPISP-bound cameras. If a config or command selects a visualizer,
-force-disable all visualizers with <code class="docutils literal notranslate"><span class="pre">--visualizer</span> <span class="pre">none</span></code> or <code class="docutils literal notranslate"><span class="pre">--viz</span> <span class="pre">none</span></code>. Images are
-written to <code class="docutils literal notranslate"><span class="pre">scripts/demos/sensors/output/ppisp_camera</span></code> unless <code class="docutils literal notranslate"><span class="pre">--output_dir</span></code> is set.</p>
+contains multiple cameras with PPISP attributes. If a config or command selects
+a visualizer, force-disable all visualizers with <code class="docutils literal notranslate"><span class="pre">--visualizer</span> <span class="pre">none</span></code> or
+<code class="docutils literal notranslate"><span class="pre">--viz</span> <span class="pre">none</span></code>. Images are written to
+<code class="docutils literal notranslate"><span class="pre">scripts/demos/sensors/output/ppisp_camera</span></code> unless <code class="docutils literal notranslate"><span class="pre">--output_dir</span></code> is set.</p>
 </section>
 <section id="known-limitations">
 <h4>Known limitations<a class="headerlink" href="#known-limitations" title="Link to this heading">#</a></h4>
 <ul class="simple">
 <li><p>The ISP writes back into the <code class="docutils literal notranslate"><span class="pre">rgb</span></code> / <code class="docutils literal notranslate"><span class="pre">rgba</span></code> buffers. If neither is
 requested, configuring <code class="docutils literal notranslate"><span class="pre">isp_cfg</span></code> raises at camera init.</p></li>
-<li><p>PPISP inputs are static for the lifetime of the camera. Animated USD
-shader inputs are collapsed to their first authored time sample.</p></li>
-<li><p>Coefficients are global per camera — no per-pixel or per-region
-authoring beyond the radial vignetting term.</p></li>
+<li><p>Static PPISP inputs and controller weights are fixed for the lifetime of the
+camera. Animated USD camera attributes are collapsed to their first authored
+time sample.</p></li>
+<li><p>Static coefficients are global per Camera sensor batch — no per-pixel or
+per-region authoring beyond the radial vignetting term.</p></li>
 <li><p>PPISP is the only ISP implementation today. Other ISP families would
 need a new config type and discoverer entry.</p></li>
 <li><p>On the Isaac RTX and OVRTX backends, enabling <code class="docutils literal notranslate"><span class="pre">isp_cfg</span></code> forces RTX-side
@@ -1089,8 +1096,8 @@ tonemapping off (<code class="docutils literal notranslate"><span class="pre">/r
 and authors a neutral <code class="docutils literal notranslate"><span class="pre">OmniRtxCameraExposureAPI_1</span></code> schema on each
 camera prim so the post-render ISP is the only path that processes
 color. Mixing this with RTX-side exposure authoring is not supported.</p></li>
-<li><p>Auto-discovery resolves at camera construction; later authoring of a
-<code class="docutils literal notranslate"><span class="pre">RenderProduct</span></code> or shader on the stage is not picked up.</p></li>
+<li><p>Auto-discovery resolves at camera construction; later authoring of
+<code class="docutils literal notranslate"><span class="pre">ppisp:*</span></code> camera attributes on the stage is not picked up.</p></li>
 </ul>
 </section>
 </section>
