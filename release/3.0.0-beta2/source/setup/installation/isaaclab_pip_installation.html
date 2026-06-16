@@ -887,7 +887,7 @@ pip extras include:</p>
 <td><p>Isaac Sim (<code class="docutils literal notranslate"><span class="pre">isaacsim[all,extscache]==6.0.0.1</span></code>) from <a class="reference external" href="https://pypi.nvidia.com">pypi.nvidia.com</a></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">all</span></code></p></td>
-<td><p>RL frameworks (SB3, SKRL, RL-Games, RSL-RL). Combine with <code class="docutils literal notranslate"><span class="pre">isaacsim</span></code> for a full install.</p></td>
+<td><p>RL frameworks (SB3, SKRL, RSL-RL). Combine with <code class="docutils literal notranslate"><span class="pre">isaacsim</span></code> for a full install.</p></td>
 </tr>
 </tbody>
 </table>
@@ -907,6 +907,14 @@ pip</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;isaaclab[isaacsim,all]&quot;</span><span class="w"> </span>--extra-index-url<span class="w"> </span>https://pypi.nvidia.com<span class="w"> </span>--pre
 </pre></div>
 </div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">rl_games</span></code> is not included in the Isaac Lab pip wheel extras. If your workflow requires
+<code class="docutils literal notranslate"><span class="pre">rl_games</span></code>, install it manually from the Isaac Lab-compatible branch:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;rl-games @ git+https://github.com/isaac-sim/rl_games.git@python3.11&quot;</span><span class="w"> </span>gym<span class="w"> </span>standard-distutils
+</pre></div>
 </div>
 </div>
 </section>
