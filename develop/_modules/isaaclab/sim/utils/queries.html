@@ -1035,6 +1035,15 @@
     <span class="k">return</span> <span class="n">fixed_regex</span>
 
 
+<div class="viewcode-block" id="matches_path_expr_prefix">
+<a class="viewcode-back" href="../../../../source/api/lab/isaaclab.sim.utils.html#isaaclab.sim.utils.queries.matches_path_expr_prefix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">matches_path_expr_prefix</span><span class="p">(</span><span class="n">path_expr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prim_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return whether ``prim_path`` matches ``path_expr`` up to ``prim_path`` depth.&quot;&quot;&quot;</span>
+    <span class="n">prefix_expr</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_expr</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[:</span> <span class="n">prim_path</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;^</span><span class="si">{</span><span class="n">_normalize_legacy_wildcard_pattern</span><span class="p">(</span><span class="n">prefix_expr</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">,</span> <span class="n">prim_path</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
+
+
+
 <div class="viewcode-block" id="find_matching_prims">
 <a class="viewcode-back" href="../../../../source/api/lab/isaaclab.sim.utils.html#isaaclab.sim.utils.queries.find_matching_prims">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">find_matching_prims</span><span class="p">(</span><span class="n">prim_path_regex</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">stage</span><span class="p">:</span> <span class="n">Usd</span><span class="o">.</span><span class="n">Stage</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Usd</span><span class="o">.</span><span class="n">Prim</span><span class="p">]:</span>
@@ -1083,10 +1092,11 @@
 <a class="viewcode-back" href="../../../../source/api/lab/isaaclab.sim.utils.html#isaaclab.sim.utils.queries.resolve_matching_prims_from_source">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">resolve_matching_prims_from_source</span><span class="p">(</span>
     <span class="n">path_expr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="o">*</span><span class="p">,</span>
     <span class="n">predicate</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Usd</span><span class="o">.</span><span class="n">Prim</span><span class="p">],</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">expected_num_matches</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">env_regex_ns</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;/World/envs/env_.*&quot;</span><span class="p">,</span>
     <span class="n">raise_if_no_matches</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">traverse_instance_prims</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Usd</span><span class="o">.</span><span class="n">Prim</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Resolve matching prims from a single(source) instance when multiple instances are present.</span>
 
@@ -1095,9 +1105,11 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        path_expr: Prim path expression to resolve. It may contain regex wildcards.</span>
-<span class="sd">        predicate: Optional filter applied to resolved prims.</span>
+<span class="sd">        predicate: Optional descendant filter; returned expressions include the matching descendant suffix.</span>
+<span class="sd">        expected_num_matches: Optional exact result count.</span>
 <span class="sd">        env_regex_ns: Namespace pattern that marks one instance root when no clone plan applies.</span>
 <span class="sd">        raise_if_no_matches: Whether to raise if no prim matches ``path_expr``. Defaults to True.</span>
+<span class="sd">        traverse_instance_prims: Whether to traverse instance prims when applying ``predicate``.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A list of ``(source_prim, destination_expr)`` pairs. Empty only when</span>
@@ -1154,7 +1166,16 @@
                 <span class="ow">or</span> <span class="n">prim</span><span class="o">.</span><span class="n">GetPath</span><span class="p">()</span><span class="o">.</span><span class="n">pathString</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">instance_root</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>
             <span class="p">]</span>
     <span class="k">if</span> <span class="n">predicate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">results</span> <span class="o">=</span> <span class="p">[(</span><span class="n">prim</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span> <span class="k">for</span> <span class="n">prim</span><span class="p">,</span> <span class="n">dest</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="n">predicate</span><span class="p">(</span><span class="n">prim</span><span class="p">)]</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">dest</span> <span class="o">+</span> <span class="n">child</span><span class="o">.</span><span class="n">GetPath</span><span class="p">()</span><span class="o">.</span><span class="n">pathString</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">GetPath</span><span class="p">()</span><span class="o">.</span><span class="n">pathString</span><span class="p">)</span> <span class="p">:])</span>
+            <span class="k">for</span> <span class="n">source</span><span class="p">,</span> <span class="n">dest</span> <span class="ow">in</span> <span class="n">results</span>
+            <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">get_all_matching_child_prims</span><span class="p">(</span>
+                <span class="n">source</span><span class="o">.</span><span class="n">GetPath</span><span class="p">(),</span> <span class="n">predicate</span><span class="p">,</span> <span class="n">traverse_instance_prims</span><span class="o">=</span><span class="n">traverse_instance_prims</span>
+            <span class="p">)</span>
+        <span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">expected_num_matches</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">!=</span> <span class="n">expected_num_matches</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected </span><span class="si">{</span><span class="n">expected_num_matches</span><span class="si">}</span><span class="s2"> prims at &#39;</span><span class="si">{</span><span class="n">path_expr</span><span class="si">}</span><span class="s2">&#39;, found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">raise_if_no_matches</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">results</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No prim found at &#39;</span><span class="si">{</span><span class="n">path_expr</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">results</span></div>
