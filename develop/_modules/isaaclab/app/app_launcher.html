@@ -61,7 +61,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 20, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 21, 2026"/>
   </head>
   
   
@@ -1885,12 +1885,18 @@
             <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">devnull</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>  <span class="c1"># noqa: SIM115</span>
 
         <span class="c1"># pytest may have left some things in sys.argv, this will check for some of those</span>
-        <span class="c1"># do a mark and sweep to remove any -m pytest and -m isaacsim_ci and -c **/pyproject.toml</span>
+        <span class="c1"># do a mark and sweep to remove any -m pytest, -m isaacsim_ci, -m windows_ci, -m arm_ci,</span>
+        <span class="c1"># and -c **/pyproject.toml</span>
         <span class="n">indexes_to_remove</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">arg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
             <span class="k">if</span> <span class="n">arg</span> <span class="o">==</span> <span class="s2">&quot;-m&quot;</span><span class="p">:</span>
                 <span class="n">value_for_dash_m</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
-                <span class="k">if</span> <span class="s2">&quot;pytest&quot;</span> <span class="ow">in</span> <span class="n">value_for_dash_m</span> <span class="ow">or</span> <span class="s2">&quot;isaacsim_ci&quot;</span> <span class="ow">in</span> <span class="n">value_for_dash_m</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="s2">&quot;pytest&quot;</span> <span class="ow">in</span> <span class="n">value_for_dash_m</span>
+                    <span class="ow">or</span> <span class="s2">&quot;isaacsim_ci&quot;</span> <span class="ow">in</span> <span class="n">value_for_dash_m</span>
+                    <span class="ow">or</span> <span class="s2">&quot;windows_ci&quot;</span> <span class="ow">in</span> <span class="n">value_for_dash_m</span>
+                    <span class="ow">or</span> <span class="s2">&quot;arm_ci&quot;</span> <span class="ow">in</span> <span class="n">value_for_dash_m</span>
+                <span class="p">):</span>
                     <span class="n">indexes_to_remove</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
                     <span class="n">indexes_to_remove</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;--config-file=&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;pyproject.toml&quot;</span> <span class="ow">in</span> <span class="n">arg</span><span class="p">:</span>
@@ -2150,7 +2156,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 20, 2026.
+  Last updated on Jun 21, 2026.
   <br/>
 </p>
   </div>

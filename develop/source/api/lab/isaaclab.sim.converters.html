@@ -66,7 +66,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 20, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 21, 2026"/>
   </head>
   
   
@@ -945,9 +945,10 @@ In the lazy conversion, the USD file is re-generated only if:</p>
 <p>To override this behavior to force conversion, the flag <a class="reference internal" href="#isaaclab.sim.converters.AssetConverterBaseCfg.force_usd_conversion" title="isaaclab.sim.converters.AssetConverterBaseCfg.force_usd_conversion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AssetConverterBaseCfg.force_usd_conversion</span></code></a>
 can be set to True.</p>
 <p>When no output directory is defined, lazy conversion is deactivated and the generated USD file is
-stored in folder <code class="docutils literal notranslate"><span class="pre">/tmp/IsaacLab/usd_{date}_{time}_{random}</span></code>, where the parameters in braces are generated
-at runtime. The random identifiers help avoid a race condition where two simultaneously triggered conversions
-try to use the same directory for reading/writing the generated files.</p>
+stored in folder <code class="docutils literal notranslate"><span class="pre">&lt;tempdir&gt;/IsaacLab/usd_{date}_{time}_{random}</span></code>, where <code class="docutils literal notranslate"><span class="pre">&lt;tempdir&gt;</span></code> is the system
+temporary directory (e.g. <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> on POSIX, <code class="docutils literal notranslate"><span class="pre">%TEMP%</span></code> on Windows) and the parameters in braces are
+generated at runtime. The random identifiers help avoid a race condition where two simultaneously
+triggered conversions try to use the same directory for reading/writing the generated files.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Changes to the parameters <a class="reference internal" href="#isaaclab.sim.converters.AssetConverterBaseCfg.asset_path" title="isaaclab.sim.converters.AssetConverterBaseCfg.asset_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AssetConverterBaseCfg.asset_path</span></code></a>, <a class="reference internal" href="#isaaclab.sim.converters.AssetConverterBaseCfg.usd_dir" title="isaaclab.sim.converters.AssetConverterBaseCfg.usd_dir"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AssetConverterBaseCfg.usd_dir</span></code></a>, and
@@ -2445,7 +2446,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 20, 2026.
+  Last updated on Jun 21, 2026.
   <br/>
 </p>
   </div>

@@ -61,7 +61,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 20, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 21, 2026"/>
   </head>
   
   
@@ -687,6 +687,7 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.sim.converters.asset_converter_base_cfg</span><span class="w"> </span><span class="kn">import</span> <span class="n">AssetConverterBaseCfg</span>
@@ -714,9 +715,10 @@
 <span class="sd">    can be set to True.</span>
 
 <span class="sd">    When no output directory is defined, lazy conversion is deactivated and the generated USD file is</span>
-<span class="sd">    stored in folder ``/tmp/IsaacLab/usd_{date}_{time}_{random}``, where the parameters in braces are generated</span>
-<span class="sd">    at runtime. The random identifiers help avoid a race condition where two simultaneously triggered conversions</span>
-<span class="sd">    try to use the same directory for reading/writing the generated files.</span>
+<span class="sd">    stored in folder ``&lt;tempdir&gt;/IsaacLab/usd_{date}_{time}_{random}``, where ``&lt;tempdir&gt;`` is the system</span>
+<span class="sd">    temporary directory (e.g. ``/tmp`` on POSIX, ``%TEMP%`` on Windows) and the parameters in braces are</span>
+<span class="sd">    generated at runtime. The random identifiers help avoid a race condition where two simultaneously</span>
+<span class="sd">    triggered conversions try to use the same directory for reading/writing the generated files.</span>
 
 <span class="sd">    .. note::</span>
 <span class="sd">        Changes to the parameters :obj:`AssetConverterBaseCfg.asset_path`, :obj:`AssetConverterBaseCfg.usd_dir`, and</span>
@@ -746,9 +748,9 @@
 
         <span class="c1"># resolve USD directory name</span>
         <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">usd_dir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="c1"># a folder in &quot;/tmp/IsaacLab&quot; by the name: usd_{date}_{time}_{random}</span>
+            <span class="c1"># a folder in the system temp dir by the name: IsaacLab/usd_{date}_{time}_{random}</span>
             <span class="n">time_tag</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">_%H%M%S&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_usd_dir</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;/tmp/IsaacLab/usd_</span><span class="si">{</span><span class="n">time_tag</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_usd_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">(),</span> <span class="s2">&quot;IsaacLab&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;usd_</span><span class="si">{</span><span class="n">time_tag</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_usd_dir</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">usd_dir</span>
 
@@ -927,7 +929,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 20, 2026.
+  Last updated on Jun 21, 2026.
   <br/>
 </p>
   </div>
