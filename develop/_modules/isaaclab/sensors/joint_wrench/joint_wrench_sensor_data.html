@@ -61,7 +61,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 22, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 23, 2026"/>
   </head>
   
   
@@ -693,6 +693,7 @@
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_newton.sensors.joint_wrench</span><span class="w"> </span><span class="kn">import</span> <span class="n">JointWrenchSensorData</span> <span class="k">as</span> <span class="n">NewtonJointWrenchSensorData</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_ovphysx.sensors.joint_wrench</span><span class="w"> </span><span class="kn">import</span> <span class="n">JointWrenchSensorData</span> <span class="k">as</span> <span class="n">OvPhysxJointWrenchSensorData</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_physx.sensors.joint_wrench</span><span class="w"> </span><span class="kn">import</span> <span class="n">JointWrenchSensorData</span> <span class="k">as</span> <span class="n">PhysXJointWrenchSensorData</span>
 
 
@@ -705,7 +706,12 @@
 <a class="viewcode-back" href="../../../../source/api/lab/isaaclab.sensors.html#isaaclab.sensors.JointWrenchSensorData.__new__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__new__</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseJointWrenchSensorData</span> <span class="o">|</span> <span class="n">PhysXJointWrenchSensorData</span> <span class="o">|</span> <span class="n">NewtonJointWrenchSensorData</span><span class="p">:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span>
+        <span class="n">BaseJointWrenchSensorData</span>
+        <span class="o">|</span> <span class="n">PhysXJointWrenchSensorData</span>
+        <span class="o">|</span> <span class="n">NewtonJointWrenchSensorData</span>
+        <span class="o">|</span> <span class="n">OvPhysxJointWrenchSensorData</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a new instance of joint-wrench sensor data based on the backend.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 </div>
@@ -757,7 +763,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 22, 2026.
+  Last updated on Jun 23, 2026.
   <br/>
 </p>
   </div>

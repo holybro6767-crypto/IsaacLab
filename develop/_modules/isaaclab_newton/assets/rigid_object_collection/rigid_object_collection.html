@@ -61,7 +61,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 22, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 23, 2026"/>
   </head>
   
   
@@ -698,7 +698,9 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">isaaclab.sim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sim_utils</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">isaaclab.utils.string</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">string_utils</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.assets.rigid_object_collection.base_rigid_object_collection</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseRigidObjectCollection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.cloner</span><span class="w"> </span><span class="kn">import</span> <span class="n">queue_usd_replication</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.physics</span><span class="w"> </span><span class="kn">import</span> <span class="n">PhysicsEvent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.utils.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">has_kit</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.utils.wrench_composer</span><span class="w"> </span><span class="kn">import</span> <span class="n">WrenchComposer</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab_newton.assets</span><span class="w"> </span><span class="kn">import</span> <span class="n">kernels</span> <span class="k">as</span> <span class="n">shared_kernels</span>
@@ -772,6 +774,8 @@
             <span class="n">matching_prims</span> <span class="o">=</span> <span class="n">sim_utils</span><span class="o">.</span><span class="n">find_matching_prims</span><span class="p">(</span><span class="n">rigid_body_cfg</span><span class="o">.</span><span class="n">prim_path</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matching_prims</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not find prim with path </span><span class="si">{</span><span class="n">rigid_body_cfg</span><span class="o">.</span><span class="n">prim_path</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">has_kit</span><span class="p">():</span>
+                <span class="n">queue_usd_replication</span><span class="p">(</span><span class="n">source_rigid_object_cfgs</span><span class="p">[</span><span class="n">rigid_body_name</span><span class="p">])</span>
             <span class="n">queue_newton_physics_replication</span><span class="p">(</span><span class="n">source_rigid_object_cfgs</span><span class="p">[</span><span class="n">rigid_body_name</span><span class="p">])</span>
         <span class="c1"># stores object names</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_body_names_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -2239,7 +2243,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 22, 2026.
+  Last updated on Jun 23, 2026.
   <br/>
 </p>
   </div>
