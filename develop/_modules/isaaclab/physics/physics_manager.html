@@ -61,7 +61,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 23, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 24, 2026"/>
   </head>
   
   
@@ -763,6 +763,21 @@
     <span class="n">_callback_id</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">provides_implicit_damping</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Whether this backend&#39;s integrator has implicit numerical damping.</span>
+
+<span class="sd">        With implicit damping (PhysX, OV-PhysX) a camera policy can infer velocity from a</span>
+<span class="sd">        single frame. Without it (Newton&#39;s symplectic integrator) the policy needs a temporal</span>
+<span class="sd">        cue in the observation (e.g. frame stacking).</span>
+
+<span class="sd">        The base default is ``True``; backends without implicit damping override to ``False``.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Whether the backend&#39;s integrator has implicit numerical damping.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">register_callback</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">,</span>
         <span class="n">callback</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="kc">None</span><span class="p">],</span>
@@ -1141,7 +1156,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 23, 2026.
+  Last updated on Jun 24, 2026.
   <br/>
 </p>
   </div>

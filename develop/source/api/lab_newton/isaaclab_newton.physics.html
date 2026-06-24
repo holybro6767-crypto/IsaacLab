@@ -64,7 +64,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 23, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 24, 2026"/>
   </head>
   
   
@@ -741,6 +741,7 @@
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#physics-manager">Physics Manager</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager"><code class="docutils literal notranslate"><span class="pre">NewtonManager</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.provides_implicit_damping"><code class="docutils literal notranslate"><span class="pre">NewtonManager.provides_implicit_damping()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.initialize"><code class="docutils literal notranslate"><span class="pre">NewtonManager.initialize()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.reset"><code class="docutils literal notranslate"><span class="pre">NewtonManager.reset()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.forward"><code class="docutils literal notranslate"><span class="pre">NewtonManager.forward()</span></code></a></li>
@@ -989,6 +990,7 @@
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMJWarpManager.pause"><code class="docutils literal notranslate"><span class="pre">NewtonMJWarpManager.pause()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMJWarpManager.play"><code class="docutils literal notranslate"><span class="pre">NewtonMJWarpManager.play()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMJWarpManager.pre_render"><code class="docutils literal notranslate"><span class="pre">NewtonMJWarpManager.pre_render()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMJWarpManager.provides_implicit_damping"><code class="docutils literal notranslate"><span class="pre">NewtonMJWarpManager.provides_implicit_damping()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMJWarpManager.register_callback"><code class="docutils literal notranslate"><span class="pre">NewtonMJWarpManager.register_callback()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMJWarpManager.register_particle_visual_prim"><code class="docutils literal notranslate"><span class="pre">NewtonMJWarpManager.register_particle_visual_prim()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMJWarpManager.register_post_actuator_callback"><code class="docutils literal notranslate"><span class="pre">NewtonMJWarpManager.register_post_actuator_callback()</span></code></a></li>
@@ -1046,6 +1048,7 @@
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonXPBDManager.pause"><code class="docutils literal notranslate"><span class="pre">NewtonXPBDManager.pause()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonXPBDManager.play"><code class="docutils literal notranslate"><span class="pre">NewtonXPBDManager.play()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonXPBDManager.pre_render"><code class="docutils literal notranslate"><span class="pre">NewtonXPBDManager.pre_render()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonXPBDManager.provides_implicit_damping"><code class="docutils literal notranslate"><span class="pre">NewtonXPBDManager.provides_implicit_damping()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonXPBDManager.register_callback"><code class="docutils literal notranslate"><span class="pre">NewtonXPBDManager.register_callback()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonXPBDManager.register_particle_visual_prim"><code class="docutils literal notranslate"><span class="pre">NewtonXPBDManager.register_particle_visual_prim()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonXPBDManager.register_post_actuator_callback"><code class="docutils literal notranslate"><span class="pre">NewtonXPBDManager.register_post_actuator_callback()</span></code></a></li>
@@ -1103,6 +1106,7 @@
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.pause"><code class="docutils literal notranslate"><span class="pre">NewtonFeatherstoneManager.pause()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.play"><code class="docutils literal notranslate"><span class="pre">NewtonFeatherstoneManager.play()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.pre_render"><code class="docutils literal notranslate"><span class="pre">NewtonFeatherstoneManager.pre_render()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.provides_implicit_damping"><code class="docutils literal notranslate"><span class="pre">NewtonFeatherstoneManager.provides_implicit_damping()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.register_callback"><code class="docutils literal notranslate"><span class="pre">NewtonFeatherstoneManager.register_callback()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.register_particle_visual_prim"><code class="docutils literal notranslate"><span class="pre">NewtonFeatherstoneManager.register_particle_visual_prim()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.register_post_actuator_callback"><code class="docutils literal notranslate"><span class="pre">NewtonFeatherstoneManager.register_post_actuator_callback()</span></code></a></li>
@@ -1161,6 +1165,7 @@
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonKaminoManager.pause"><code class="docutils literal notranslate"><span class="pre">NewtonKaminoManager.pause()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonKaminoManager.play"><code class="docutils literal notranslate"><span class="pre">NewtonKaminoManager.play()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonKaminoManager.pre_render"><code class="docutils literal notranslate"><span class="pre">NewtonKaminoManager.pre_render()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonKaminoManager.provides_implicit_damping"><code class="docutils literal notranslate"><span class="pre">NewtonKaminoManager.provides_implicit_damping()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonKaminoManager.register_callback"><code class="docutils literal notranslate"><span class="pre">NewtonKaminoManager.register_callback()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonKaminoManager.register_particle_visual_prim"><code class="docutils literal notranslate"><span class="pre">NewtonKaminoManager.register_particle_visual_prim()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonKaminoManager.register_post_actuator_callback"><code class="docutils literal notranslate"><span class="pre">NewtonKaminoManager.register_post_actuator_callback()</span></code></a></li>
@@ -1217,6 +1222,7 @@
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMPMManager.pause"><code class="docutils literal notranslate"><span class="pre">NewtonMPMManager.pause()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMPMManager.play"><code class="docutils literal notranslate"><span class="pre">NewtonMPMManager.play()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMPMManager.pre_render"><code class="docutils literal notranslate"><span class="pre">NewtonMPMManager.pre_render()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMPMManager.provides_implicit_damping"><code class="docutils literal notranslate"><span class="pre">NewtonMPMManager.provides_implicit_damping()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMPMManager.register_callback"><code class="docutils literal notranslate"><span class="pre">NewtonMPMManager.register_callback()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMPMManager.register_particle_visual_prim"><code class="docutils literal notranslate"><span class="pre">NewtonMPMManager.register_particle_visual_prim()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMPMManager.register_post_actuator_callback"><code class="docutils literal notranslate"><span class="pre">NewtonMPMManager.register_post_actuator_callback()</span></code></a></li>
@@ -1336,171 +1342,189 @@ which subclass is active.</p>
 <p><strong>Methods:</strong></p>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.initialize" title="isaaclab_newton.physics.NewtonManager.initialize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initialize</span></code></a>(sim_context)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.provides_implicit_damping" title="isaaclab_newton.physics.NewtonManager.provides_implicit_damping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">provides_implicit_damping</span></code></a>()</p></td>
+<td><p>Whether this backend's integrator has implicit numerical damping.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.initialize" title="isaaclab_newton.physics.NewtonManager.initialize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initialize</span></code></a>(sim_context)</p></td>
 <td><p>Initialize the manager with simulation context.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.reset" title="isaaclab_newton.physics.NewtonManager.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a>([soft])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.reset" title="isaaclab_newton.physics.NewtonManager.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a>([soft])</p></td>
 <td><p>Reset physics simulation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.forward" title="isaaclab_newton.physics.NewtonManager.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.forward" title="isaaclab_newton.physics.NewtonManager.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>()</p></td>
 <td><p>Update articulation kinematics without stepping physics.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.pre_render" title="isaaclab_newton.physics.NewtonManager.pre_render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pre_render</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.pre_render" title="isaaclab_newton.physics.NewtonManager.pre_render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pre_render</span></code></a>()</p></td>
 <td><p>Flush deferred Fabric writes before cameras/visualizers read the scene.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.sync_transforms_to_usd" title="isaaclab_newton.physics.NewtonManager.sync_transforms_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_transforms_to_usd</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.sync_transforms_to_usd" title="isaaclab_newton.physics.NewtonManager.sync_transforms_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_transforms_to_usd</span></code></a>()</p></td>
 <td><p>Write Newton body_q to USD Fabric world matrices for Kit viewport / RTX rendering.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.sync_particles_to_usd" title="isaaclab_newton.physics.NewtonManager.sync_particles_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_particles_to_usd</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.sync_particles_to_usd" title="isaaclab_newton.physics.NewtonManager.sync_particles_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_particles_to_usd</span></code></a>()</p></td>
 <td><p>Write Newton particle positions to USD/Fabric for Kit viewport rendering.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.register_particle_visual_prim" title="isaaclab_newton.physics.NewtonManager.register_particle_visual_prim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_particle_visual_prim</span></code></a>(prim_path, ...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.register_particle_visual_prim" title="isaaclab_newton.physics.NewtonManager.register_particle_visual_prim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_particle_visual_prim</span></code></a>(prim_path, ...)</p></td>
 <td><p>Register a <code class="docutils literal notranslate"><span class="pre">UsdGeom.Points</span></code> prim whose points mirror a slice of Newton's particle state.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.step" title="isaaclab_newton.physics.NewtonManager.step"><code class="xref py py-obj docutils literal notranslate"><span class="pre">step</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.step" title="isaaclab_newton.physics.NewtonManager.step"><code class="xref py py-obj docutils literal notranslate"><span class="pre">step</span></code></a>()</p></td>
 <td><p>Step the physics simulation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.close" title="isaaclab_newton.physics.NewtonManager.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.close" title="isaaclab_newton.physics.NewtonManager.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code></a>()</p></td>
 <td><p>Clean up Newton physics resources.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_scene_data_backend" title="isaaclab_newton.physics.NewtonManager.get_scene_data_backend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_scene_data_backend</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_scene_data_backend" title="isaaclab_newton.physics.NewtonManager.get_scene_data_backend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_scene_data_backend</span></code></a>()</p></td>
 <td><p>Return the SceneDataBackend for the SceneDataProvider.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.register_callback" title="isaaclab_newton.physics.NewtonManager.register_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_callback</span></code></a>(callback, event[, order, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.register_callback" title="isaaclab_newton.physics.NewtonManager.register_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_callback</span></code></a>(callback, event[, order, ...])</p></td>
 <td><p>Register a callback.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_physics_sim_view" title="isaaclab_newton.physics.NewtonManager.get_physics_sim_view"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_physics_sim_view</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_physics_sim_view" title="isaaclab_newton.physics.NewtonManager.get_physics_sim_view"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_physics_sim_view</span></code></a>()</p></td>
 <td><p>Get the list of registered views.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.is_fabric_enabled" title="isaaclab_newton.physics.NewtonManager.is_fabric_enabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_fabric_enabled</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.is_fabric_enabled" title="isaaclab_newton.physics.NewtonManager.is_fabric_enabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_fabric_enabled</span></code></a>()</p></td>
 <td><p>Check if fabric interface is enabled (not applicable for Newton).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.clear" title="isaaclab_newton.physics.NewtonManager.clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.clear" title="isaaclab_newton.physics.NewtonManager.clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code></a>()</p></td>
 <td><p>Clear all Newton-specific state (callbacks cleared by super().close()).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.set_builder" title="isaaclab_newton.physics.NewtonManager.set_builder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_builder</span></code></a>(builder)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.set_builder" title="isaaclab_newton.physics.NewtonManager.set_builder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_builder</span></code></a>(builder)</p></td>
 <td><p>Set the Newton model builder.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.create_builder" title="isaaclab_newton.physics.NewtonManager.create_builder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_builder</span></code></a>([up_axis])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.create_builder" title="isaaclab_newton.physics.NewtonManager.create_builder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_builder</span></code></a>([up_axis])</p></td>
 <td><p>Create a <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelBuilder</span></code> configured with default settings.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.cl_register_site" title="isaaclab_newton.physics.NewtonManager.cl_register_site"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cl_register_site</span></code></a>(body_pattern, xform, *[, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.cl_register_site" title="isaaclab_newton.physics.NewtonManager.cl_register_site"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cl_register_site</span></code></a>(body_pattern, xform, *[, ...])</p></td>
 <td><p>Register a site request for injection into prototypes before replication.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.request_extended_state_attribute" title="isaaclab_newton.physics.NewtonManager.request_extended_state_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_state_attribute</span></code></a>(attr)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.request_extended_state_attribute" title="isaaclab_newton.physics.NewtonManager.request_extended_state_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_state_attribute</span></code></a>(attr)</p></td>
 <td><p>Request an extended state attribute (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;body_qdd&quot;</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.request_extended_contact_attribute" title="isaaclab_newton.physics.NewtonManager.request_extended_contact_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_contact_attribute</span></code></a>(attr)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.request_extended_contact_attribute" title="isaaclab_newton.physics.NewtonManager.request_extended_contact_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_contact_attribute</span></code></a>(attr)</p></td>
 <td><p>Request an extended contact attribute (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;force&quot;</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.add_model_change" title="isaaclab_newton.physics.NewtonManager.add_model_change"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_model_change</span></code></a>(change)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.add_model_change" title="isaaclab_newton.physics.NewtonManager.add_model_change"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_model_change</span></code></a>(change)</p></td>
 <td><p>Register a model change to notify the solver.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.invalidate_fk" title="isaaclab_newton.physics.NewtonManager.invalidate_fk"><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalidate_fk</span></code></a>([env_mask, env_ids, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.invalidate_fk" title="isaaclab_newton.physics.NewtonManager.invalidate_fk"><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalidate_fk</span></code></a>([env_mask, env_ids, ...])</p></td>
 <td><p>Mark environments as needing FK recomputation and solver reset.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.start_simulation" title="isaaclab_newton.physics.NewtonManager.start_simulation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_simulation</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.start_simulation" title="isaaclab_newton.physics.NewtonManager.start_simulation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_simulation</span></code></a>()</p></td>
 <td><p>Start simulation by finalizing model and initializing state.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.instantiate_builder_from_stage" title="isaaclab_newton.physics.NewtonManager.instantiate_builder_from_stage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instantiate_builder_from_stage</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.instantiate_builder_from_stage" title="isaaclab_newton.physics.NewtonManager.instantiate_builder_from_stage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">instantiate_builder_from_stage</span></code></a>()</p></td>
 <td><p>Create builder from USD stage.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.initialize_solver" title="isaaclab_newton.physics.NewtonManager.initialize_solver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initialize_solver</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.initialize_solver" title="isaaclab_newton.physics.NewtonManager.initialize_solver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initialize_solver</span></code></a>()</p></td>
 <td><p>Initialize the solver and collision pipeline.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_model" title="isaaclab_newton.physics.NewtonManager.get_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_model</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_model" title="isaaclab_newton.physics.NewtonManager.get_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_model</span></code></a>()</p></td>
 <td><p>Get the Newton model.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_state_0" title="isaaclab_newton.physics.NewtonManager.get_state_0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_state_0</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_state_0" title="isaaclab_newton.physics.NewtonManager.get_state_0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_state_0</span></code></a>()</p></td>
 <td><p>Get the current state.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_state" title="isaaclab_newton.physics.NewtonManager.get_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_state</span></code></a>([scene_data_provider])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_state" title="isaaclab_newton.physics.NewtonManager.get_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_state</span></code></a>([scene_data_provider])</p></td>
 <td><p>Get the current Newton state for visualization.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_contacts" title="isaaclab_newton.physics.NewtonManager.get_contacts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_contacts</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_contacts" title="isaaclab_newton.physics.NewtonManager.get_contacts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_contacts</span></code></a>()</p></td>
 <td><p>Get the current Newton contact buffer, if the active solver exposes one.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_scene_data_provider" title="isaaclab_newton.physics.NewtonManager.get_scene_data_provider"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_scene_data_provider</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_scene_data_provider" title="isaaclab_newton.physics.NewtonManager.get_scene_data_provider"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_scene_data_provider</span></code></a>()</p></td>
 <td><p>Return the active scene data provider.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.update_visualization_state" title="isaaclab_newton.physics.NewtonManager.update_visualization_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_visualization_state</span></code></a>([scene_data_provider])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.update_visualization_state" title="isaaclab_newton.physics.NewtonManager.update_visualization_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_visualization_state</span></code></a>([scene_data_provider])</p></td>
 <td><p>Refresh visualization state for the active sim backend.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_state_1" title="isaaclab_newton.physics.NewtonManager.get_state_1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_state_1</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_state_1" title="isaaclab_newton.physics.NewtonManager.get_state_1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_state_1</span></code></a>()</p></td>
 <td><p>Get the next state.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_control" title="isaaclab_newton.physics.NewtonManager.get_control"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_control</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_control" title="isaaclab_newton.physics.NewtonManager.get_control"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_control</span></code></a>()</p></td>
 <td><p>Get the control object.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_dt" title="isaaclab_newton.physics.NewtonManager.get_dt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_dt</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_dt" title="isaaclab_newton.physics.NewtonManager.get_dt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_dt</span></code></a>()</p></td>
 <td><p>Get the physics timestep.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_solver_dt" title="isaaclab_newton.physics.NewtonManager.get_solver_dt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_solver_dt</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_solver_dt" title="isaaclab_newton.physics.NewtonManager.get_solver_dt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_solver_dt</span></code></a>()</p></td>
 <td><p>Get the solver substep timestep.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.activate_newton_actuator_path" title="isaaclab_newton.physics.NewtonManager.activate_newton_actuator_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activate_newton_actuator_path</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.activate_newton_actuator_path" title="isaaclab_newton.physics.NewtonManager.activate_newton_actuator_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">activate_newton_actuator_path</span></code></a>()</p></td>
 <td><p>Opt an articulation into the Newton actuator fast path.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.register_post_actuator_callback" title="isaaclab_newton.physics.NewtonManager.register_post_actuator_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_post_actuator_callback</span></code></a>(callback)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.register_post_actuator_callback" title="isaaclab_newton.physics.NewtonManager.register_post_actuator_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_post_actuator_callback</span></code></a>(callback)</p></td>
 <td><p>Append a hook to the list invoked after the actuator step on every iteration.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.set_decimation" title="isaaclab_newton.physics.NewtonManager.set_decimation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_decimation</span></code></a>(decimation)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.set_decimation" title="isaaclab_newton.physics.NewtonManager.set_decimation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_decimation</span></code></a>(decimation)</p></td>
 <td><p>Set the decimation count and re-capture the CUDA graph.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.handles_decimation" title="isaaclab_newton.physics.NewtonManager.handles_decimation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">handles_decimation</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.handles_decimation" title="isaaclab_newton.physics.NewtonManager.handles_decimation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">handles_decimation</span></code></a>()</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">True</span></code> when <a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.step" title="isaaclab_newton.physics.NewtonManager.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a> executes the full decimation loop internally.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.add_contact_sensor" title="isaaclab_newton.physics.NewtonManager.add_contact_sensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_contact_sensor</span></code></a>([body_names_expr, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.add_contact_sensor" title="isaaclab_newton.physics.NewtonManager.add_contact_sensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_contact_sensor</span></code></a>([body_names_expr, ...])</p></td>
 <td><p>Add a contact sensor for reporting contacts between bodies/shapes.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.add_frame_transform_sensor" title="isaaclab_newton.physics.NewtonManager.add_frame_transform_sensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_frame_transform_sensor</span></code></a>(shapes, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.add_frame_transform_sensor" title="isaaclab_newton.physics.NewtonManager.add_frame_transform_sensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_frame_transform_sensor</span></code></a>(shapes, ...)</p></td>
 <td><p>Add a frame transform sensor for measuring relative transforms.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.add_imu_sensor" title="isaaclab_newton.physics.NewtonManager.add_imu_sensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_imu_sensor</span></code></a>(sites)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.add_imu_sensor" title="isaaclab_newton.physics.NewtonManager.add_imu_sensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_imu_sensor</span></code></a>(sites)</p></td>
 <td><p>Add an IMU sensor for measuring acceleration and angular velocity at sites.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.after_visualizers_render" title="isaaclab_newton.physics.NewtonManager.after_visualizers_render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">after_visualizers_render</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.after_visualizers_render" title="isaaclab_newton.physics.NewtonManager.after_visualizers_render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">after_visualizers_render</span></code></a>()</p></td>
 <td><p>Hook after visualizers have stepped during <a class="reference internal" href="../lab/isaaclab.sim.html#isaaclab.sim.SimulationContext.render" title="isaaclab.sim.SimulationContext.render"><code class="xref py py-meth docutils literal notranslate"><span class="pre">render()</span></code></a>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.clear_callbacks" title="isaaclab_newton.physics.NewtonManager.clear_callbacks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_callbacks</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.clear_callbacks" title="isaaclab_newton.physics.NewtonManager.clear_callbacks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_callbacks</span></code></a>()</p></td>
 <td><p>Remove all registered callbacks.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.deregister_callback" title="isaaclab_newton.physics.NewtonManager.deregister_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deregister_callback</span></code></a>(callback_id)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.deregister_callback" title="isaaclab_newton.physics.NewtonManager.deregister_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deregister_callback</span></code></a>(callback_id)</p></td>
 <td><p>Remove a registered callback.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.dispatch_event" title="isaaclab_newton.physics.NewtonManager.dispatch_event"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dispatch_event</span></code></a>(event[, payload])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.dispatch_event" title="isaaclab_newton.physics.NewtonManager.dispatch_event"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dispatch_event</span></code></a>(event[, payload])</p></td>
 <td><p>Dispatch an event to all registered callbacks.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_backend" title="isaaclab_newton.physics.NewtonManager.get_backend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_backend</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_backend" title="isaaclab_newton.physics.NewtonManager.get_backend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_backend</span></code></a>()</p></td>
 <td><p>Get the tensor backend being used (&quot;numpy&quot; or &quot;torch&quot;).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_device" title="isaaclab_newton.physics.NewtonManager.get_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_device" title="isaaclab_newton.physics.NewtonManager.get_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_device</span></code></a>()</p></td>
 <td><p>Get the physics simulation device.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_physics_dt" title="isaaclab_newton.physics.NewtonManager.get_physics_dt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_physics_dt</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_physics_dt" title="isaaclab_newton.physics.NewtonManager.get_physics_dt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_physics_dt</span></code></a>()</p></td>
 <td><p>Get the physics timestep in seconds.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_simulation_time" title="isaaclab_newton.physics.NewtonManager.get_simulation_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_simulation_time</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.get_simulation_time" title="isaaclab_newton.physics.NewtonManager.get_simulation_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_simulation_time</span></code></a>()</p></td>
 <td><p>Get the current simulation time in seconds.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.pause" title="isaaclab_newton.physics.NewtonManager.pause"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pause</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.pause" title="isaaclab_newton.physics.NewtonManager.pause"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pause</span></code></a>()</p></td>
 <td><p>Pause physics simulation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.play" title="isaaclab_newton.physics.NewtonManager.play"><code class="xref py py-obj docutils literal notranslate"><span class="pre">play</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.play" title="isaaclab_newton.physics.NewtonManager.play"><code class="xref py py-obj docutils literal notranslate"><span class="pre">play</span></code></a>()</p></td>
 <td><p>Start or resume physics simulation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.safe_callback_invoke" title="isaaclab_newton.physics.NewtonManager.safe_callback_invoke"><code class="xref py py-obj docutils literal notranslate"><span class="pre">safe_callback_invoke</span></code></a>(fn, *args[, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.safe_callback_invoke" title="isaaclab_newton.physics.NewtonManager.safe_callback_invoke"><code class="xref py py-obj docutils literal notranslate"><span class="pre">safe_callback_invoke</span></code></a>(fn, *args[, ...])</p></td>
 <td><p>Invoke a callback, catching exceptions that would be swallowed by external event buses.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.stop" title="isaaclab_newton.physics.NewtonManager.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.stop" title="isaaclab_newton.physics.NewtonManager.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop</span></code></a>()</p></td>
 <td><p>Stop physics simulation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.wait_for_playing" title="isaaclab_newton.physics.NewtonManager.wait_for_playing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_for_playing</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonManager.wait_for_playing" title="isaaclab_newton.physics.NewtonManager.wait_for_playing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_for_playing</span></code></a>()</p></td>
 <td><p>Block until the timeline is playing.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+<dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonManager.provides_implicit_damping">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">provides_implicit_damping</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_newton/physics/newton_manager.html#NewtonManager.provides_implicit_damping"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.physics.NewtonManager.provides_implicit_damping" title="Link to this definition">#</a></dt>
+<dd><p>Whether this backend’s integrator has implicit numerical damping.</p>
+<p>With implicit damping (PhysX, OV-PhysX) a camera policy can infer velocity from a
+single frame. Without it (Newton’s symplectic integrator) the policy needs a temporal
+cue in the observation (e.g. frame stacking).</p>
+<p>The base default is <code class="docutils literal notranslate"><span class="pre">True</span></code>; backends without implicit damping override to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Whether the backend’s integrator has implicit numerical damping.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonManager.initialize">
 <em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sim_context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../lab/isaaclab.sim.html#isaaclab.sim.SimulationContext" title="isaaclab.sim.simulation_context.SimulationContext"><span class="pre">SimulationContext</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../_modules/isaaclab_newton/physics/newton_manager.html#NewtonManager.initialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isaaclab_newton.physics.NewtonManager.initialize" title="Link to this definition">#</a></dt>
@@ -3660,52 +3684,55 @@ convergence logging emitted from <code class="xref py py-meth docutils literal n
 <tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.pre_render" title="isaaclab_newton.physics.NewtonMJWarpManager.pre_render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pre_render</span></code></a>()</p></td>
 <td><p>Flush deferred Fabric writes before cameras/visualizers read the scene.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.register_callback" title="isaaclab_newton.physics.NewtonMJWarpManager.register_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_callback</span></code></a>(callback, event[, order, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.provides_implicit_damping" title="isaaclab_newton.physics.NewtonMJWarpManager.provides_implicit_damping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">provides_implicit_damping</span></code></a>()</p></td>
+<td><p>Whether this backend's integrator has implicit numerical damping.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.register_callback" title="isaaclab_newton.physics.NewtonMJWarpManager.register_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_callback</span></code></a>(callback, event[, order, ...])</p></td>
 <td><p>Register a callback.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.register_particle_visual_prim" title="isaaclab_newton.physics.NewtonMJWarpManager.register_particle_visual_prim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_particle_visual_prim</span></code></a>(prim_path, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.register_particle_visual_prim" title="isaaclab_newton.physics.NewtonMJWarpManager.register_particle_visual_prim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_particle_visual_prim</span></code></a>(prim_path, ...)</p></td>
 <td><p>Register a <code class="docutils literal notranslate"><span class="pre">UsdGeom.Points</span></code> prim whose points mirror a slice of Newton's particle state.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.register_post_actuator_callback" title="isaaclab_newton.physics.NewtonMJWarpManager.register_post_actuator_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_post_actuator_callback</span></code></a>(callback)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.register_post_actuator_callback" title="isaaclab_newton.physics.NewtonMJWarpManager.register_post_actuator_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_post_actuator_callback</span></code></a>(callback)</p></td>
 <td><p>Append a hook to the list invoked after the actuator step on every iteration.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.request_extended_contact_attribute" title="isaaclab_newton.physics.NewtonMJWarpManager.request_extended_contact_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_contact_attribute</span></code></a>(attr)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.request_extended_contact_attribute" title="isaaclab_newton.physics.NewtonMJWarpManager.request_extended_contact_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_contact_attribute</span></code></a>(attr)</p></td>
 <td><p>Request an extended contact attribute (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;force&quot;</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.request_extended_state_attribute" title="isaaclab_newton.physics.NewtonMJWarpManager.request_extended_state_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_state_attribute</span></code></a>(attr)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.request_extended_state_attribute" title="isaaclab_newton.physics.NewtonMJWarpManager.request_extended_state_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_state_attribute</span></code></a>(attr)</p></td>
 <td><p>Request an extended state attribute (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;body_qdd&quot;</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.reset" title="isaaclab_newton.physics.NewtonMJWarpManager.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a>([soft])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.reset" title="isaaclab_newton.physics.NewtonMJWarpManager.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a>([soft])</p></td>
 <td><p>Reset physics simulation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.safe_callback_invoke" title="isaaclab_newton.physics.NewtonMJWarpManager.safe_callback_invoke"><code class="xref py py-obj docutils literal notranslate"><span class="pre">safe_callback_invoke</span></code></a>(fn, *args[, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.safe_callback_invoke" title="isaaclab_newton.physics.NewtonMJWarpManager.safe_callback_invoke"><code class="xref py py-obj docutils literal notranslate"><span class="pre">safe_callback_invoke</span></code></a>(fn, *args[, ...])</p></td>
 <td><p>Invoke a callback, catching exceptions that would be swallowed by external event buses.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.set_builder" title="isaaclab_newton.physics.NewtonMJWarpManager.set_builder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_builder</span></code></a>(builder)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.set_builder" title="isaaclab_newton.physics.NewtonMJWarpManager.set_builder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_builder</span></code></a>(builder)</p></td>
 <td><p>Set the Newton model builder.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.set_decimation" title="isaaclab_newton.physics.NewtonMJWarpManager.set_decimation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_decimation</span></code></a>(decimation)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.set_decimation" title="isaaclab_newton.physics.NewtonMJWarpManager.set_decimation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_decimation</span></code></a>(decimation)</p></td>
 <td><p>Set the decimation count and re-capture the CUDA graph.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.start_simulation" title="isaaclab_newton.physics.NewtonMJWarpManager.start_simulation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_simulation</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.start_simulation" title="isaaclab_newton.physics.NewtonMJWarpManager.start_simulation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_simulation</span></code></a>()</p></td>
 <td><p>Start simulation by finalizing model and initializing state.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.step" title="isaaclab_newton.physics.NewtonMJWarpManager.step"><code class="xref py py-obj docutils literal notranslate"><span class="pre">step</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.step" title="isaaclab_newton.physics.NewtonMJWarpManager.step"><code class="xref py py-obj docutils literal notranslate"><span class="pre">step</span></code></a>()</p></td>
 <td><p>Step the physics simulation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.stop" title="isaaclab_newton.physics.NewtonMJWarpManager.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.stop" title="isaaclab_newton.physics.NewtonMJWarpManager.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop</span></code></a>()</p></td>
 <td><p>Stop physics simulation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.sync_particles_to_usd" title="isaaclab_newton.physics.NewtonMJWarpManager.sync_particles_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_particles_to_usd</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.sync_particles_to_usd" title="isaaclab_newton.physics.NewtonMJWarpManager.sync_particles_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_particles_to_usd</span></code></a>()</p></td>
 <td><p>Write Newton particle positions to USD/Fabric for Kit viewport rendering.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.sync_transforms_to_usd" title="isaaclab_newton.physics.NewtonMJWarpManager.sync_transforms_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_transforms_to_usd</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.sync_transforms_to_usd" title="isaaclab_newton.physics.NewtonMJWarpManager.sync_transforms_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_transforms_to_usd</span></code></a>()</p></td>
 <td><p>Write Newton body_q to USD Fabric world matrices for Kit viewport / RTX rendering.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.update_visualization_state" title="isaaclab_newton.physics.NewtonMJWarpManager.update_visualization_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_visualization_state</span></code></a>([scene_data_provider])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.update_visualization_state" title="isaaclab_newton.physics.NewtonMJWarpManager.update_visualization_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_visualization_state</span></code></a>([scene_data_provider])</p></td>
 <td><p>Refresh visualization state for the active sim backend.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.wait_for_playing" title="isaaclab_newton.physics.NewtonMJWarpManager.wait_for_playing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_for_playing</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMJWarpManager.wait_for_playing" title="isaaclab_newton.physics.NewtonMJWarpManager.wait_for_playing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_for_playing</span></code></a>()</p></td>
 <td><p>Block until the timeline is playing.</p></td>
 </tr>
 </tbody>
@@ -4119,6 +4146,21 @@ index. Shape <code class="docutils literal notranslate"><span class="pre">(world
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonMJWarpManager.provides_implicit_damping">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">provides_implicit_damping</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonMJWarpManager.provides_implicit_damping" title="Link to this definition">#</a></dt>
+<dd><p>Whether this backend’s integrator has implicit numerical damping.</p>
+<p>With implicit damping (PhysX, OV-PhysX) a camera policy can infer velocity from a
+single frame. Without it (Newton’s symplectic integrator) the policy needs a temporal
+cue in the observation (e.g. frame stacking).</p>
+<p>The base default is <code class="docutils literal notranslate"><span class="pre">True</span></code>; backends without implicit damping override to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Whether the backend’s integrator has implicit numerical damping.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonMJWarpManager.register_callback">
 <em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">register_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://trimesh.org/trimesh.typed.html#trimesh.typed.Callable" title="(in trimesh)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PhysicsEvent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrap_weak_ref</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CallbackHandle</span></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonMJWarpManager.register_callback" title="Link to this definition">#</a></dt>
 <dd><p>Register a callback. Passes event to parent class.</p>
@@ -4452,52 +4494,55 @@ coordinate the sync explicitly.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.pre_render" title="isaaclab_newton.physics.NewtonXPBDManager.pre_render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pre_render</span></code></a>()</p></td>
 <td><p>Flush deferred Fabric writes before cameras/visualizers read the scene.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.register_callback" title="isaaclab_newton.physics.NewtonXPBDManager.register_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_callback</span></code></a>(callback, event[, order, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.provides_implicit_damping" title="isaaclab_newton.physics.NewtonXPBDManager.provides_implicit_damping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">provides_implicit_damping</span></code></a>()</p></td>
+<td><p>Whether this backend's integrator has implicit numerical damping.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.register_callback" title="isaaclab_newton.physics.NewtonXPBDManager.register_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_callback</span></code></a>(callback, event[, order, ...])</p></td>
 <td><p>Register a callback.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.register_particle_visual_prim" title="isaaclab_newton.physics.NewtonXPBDManager.register_particle_visual_prim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_particle_visual_prim</span></code></a>(prim_path, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.register_particle_visual_prim" title="isaaclab_newton.physics.NewtonXPBDManager.register_particle_visual_prim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_particle_visual_prim</span></code></a>(prim_path, ...)</p></td>
 <td><p>Register a <code class="docutils literal notranslate"><span class="pre">UsdGeom.Points</span></code> prim whose points mirror a slice of Newton's particle state.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.register_post_actuator_callback" title="isaaclab_newton.physics.NewtonXPBDManager.register_post_actuator_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_post_actuator_callback</span></code></a>(callback)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.register_post_actuator_callback" title="isaaclab_newton.physics.NewtonXPBDManager.register_post_actuator_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_post_actuator_callback</span></code></a>(callback)</p></td>
 <td><p>Append a hook to the list invoked after the actuator step on every iteration.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.request_extended_contact_attribute" title="isaaclab_newton.physics.NewtonXPBDManager.request_extended_contact_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_contact_attribute</span></code></a>(attr)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.request_extended_contact_attribute" title="isaaclab_newton.physics.NewtonXPBDManager.request_extended_contact_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_contact_attribute</span></code></a>(attr)</p></td>
 <td><p>Request an extended contact attribute (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;force&quot;</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.request_extended_state_attribute" title="isaaclab_newton.physics.NewtonXPBDManager.request_extended_state_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_state_attribute</span></code></a>(attr)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.request_extended_state_attribute" title="isaaclab_newton.physics.NewtonXPBDManager.request_extended_state_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_state_attribute</span></code></a>(attr)</p></td>
 <td><p>Request an extended state attribute (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;body_qdd&quot;</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.reset" title="isaaclab_newton.physics.NewtonXPBDManager.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a>([soft])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.reset" title="isaaclab_newton.physics.NewtonXPBDManager.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a>([soft])</p></td>
 <td><p>Reset physics simulation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.safe_callback_invoke" title="isaaclab_newton.physics.NewtonXPBDManager.safe_callback_invoke"><code class="xref py py-obj docutils literal notranslate"><span class="pre">safe_callback_invoke</span></code></a>(fn, *args[, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.safe_callback_invoke" title="isaaclab_newton.physics.NewtonXPBDManager.safe_callback_invoke"><code class="xref py py-obj docutils literal notranslate"><span class="pre">safe_callback_invoke</span></code></a>(fn, *args[, ...])</p></td>
 <td><p>Invoke a callback, catching exceptions that would be swallowed by external event buses.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.set_builder" title="isaaclab_newton.physics.NewtonXPBDManager.set_builder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_builder</span></code></a>(builder)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.set_builder" title="isaaclab_newton.physics.NewtonXPBDManager.set_builder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_builder</span></code></a>(builder)</p></td>
 <td><p>Set the Newton model builder.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.set_decimation" title="isaaclab_newton.physics.NewtonXPBDManager.set_decimation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_decimation</span></code></a>(decimation)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.set_decimation" title="isaaclab_newton.physics.NewtonXPBDManager.set_decimation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_decimation</span></code></a>(decimation)</p></td>
 <td><p>Set the decimation count and re-capture the CUDA graph.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.start_simulation" title="isaaclab_newton.physics.NewtonXPBDManager.start_simulation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_simulation</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.start_simulation" title="isaaclab_newton.physics.NewtonXPBDManager.start_simulation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_simulation</span></code></a>()</p></td>
 <td><p>Start simulation by finalizing model and initializing state.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.step" title="isaaclab_newton.physics.NewtonXPBDManager.step"><code class="xref py py-obj docutils literal notranslate"><span class="pre">step</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.step" title="isaaclab_newton.physics.NewtonXPBDManager.step"><code class="xref py py-obj docutils literal notranslate"><span class="pre">step</span></code></a>()</p></td>
 <td><p>Step the physics simulation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.stop" title="isaaclab_newton.physics.NewtonXPBDManager.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.stop" title="isaaclab_newton.physics.NewtonXPBDManager.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop</span></code></a>()</p></td>
 <td><p>Stop physics simulation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.sync_particles_to_usd" title="isaaclab_newton.physics.NewtonXPBDManager.sync_particles_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_particles_to_usd</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.sync_particles_to_usd" title="isaaclab_newton.physics.NewtonXPBDManager.sync_particles_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_particles_to_usd</span></code></a>()</p></td>
 <td><p>Write Newton particle positions to USD/Fabric for Kit viewport rendering.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.sync_transforms_to_usd" title="isaaclab_newton.physics.NewtonXPBDManager.sync_transforms_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_transforms_to_usd</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.sync_transforms_to_usd" title="isaaclab_newton.physics.NewtonXPBDManager.sync_transforms_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_transforms_to_usd</span></code></a>()</p></td>
 <td><p>Write Newton body_q to USD Fabric world matrices for Kit viewport / RTX rendering.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.update_visualization_state" title="isaaclab_newton.physics.NewtonXPBDManager.update_visualization_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_visualization_state</span></code></a>([scene_data_provider])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.update_visualization_state" title="isaaclab_newton.physics.NewtonXPBDManager.update_visualization_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_visualization_state</span></code></a>([scene_data_provider])</p></td>
 <td><p>Refresh visualization state for the active sim backend.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.wait_for_playing" title="isaaclab_newton.physics.NewtonXPBDManager.wait_for_playing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_for_playing</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonXPBDManager.wait_for_playing" title="isaaclab_newton.physics.NewtonXPBDManager.wait_for_playing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_for_playing</span></code></a>()</p></td>
 <td><p>Block until the timeline is playing.</p></td>
 </tr>
 </tbody>
@@ -4911,6 +4956,21 @@ index. Shape <code class="docutils literal notranslate"><span class="pre">(world
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonXPBDManager.provides_implicit_damping">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">provides_implicit_damping</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonXPBDManager.provides_implicit_damping" title="Link to this definition">#</a></dt>
+<dd><p>Whether this backend’s integrator has implicit numerical damping.</p>
+<p>With implicit damping (PhysX, OV-PhysX) a camera policy can infer velocity from a
+single frame. Without it (Newton’s symplectic integrator) the policy needs a temporal
+cue in the observation (e.g. frame stacking).</p>
+<p>The base default is <code class="docutils literal notranslate"><span class="pre">True</span></code>; backends without implicit damping override to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Whether the backend’s integrator has implicit numerical damping.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonXPBDManager.register_callback">
 <em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">register_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://trimesh.org/trimesh.typed.html#trimesh.typed.Callable" title="(in trimesh)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PhysicsEvent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrap_weak_ref</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CallbackHandle</span></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonXPBDManager.register_callback" title="Link to this definition">#</a></dt>
 <dd><p>Register a callback. Passes event to parent class.</p>
@@ -5244,52 +5304,55 @@ coordinate the sync explicitly.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.pre_render" title="isaaclab_newton.physics.NewtonFeatherstoneManager.pre_render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pre_render</span></code></a>()</p></td>
 <td><p>Flush deferred Fabric writes before cameras/visualizers read the scene.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.register_callback" title="isaaclab_newton.physics.NewtonFeatherstoneManager.register_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_callback</span></code></a>(callback, event[, order, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.provides_implicit_damping" title="isaaclab_newton.physics.NewtonFeatherstoneManager.provides_implicit_damping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">provides_implicit_damping</span></code></a>()</p></td>
+<td><p>Whether this backend's integrator has implicit numerical damping.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.register_callback" title="isaaclab_newton.physics.NewtonFeatherstoneManager.register_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_callback</span></code></a>(callback, event[, order, ...])</p></td>
 <td><p>Register a callback.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.register_particle_visual_prim" title="isaaclab_newton.physics.NewtonFeatherstoneManager.register_particle_visual_prim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_particle_visual_prim</span></code></a>(prim_path, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.register_particle_visual_prim" title="isaaclab_newton.physics.NewtonFeatherstoneManager.register_particle_visual_prim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_particle_visual_prim</span></code></a>(prim_path, ...)</p></td>
 <td><p>Register a <code class="docutils literal notranslate"><span class="pre">UsdGeom.Points</span></code> prim whose points mirror a slice of Newton's particle state.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.register_post_actuator_callback" title="isaaclab_newton.physics.NewtonFeatherstoneManager.register_post_actuator_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_post_actuator_callback</span></code></a>(callback)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.register_post_actuator_callback" title="isaaclab_newton.physics.NewtonFeatherstoneManager.register_post_actuator_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_post_actuator_callback</span></code></a>(callback)</p></td>
 <td><p>Append a hook to the list invoked after the actuator step on every iteration.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.request_extended_contact_attribute" title="isaaclab_newton.physics.NewtonFeatherstoneManager.request_extended_contact_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_contact_attribute</span></code></a>(attr)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.request_extended_contact_attribute" title="isaaclab_newton.physics.NewtonFeatherstoneManager.request_extended_contact_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_contact_attribute</span></code></a>(attr)</p></td>
 <td><p>Request an extended contact attribute (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;force&quot;</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.request_extended_state_attribute" title="isaaclab_newton.physics.NewtonFeatherstoneManager.request_extended_state_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_state_attribute</span></code></a>(attr)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.request_extended_state_attribute" title="isaaclab_newton.physics.NewtonFeatherstoneManager.request_extended_state_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_state_attribute</span></code></a>(attr)</p></td>
 <td><p>Request an extended state attribute (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;body_qdd&quot;</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.reset" title="isaaclab_newton.physics.NewtonFeatherstoneManager.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a>([soft])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.reset" title="isaaclab_newton.physics.NewtonFeatherstoneManager.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a>([soft])</p></td>
 <td><p>Reset physics simulation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.safe_callback_invoke" title="isaaclab_newton.physics.NewtonFeatherstoneManager.safe_callback_invoke"><code class="xref py py-obj docutils literal notranslate"><span class="pre">safe_callback_invoke</span></code></a>(fn, *args[, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.safe_callback_invoke" title="isaaclab_newton.physics.NewtonFeatherstoneManager.safe_callback_invoke"><code class="xref py py-obj docutils literal notranslate"><span class="pre">safe_callback_invoke</span></code></a>(fn, *args[, ...])</p></td>
 <td><p>Invoke a callback, catching exceptions that would be swallowed by external event buses.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.set_builder" title="isaaclab_newton.physics.NewtonFeatherstoneManager.set_builder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_builder</span></code></a>(builder)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.set_builder" title="isaaclab_newton.physics.NewtonFeatherstoneManager.set_builder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_builder</span></code></a>(builder)</p></td>
 <td><p>Set the Newton model builder.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.set_decimation" title="isaaclab_newton.physics.NewtonFeatherstoneManager.set_decimation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_decimation</span></code></a>(decimation)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.set_decimation" title="isaaclab_newton.physics.NewtonFeatherstoneManager.set_decimation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_decimation</span></code></a>(decimation)</p></td>
 <td><p>Set the decimation count and re-capture the CUDA graph.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.start_simulation" title="isaaclab_newton.physics.NewtonFeatherstoneManager.start_simulation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_simulation</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.start_simulation" title="isaaclab_newton.physics.NewtonFeatherstoneManager.start_simulation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_simulation</span></code></a>()</p></td>
 <td><p>Start simulation by finalizing model and initializing state.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.step" title="isaaclab_newton.physics.NewtonFeatherstoneManager.step"><code class="xref py py-obj docutils literal notranslate"><span class="pre">step</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.step" title="isaaclab_newton.physics.NewtonFeatherstoneManager.step"><code class="xref py py-obj docutils literal notranslate"><span class="pre">step</span></code></a>()</p></td>
 <td><p>Step the physics simulation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.stop" title="isaaclab_newton.physics.NewtonFeatherstoneManager.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.stop" title="isaaclab_newton.physics.NewtonFeatherstoneManager.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop</span></code></a>()</p></td>
 <td><p>Stop physics simulation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.sync_particles_to_usd" title="isaaclab_newton.physics.NewtonFeatherstoneManager.sync_particles_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_particles_to_usd</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.sync_particles_to_usd" title="isaaclab_newton.physics.NewtonFeatherstoneManager.sync_particles_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_particles_to_usd</span></code></a>()</p></td>
 <td><p>Write Newton particle positions to USD/Fabric for Kit viewport rendering.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.sync_transforms_to_usd" title="isaaclab_newton.physics.NewtonFeatherstoneManager.sync_transforms_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_transforms_to_usd</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.sync_transforms_to_usd" title="isaaclab_newton.physics.NewtonFeatherstoneManager.sync_transforms_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_transforms_to_usd</span></code></a>()</p></td>
 <td><p>Write Newton body_q to USD Fabric world matrices for Kit viewport / RTX rendering.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.update_visualization_state" title="isaaclab_newton.physics.NewtonFeatherstoneManager.update_visualization_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_visualization_state</span></code></a>([scene_data_provider])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.update_visualization_state" title="isaaclab_newton.physics.NewtonFeatherstoneManager.update_visualization_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_visualization_state</span></code></a>([scene_data_provider])</p></td>
 <td><p>Refresh visualization state for the active sim backend.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.wait_for_playing" title="isaaclab_newton.physics.NewtonFeatherstoneManager.wait_for_playing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_for_playing</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.wait_for_playing" title="isaaclab_newton.physics.NewtonFeatherstoneManager.wait_for_playing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_for_playing</span></code></a>()</p></td>
 <td><p>Block until the timeline is playing.</p></td>
 </tr>
 </tbody>
@@ -5703,6 +5766,21 @@ index. Shape <code class="docutils literal notranslate"><span class="pre">(world
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonFeatherstoneManager.provides_implicit_damping">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">provides_implicit_damping</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.provides_implicit_damping" title="Link to this definition">#</a></dt>
+<dd><p>Whether this backend’s integrator has implicit numerical damping.</p>
+<p>With implicit damping (PhysX, OV-PhysX) a camera policy can infer velocity from a
+single frame. Without it (Newton’s symplectic integrator) the policy needs a temporal
+cue in the observation (e.g. frame stacking).</p>
+<p>The base default is <code class="docutils literal notranslate"><span class="pre">True</span></code>; backends without implicit damping override to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Whether the backend’s integrator has implicit numerical damping.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonFeatherstoneManager.register_callback">
 <em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">register_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://trimesh.org/trimesh.typed.html#trimesh.typed.Callable" title="(in trimesh)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PhysicsEvent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrap_weak_ref</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CallbackHandle</span></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.register_callback" title="Link to this definition">#</a></dt>
 <dd><p>Register a callback. Passes event to parent class.</p>
@@ -6041,49 +6119,52 @@ Kamino’s internal collision detector handles contact generation.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.pre_render" title="isaaclab_newton.physics.NewtonKaminoManager.pre_render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pre_render</span></code></a>()</p></td>
 <td><p>Flush deferred Fabric writes before cameras/visualizers read the scene.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.register_callback" title="isaaclab_newton.physics.NewtonKaminoManager.register_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_callback</span></code></a>(callback, event[, order, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.provides_implicit_damping" title="isaaclab_newton.physics.NewtonKaminoManager.provides_implicit_damping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">provides_implicit_damping</span></code></a>()</p></td>
+<td><p>Whether this backend's integrator has implicit numerical damping.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.register_callback" title="isaaclab_newton.physics.NewtonKaminoManager.register_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_callback</span></code></a>(callback, event[, order, ...])</p></td>
 <td><p>Register a callback.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.register_particle_visual_prim" title="isaaclab_newton.physics.NewtonKaminoManager.register_particle_visual_prim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_particle_visual_prim</span></code></a>(prim_path, ...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.register_particle_visual_prim" title="isaaclab_newton.physics.NewtonKaminoManager.register_particle_visual_prim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_particle_visual_prim</span></code></a>(prim_path, ...)</p></td>
 <td><p>Register a <code class="docutils literal notranslate"><span class="pre">UsdGeom.Points</span></code> prim whose points mirror a slice of Newton's particle state.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.register_post_actuator_callback" title="isaaclab_newton.physics.NewtonKaminoManager.register_post_actuator_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_post_actuator_callback</span></code></a>(callback)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.register_post_actuator_callback" title="isaaclab_newton.physics.NewtonKaminoManager.register_post_actuator_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_post_actuator_callback</span></code></a>(callback)</p></td>
 <td><p>Append a hook to the list invoked after the actuator step on every iteration.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.request_extended_contact_attribute" title="isaaclab_newton.physics.NewtonKaminoManager.request_extended_contact_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_contact_attribute</span></code></a>(attr)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.request_extended_contact_attribute" title="isaaclab_newton.physics.NewtonKaminoManager.request_extended_contact_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_contact_attribute</span></code></a>(attr)</p></td>
 <td><p>Request an extended contact attribute (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;force&quot;</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.request_extended_state_attribute" title="isaaclab_newton.physics.NewtonKaminoManager.request_extended_state_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_state_attribute</span></code></a>(attr)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.request_extended_state_attribute" title="isaaclab_newton.physics.NewtonKaminoManager.request_extended_state_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_state_attribute</span></code></a>(attr)</p></td>
 <td><p>Request an extended state attribute (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;body_qdd&quot;</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.reset" title="isaaclab_newton.physics.NewtonKaminoManager.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a>([soft])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.reset" title="isaaclab_newton.physics.NewtonKaminoManager.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a>([soft])</p></td>
 <td><p>Reset physics simulation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.safe_callback_invoke" title="isaaclab_newton.physics.NewtonKaminoManager.safe_callback_invoke"><code class="xref py py-obj docutils literal notranslate"><span class="pre">safe_callback_invoke</span></code></a>(fn, *args[, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.safe_callback_invoke" title="isaaclab_newton.physics.NewtonKaminoManager.safe_callback_invoke"><code class="xref py py-obj docutils literal notranslate"><span class="pre">safe_callback_invoke</span></code></a>(fn, *args[, ...])</p></td>
 <td><p>Invoke a callback, catching exceptions that would be swallowed by external event buses.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.set_builder" title="isaaclab_newton.physics.NewtonKaminoManager.set_builder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_builder</span></code></a>(builder)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.set_builder" title="isaaclab_newton.physics.NewtonKaminoManager.set_builder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_builder</span></code></a>(builder)</p></td>
 <td><p>Set the Newton model builder.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.set_decimation" title="isaaclab_newton.physics.NewtonKaminoManager.set_decimation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_decimation</span></code></a>(decimation)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.set_decimation" title="isaaclab_newton.physics.NewtonKaminoManager.set_decimation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_decimation</span></code></a>(decimation)</p></td>
 <td><p>Set the decimation count and re-capture the CUDA graph.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.start_simulation" title="isaaclab_newton.physics.NewtonKaminoManager.start_simulation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_simulation</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.start_simulation" title="isaaclab_newton.physics.NewtonKaminoManager.start_simulation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_simulation</span></code></a>()</p></td>
 <td><p>Start simulation by finalizing model and initializing state.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.stop" title="isaaclab_newton.physics.NewtonKaminoManager.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.stop" title="isaaclab_newton.physics.NewtonKaminoManager.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop</span></code></a>()</p></td>
 <td><p>Stop physics simulation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.sync_particles_to_usd" title="isaaclab_newton.physics.NewtonKaminoManager.sync_particles_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_particles_to_usd</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.sync_particles_to_usd" title="isaaclab_newton.physics.NewtonKaminoManager.sync_particles_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_particles_to_usd</span></code></a>()</p></td>
 <td><p>Write Newton particle positions to USD/Fabric for Kit viewport rendering.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.sync_transforms_to_usd" title="isaaclab_newton.physics.NewtonKaminoManager.sync_transforms_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_transforms_to_usd</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.sync_transforms_to_usd" title="isaaclab_newton.physics.NewtonKaminoManager.sync_transforms_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_transforms_to_usd</span></code></a>()</p></td>
 <td><p>Write Newton body_q to USD Fabric world matrices for Kit viewport / RTX rendering.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.update_visualization_state" title="isaaclab_newton.physics.NewtonKaminoManager.update_visualization_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_visualization_state</span></code></a>([scene_data_provider])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.update_visualization_state" title="isaaclab_newton.physics.NewtonKaminoManager.update_visualization_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_visualization_state</span></code></a>([scene_data_provider])</p></td>
 <td><p>Refresh visualization state for the active sim backend.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.wait_for_playing" title="isaaclab_newton.physics.NewtonKaminoManager.wait_for_playing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_for_playing</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonKaminoManager.wait_for_playing" title="isaaclab_newton.physics.NewtonKaminoManager.wait_for_playing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_for_playing</span></code></a>()</p></td>
 <td><p>Block until the timeline is playing.</p></td>
 </tr>
 </tbody>
@@ -6503,6 +6584,21 @@ index. Shape <code class="docutils literal notranslate"><span class="pre">(world
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonKaminoManager.provides_implicit_damping">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">provides_implicit_damping</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonKaminoManager.provides_implicit_damping" title="Link to this definition">#</a></dt>
+<dd><p>Whether this backend’s integrator has implicit numerical damping.</p>
+<p>With implicit damping (PhysX, OV-PhysX) a camera policy can infer velocity from a
+single frame. Without it (Newton’s symplectic integrator) the policy needs a temporal
+cue in the observation (e.g. frame stacking).</p>
+<p>The base default is <code class="docutils literal notranslate"><span class="pre">True</span></code>; backends without implicit damping override to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Whether the backend’s integrator has implicit numerical damping.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonKaminoManager.register_callback">
 <em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">register_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://trimesh.org/trimesh.typed.html#trimesh.typed.Callable" title="(in trimesh)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PhysicsEvent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrap_weak_ref</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CallbackHandle</span></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonKaminoManager.register_callback" title="Link to this definition">#</a></dt>
 <dd><p>Register a callback. Passes event to parent class.</p>
@@ -6815,52 +6911,55 @@ and steps with a single <code class="xref py py-class docutils literal notransla
 <tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.pre_render" title="isaaclab_newton.physics.NewtonMPMManager.pre_render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pre_render</span></code></a>()</p></td>
 <td><p>Flush deferred Fabric writes before cameras/visualizers read the scene.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.register_callback" title="isaaclab_newton.physics.NewtonMPMManager.register_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_callback</span></code></a>(callback, event[, order, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.provides_implicit_damping" title="isaaclab_newton.physics.NewtonMPMManager.provides_implicit_damping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">provides_implicit_damping</span></code></a>()</p></td>
+<td><p>Whether this backend's integrator has implicit numerical damping.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.register_callback" title="isaaclab_newton.physics.NewtonMPMManager.register_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_callback</span></code></a>(callback, event[, order, ...])</p></td>
 <td><p>Register a callback.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.register_particle_visual_prim" title="isaaclab_newton.physics.NewtonMPMManager.register_particle_visual_prim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_particle_visual_prim</span></code></a>(prim_path, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.register_particle_visual_prim" title="isaaclab_newton.physics.NewtonMPMManager.register_particle_visual_prim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_particle_visual_prim</span></code></a>(prim_path, ...)</p></td>
 <td><p>Register a <code class="docutils literal notranslate"><span class="pre">UsdGeom.Points</span></code> prim whose points mirror a slice of Newton's particle state.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.register_post_actuator_callback" title="isaaclab_newton.physics.NewtonMPMManager.register_post_actuator_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_post_actuator_callback</span></code></a>(callback)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.register_post_actuator_callback" title="isaaclab_newton.physics.NewtonMPMManager.register_post_actuator_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register_post_actuator_callback</span></code></a>(callback)</p></td>
 <td><p>Append a hook to the list invoked after the actuator step on every iteration.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.request_extended_contact_attribute" title="isaaclab_newton.physics.NewtonMPMManager.request_extended_contact_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_contact_attribute</span></code></a>(attr)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.request_extended_contact_attribute" title="isaaclab_newton.physics.NewtonMPMManager.request_extended_contact_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_contact_attribute</span></code></a>(attr)</p></td>
 <td><p>Request an extended contact attribute (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;force&quot;</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.request_extended_state_attribute" title="isaaclab_newton.physics.NewtonMPMManager.request_extended_state_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_state_attribute</span></code></a>(attr)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.request_extended_state_attribute" title="isaaclab_newton.physics.NewtonMPMManager.request_extended_state_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">request_extended_state_attribute</span></code></a>(attr)</p></td>
 <td><p>Request an extended state attribute (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;body_qdd&quot;</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.reset" title="isaaclab_newton.physics.NewtonMPMManager.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a>([soft])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.reset" title="isaaclab_newton.physics.NewtonMPMManager.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a>([soft])</p></td>
 <td><p>Reset physics simulation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.safe_callback_invoke" title="isaaclab_newton.physics.NewtonMPMManager.safe_callback_invoke"><code class="xref py py-obj docutils literal notranslate"><span class="pre">safe_callback_invoke</span></code></a>(fn, *args[, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.safe_callback_invoke" title="isaaclab_newton.physics.NewtonMPMManager.safe_callback_invoke"><code class="xref py py-obj docutils literal notranslate"><span class="pre">safe_callback_invoke</span></code></a>(fn, *args[, ...])</p></td>
 <td><p>Invoke a callback, catching exceptions that would be swallowed by external event buses.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.set_builder" title="isaaclab_newton.physics.NewtonMPMManager.set_builder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_builder</span></code></a>(builder)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.set_builder" title="isaaclab_newton.physics.NewtonMPMManager.set_builder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_builder</span></code></a>(builder)</p></td>
 <td><p>Set the Newton model builder.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.set_decimation" title="isaaclab_newton.physics.NewtonMPMManager.set_decimation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_decimation</span></code></a>(decimation)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.set_decimation" title="isaaclab_newton.physics.NewtonMPMManager.set_decimation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_decimation</span></code></a>(decimation)</p></td>
 <td><p>Set the decimation count and re-capture the CUDA graph.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.start_simulation" title="isaaclab_newton.physics.NewtonMPMManager.start_simulation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_simulation</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.start_simulation" title="isaaclab_newton.physics.NewtonMPMManager.start_simulation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_simulation</span></code></a>()</p></td>
 <td><p>Start simulation by finalizing model and initializing state.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.step" title="isaaclab_newton.physics.NewtonMPMManager.step"><code class="xref py py-obj docutils literal notranslate"><span class="pre">step</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.step" title="isaaclab_newton.physics.NewtonMPMManager.step"><code class="xref py py-obj docutils literal notranslate"><span class="pre">step</span></code></a>()</p></td>
 <td><p>Step the physics simulation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.stop" title="isaaclab_newton.physics.NewtonMPMManager.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.stop" title="isaaclab_newton.physics.NewtonMPMManager.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop</span></code></a>()</p></td>
 <td><p>Stop physics simulation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.sync_particles_to_usd" title="isaaclab_newton.physics.NewtonMPMManager.sync_particles_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_particles_to_usd</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.sync_particles_to_usd" title="isaaclab_newton.physics.NewtonMPMManager.sync_particles_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_particles_to_usd</span></code></a>()</p></td>
 <td><p>Write Newton particle positions to USD/Fabric for Kit viewport rendering.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.sync_transforms_to_usd" title="isaaclab_newton.physics.NewtonMPMManager.sync_transforms_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_transforms_to_usd</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.sync_transforms_to_usd" title="isaaclab_newton.physics.NewtonMPMManager.sync_transforms_to_usd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sync_transforms_to_usd</span></code></a>()</p></td>
 <td><p>Write Newton body_q to USD Fabric world matrices for Kit viewport / RTX rendering.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.update_visualization_state" title="isaaclab_newton.physics.NewtonMPMManager.update_visualization_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_visualization_state</span></code></a>([scene_data_provider])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.update_visualization_state" title="isaaclab_newton.physics.NewtonMPMManager.update_visualization_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_visualization_state</span></code></a>([scene_data_provider])</p></td>
 <td><p>Refresh visualization state for the active sim backend.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.wait_for_playing" title="isaaclab_newton.physics.NewtonMPMManager.wait_for_playing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_for_playing</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isaaclab_newton.physics.NewtonMPMManager.wait_for_playing" title="isaaclab_newton.physics.NewtonMPMManager.wait_for_playing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait_for_playing</span></code></a>()</p></td>
 <td><p>Block until the timeline is playing.</p></td>
 </tr>
 </tbody>
@@ -7274,6 +7373,21 @@ index. Shape <code class="docutils literal notranslate"><span class="pre">(world
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonMPMManager.provides_implicit_damping">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">provides_implicit_damping</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonMPMManager.provides_implicit_damping" title="Link to this definition">#</a></dt>
+<dd><p>Whether this backend’s integrator has implicit numerical damping.</p>
+<p>With implicit damping (PhysX, OV-PhysX) a camera policy can infer velocity from a
+single frame. Without it (Newton’s symplectic integrator) the policy needs a temporal
+cue in the observation (e.g. frame stacking).</p>
+<p>The base default is <code class="docutils literal notranslate"><span class="pre">True</span></code>; backends without implicit damping override to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Whether the backend’s integrator has implicit numerical damping.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="isaaclab_newton.physics.NewtonMPMManager.register_callback">
 <em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">register_callback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://trimesh.org/trimesh.typed.html#trimesh.typed.Callable" title="(in trimesh)"><span class="pre">Callable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PhysicsEvent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wrap_weak_ref</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CallbackHandle</span></span></span><a class="headerlink" href="#isaaclab_newton.physics.NewtonMPMManager.register_callback" title="Link to this definition">#</a></dt>
 <dd><p>Register a callback. Passes event to parent class.</p>
@@ -7536,6 +7650,7 @@ coordinate the sync explicitly.</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#physics-manager">Physics Manager</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager"><code class="docutils literal notranslate"><span class="pre">NewtonManager</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.provides_implicit_damping"><code class="docutils literal notranslate"><span class="pre">NewtonManager.provides_implicit_damping()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.initialize"><code class="docutils literal notranslate"><span class="pre">NewtonManager.initialize()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.reset"><code class="docutils literal notranslate"><span class="pre">NewtonManager.reset()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonManager.forward"><code class="docutils literal notranslate"><span class="pre">NewtonManager.forward()</span></code></a></li>
@@ -7784,6 +7899,7 @@ coordinate the sync explicitly.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMJWarpManager.pause"><code class="docutils literal notranslate"><span class="pre">NewtonMJWarpManager.pause()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMJWarpManager.play"><code class="docutils literal notranslate"><span class="pre">NewtonMJWarpManager.play()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMJWarpManager.pre_render"><code class="docutils literal notranslate"><span class="pre">NewtonMJWarpManager.pre_render()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMJWarpManager.provides_implicit_damping"><code class="docutils literal notranslate"><span class="pre">NewtonMJWarpManager.provides_implicit_damping()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMJWarpManager.register_callback"><code class="docutils literal notranslate"><span class="pre">NewtonMJWarpManager.register_callback()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMJWarpManager.register_particle_visual_prim"><code class="docutils literal notranslate"><span class="pre">NewtonMJWarpManager.register_particle_visual_prim()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMJWarpManager.register_post_actuator_callback"><code class="docutils literal notranslate"><span class="pre">NewtonMJWarpManager.register_post_actuator_callback()</span></code></a></li>
@@ -7841,6 +7957,7 @@ coordinate the sync explicitly.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonXPBDManager.pause"><code class="docutils literal notranslate"><span class="pre">NewtonXPBDManager.pause()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonXPBDManager.play"><code class="docutils literal notranslate"><span class="pre">NewtonXPBDManager.play()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonXPBDManager.pre_render"><code class="docutils literal notranslate"><span class="pre">NewtonXPBDManager.pre_render()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonXPBDManager.provides_implicit_damping"><code class="docutils literal notranslate"><span class="pre">NewtonXPBDManager.provides_implicit_damping()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonXPBDManager.register_callback"><code class="docutils literal notranslate"><span class="pre">NewtonXPBDManager.register_callback()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonXPBDManager.register_particle_visual_prim"><code class="docutils literal notranslate"><span class="pre">NewtonXPBDManager.register_particle_visual_prim()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonXPBDManager.register_post_actuator_callback"><code class="docutils literal notranslate"><span class="pre">NewtonXPBDManager.register_post_actuator_callback()</span></code></a></li>
@@ -7898,6 +8015,7 @@ coordinate the sync explicitly.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.pause"><code class="docutils literal notranslate"><span class="pre">NewtonFeatherstoneManager.pause()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.play"><code class="docutils literal notranslate"><span class="pre">NewtonFeatherstoneManager.play()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.pre_render"><code class="docutils literal notranslate"><span class="pre">NewtonFeatherstoneManager.pre_render()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.provides_implicit_damping"><code class="docutils literal notranslate"><span class="pre">NewtonFeatherstoneManager.provides_implicit_damping()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.register_callback"><code class="docutils literal notranslate"><span class="pre">NewtonFeatherstoneManager.register_callback()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.register_particle_visual_prim"><code class="docutils literal notranslate"><span class="pre">NewtonFeatherstoneManager.register_particle_visual_prim()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonFeatherstoneManager.register_post_actuator_callback"><code class="docutils literal notranslate"><span class="pre">NewtonFeatherstoneManager.register_post_actuator_callback()</span></code></a></li>
@@ -7956,6 +8074,7 @@ coordinate the sync explicitly.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonKaminoManager.pause"><code class="docutils literal notranslate"><span class="pre">NewtonKaminoManager.pause()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonKaminoManager.play"><code class="docutils literal notranslate"><span class="pre">NewtonKaminoManager.play()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonKaminoManager.pre_render"><code class="docutils literal notranslate"><span class="pre">NewtonKaminoManager.pre_render()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonKaminoManager.provides_implicit_damping"><code class="docutils literal notranslate"><span class="pre">NewtonKaminoManager.provides_implicit_damping()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonKaminoManager.register_callback"><code class="docutils literal notranslate"><span class="pre">NewtonKaminoManager.register_callback()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonKaminoManager.register_particle_visual_prim"><code class="docutils literal notranslate"><span class="pre">NewtonKaminoManager.register_particle_visual_prim()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonKaminoManager.register_post_actuator_callback"><code class="docutils literal notranslate"><span class="pre">NewtonKaminoManager.register_post_actuator_callback()</span></code></a></li>
@@ -8012,6 +8131,7 @@ coordinate the sync explicitly.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMPMManager.pause"><code class="docutils literal notranslate"><span class="pre">NewtonMPMManager.pause()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMPMManager.play"><code class="docutils literal notranslate"><span class="pre">NewtonMPMManager.play()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMPMManager.pre_render"><code class="docutils literal notranslate"><span class="pre">NewtonMPMManager.pre_render()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMPMManager.provides_implicit_damping"><code class="docutils literal notranslate"><span class="pre">NewtonMPMManager.provides_implicit_damping()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMPMManager.register_callback"><code class="docutils literal notranslate"><span class="pre">NewtonMPMManager.register_callback()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMPMManager.register_particle_visual_prim"><code class="docutils literal notranslate"><span class="pre">NewtonMPMManager.register_particle_visual_prim()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#isaaclab_newton.physics.NewtonMPMManager.register_post_actuator_callback"><code class="docutils literal notranslate"><span class="pre">NewtonMPMManager.register_post_actuator_callback()</span></code></a></li>
@@ -8065,7 +8185,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 23, 2026.
+  Last updated on Jun 24, 2026.
   <br/>
 </p>
   </div>

@@ -64,7 +64,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 23, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 24, 2026"/>
   </head>
   
   
@@ -936,13 +936,15 @@ are modified.</p>
         <span class="n">frame_stack</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of frames to stack along the channel dim.</span>
 
-<span class="sd">        ``-1`` (default) auto-resolves to ``2`` for the Newton + Warp combo and ``1`` otherwise.</span>
+<span class="sd">        ``-1`` (default) auto-resolves to ``2`` when the physics lacks damping and the render</span>
+<span class="sd">        carries no temporal cue, else ``1``; see</span>
+<span class="sd">        :meth:`~isaaclab_tasks.core.cartpole.cartpole_direct_camera_env.CartpoleCameraEnv._resolve_frame_stack_default`.</span>
 <span class="sd">        Set to ``1`` to force single-frame; set to ``N &gt; 1`` to force an explicit stack size.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="c1"># spaces: an image instead of the 4-dim joint-state vector</span>
-<span class="hll">        <span class="n">observation_space</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
-</span></pre></div>
+<span class="hll">
+</span>        <span class="c1"># spaces: an image instead of the 4-dim joint-state vector</span>
+        <span class="n">observation_space</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+</pre></div>
 </div>
 <p>If the user were to modify the width of the camera, i.e. <code class="docutils literal notranslate"><span class="pre">env.tiled_camera.width=128</span></code>, then the parameter
 <code class="docutils literal notranslate"><span class="pre">env.observation_space=[3,100,128]</span></code> must be updated and given as input as well.</p>
@@ -1514,7 +1516,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 23, 2026.
+  Last updated on Jun 24, 2026.
   <br/>
 </p>
   </div>

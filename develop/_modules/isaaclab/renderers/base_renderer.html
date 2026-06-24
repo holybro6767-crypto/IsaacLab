@@ -61,7 +61,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 23, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 24, 2026"/>
   </head>
   
   
@@ -701,6 +701,28 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">BaseRenderer</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Abstract base class for renderer implementations.&quot;&quot;&quot;</span>
 
+<div class="viewcode-block" id="BaseRenderer.provides_temporal_camera_data">
+<a class="viewcode-back" href="../../../source/api/lab/isaaclab.renderers.html#isaaclab.renderers.BaseRenderer.provides_temporal_camera_data">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">provides_temporal_camera_data</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Whether this renderer&#39;s ``data_type`` output carries temporal information.</span>
+
+<span class="sd">        Under a physics backend without implicit damping (e.g. Newton), a camera policy</span>
+<span class="sd">        needs a temporal cue to infer velocity. Renderers that accumulate frames over time</span>
+<span class="sd">        (temporal AA / DLSS) supply it; pure rasterizers and non-beauty AOVs do not.</span>
+
+<span class="sd">        The base default is ``False`` (assume no temporal information); renderer subclasses</span>
+<span class="sd">        override per output type.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data_type: The camera output type, e.g. ``&quot;rgb&quot;`` or ``&quot;depth&quot;``.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Whether the ``data_type`` output carries temporal information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
 <div class="viewcode-block" id="BaseRenderer.initialize">
 <a class="viewcode-back" href="../../../source/api/lab/isaaclab.renderers.html#isaaclab.renderers.BaseRenderer.initialize">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -908,7 +930,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 23, 2026.
+  Last updated on Jun 24, 2026.
   <br/>
 </p>
   </div>

@@ -61,7 +61,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 23, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 24, 2026"/>
   </head>
   
   
@@ -5250,6 +5250,8 @@
         <li><a href="source/api/lab/isaaclab.envs.mdp.html#isaaclab.envs.mdp.observations.image_features.params.data_type">(isaaclab.envs.mdp.observations.image_features parameter)</a>, <a href="source/api/lab/isaaclab.envs.mdp.html#isaaclab.envs.mdp.observations.image_features.params.data_type">[1]</a>
 </li>
         <li><a href="source/api/lab/isaaclab.envs.mdp.html#isaaclab.envs.mdp.observations.stacked_image.params.data_type">(isaaclab.envs.mdp.observations.stacked_image parameter)</a>, <a href="source/api/lab/isaaclab.envs.mdp.html#isaaclab.envs.mdp.observations.stacked_image.params.data_type">[1]</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.renderers.html#isaaclab.renderers.BaseRenderer.provides_temporal_camera_data.params.data_type">(isaaclab.renderers.BaseRenderer.provides_temporal_camera_data parameter)</a>, <a href="source/api/lab/isaaclab.renderers.html#isaaclab.renderers.BaseRenderer.provides_temporal_camera_data.params.data_type">[1]</a>
 </li>
       </ul></li>
       <li><a href="source/api/lab/isaaclab.sensors.html#isaaclab.sensors.CameraCfg.data_types">data_types (isaaclab.sensors.CameraCfg attribute)</a>
@@ -16492,8 +16494,6 @@
         <li><a href="source/api/lab_mimic/isaaclab_mimic.datagen.html#isaaclab_mimic.datagen.WaypointTrajectory.add_waypoint_sequence_for_target_pose.params.pose">(isaaclab_mimic.datagen.WaypointTrajectory.add_waypoint_sequence_for_target_pose parameter)</a>, <a href="source/api/lab_mimic/isaaclab_mimic.datagen.html#isaaclab_mimic.datagen.WaypointTrajectory.add_waypoint_sequence_for_target_pose.params.pose">[1]</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.math.interpolate_poses.params.pose_1">pose_1 (isaaclab.utils.math.interpolate_poses parameter)</a>, <a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.math.interpolate_poses.params.pose_1">[1]</a>
 </li>
       <li><a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.math.interpolate_poses.params.pose_2">pose_2 (isaaclab.utils.math.interpolate_poses parameter)</a>, <a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.math.interpolate_poses.params.pose_2">[1]</a>
@@ -16502,6 +16502,8 @@
 </li>
       <li><a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.math.pose_in_A_to_pose_in_B.params.pose_in_A">pose_in_A (isaaclab.utils.math.pose_in_A_to_pose_in_B parameter)</a>, <a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.math.pose_in_A_to_pose_in_B.params.pose_in_A">[1]</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.math.pose_in_A_to_pose_in_B">pose_in_A_to_pose_in_B() (in module isaaclab.utils.math)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.math.pose_inv">pose_inv() (in module isaaclab.utils.math)</a>
@@ -17066,6 +17068,28 @@
         <li><a href="source/api/lab/isaaclab.terrains.html#isaaclab.terrains.trimesh.mesh_terrains_cfg.MeshStarTerrainCfg.proportion">(isaaclab.terrains.trimesh.mesh_terrains_cfg.MeshStarTerrainCfg attribute)</a>
 </li>
       </ul></li>
+      <li><a href="source/api/lab_contrib/isaaclab_contrib.deformable.html#isaaclab_contrib.deformable.coupled_featherstone_vbd_manager.NewtonCoupledFeatherstoneVBDManager.provides_implicit_damping">provides_implicit_damping() (isaaclab_contrib.deformable.coupled_featherstone_vbd_manager.NewtonCoupledFeatherstoneVBDManager class method)</a>
+
+      <ul>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.deformable.html#isaaclab_contrib.deformable.coupled_mjwarp_vbd_manager.NewtonCoupledMJWarpVBDManager.provides_implicit_damping">(isaaclab_contrib.deformable.coupled_mjwarp_vbd_manager.NewtonCoupledMJWarpVBDManager class method)</a>
+</li>
+        <li><a href="source/api/lab_contrib/isaaclab_contrib.deformable.html#isaaclab_contrib.deformable.vbd_manager.NewtonVBDManager.provides_implicit_damping">(isaaclab_contrib.deformable.vbd_manager.NewtonVBDManager class method)</a>
+</li>
+        <li><a href="source/api/lab_newton/isaaclab_newton.physics.html#isaaclab_newton.physics.NewtonFeatherstoneManager.provides_implicit_damping">(isaaclab_newton.physics.NewtonFeatherstoneManager class method)</a>
+</li>
+        <li><a href="source/api/lab_newton/isaaclab_newton.physics.html#isaaclab_newton.physics.NewtonKaminoManager.provides_implicit_damping">(isaaclab_newton.physics.NewtonKaminoManager class method)</a>
+</li>
+        <li><a href="source/api/lab_newton/isaaclab_newton.physics.html#isaaclab_newton.physics.NewtonManager.provides_implicit_damping">(isaaclab_newton.physics.NewtonManager class method)</a>
+</li>
+        <li><a href="source/api/lab_newton/isaaclab_newton.physics.html#isaaclab_newton.physics.NewtonMJWarpManager.provides_implicit_damping">(isaaclab_newton.physics.NewtonMJWarpManager class method)</a>
+</li>
+        <li><a href="source/api/lab_newton/isaaclab_newton.physics.html#isaaclab_newton.physics.NewtonMPMManager.provides_implicit_damping">(isaaclab_newton.physics.NewtonMPMManager class method)</a>
+</li>
+        <li><a href="source/api/lab_newton/isaaclab_newton.physics.html#isaaclab_newton.physics.NewtonXPBDManager.provides_implicit_damping">(isaaclab_newton.physics.NewtonXPBDManager class method)</a>
+</li>
+      </ul></li>
+      <li><a href="source/api/lab/isaaclab.renderers.html#isaaclab.renderers.BaseRenderer.provides_temporal_camera_data">provides_temporal_camera_data() (isaaclab.renderers.BaseRenderer class method)</a>
+</li>
       <li><a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.warp.ProxyArray">ProxyArray (class in isaaclab.utils.warp)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.envs.mdp.html#isaaclab.envs.mdp.events.push_by_setting_velocity">push_by_setting_velocity() (in module isaaclab.envs.mdp.events)</a>
@@ -18126,6 +18150,50 @@
 </li>
       <li><a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.configclass.resolve_cfg_presets">resolve_cfg_presets() (in module isaaclab.utils.configclass)</a>
 </li>
+      <li><a href="source/api/lab/isaaclab.assets.html#isaaclab.assets.Articulation.resolve_class">resolve_class() (isaaclab.assets.Articulation class method)</a>
+
+      <ul>
+        <li><a href="source/api/lab/isaaclab.assets.html#isaaclab.assets.ArticulationData.resolve_class">(isaaclab.assets.ArticulationData class method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.assets.html#isaaclab.assets.DeformableObject.resolve_class">(isaaclab.assets.DeformableObject class method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.assets.html#isaaclab.assets.DeformableObjectData.resolve_class">(isaaclab.assets.DeformableObjectData class method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.assets.html#isaaclab.assets.RigidObject.resolve_class">(isaaclab.assets.RigidObject class method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.assets.html#isaaclab.assets.RigidObjectCollection.resolve_class">(isaaclab.assets.RigidObjectCollection class method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.assets.html#isaaclab.assets.RigidObjectCollectionData.resolve_class">(isaaclab.assets.RigidObjectCollectionData class method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.assets.html#isaaclab.assets.RigidObjectData.resolve_class">(isaaclab.assets.RigidObjectData class method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.sensors.html#isaaclab.sensors.ContactSensor.resolve_class">(isaaclab.sensors.ContactSensor class method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.sensors.html#isaaclab.sensors.ContactSensorData.resolve_class">(isaaclab.sensors.ContactSensorData class method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.sensors.html#isaaclab.sensors.FrameTransformer.resolve_class">(isaaclab.sensors.FrameTransformer class method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.sensors.html#isaaclab.sensors.FrameTransformerData.resolve_class">(isaaclab.sensors.FrameTransformerData class method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.sensors.html#isaaclab.sensors.Imu.resolve_class">(isaaclab.sensors.Imu class method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.sensors.html#isaaclab.sensors.JointWrenchSensor.resolve_class">(isaaclab.sensors.JointWrenchSensor class method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.sensors.html#isaaclab.sensors.JointWrenchSensorData.resolve_class">(isaaclab.sensors.JointWrenchSensorData class method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.sensors.html#isaaclab.sensors.MultiMeshRayCaster.resolve_class">(isaaclab.sensors.MultiMeshRayCaster class method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.sensors.html#isaaclab.sensors.MultiMeshRayCasterCamera.resolve_class">(isaaclab.sensors.MultiMeshRayCasterCamera class method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.sensors.html#isaaclab.sensors.Pva.resolve_class">(isaaclab.sensors.Pva class method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.sensors.html#isaaclab.sensors.PvaData.resolve_class">(isaaclab.sensors.PvaData class method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.sensors.html#isaaclab.sensors.RayCaster.resolve_class">(isaaclab.sensors.RayCaster class method)</a>
+</li>
+        <li><a href="source/api/lab/isaaclab.sensors.html#isaaclab.sensors.RayCasterCamera.resolve_class">(isaaclab.sensors.RayCasterCamera class method)</a>
+</li>
+      </ul></li>
       <li><a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.string.resolve_matching_names">resolve_matching_names() (in module isaaclab.utils.string)</a>
 </li>
       <li><a href="source/api/lab/isaaclab.utils.html#isaaclab.utils.string.resolve_matching_names_values">resolve_matching_names_values() (in module isaaclab.utils.string)</a>
@@ -18164,6 +18232,8 @@
         <li><a href="source/api/lab_physx/isaaclab_physx.sim.schemas.html#isaaclab_physx.sim.schemas.PhysxFixedTendonPropertiesCfg.rest_length">(isaaclab_physx.sim.schemas.PhysxFixedTendonPropertiesCfg attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/api/lab/isaaclab.sim.schemas.html#isaaclab.sim.schemas.CollisionBaseCfg.rest_offset">rest_offset (isaaclab.sim.schemas.CollisionBaseCfg attribute)</a>
 
       <ul>
@@ -18182,8 +18252,6 @@
         <li><a href="source/api/lab_physx/isaaclab_physx.sim.schemas.html#isaaclab_physx.sim.schemas.PhysxDeformableCollisionPropertiesCfg.rest_offset">(isaaclab_physx.sim.schemas.PhysxDeformableCollisionPropertiesCfg attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/api/lab/isaaclab.sim.spawners.html#isaaclab.sim.spawners.materials.RigidBodyMaterialCfg.restitution">restitution (isaaclab.sim.spawners.materials.RigidBodyMaterialCfg attribute)</a>
 
       <ul>
@@ -25614,7 +25682,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 23, 2026.
+  Last updated on Jun 24, 2026.
   <br/>
 </p>
   </div>

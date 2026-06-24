@@ -61,7 +61,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 23, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 24, 2026"/>
   </head>
   
   
@@ -3270,9 +3270,34 @@
         <span class="n">asset</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">scene</span><span class="p">[</span><span class="n">asset_cfg</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
 
         <span class="c1"># create the affected prim path</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">mesh_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
-            <span class="n">mesh_name</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">mesh_name</span>
-        <span class="n">mesh_prim_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">asset</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">prim_path</span><span class="si">}{</span><span class="n">mesh_name</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="c1"># note: Never match the articulation root prim. Authoring on the root (the SetInstanceable</span>
+        <span class="c1">#   and material binding below) invalidates the PhysX articulation view, crashing a later</span>
+        <span class="c1">#   at-play body-name resolution (root_view.shared_metatype becomes None). So we scope to</span>
+        <span class="c1">#   descendant visual prims, mirroring randomize_visual_texture_material.</span>
+        <span class="k">if</span> <span class="n">mesh_name</span><span class="p">:</span>
+            <span class="c1"># explicit mesh override</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">mesh_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">):</span>
+                <span class="n">mesh_name</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">mesh_name</span>
+            <span class="n">mesh_prim_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">asset</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">prim_path</span><span class="si">}{</span><span class="n">mesh_name</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># default: the configured bodies&#39; visual meshes</span>
+            <span class="n">body_names</span> <span class="o">=</span> <span class="n">asset_cfg</span><span class="o">.</span><span class="n">body_names</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">body_names</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">body_names_regex</span> <span class="o">=</span> <span class="n">body_names</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">body_names</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">body_names_regex</span> <span class="o">=</span> <span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">body_names</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">body_names_regex</span> <span class="o">=</span> <span class="s2">&quot;.*&quot;</span>
+            <span class="n">pattern_with_visuals</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">asset</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">prim_path</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">body_names_regex</span><span class="si">}</span><span class="s2">/visuals&quot;</span>
+            <span class="k">if</span> <span class="n">sim_utils</span><span class="o">.</span><span class="n">find_matching_prim_paths</span><span class="p">(</span><span class="n">pattern_with_visuals</span><span class="p">):</span>
+                <span class="n">mesh_prim_path</span> <span class="o">=</span> <span class="n">pattern_with_visuals</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># fall back to any descendant if the asset has no &quot;.../visuals&quot; layout</span>
+                <span class="n">mesh_prim_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">asset</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">prim_path</span><span class="si">}</span><span class="s2">/.*&quot;</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Pattern &#39;</span><span class="si">{</span><span class="n">pattern_with_visuals</span><span class="si">}</span><span class="s2">&#39; found no prims. Falling back to &#39;</span><span class="si">{</span><span class="n">mesh_prim_path</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+                    <span class="s2">&quot; for color randomization.&quot;</span>
+                <span class="p">)</span>
         <span class="c1"># TODO: Need to make it work for multiple meshes.</span>
 
         <span class="c1"># extract the replicator version</span>
@@ -3529,7 +3554,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 23, 2026.
+  Last updated on Jun 24, 2026.
   <br/>
 </p>
   </div>

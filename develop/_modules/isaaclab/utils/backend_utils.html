@@ -61,7 +61,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 23, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 24, 2026"/>
   </head>
   
   
@@ -772,8 +772,15 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return module path that hosts backend implementation for a given backend key.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;isaaclab_</span><span class="si">{</span><span class="n">backend</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="n">_module_subpath</span><span class="si">}</span><span class="s2">&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a new instance of an implementation based on the backend.&quot;&quot;&quot;</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">resolve_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resolve the concrete backend implementation class without instantiating it.</span>
+
+<span class="sd">        Selects the backend via :meth:`_get_backend`, lazily importing and registering the</span>
+<span class="sd">        implementation class on first use, and returns it. Takes the same arguments as the</span>
+<span class="sd">        constructor (the backend selector reads from them). Useful for querying class-level</span>
+<span class="sd">        behavior (e.g. capability classmethods) before a sim/instance exists.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">backend</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_get_backend</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">cls</span> <span class="o">==</span> <span class="n">FactoryBase</span><span class="p">:</span>
@@ -808,6 +815,11 @@
                 <span class="sa">f</span><span class="s2">&quot;A module was found at &#39;</span><span class="si">{</span><span class="n">module_name</span><span class="si">}</span><span class="s2">&#39;, but it did not contain a class with the name </span><span class="si">{</span><span class="n">class_name</span><span class="si">!r}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
                 <span class="sa">f</span><span class="s2">&quot;Currently available backends: </span><span class="si">{</span><span class="n">available</span><span class="si">}</span><span class="s2">.&quot;</span>
             <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="kc">None</span>
+        <span class="k">return</span> <span class="n">impl</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a new instance of an implementation based on the backend.&quot;&quot;&quot;</span>
+        <span class="n">impl</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">resolve_class</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="c1"># Return an instance of the chosen class.</span>
         <span class="k">return</span> <span class="n">impl</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -862,7 +874,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 23, 2026.
+  Last updated on Jun 24, 2026.
   <br/>
 </p>
   </div>
