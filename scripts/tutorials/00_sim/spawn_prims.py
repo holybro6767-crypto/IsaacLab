@@ -12,7 +12,7 @@
 
 """
 
-"""Launch Isaac Sim Simulator first."""
+"""Launch Isaac Sim Simulator first.""" #Tutorial 1
 
 
 import argparse
@@ -87,7 +87,7 @@ def design_scene():
 
 
 def main():
-    """Main function."""
+    """Main function.""" #Control and manage simulation, Tutorial 1
 
     # Initialize the simulation context
     sim_cfg = sim_utils.SimulationCfg(dt=0.01, device=args_cli.device)
