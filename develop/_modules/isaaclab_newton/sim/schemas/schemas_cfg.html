@@ -61,7 +61,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 24, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 25, 2026"/>
   </head>
   
   
@@ -692,6 +692,7 @@
     <span class="n">JointDriveBaseCfg</span><span class="p">,</span>
     <span class="n">MeshCollisionBaseCfg</span><span class="p">,</span>
     <span class="n">RigidBodyBaseCfg</span><span class="p">,</span>
+    <span class="n">RigidBodyFragment</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.sim.spawners.materials.physics_materials_cfg</span><span class="w"> </span><span class="kn">import</span> <span class="n">RigidBodyMaterialBaseCfg</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.utils.configclass</span><span class="w"> </span><span class="kn">import</span> <span class="n">configclass</span>
@@ -769,6 +770,31 @@
 <span class="sd">    Body-level gravcomp must be set for joint-level actuatorgravcomp to have any effect.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
+
+
+<span class="nd">@configclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MujocoRigidBodyCfg</span><span class="p">(</span><span class="n">RigidBodyFragment</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;``mjc:*`` rigid-body attributes for Newton&#39;s MuJoCo solver.</span>
+
+<span class="sd">    A single-namespace fragment (see :class:`~isaaclab.sim.schemas.SchemaFragment`) carrying</span>
+<span class="sd">    body-level gravity compensation. The ``mjc`` namespace has no applied schema; the</span>
+<span class="sd">    ``UsdPhysics.RigidBodyAPI`` anchor is applied by</span>
+<span class="sd">    :func:`~isaaclab.sim.schemas.apply_rigid_body_properties`.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        A ``newton:*`` rigid-body fragment is reserved but currently empty (Newton has no native</span>
+<span class="sd">        ``newton:`` rigid-body attributes today).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_usd_namespace</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;mjc&quot;</span>
+    <span class="n">_usd_applied_schema</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">gravcomp</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Gravity compensation scale for the body [dimensionless].</span>
+
+<span class="sd">    ``0.0`` = no compensation; ``1.0`` = full compensation. Written to ``mjc:gravcomp``. Body-level</span>
+<span class="sd">    gravcomp must be set for joint-level ``actuatorgravcomp`` to have any effect.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
 
 <div class="viewcode-block" id="NewtonJointDrivePropertiesCfg">
@@ -1074,7 +1100,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 24, 2026.
+  Last updated on Jun 25, 2026.
   <br/>
 </p>
   </div>

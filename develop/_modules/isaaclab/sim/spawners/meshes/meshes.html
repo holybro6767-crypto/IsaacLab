@@ -61,7 +61,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 24, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 25, 2026"/>
   </head>
   
   
@@ -1140,8 +1140,12 @@
         <span class="c1"># apply mass properties</span>
         <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">mass_props</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">schemas</span><span class="o">.</span><span class="n">define_mass_properties</span><span class="p">(</span><span class="n">prim_path</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">mass_props</span><span class="p">,</span> <span class="n">stage</span><span class="o">=</span><span class="n">stage</span><span class="p">)</span>
-        <span class="c1"># apply rigid properties</span>
-        <span class="n">schemas</span><span class="o">.</span><span class="n">define_rigid_body_properties</span><span class="p">(</span><span class="n">prim_path</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">rigid_props</span><span class="p">,</span> <span class="n">stage</span><span class="o">=</span><span class="n">stage</span><span class="p">)</span>
+        <span class="c1"># apply rigid properties (transition shim, remove later: fragment list -&gt; apply_*; legacy cfg -&gt; define_*)</span>
+        <span class="n">rigid_frags</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">rigid_props</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">rigid_props</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))</span> <span class="k">else</span> <span class="p">[</span><span class="n">cfg</span><span class="o">.</span><span class="n">rigid_props</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">rigid_frags</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">schemas</span><span class="o">.</span><span class="n">SchemaFragment</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">rigid_frags</span><span class="p">):</span>
+            <span class="n">schemas</span><span class="o">.</span><span class="n">apply_rigid_body_properties</span><span class="p">(</span><span class="n">prim_path</span><span class="p">,</span> <span class="n">rigid_frags</span><span class="p">,</span> <span class="n">stage</span><span class="o">=</span><span class="n">stage</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">schemas</span><span class="o">.</span><span class="n">define_rigid_body_properties</span><span class="p">(</span><span class="n">prim_path</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">rigid_props</span><span class="p">,</span> <span class="n">stage</span><span class="o">=</span><span class="n">stage</span><span class="p">)</span>
 </pre></div>
 
                 </article>
@@ -1189,7 +1193,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 24, 2026.
+  Last updated on Jun 25, 2026.
   <br/>
 </p>
   </div>

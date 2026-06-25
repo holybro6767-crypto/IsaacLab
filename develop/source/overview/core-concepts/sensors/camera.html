@@ -64,7 +64,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 24, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 25, 2026"/>
   </head>
   
   
@@ -743,7 +743,10 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tiled-rendering">Tiled Rendering</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cameracfg-with-renderer-cfg">CameraCfg with renderer_cfg</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-camera-data">Accessing camera data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#annotators-rtx-only">Annotators (RTX only)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#annotators">Annotators</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-annotators-by-renderer-backend">Supported annotators by renderer backend</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rgb-and-rgba">RGB and RGBA</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#post-render-camera-isp">Post-render Camera ISP</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ppisp">PPISP</a></li>
@@ -808,24 +811,24 @@ these scaling challenges by batching all cameras into a single render pass.</p>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">IsaacRtxRendererCfg</span></code> <em>(default)</em></p></td>
 <td><p>Yes</p></td>
-<td><p>rgb, rgba, depth, normals, motion vectors, semantic/instance segmentation, and all other annotators</p></td>
+<td><p>All annotators (rgb, rgba, depth, distances, normals, motion vectors, semantic/instance segmentation)</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NewtonWarpRendererCfg</span></code></p></td>
 <td><p>No (kit-less)</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">rgb</span></code>, <code class="docutils literal notranslate"><span class="pre">depth</span></code> only</p></td>
+<td><p>rgb, rgba, rgb_hdr, depth, normals, instance segmentation</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVRTXRendererCfg</span></code></p></td>
 <td><p>No (+ <code class="docutils literal notranslate"><span class="pre">isaaclab_ov</span></code>)</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">rgb</span></code>, <code class="docutils literal notranslate"><span class="pre">depth</span></code> only</p></td>
+<td><p>rgb, rgba, rgb_hdr, depth, distances, semantic segmentation</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The Newton Warp renderer currently supports only <strong>``rgb``</strong> and <strong>``depth``</strong> data types.
-Annotators such as segmentation, normals, and motion vectors are Isaac RTX-specific features and
-require <code class="xref py py-class docutils literal notranslate"><span class="pre">IsaacRtxRendererCfg</span></code>.</p>
+<p>Backends differ in which annotators they produce. See
+<a class="reference internal" href="#camera-supported-annotators"><span class="std std-ref">the support matrix</span></a> below for the
+per-annotator breakdown across the Isaac RTX, OVRTX, and Newton Warp renderers.</p>
 </div>
 <section id="tiled-rendering">
 <h3>Tiled Rendering<a class="headerlink" href="#tiled-rendering" title="Link to this heading">#</a></h3>
@@ -931,19 +934,14 @@ as an observation in RL training.</p>
 </pre></div>
 </div>
 </section>
-<section id="annotators-rtx-only">
-<h3>Annotators (RTX only)<a class="headerlink" href="#annotators-rtx-only" title="Link to this heading">#</a></h3>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Annotators are a feature of the <strong>Isaac RTX renderer</strong> (<code class="docutils literal notranslate"><span class="pre">IsaacRtxRendererCfg</span></code>).
-They are <strong>not</strong> available with the Newton Warp renderer or ovrtx, which
-support only <code class="docutils literal notranslate"><span class="pre">rgb</span></code> and <code class="docutils literal notranslate"><span class="pre">depth</span></code>.</p>
-</div>
-<p><a class="reference internal" href="../../../api/lab/isaaclab.sensors.html#isaaclab.sensors.Camera" title="isaaclab.sensors.Camera"><code class="xref py py-class docutils literal notranslate"><span class="pre">Camera</span></code></a> exposes the following annotator
-data types when using the RTX renderer:</p>
+<section id="annotators">
+<h3>Annotators<a class="headerlink" href="#annotators" title="Link to this heading">#</a></h3>
+<p><a class="reference internal" href="../../../api/lab/isaaclab.sensors.html#isaaclab.sensors.Camera" title="isaaclab.sensors.Camera"><code class="xref py py-class docutils literal notranslate"><span class="pre">Camera</span></code></a> exposes the following annotator data types. Not every
+backend produces every annotator — see the support matrix below.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;rgb&quot;</span></code>: A 3-channel rendered color image.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;rgba&quot;</span></code>: A 4-channel rendered color image with alpha channel.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;rgb_hdr&quot;</span></code>: A 3-channel scene-linear HDR color image.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;distance_to_camera&quot;</span></code>: Distance to the camera optical center per pixel.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;distance_to_image_plane&quot;</span></code>: Distance along the camera’s Z-axis per pixel.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;depth&quot;</span></code>: Alias for <code class="docutils literal notranslate"><span class="pre">&quot;distance_to_image_plane&quot;</span></code>.</p></li>
@@ -953,6 +951,86 @@ data types when using the RTX renderer:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;instance_segmentation_fast&quot;</span></code>: Instance segmentation data.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;instance_id_segmentation_fast&quot;</span></code>: Instance ID segmentation data.</p></li>
 </ul>
+<section id="supported-annotators-by-renderer-backend">
+<span id="camera-supported-annotators"></span><h4>Supported annotators by renderer backend<a class="headerlink" href="#supported-annotators-by-renderer-backend" title="Link to this heading">#</a></h4>
+<p>The following matrix shows which annotators each renderer backend can produce.
+<code class="docutils literal notranslate"><span class="pre">Isaac</span> <span class="pre">RTX</span></code> is <code class="xref py py-class docutils literal notranslate"><span class="pre">IsaacRtxRendererCfg</span></code>, <code class="docutils literal notranslate"><span class="pre">OVRTX</span></code>
+is <code class="xref py py-class docutils literal notranslate"><span class="pre">OVRTXRendererCfg</span></code>, and <code class="docutils literal notranslate"><span class="pre">Newton</span> <span class="pre">Warp</span></code> is
+<code class="xref py py-class docutils literal notranslate"><span class="pre">NewtonWarpRendererCfg</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+<col style="width: 20.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data type</p></th>
+<th class="head"><p>Isaac RTX</p></th>
+<th class="head"><p>OVRTX</p></th>
+<th class="head"><p>Newton Warp</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rgb</span></code></p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rgba</span></code></p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rgb_hdr</span></code></p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">distance_to_camera</span></code></p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+<td><p>❌</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">distance_to_image_plane</span></code></p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+<td><p>❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">depth</span></code></p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">normals</span></code></p></td>
+<td><p>✅</p></td>
+<td><p>❌</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">motion_vectors</span></code></p></td>
+<td><p>✅</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">semantic_segmentation</span></code></p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+<td><p>❌</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">instance_segmentation_fast</span></code></p></td>
+<td><p>✅</p></td>
+<td><p>❌</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">instance_id_segmentation_fast</span></code></p></td>
+<td><p>✅</p></td>
+<td><p>❌</p></td>
+<td><p>❌</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
 </section>
 <section id="rgb-and-rgba">
 <h3>RGB and RGBA<a class="headerlink" href="#rgb-and-rgba" title="Link to this heading">#</a></h3>
@@ -1224,7 +1302,10 @@ semantic label.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tiled-rendering">Tiled Rendering</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cameracfg-with-renderer-cfg">CameraCfg with renderer_cfg</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-camera-data">Accessing camera data</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#annotators-rtx-only">Annotators (RTX only)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#annotators">Annotators</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-annotators-by-renderer-backend">Supported annotators by renderer backend</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rgb-and-rgba">RGB and RGBA</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#post-render-camera-isp">Post-render Camera ISP</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#ppisp">PPISP</a></li>
@@ -1276,7 +1357,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 24, 2026.
+  Last updated on Jun 25, 2026.
   <br/>
 </p>
   </div>

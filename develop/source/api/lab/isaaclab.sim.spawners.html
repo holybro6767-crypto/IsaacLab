@@ -66,7 +66,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 24, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 25, 2026"/>
   </head>
   
   
@@ -1621,10 +1621,16 @@ the source prim, i.e. all USD changes to the source prim will be reflected in th
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isaaclab.sim.spawners.RigidObjectSpawnerCfg.rigid_props">
-<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.RigidObjectSpawnerCfg.rigid_props" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">schemas.RigidBodyFragment</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">schemas.RigidBodyFragment</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.RigidObjectSpawnerCfg.rigid_props" title="Link to this definition">#</a></dt>
 <dd><p>Rigid body properties.</p>
+<p>Accepts either a single legacy cfg (e.g. <a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyBaseCfg</span></code></a>) or a
+list of <code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyFragment</span></code> fragments
+(e.g. <code class="docutils literal notranslate"><span class="pre">[UsdPhysicsRigidBodyCfg(...),</span> <span class="pre">PhysxRigidBodyCfg(...)]</span></code>). When a fragment list is given,
+<code class="docutils literal notranslate"><span class="pre">UsdPhysics.RigidBodyAPI</span></code> is applied as the implicit anchor and each fragment writes its own
+namespace.</p>
 <p>For making a rigid object static, set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">schemas.RigidBodyBaseCfg.kinematic_enabled</span></code>
-as True. This will make the object static and will not be affected by gravity or other forces.</p>
+(or <code class="xref py py-attr docutils literal notranslate"><span class="pre">kinematic_enabled</span></code>) as True. This will
+make the object static and will not be affected by gravity or other forces.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -1906,10 +1912,16 @@ the source prim, i.e. all USD changes to the source prim will be reflected in th
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isaaclab.sim.spawners.shapes.ShapeCfg.rigid_props">
-<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.shapes.ShapeCfg.rigid_props" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">schemas.RigidBodyFragment</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">schemas.RigidBodyFragment</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.shapes.ShapeCfg.rigid_props" title="Link to this definition">#</a></dt>
 <dd><p>Rigid body properties.</p>
+<p>Accepts either a single legacy cfg (e.g. <a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyBaseCfg</span></code></a>) or a
+list of <code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyFragment</span></code> fragments
+(e.g. <code class="docutils literal notranslate"><span class="pre">[UsdPhysicsRigidBodyCfg(...),</span> <span class="pre">PhysxRigidBodyCfg(...)]</span></code>). When a fragment list is given,
+<code class="docutils literal notranslate"><span class="pre">UsdPhysics.RigidBodyAPI</span></code> is applied as the implicit anchor and each fragment writes its own
+namespace.</p>
 <p>For making a rigid object static, set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">schemas.RigidBodyBaseCfg.kinematic_enabled</span></code>
-as True. This will make the object static and will not be affected by gravity or other forces.</p>
+(or <code class="xref py py-attr docutils literal notranslate"><span class="pre">kinematic_enabled</span></code>) as True. This will
+make the object static and will not be affected by gravity or other forces.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -2063,10 +2075,16 @@ the source prim, i.e. all USD changes to the source prim will be reflected in th
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isaaclab.sim.spawners.shapes.CapsuleCfg.rigid_props">
-<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.shapes.CapsuleCfg.rigid_props" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">schemas.RigidBodyFragment</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">schemas.RigidBodyFragment</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.shapes.CapsuleCfg.rigid_props" title="Link to this definition">#</a></dt>
 <dd><p>Rigid body properties.</p>
+<p>Accepts either a single legacy cfg (e.g. <a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyBaseCfg</span></code></a>) or a
+list of <code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyFragment</span></code> fragments
+(e.g. <code class="docutils literal notranslate"><span class="pre">[UsdPhysicsRigidBodyCfg(...),</span> <span class="pre">PhysxRigidBodyCfg(...)]</span></code>). When a fragment list is given,
+<code class="docutils literal notranslate"><span class="pre">UsdPhysics.RigidBodyAPI</span></code> is applied as the implicit anchor and each fragment writes its own
+namespace.</p>
 <p>For making a rigid object static, set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">schemas.RigidBodyBaseCfg.kinematic_enabled</span></code>
-as True. This will make the object static and will not be affected by gravity or other forces.</p>
+(or <code class="xref py py-attr docutils literal notranslate"><span class="pre">kinematic_enabled</span></code>) as True. This will
+make the object static and will not be affected by gravity or other forces.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -2274,10 +2292,16 @@ the source prim, i.e. all USD changes to the source prim will be reflected in th
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isaaclab.sim.spawners.shapes.ConeCfg.rigid_props">
-<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.shapes.ConeCfg.rigid_props" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">schemas.RigidBodyFragment</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">schemas.RigidBodyFragment</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.shapes.ConeCfg.rigid_props" title="Link to this definition">#</a></dt>
 <dd><p>Rigid body properties.</p>
+<p>Accepts either a single legacy cfg (e.g. <a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyBaseCfg</span></code></a>) or a
+list of <code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyFragment</span></code> fragments
+(e.g. <code class="docutils literal notranslate"><span class="pre">[UsdPhysicsRigidBodyCfg(...),</span> <span class="pre">PhysxRigidBodyCfg(...)]</span></code>). When a fragment list is given,
+<code class="docutils literal notranslate"><span class="pre">UsdPhysics.RigidBodyAPI</span></code> is applied as the implicit anchor and each fragment writes its own
+namespace.</p>
 <p>For making a rigid object static, set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">schemas.RigidBodyBaseCfg.kinematic_enabled</span></code>
-as True. This will make the object static and will not be affected by gravity or other forces.</p>
+(or <code class="xref py py-attr docutils literal notranslate"><span class="pre">kinematic_enabled</span></code>) as True. This will
+make the object static and will not be affected by gravity or other forces.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -2490,10 +2514,16 @@ the source prim, i.e. all USD changes to the source prim will be reflected in th
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isaaclab.sim.spawners.shapes.CuboidCfg.rigid_props">
-<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.shapes.CuboidCfg.rigid_props" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">schemas.RigidBodyFragment</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">schemas.RigidBodyFragment</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.shapes.CuboidCfg.rigid_props" title="Link to this definition">#</a></dt>
 <dd><p>Rigid body properties.</p>
+<p>Accepts either a single legacy cfg (e.g. <a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyBaseCfg</span></code></a>) or a
+list of <code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyFragment</span></code> fragments
+(e.g. <code class="docutils literal notranslate"><span class="pre">[UsdPhysicsRigidBodyCfg(...),</span> <span class="pre">PhysxRigidBodyCfg(...)]</span></code>). When a fragment list is given,
+<code class="docutils literal notranslate"><span class="pre">UsdPhysics.RigidBodyAPI</span></code> is applied as the implicit anchor and each fragment writes its own
+namespace.</p>
 <p>For making a rigid object static, set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">schemas.RigidBodyBaseCfg.kinematic_enabled</span></code>
-as True. This will make the object static and will not be affected by gravity or other forces.</p>
+(or <code class="xref py py-attr docutils literal notranslate"><span class="pre">kinematic_enabled</span></code>) as True. This will
+make the object static and will not be affected by gravity or other forces.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -2701,10 +2731,16 @@ the source prim, i.e. all USD changes to the source prim will be reflected in th
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isaaclab.sim.spawners.shapes.CylinderCfg.rigid_props">
-<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.shapes.CylinderCfg.rigid_props" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">schemas.RigidBodyFragment</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">schemas.RigidBodyFragment</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.shapes.CylinderCfg.rigid_props" title="Link to this definition">#</a></dt>
 <dd><p>Rigid body properties.</p>
+<p>Accepts either a single legacy cfg (e.g. <a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyBaseCfg</span></code></a>) or a
+list of <code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyFragment</span></code> fragments
+(e.g. <code class="docutils literal notranslate"><span class="pre">[UsdPhysicsRigidBodyCfg(...),</span> <span class="pre">PhysxRigidBodyCfg(...)]</span></code>). When a fragment list is given,
+<code class="docutils literal notranslate"><span class="pre">UsdPhysics.RigidBodyAPI</span></code> is applied as the implicit anchor and each fragment writes its own
+namespace.</p>
 <p>For making a rigid object static, set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">schemas.RigidBodyBaseCfg.kinematic_enabled</span></code>
-as True. This will make the object static and will not be affected by gravity or other forces.</p>
+(or <code class="xref py py-attr docutils literal notranslate"><span class="pre">kinematic_enabled</span></code>) as True. This will
+make the object static and will not be affected by gravity or other forces.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -2894,10 +2930,16 @@ the source prim, i.e. all USD changes to the source prim will be reflected in th
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isaaclab.sim.spawners.shapes.SphereCfg.rigid_props">
-<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.shapes.SphereCfg.rigid_props" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">schemas.RigidBodyFragment</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">schemas.RigidBodyFragment</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.shapes.SphereCfg.rigid_props" title="Link to this definition">#</a></dt>
 <dd><p>Rigid body properties.</p>
+<p>Accepts either a single legacy cfg (e.g. <a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyBaseCfg</span></code></a>) or a
+list of <code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyFragment</span></code> fragments
+(e.g. <code class="docutils literal notranslate"><span class="pre">[UsdPhysicsRigidBodyCfg(...),</span> <span class="pre">PhysxRigidBodyCfg(...)]</span></code>). When a fragment list is given,
+<code class="docutils literal notranslate"><span class="pre">UsdPhysics.RigidBodyAPI</span></code> is applied as the implicit anchor and each fragment writes its own
+namespace.</p>
 <p>For making a rigid object static, set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">schemas.RigidBodyBaseCfg.kinematic_enabled</span></code>
-as True. This will make the object static and will not be affected by gravity or other forces.</p>
+(or <code class="xref py py-attr docutils literal notranslate"><span class="pre">kinematic_enabled</span></code>) as True. This will
+make the object static and will not be affected by gravity or other forces.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -3147,10 +3189,16 @@ the source prim, i.e. all USD changes to the source prim will be reflected in th
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isaaclab.sim.spawners.meshes.MeshCfg.rigid_props">
-<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.meshes.MeshCfg.rigid_props" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">schemas.RigidBodyFragment</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">schemas.RigidBodyFragment</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.meshes.MeshCfg.rigid_props" title="Link to this definition">#</a></dt>
 <dd><p>Rigid body properties.</p>
+<p>Accepts either a single legacy cfg (e.g. <a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyBaseCfg</span></code></a>) or a
+list of <code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyFragment</span></code> fragments
+(e.g. <code class="docutils literal notranslate"><span class="pre">[UsdPhysicsRigidBodyCfg(...),</span> <span class="pre">PhysxRigidBodyCfg(...)]</span></code>). When a fragment list is given,
+<code class="docutils literal notranslate"><span class="pre">UsdPhysics.RigidBodyAPI</span></code> is applied as the implicit anchor and each fragment writes its own
+namespace.</p>
 <p>For making a rigid object static, set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">schemas.RigidBodyBaseCfg.kinematic_enabled</span></code>
-as True. This will make the object static and will not be affected by gravity or other forces.</p>
+(or <code class="xref py py-attr docutils literal notranslate"><span class="pre">kinematic_enabled</span></code>) as True. This will
+make the object static and will not be affected by gravity or other forces.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -3318,10 +3366,16 @@ the source prim, i.e. all USD changes to the source prim will be reflected in th
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isaaclab.sim.spawners.meshes.MeshCapsuleCfg.rigid_props">
-<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.meshes.MeshCapsuleCfg.rigid_props" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">schemas.RigidBodyFragment</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">schemas.RigidBodyFragment</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.meshes.MeshCapsuleCfg.rigid_props" title="Link to this definition">#</a></dt>
 <dd><p>Rigid body properties.</p>
+<p>Accepts either a single legacy cfg (e.g. <a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyBaseCfg</span></code></a>) or a
+list of <code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyFragment</span></code> fragments
+(e.g. <code class="docutils literal notranslate"><span class="pre">[UsdPhysicsRigidBodyCfg(...),</span> <span class="pre">PhysxRigidBodyCfg(...)]</span></code>). When a fragment list is given,
+<code class="docutils literal notranslate"><span class="pre">UsdPhysics.RigidBodyAPI</span></code> is applied as the implicit anchor and each fragment writes its own
+namespace.</p>
 <p>For making a rigid object static, set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">schemas.RigidBodyBaseCfg.kinematic_enabled</span></code>
-as True. This will make the object static and will not be affected by gravity or other forces.</p>
+(or <code class="xref py py-attr docutils literal notranslate"><span class="pre">kinematic_enabled</span></code>) as True. This will
+make the object static and will not be affected by gravity or other forces.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -3531,10 +3585,16 @@ the source prim, i.e. all USD changes to the source prim will be reflected in th
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isaaclab.sim.spawners.meshes.MeshConeCfg.rigid_props">
-<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.meshes.MeshConeCfg.rigid_props" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">schemas.RigidBodyFragment</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">schemas.RigidBodyFragment</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.meshes.MeshConeCfg.rigid_props" title="Link to this definition">#</a></dt>
 <dd><p>Rigid body properties.</p>
+<p>Accepts either a single legacy cfg (e.g. <a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyBaseCfg</span></code></a>) or a
+list of <code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyFragment</span></code> fragments
+(e.g. <code class="docutils literal notranslate"><span class="pre">[UsdPhysicsRigidBodyCfg(...),</span> <span class="pre">PhysxRigidBodyCfg(...)]</span></code>). When a fragment list is given,
+<code class="docutils literal notranslate"><span class="pre">UsdPhysics.RigidBodyAPI</span></code> is applied as the implicit anchor and each fragment writes its own
+namespace.</p>
 <p>For making a rigid object static, set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">schemas.RigidBodyBaseCfg.kinematic_enabled</span></code>
-as True. This will make the object static and will not be affected by gravity or other forces.</p>
+(or <code class="xref py py-attr docutils literal notranslate"><span class="pre">kinematic_enabled</span></code>) as True. This will
+make the object static and will not be affected by gravity or other forces.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -3750,10 +3810,16 @@ the source prim, i.e. all USD changes to the source prim will be reflected in th
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isaaclab.sim.spawners.meshes.MeshCuboidCfg.rigid_props">
-<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.meshes.MeshCuboidCfg.rigid_props" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">schemas.RigidBodyFragment</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">schemas.RigidBodyFragment</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.meshes.MeshCuboidCfg.rigid_props" title="Link to this definition">#</a></dt>
 <dd><p>Rigid body properties.</p>
+<p>Accepts either a single legacy cfg (e.g. <a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyBaseCfg</span></code></a>) or a
+list of <code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyFragment</span></code> fragments
+(e.g. <code class="docutils literal notranslate"><span class="pre">[UsdPhysicsRigidBodyCfg(...),</span> <span class="pre">PhysxRigidBodyCfg(...)]</span></code>). When a fragment list is given,
+<code class="docutils literal notranslate"><span class="pre">UsdPhysics.RigidBodyAPI</span></code> is applied as the implicit anchor and each fragment writes its own
+namespace.</p>
 <p>For making a rigid object static, set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">schemas.RigidBodyBaseCfg.kinematic_enabled</span></code>
-as True. This will make the object static and will not be affected by gravity or other forces.</p>
+(or <code class="xref py py-attr docutils literal notranslate"><span class="pre">kinematic_enabled</span></code>) as True. This will
+make the object static and will not be affected by gravity or other forces.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -3969,10 +4035,16 @@ the source prim, i.e. all USD changes to the source prim will be reflected in th
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isaaclab.sim.spawners.meshes.MeshCylinderCfg.rigid_props">
-<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.meshes.MeshCylinderCfg.rigid_props" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">schemas.RigidBodyFragment</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">schemas.RigidBodyFragment</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.meshes.MeshCylinderCfg.rigid_props" title="Link to this definition">#</a></dt>
 <dd><p>Rigid body properties.</p>
+<p>Accepts either a single legacy cfg (e.g. <a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyBaseCfg</span></code></a>) or a
+list of <code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyFragment</span></code> fragments
+(e.g. <code class="docutils literal notranslate"><span class="pre">[UsdPhysicsRigidBodyCfg(...),</span> <span class="pre">PhysxRigidBodyCfg(...)]</span></code>). When a fragment list is given,
+<code class="docutils literal notranslate"><span class="pre">UsdPhysics.RigidBodyAPI</span></code> is applied as the implicit anchor and each fragment writes its own
+namespace.</p>
 <p>For making a rigid object static, set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">schemas.RigidBodyBaseCfg.kinematic_enabled</span></code>
-as True. This will make the object static and will not be affected by gravity or other forces.</p>
+(or <code class="xref py py-attr docutils literal notranslate"><span class="pre">kinematic_enabled</span></code>) as True. This will
+make the object static and will not be affected by gravity or other forces.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -4167,10 +4239,16 @@ the source prim, i.e. all USD changes to the source prim will be reflected in th
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isaaclab.sim.spawners.meshes.MeshRectangleCfg.rigid_props">
-<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.meshes.MeshRectangleCfg.rigid_props" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">schemas.RigidBodyFragment</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">schemas.RigidBodyFragment</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.meshes.MeshRectangleCfg.rigid_props" title="Link to this definition">#</a></dt>
 <dd><p>Rigid body properties.</p>
+<p>Accepts either a single legacy cfg (e.g. <a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyBaseCfg</span></code></a>) or a
+list of <code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyFragment</span></code> fragments
+(e.g. <code class="docutils literal notranslate"><span class="pre">[UsdPhysicsRigidBodyCfg(...),</span> <span class="pre">PhysxRigidBodyCfg(...)]</span></code>). When a fragment list is given,
+<code class="docutils literal notranslate"><span class="pre">UsdPhysics.RigidBodyAPI</span></code> is applied as the implicit anchor and each fragment writes its own
+namespace.</p>
 <p>For making a rigid object static, set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">schemas.RigidBodyBaseCfg.kinematic_enabled</span></code>
-as True. This will make the object static and will not be affected by gravity or other forces.</p>
+(or <code class="xref py py-attr docutils literal notranslate"><span class="pre">kinematic_enabled</span></code>) as True. This will
+make the object static and will not be affected by gravity or other forces.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -4380,10 +4458,16 @@ the source prim, i.e. all USD changes to the source prim will be reflected in th
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isaaclab.sim.spawners.meshes.MeshSphereCfg.rigid_props">
-<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.meshes.MeshSphereCfg.rigid_props" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">schemas.RigidBodyFragment</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">schemas.RigidBodyFragment</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.meshes.MeshSphereCfg.rigid_props" title="Link to this definition">#</a></dt>
 <dd><p>Rigid body properties.</p>
+<p>Accepts either a single legacy cfg (e.g. <a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyBaseCfg</span></code></a>) or a
+list of <code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyFragment</span></code> fragments
+(e.g. <code class="docutils literal notranslate"><span class="pre">[UsdPhysicsRigidBodyCfg(...),</span> <span class="pre">PhysxRigidBodyCfg(...)]</span></code>). When a fragment list is given,
+<code class="docutils literal notranslate"><span class="pre">UsdPhysics.RigidBodyAPI</span></code> is applied as the implicit anchor and each fragment writes its own
+namespace.</p>
 <p>For making a rigid object static, set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">schemas.RigidBodyBaseCfg.kinematic_enabled</span></code>
-as True. This will make the object static and will not be affected by gravity or other forces.</p>
+(or <code class="xref py py-attr docutils literal notranslate"><span class="pre">kinematic_enabled</span></code>) as True. This will
+make the object static and will not be affected by gravity or other forces.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -6446,10 +6530,16 @@ the source prim, i.e. all USD changes to the source prim will be reflected in th
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isaaclab.sim.spawners.from_files.UrdfFileCfg.rigid_props">
-<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.from_files.UrdfFileCfg.rigid_props" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">schemas.RigidBodyFragment</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">schemas.RigidBodyFragment</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.from_files.UrdfFileCfg.rigid_props" title="Link to this definition">#</a></dt>
 <dd><p>Rigid body properties.</p>
+<p>Accepts either a single legacy cfg (e.g. <a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyBaseCfg</span></code></a>) or a
+list of <code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyFragment</span></code> fragments
+(e.g. <code class="docutils literal notranslate"><span class="pre">[UsdPhysicsRigidBodyCfg(...),</span> <span class="pre">PhysxRigidBodyCfg(...)]</span></code>). When a fragment list is given,
+<code class="docutils literal notranslate"><span class="pre">UsdPhysics.RigidBodyAPI</span></code> is applied as the implicit anchor and each fragment writes its own
+namespace.</p>
 <p>For making a rigid object static, set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">schemas.RigidBodyBaseCfg.kinematic_enabled</span></code>
-as True. This will make the object static and will not be affected by gravity or other forces.</p>
+(or <code class="xref py py-attr docutils literal notranslate"><span class="pre">kinematic_enabled</span></code>) as True. This will
+make the object static and will not be affected by gravity or other forces.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -6733,10 +6823,16 @@ the source prim, i.e. all USD changes to the source prim will be reflected in th
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isaaclab.sim.spawners.from_files.UsdFileCfg.rigid_props">
-<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.from_files.UsdFileCfg.rigid_props" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">schemas.RigidBodyFragment</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">schemas.RigidBodyFragment</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.from_files.UsdFileCfg.rigid_props" title="Link to this definition">#</a></dt>
 <dd><p>Rigid body properties.</p>
+<p>Accepts either a single legacy cfg (e.g. <a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyBaseCfg</span></code></a>) or a
+list of <code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyFragment</span></code> fragments
+(e.g. <code class="docutils literal notranslate"><span class="pre">[UsdPhysicsRigidBodyCfg(...),</span> <span class="pre">PhysxRigidBodyCfg(...)]</span></code>). When a fragment list is given,
+<code class="docutils literal notranslate"><span class="pre">UsdPhysics.RigidBodyAPI</span></code> is applied as the implicit anchor and each fragment writes its own
+namespace.</p>
 <p>For making a rigid object static, set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">schemas.RigidBodyBaseCfg.kinematic_enabled</span></code>
-as True. This will make the object static and will not be affected by gravity or other forces.</p>
+(or <code class="xref py py-attr docutils literal notranslate"><span class="pre">kinematic_enabled</span></code>) as True. This will
+make the object static and will not be affected by gravity or other forces.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -7863,10 +7959,16 @@ the source prim, i.e. all USD changes to the source prim will be reflected in th
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isaaclab.sim.spawners.wrappers.MultiAssetSpawnerCfg.rigid_props">
-<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.wrappers.MultiAssetSpawnerCfg.rigid_props" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">schemas.RigidBodyFragment</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">schemas.RigidBodyFragment</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.wrappers.MultiAssetSpawnerCfg.rigid_props" title="Link to this definition">#</a></dt>
 <dd><p>Rigid body properties.</p>
+<p>Accepts either a single legacy cfg (e.g. <a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyBaseCfg</span></code></a>) or a
+list of <code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyFragment</span></code> fragments
+(e.g. <code class="docutils literal notranslate"><span class="pre">[UsdPhysicsRigidBodyCfg(...),</span> <span class="pre">PhysxRigidBodyCfg(...)]</span></code>). When a fragment list is given,
+<code class="docutils literal notranslate"><span class="pre">UsdPhysics.RigidBodyAPI</span></code> is applied as the implicit anchor and each fragment writes its own
+namespace.</p>
 <p>For making a rigid object static, set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">schemas.RigidBodyBaseCfg.kinematic_enabled</span></code>
-as True. This will make the object static and will not be affected by gravity or other forces.</p>
+(or <code class="xref py py-attr docutils literal notranslate"><span class="pre">kinematic_enabled</span></code>) as True. This will
+make the object static and will not be affected by gravity or other forces.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -8041,10 +8143,16 @@ the source prim, i.e. all USD changes to the source prim will be reflected in th
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isaaclab.sim.spawners.wrappers.MultiUsdFileCfg.rigid_props">
-<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.wrappers.MultiUsdFileCfg.rigid_props" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rigid_props</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><span class="pre">schemas.RigidBodyBaseCfg</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">schemas.RigidBodyFragment</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">schemas.RigidBodyFragment</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#isaaclab.sim.spawners.wrappers.MultiUsdFileCfg.rigid_props" title="Link to this definition">#</a></dt>
 <dd><p>Rigid body properties.</p>
+<p>Accepts either a single legacy cfg (e.g. <a class="reference internal" href="isaaclab.sim.schemas.html#isaaclab.sim.schemas.RigidBodyBaseCfg" title="isaaclab.sim.schemas.RigidBodyBaseCfg"><code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyBaseCfg</span></code></a>) or a
+list of <code class="xref py py-class docutils literal notranslate"><span class="pre">RigidBodyFragment</span></code> fragments
+(e.g. <code class="docutils literal notranslate"><span class="pre">[UsdPhysicsRigidBodyCfg(...),</span> <span class="pre">PhysxRigidBodyCfg(...)]</span></code>). When a fragment list is given,
+<code class="docutils literal notranslate"><span class="pre">UsdPhysics.RigidBodyAPI</span></code> is applied as the implicit anchor and each fragment writes its own
+namespace.</p>
 <p>For making a rigid object static, set the <code class="xref py py-attr docutils literal notranslate"><span class="pre">schemas.RigidBodyBaseCfg.kinematic_enabled</span></code>
-as True. This will make the object static and will not be affected by gravity or other forces.</p>
+(or <code class="xref py py-attr docutils literal notranslate"><span class="pre">kinematic_enabled</span></code>) as True. This will
+make the object static and will not be affected by gravity or other forces.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -8856,7 +8964,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 24, 2026.
+  Last updated on Jun 25, 2026.
   <br/>
 </p>
   </div>

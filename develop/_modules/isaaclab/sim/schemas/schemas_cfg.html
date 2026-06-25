@@ -61,7 +61,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 24, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 25, 2026"/>
   </head>
   
   
@@ -684,6 +684,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">Literal</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.utils.configclass</span><span class="w"> </span><span class="kn">import</span> <span class="n">configclass</span>
@@ -782,6 +783,75 @@
     <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">canonical</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">canonical</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
     <span class="nb">setattr</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">alias</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+
+<span class="nd">@configclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SchemaFragment</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base for a single-namespace USD-schema config fragment.</span>
+
+<span class="sd">    Each subclass mirrors exactly one USD applied schema. The fragment carries class-level</span>
+<span class="sd">    metadata describing which USD namespace its fields write to (:attr:`_usd_namespace`) and</span>
+<span class="sd">    which applied schema, if any, it owns (:attr:`_usd_applied_schema`). The :attr:`func`</span>
+<span class="sd">    field names the callable that applies the fragment to a prim; the default generic applier</span>
+<span class="sd">    (:func:`~isaaclab.sim.schemas.apply_namespaced`) reads the metadata and writes each</span>
+<span class="sd">    non-``None`` field as ``&lt;namespace&gt;:&lt;camelCase(field)&gt;``. Irregular APIs override</span>
+<span class="sd">    :attr:`func` with a custom applier.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        A fragment present in a spawner slot means its schema is applied. ``None`` fields are</span>
+<span class="sd">        left unchanged on the prim (partial update).</span>
+
+<span class="sd">    .. important::</span>
+<span class="sd">        Every dataclass field other than :attr:`func` is authored as a USD attribute</span>
+<span class="sd">        ``&lt;_usd_namespace&gt;:&lt;camelCase(field)&gt;``. A fragment must not carry non-USD/bookkeeping</span>
+<span class="sd">        fields -- such state belongs on the spawner cfg or as a writer keyword argument (this is</span>
+<span class="sd">        why ``fix_root_link`` / ``ensure_drives_exist`` are not fragment fields). The generic</span>
+<span class="sd">        applier (:func:`~isaaclab.sim.schemas.apply_namespaced`) enforces the invariant: it raises</span>
+<span class="sd">        when a fragment has no ``_usd_namespace``, and unsupported (non-scalar) value types raise</span>
+<span class="sd">        when written.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># -- Class metadata (not dataclass fields) --</span>
+    <span class="n">_usd_namespace</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">_usd_applied_schema</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;isaaclab.sim.schemas:apply_namespaced&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Callable (or its ``module:attr`` import string) that applies this fragment to a prim.</span>
+
+<span class="sd">    Resolved via :func:`~isaaclab.utils.string.string_to_callable` when a string. The callable</span>
+<span class="sd">    signature is ``func(cfg, prim_path, stage)``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+<span class="nd">@configclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RigidBodyFragment</span><span class="p">(</span><span class="n">SchemaFragment</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Marker base for rigid-body fragments; types the ``rigid_props`` slot.&quot;&quot;&quot;</span>
+
+    <span class="k">pass</span>
+
+
+<span class="nd">@configclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">UsdPhysicsRigidBodyCfg</span><span class="p">(</span><span class="n">RigidBodyFragment</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;``physics:*`` rigid-body attributes from `UsdPhysics.RigidBodyAPI`_.</span>
+
+<span class="sd">    The ``UsdPhysics.RigidBodyAPI`` schema is applied as the implicit anchor by the rigid-body</span>
+<span class="sd">    family writer, so this fragment owns no applied schema of its own.</span>
+
+<span class="sd">    .. _UsdPhysics.RigidBodyAPI: https://openusd.org/dev/api/class_usd_physics_rigid_body_a_p_i.html</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_usd_namespace</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;physics&quot;</span>
+    <span class="n">_usd_applied_schema</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># RigidBodyAPI applied by the family anchor</span>
+
+    <span class="n">rigid_body_enabled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Whether to enable or disable the rigid body.&quot;&quot;&quot;</span>
+
+    <span class="n">kinematic_enabled</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Determines whether the body is kinematic or not.</span>
+
+<span class="sd">    A kinematic body is moved through animated or user-defined poses; the simulation still</span>
+<span class="sd">    derives velocities for it based on the external motion.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
 
 <div class="viewcode-block" id="ArticulationRootBaseCfg">
@@ -1308,7 +1378,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 24, 2026.
+  Last updated on Jun 25, 2026.
   <br/>
 </p>
   </div>

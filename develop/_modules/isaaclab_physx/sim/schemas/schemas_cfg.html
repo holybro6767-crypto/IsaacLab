@@ -61,7 +61,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 24, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 25, 2026"/>
   </head>
   
   
@@ -693,6 +693,7 @@
     <span class="n">JointDriveBaseCfg</span><span class="p">,</span>
     <span class="n">MeshCollisionBaseCfg</span><span class="p">,</span>
     <span class="n">RigidBodyBaseCfg</span><span class="p">,</span>
+    <span class="n">RigidBodyFragment</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">isaaclab.utils.configclass</span><span class="w"> </span><span class="kn">import</span> <span class="n">configclass</span>
 
@@ -952,6 +953,64 @@
     <span class="n">stabilization_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The mass-normalized kinetic energy threshold below which an actor may participate in stabilization.&quot;&quot;&quot;</span></div>
 
+
+
+<span class="nd">@configclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PhysxRigidBodyCfg</span><span class="p">(</span><span class="n">RigidBodyFragment</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;``physxRigidBody:*`` rigid-body attributes from `PhysxRigidBodyAPI`_.</span>
+
+<span class="sd">    A single-namespace fragment (see :class:`~isaaclab.sim.schemas.SchemaFragment`) for the</span>
+<span class="sd">    PhysX rigid-body add-on schema. Applied alongside :class:`~isaaclab.sim.schemas.UsdPhysicsRigidBodyCfg`</span>
+<span class="sd">    via :func:`~isaaclab.sim.schemas.apply_rigid_body_properties`.</span>
+
+<span class="sd">    .. _PhysxRigidBodyAPI: https://docs.omniverse.nvidia.com/kit/docs/omni_usd_schema_physics/104.2/class_physx_schema_physx_rigid_body_a_p_i.html</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_usd_namespace</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;physxRigidBody&quot;</span>
+    <span class="n">_usd_applied_schema</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;PhysxRigidBodyAPI&quot;</span>
+
+    <span class="n">linear_damping</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Linear damping coefficient for the body [1/s].&quot;&quot;&quot;</span>
+
+    <span class="n">angular_damping</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Angular damping coefficient for the body [1/s].&quot;&quot;&quot;</span>
+
+    <span class="n">max_linear_velocity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Maximum linear velocity for the body [m/s].&quot;&quot;&quot;</span>
+
+    <span class="n">max_angular_velocity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Maximum angular velocity for the body [deg/s].&quot;&quot;&quot;</span>
+
+    <span class="n">max_depenetration_velocity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Maximum depenetration velocity permitted to be introduced by the solver [m/s].&quot;&quot;&quot;</span>
+
+    <span class="n">max_contact_impulse</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The limit on the impulse that may be applied at a contact [N·s].&quot;&quot;&quot;</span>
+
+    <span class="n">enable_gyroscopic_forces</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enables computation of gyroscopic forces on the rigid body.&quot;&quot;&quot;</span>
+
+    <span class="n">retain_accelerations</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Carries over forces/accelerations over sub-steps.&quot;&quot;&quot;</span>
+
+    <span class="n">solver_position_iteration_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Solver position iteration counts for the body.&quot;&quot;&quot;</span>
+
+    <span class="n">solver_velocity_iteration_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Solver velocity iteration counts for the body.&quot;&quot;&quot;</span>
+
+    <span class="n">sleep_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mass-normalized kinetic energy threshold below which an actor may go to sleep [m²/s²].&quot;&quot;&quot;</span>
+
+    <span class="n">stabilization_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Mass-normalized kinetic energy threshold below which an actor may participate in stabilization [m²/s²].&quot;&quot;&quot;</span>
+
+    <span class="n">disable_gravity</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Disable gravity for the body.</span>
+
+<span class="sd">    PhysX honors this per-body via ``physxRigidBody:disableGravity``: setting True excludes the</span>
+<span class="sd">    body from world gravity integration.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
 
 <span class="nd">@configclass</span>
@@ -1681,7 +1740,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 24, 2026.
+  Last updated on Jun 25, 2026.
   <br/>
 </p>
   </div>

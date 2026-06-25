@@ -61,7 +61,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="3.0.0" />
-    <meta name="docbuild:last-update" content="Jun 24, 2026"/>
+    <meta name="docbuild:last-update" content="Jun 25, 2026"/>
   </head>
   
   
@@ -737,6 +737,17 @@
     <span class="k">return</span> <span class="n">_check_ancestral_node</span><span class="p">(</span><span class="n">prim_index</span><span class="o">.</span><span class="n">rootNode</span><span class="p">)</span>
 
 
+<span class="k">def</span><span class="w"> </span><span class="nf">_is_uri_path</span><span class="p">(</span><span class="n">asset_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return whether an asset path has an explicit URI scheme.&quot;&quot;&quot;</span>
+    <span class="n">scheme</span> <span class="o">=</span> <span class="n">asset_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;://&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">scheme</span> <span class="o">!=</span> <span class="n">asset_path</span>
+        <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">scheme</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span>
+        <span class="ow">and</span> <span class="n">scheme</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isalpha</span><span class="p">()</span>
+        <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">isalnum</span><span class="p">()</span> <span class="ow">or</span> <span class="n">c</span> <span class="ow">in</span> <span class="s2">&quot;+-.&quot;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">scheme</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="p">)</span>
+
+
 <div class="viewcode-block" id="resolve_paths">
 <a class="viewcode-back" href="../../../../source/api/lab/isaaclab.sim.utils.html#isaaclab.sim.utils.stage.resolve_paths">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">resolve_paths</span><span class="p">(</span>
@@ -785,9 +796,11 @@
     <span class="n">dst_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">dst_layer</span><span class="o">.</span><span class="n">realPath</span> <span class="ow">or</span> <span class="n">dst_layer</span><span class="o">.</span><span class="n">identifier</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_modify_path</span><span class="p">(</span><span class="n">asset_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">asset_path</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">asset_path</span> <span class="ow">or</span> <span class="n">_is_uri_path</span><span class="p">(</span><span class="n">asset_path</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">asset_path</span>
         <span class="n">resolved</span> <span class="o">=</span> <span class="n">src_layer</span><span class="o">.</span><span class="n">ComputeAbsolutePath</span><span class="p">(</span><span class="n">asset_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">resolved</span> <span class="ow">and</span> <span class="n">_is_uri_path</span><span class="p">(</span><span class="n">resolved</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">resolved</span>
         <span class="k">if</span> <span class="n">store_relative_path</span> <span class="ow">and</span> <span class="n">resolved</span> <span class="ow">and</span> <span class="n">dst_dir</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">resolved</span><span class="p">,</span> <span class="n">dst_dir</span><span class="p">)</span>
@@ -1312,7 +1325,7 @@ By The Isaac Lab Project Developers.
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 24, 2026.
+  Last updated on Jun 25, 2026.
   <br/>
 </p>
   </div>
