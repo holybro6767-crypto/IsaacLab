@@ -35,13 +35,13 @@ simulation_app = app_launcher.app
 import torch
 
 import isaaclab.sim as sim_utils
-from isaaclab.assets import Articulation
+from isaaclab.assets import Articulation #new
 from isaaclab.sim import SimulationContext
 
 ##
 # Pre-defined configs
 ##
-from isaaclab_assets import CARTPOLE_CFG  # isort:skip
+from isaaclab_assets import CARTPOLE_CFG  # isort:skip, new import
 
 
 def design_scene() -> tuple[dict, list[list[float]]]:
@@ -61,10 +61,10 @@ def design_scene() -> tuple[dict, list[list[float]]]:
     # Origin 2
     sim_utils.create_prim("/World/Origin2", "Xform", translation=origins[1])
 
-    # Articulation
+    # Articulation, spawned directlly from nuclues server, done from cartpole.py file
     cartpole_cfg = CARTPOLE_CFG.copy()
     cartpole_cfg.prim_path = "/World/Origin.*/Robot"
-    cartpole = Articulation(cfg=cartpole_cfg)
+    cartpole = Articulation(cfg=cartpole_cfg) #Creating instance of Articulation class passing in copy of config
 
     # return the scene information
     scene_entities = {"cartpole": cartpole}

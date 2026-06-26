@@ -60,7 +60,7 @@ def design_scene():
 
     # Rigid Object, doing so w/o func method (this way of doing things better for complex scenes)
     cone_cfg = RigidObjectCfg( #Spawning cfg is done so w/ RigidObjectCfg class
-        prim_path="/World/Origin.*/Cone", #Everypath that World then starts w/ Origin
+        prim_path="/World/Origin.*/Cone", #Everypath that World that starts w/ Origin
         spawn=sim_utils.ConeCfg(
             radius=0.1,
             height=0.2,
@@ -133,7 +133,7 @@ def main():
     sim.set_camera_view(eye=[1.5, 0.0, 1.0], target=[0.0, 0.0, 0.0])
     # Design scene
     scene_entities, scene_origins = design_scene() #Design the scene with the specified entities and origins
-    scene_origins = torch.tensor(scene_origins, device=sim.device)
+    scene_origins = torch.tensor(scene_origins, device=sim.device) #Make the origins list to a tensor living on the simulation device (GPU)
     # Play the simulator
     sim.reset()
     # Now we are ready!
