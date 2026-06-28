@@ -58,9 +58,13 @@ def reset_cylinders(env, env_ids):
             # root_state[:, :3] += math_utils.sample_cylinder( #Random cylindrical offset
             #     radius=0.1, h_range=(0.25, 0.5), size=cone_object.num_instances, device=cone_object.device 
             # )
-            root_pos[:, 0] = cx + radius * torch.cos(theta) #The rows are all the same cylinders in each and every environment
-            root_pos[:, 1] = cy + radius * torch.sin(theta)
+            root_pos[:, 0] = cx
+            root_pos[:, 1] = cy
             root_pos[:, 2] = 0.0
+
+            root_pos[:, :3] += math_utils.sample_cylinder( #Random cylindrical offset
+                radius=0.1, h_range=(0, 0), size=n, device=env.device 
+            )
 
             # # --- angular velocity ---
             # omega = 0.3 + 0.5 * torch.rand(n, device=env.device)
