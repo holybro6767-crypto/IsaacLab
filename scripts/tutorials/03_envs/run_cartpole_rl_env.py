@@ -37,7 +37,7 @@ import torch
 
 from isaaclab.envs import ManagerBasedRLEnv
 
-from isaaclab_tasks.manager_based.classic.cartpole.cartpole_env_cfg import CartpoleEnvCfg
+from isaaclab_tasks.manager_based.classic.cartpole.cartpole_env_cfg import CartpoleEnvCfg #prev file for  configuration or Rl environment
 
 
 def main():
@@ -60,9 +60,9 @@ def main():
                 print("-" * 80)
                 print("[INFO]: Resetting environment...")
             # sample random actions
-            joint_efforts = torch.randn_like(env.action_manager.action)
+            joint_efforts = torch.randn_like(env.action_manager.action) #applying random forces
             # step the environment
-            obs, rew, terminated, truncated, info = env.step(joint_efforts)
+            obs, rew, terminated, truncated, info = env.step(joint_efforts) #Getting states and rewards from stepping the obj of the MangerBasedRl class
             # print current orientation of pole
             print("[Env 0]: Pole joint: ", obs["policy"][0][1].item())
             # update counter

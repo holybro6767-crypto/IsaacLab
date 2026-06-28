@@ -21,6 +21,62 @@ from isaaclab_tasks.direct.automate import factory_control as fc
 if TYPE_CHECKING:
     from isaaclab.envs import ManagerBasedEnv
 
+import isaaclab.utils.math as math_utils
+
+def reset_cylinders(env, env_ids): 
+
+    env_origins = env.scene.env_origins
+    n = len(env_ids)
+
+    for name in env.scene.keys(): #Access the name all all the prims in the scene, and going through each one
+
+        if name.startswith("cylinder_"): # Check if the prim is a cylinder
+
+            asset = env.scene[name] #b/c we know the prims is a cylinder, lets just call it asset
+
+            #Clone all the same cylinder in each and every environment, ex: cylinder_1 in env 1, 2, 3, etc.
+            root_pos = asset.data.root_pos_w[env_ids].clone() #This clones tensor the root poisition of the cylinder, but relative to the world frame (yay, abs pos)
+            root_quat = asset.data.root_quat_w[env_ids] #Quaternion is a vector of 4 elements (x, y, z, w), describing oreintation and mag of dir
+            root_vel = asset.data.root_vel_w[env_ids].clone() #This clones tensor the root velocity of the cylinder, but relative to the world frame
+
+            i = int(name.replace("cylinder_", "")) #Every prim cylinder is named cylinder_1, cylinder_2, etc. This gets rid of cylinder_, only keeping the int number
+            
+            # #Followng we dont need
+            # # --- random angle ---
+            # theta = 2 * torch.pi * torch.rand(n, device=env.device)
+            # #theta = 2 * torch.pi * i / n
+            # #theta = torch.full((n,), theta, device=env.device)
+
+            # # --- radius (different per cylinder) ---
+            # radius = 0.7 + 0.18 * i  # you can tune this
+
+            #Env origins
+            cx = env_origins[env_ids, 0] #origin of env in x
+            cy = env_origins[env_ids, 1] #origin of env in y
+
+            #TODO randomization thingy here
+            # root_state[:, :3] += math_utils.sample_cylinder( #Random cylindrical offset
+            #     radius=0.1, h_range=(0.25, 0.5), size=cone_object.num_instances, device=cone_object.device 
+            # )
+            root_pos[:, 0] = cx + radius * torch.cos(theta) #The rows are all the same cylinders in each and every environment
+            root_pos[:, 1] = cy + radius * torch.sin(theta)
+            root_pos[:, 2] = 0.0
+
+            # # --- angular velocity ---
+            # omega = 0.3 + 0.5 * torch.rand(n, device=env.device)
+
+            # # --- tangential velocity ---
+            # root_vel[:, 0] = -omega * (root_pos[:,1] - cy)
+            # root_vel[:, 1] =  omega * (root_pos[:,0] - cx)
+            # root_vel[:, 2] = 0.0
+            # root_vel[:, 3:6] = 0.0
+
+            #Catcatanate pos and quaternion tensors, lowkey needa do
+            pose = torch.cat((root_pos, root_quat), dim=-1) #The -1 dim is the 2nd dimension, sinc ethis 2D we concatentae along along 2nd dim (think of axis w/ numpy)
+
+            asset.write_root_pose_to_sim(pose, env_ids) #Write the updated pose to the simulation
+            asset.write_root_velocity_to_sim(root_vel, env_ids) #Write the updated velocity to the simulation
+
 
 class randomize_gear_type(ManagerTermBase):
     """Randomize and manage the gear type being used for each environment.

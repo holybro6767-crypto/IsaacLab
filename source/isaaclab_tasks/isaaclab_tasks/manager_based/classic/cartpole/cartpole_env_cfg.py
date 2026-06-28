@@ -7,7 +7,7 @@ import math
 
 import isaaclab.sim as sim_utils
 from isaaclab.assets import ArticulationCfg, AssetBaseCfg
-from isaaclab.envs import ManagerBasedRLEnvCfg
+from isaaclab.envs import ManagerBasedRLEnvCfg #Configuration class that allows for using the RL classes below
 from isaaclab.managers import EventTermCfg as EventTerm
 from isaaclab.managers import ObservationGroupCfg as ObsGroup
 from isaaclab.managers import ObservationTermCfg as ObsTerm
@@ -17,7 +17,7 @@ from isaaclab.managers import TerminationTermCfg as DoneTerm
 from isaaclab.scene import InteractiveSceneCfg
 from isaaclab.utils import configclass
 
-import isaaclab_tasks.manager_based.classic.cartpole.mdp as mdp
+import isaaclab_tasks.manager_based.classic.cartpole.mdp as mdp #
 
 ##
 # Pre-defined configs
@@ -56,10 +56,10 @@ class CartpoleSceneCfg(InteractiveSceneCfg):
 
 
 @configclass
-class ActionsCfg:
+class ActionsCfg: #Action manager
     """Action specifications for the MDP."""
 
-    joint_effort = mdp.JointEffortActionCfg(asset_name="robot", joint_names=["slider_to_cart"], scale=100.0)
+    joint_effort = mdp.JointEffortActionCfg(asset_name="robot", joint_names=["slider_to_cart"], scale=100.0) #instance of JointEffortActionCfg class, an action term to impose force on cart
 
 
 @configclass
@@ -67,16 +67,16 @@ class ObservationsCfg:
     """Observation specifications for the MDP."""
 
     @configclass
-    class PolicyCfg(ObsGroup):
+    class PolicyCfg(ObsGroup): #State manager
         """Observations for policy group."""
 
         # observation terms (order preserved)
-        joint_pos_rel = ObsTerm(func=mdp.joint_pos_rel)
-        joint_vel_rel = ObsTerm(func=mdp.joint_vel_rel)
+        joint_pos_rel = ObsTerm(func=mdp.joint_pos_rel) #pos state, instance of ObsTerm
+        joint_vel_rel = ObsTerm(func=mdp.joint_vel_rel) #vel state, instance of ObsTerm
 
         def __post_init__(self) -> None:
-            self.enable_corruption = False
-            self.concatenate_terms = True
+            self.enable_corruption = False #No noise
+            self.concatenate_terms = True 
 
     # observation groups
     policy: PolicyCfg = PolicyCfg()
@@ -87,7 +87,7 @@ class EventCfg:
     """Configuration for events."""
 
     # reset
-    reset_cart_position = EventTerm(
+    reset_cart_position = EventTerm( #how to reset states for cart after each episode
         func=mdp.reset_joints_by_offset,
         mode="reset",
         params={
@@ -97,12 +97,12 @@ class EventCfg:
         },
     )
 
-    reset_pole_position = EventTerm(
+    reset_pole_position = EventTerm( #how to reset states for pole after each episode
         func=mdp.reset_joints_by_offset,
         mode="reset",
         params={
             "asset_cfg": SceneEntityCfg("robot", joint_names=["cart_to_pole"]),
-            "position_range": (-0.25 * math.pi, 0.25 * math.pi),
+            "position_range": (-0.25 * math.pi, 0.25 * math.pi), #angular b/c pole
             "velocity_range": (-0.25 * math.pi, 0.25 * math.pi),
         },
     )
@@ -158,8 +158,8 @@ class TerminationsCfg:
 class CartpoleEnvCfg(ManagerBasedRLEnvCfg):
     """Configuration for the cartpole environment."""
 
-    # Scene settings
-    scene: CartpoleSceneCfg = CartpoleSceneCfg(num_envs=4096, env_spacing=4.0, clone_in_fabric=True)
+    # Scene settings, calling func made above
+    scene: CartpoleSceneCfg = CartpoleSceneCfg(num_envs=4096, env_spacing=4.0, clone_in_fabric=True) #thing after the : is the expected type scene is suppose to hold obj of CartpoleSceneCfg
     # Basic settings
     observations: ObservationsCfg = ObservationsCfg()
     actions: ActionsCfg = ActionsCfg()
